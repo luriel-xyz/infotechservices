@@ -1,370 +1,354 @@
 <?php
+//start session
 session_start();
 
+//check if user is not logged in
+if (!isset($_SESSION["username"]) && !isset($_SESSION['usertype'])) {
+  //redirect to login page
+  header('location: ../login.php');
+} else {
+  if ($_SESSION['usertype'] !== 'admin' && $_SESSION['usertype'] !== 'personnel') {
+    //redirect to login page
+    header('location: ../login.php');
+  }
+}
+
+if (isset($_POST['useraccount_id']) && isset($_POST['itsrequest_id'])) {
+  $useraccount_id = $_POST['useraccount_id'];
+  $itsrequest_id = $_POST['itsrequest_id'];
+  $dept_id = $_POST['dept_id'];
+  $hwcomponent_id = $_POST['hwcomponent_id'];
+}
+
 //include database connection
-require_once('../../config/db_connection.php');
+require_once('../config/db_connection.php');
 
 //include file containing queries
-include_once "../../config/controllers/controller.php";
+include_once "../config/controllers/controller.php";
 
 //instantiate controller
 $control = new Controller();
 
-if (!isset($_SESSION["username"])) {
-  //redirect to login page
-  header('Location: ../login.php');
-}
+//get all employees
+$employees = $control->getEmployee();
 
-if (!isset($_POST['assessment_report_id'])) {
-  header('Location: ../incoming-repairs.php');
-} else {
-  $assessmentReportId = $_POST['assessment_report_id'];
-  
-}
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html class="h-100 w-100">
 
 <head>
-  <meta charset="UTF-8">
   <!-- Meta Tag to Set Page's Width -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <!--  Title Page  -->
-  <title>PGO IT Services - Assessment Report</title>
-
+  <title>Pre-Post-Repair Inspection Report</title>
   <!--  Link Bootstrap stylesheet -->
-  <link href="../../plug-ins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="../../plug-ins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-
-  <!-- Assessment report css -->
-  <link href="../../css/assessment-report.css" rel="stylesheet">
-
+  <link href="../plug-ins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <!-- App CSS -->
+  <link href="../css/app.css" rel="stylesheet">
   <!-- Bootstrap core JavaScript -->
-  <script src="../../plug-ins/jquery/jquery.min.js"></script>
-  <script src="../../plug-ins/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+  <script src="../plug-ins/jquery/jquery.min.js"></script>
+  <script src="../plug-ins/bootstrap/js/bootstrap.bundle.min.js"></script>
   <!-- Jquery Redirect JavaScript -->
-  <script src="../../plug-ins/jquery/jquery.redirect.js"></script>
+  <script src="../plug-ins/jquery/jquery.redirect.js"></script>
+
 </head>
 
-<body class="container my-5 mx-4">
-  <div class="floating-buttons">
-    <!-- Don't Print Button -->
-    <a href="../incoming-repairs.php" class="btn btn-sm btn-do-not-print btn-secondary" role="button">
-      <i class="fa fa-arrow-left fa-fw"></i>
-      Cancel
-    </a>
-    <!-- /# Don't Print Button -->
-    <!-- Print Button -->
-    <button class="btn btn-sm btn-print btn-info" onclick="window.print()"><i class="fa fa-print fa-fw"></i>Print</button>
-    <!-- /# Print Button -->
+<body class="h-100 w-100 bg-dark">
+  <!-- Page Content -->
+  <div class="h-100 w-100 row">
+    <!--  Container -->
+    <div class="container-fluid col-lg-12 col-md-12 col-sm-12 col-xs-12  my-auto text-white">
+      <a href="../admin/incoming-repairs.php" class="btn btn-default text-white" role="button">
+        <i class="fa fa-arrow-left fa-fw"></i>
+        Go back
+      </a>
+      <form method="POST" class="p-3 border rounded" id="pre-post-repair-form">
+        <p class="h3 text-center">
+          <i class="fa fa-wrench" aria-hidden="true"></i>
+          Pre and Post Repair Inspection Report
+        </p>
+        <hr style="border-color:white">
+        <input type="hidden" class="form-control" name="action" id="action" value="addWalk-inRepair">
+        <input type="hidden" class="form-control" name="statusupdate_useraccount_id" id="statusupdate_useraccount_id" value="<?= $_SESSION['useraccount_id'];  ?>">
+        <input type="hidden" class="form-control" name="itshw_category" id="itshw_category" value="walk-in">
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-6">
+              <!-- To Field -->
+              <div class="form-group">
+                <input type="text" class="form-control mb-2" name="to" id="to" placeholder="To">
+              </div>
+              <!-- /# To Field -->
+
+              <!-- Control Number -->
+              <div class="form-group">
+                <input type="text" class="form-control mb-2" name="control_number" id="control-number" placeholder="Control Number">
+              </div>
+              <!-- /# Control Number -->
+            </div>
+            <div class="col-6">
+              <!-- Date -->
+              <div class="form-group">
+                <label for="date" class="font-size-small mb-1">Date</label>
+                <input type="date" class="form-control" name="date" id="date" placeholder="Date">
+              </div>
+              <!-- /# Date -->
+            </div>
+          </div>
+        </div>
+        <hr class="border border-light">
+        <div class="container-fluid row">
+
+          <!-- Property Plant and Equipment Section -->
+          <div class="col-md-6">
+            <h5 class="text-uppercase">DESCRIPTION OF PROPERTY, PLANT AND EQUIPMENT</h5>
+            <h5>Property, Plant and Equipment</h5>
+            <div class="form-group">
+              <input type="text" class="form-control" name="type" id="type" placeholder="Type">
+            </div>
+
+            <div class="form-group">
+              <input type="text" class="form-control" name="model" id="model" placeholder="Model">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" name="property_number" id="property-number" placeholder="Property Number">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" name="serial_number" id="serial-number" placeholder="Serial Number">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group mt-4 pt-2">
+              <label for="acquisition-date font-size-small">Acquisition Date:</label>
+              <input type="date" class="form-control" name="acquisition_date" id="acquisition-date" placeholder="Acquisition Date">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" name="acquisition_cost" id="acquisition-cost" placeholder="Acquisition Cost">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" name="issued_to" id="issued-to" placeholder="Issued to">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" name="requested_by" id="requested-by" placeholder="Requested By">
+            </div>
+          </div>
+          <!-- /# Property Plant and Equipment Section -->
+        </div>
+
+        <hr style="border-color: white">
+        <!-- Pre-repair Inspection -->
+        <div class="col-md-6">
+          <h5 class="text-uppercase">Pre-repair Inspection</h5>
+          <div class="form-group">
+            <input type="text" class="form-control" name="findings_recommendations" id="findings-recommendations" placeholder="Findings/Recommendations">
+          </div>
+
+          <div class="form-group">
+            <input type="text" class="form-control" name="job_order" id="job-order" placeholder="Job Order">
+          </div>
+        </div>
+        <!-- /# Pre-repair Inspection -->
+        <div class="h6 ml-3">Parts to be Replaced and/or Procured:</div>
+        <div class="form-row">
+          <table class="table">
+            <thead class="text-white text-center">
+              <tr>
+                <th>Qty</th>
+                <th>Unit</th>
+                <th>Particulars/Description</th>
+                <th>Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><input type="text" class="form-control" name="qty[]"></td>
+                <td><input type="text" class="form-control" name="unit[]"></td>
+                <td><input type="text" class="form-control" name="particulars_descriptions[]"></td>
+                <td><input type="text" class="form-control" name="amount[]"></td>
+              </tr>
+              <tr>
+                <td><input type="text" class="form-control" name="qty[]"></td>
+                <td><input type="text" class="form-control" name="unit[]"></td>
+                <td><input type="text" class="form-control" name="particulars_descriptions[]"></td>
+                <td><input type="text" class="form-control" name="amount[]"></td>
+              </tr>
+              <tr>
+                <td><input type="text" class="form-control" name="qty[]"></td>
+                <td><input type="text" class="form-control" name="unit[]"></td>
+                <td><input type="text" class="form-control" name="particulars_descriptions[]"></td>
+                <td><input type="text" class="form-control" name="amount[]"></td>
+              </tr>
+              <tr>
+                <td><input type="text" class="form-control" name="qty[]"></td>
+                <td><input type="text" class="form-control" name="unit[]"></td>
+                <td><input type="text" class="form-control" name="particulars_descriptions[]"></td>
+                <td><input type="text" class="form-control" name="amount[]"></td>
+              </tr>
+              <tr>
+                <td><input type="text" class="form-control" name="qty[]"></td>
+                <td><input type="text" class="form-control" name="unit[]"></td>
+                <td><input type="text" class="form-control" name="particulars_descriptions[]"></td>
+                <td><input type="text" class="form-control" name="amount[]"></td>
+              </tr>
+              <tr>
+                <td><input type="text" class="form-control" name="qty[]"></td>
+                <td><input type="text" class="form-control" name="unit[]"></td>
+                <td><input type="text" class="form-control" name="particulars_descriptions[]"></td>
+                <td><input type="text" class="form-control" name="amount[]"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <hr style="border-color: white">
+        <div class="form-group">
+          <label class="d-flex align-items-center">
+            <input type="checkbox" name="additional_sheet" class="mr-1">
+            <span>Additional Sheet Attached</span>
+          </label>
+        </div>
+
+        <!-- Pre Inspection Select Fields -->
+        <div class="form-group d-flex mb-0">
+          <!-- Pre Inspected by -->
+          <div class="form-group mr-4">
+            <label for="pre-inspected-by">Pre Inspected By:</label>
+            <select name="pre_inspected_by" class="form-control" id="pre-inspected-by">
+              <option value="0" disabled>-- Select Employee --</option>
+              <?php foreach ($employees as $employee) : ?>
+                <option value="<?= $employee['emp_id'] ?>"><?= "{$employee['emp_fname']} {$employee['emp_lname']}" ?></option>
+              <?php endforeach; ?>
+            </select>
+          </div>
+          <!-- /# Pre Inspected by -->
+
+          <!-- Pre-repair Inspection Recommending Approval -->
+          <div class="form-group mr-4">
+            <label for="pre-recommending-approval">Recommending Approval:</label>
+            <select name="pre_recommending_approval" class="form-control" id="pre-recommending-approval">
+              <option value="0" disabled>-- Select Employee --</option>
+              <?php foreach ($employees as $employee) : ?>
+                <option value="<?= $employee['emp_id'] ?>"><?= "{$employee['emp_fname']} {$employee['emp_lname']}" ?></option>
+              <?php endforeach; ?>
+            </select>
+          </div>
+          <!-- /# Pre-repair Inspection Recommending Approval -->
+
+          <!-- Pre-repair Inspection Approved -->
+          <div class="form-group mr-4">
+            <label for="pre-approved">Approved:</label>
+            <select name="pre_approved" class="form-control" id="pre-approved">
+              <option value="0" disabled>-- Select Employee --</option>
+              <?php foreach ($employees as $employee) : ?>
+                <option value="<?= $employee['emp_id'] ?>"><?= "{$employee['emp_fname']} {$employee['emp_lname']}" ?></option>
+              <?php endforeach; ?>
+            </select>
+          </div>
+          <!-- /# Pre-repair Inspection Approved -->
+        </div>
+
+        <!-- Date Pre Inspected -->
+        <div class="form-group col-md-2 pl-0">
+          <label for="date-inspected">Date Inspected:</label>
+          <input type="date" name="date_pre_inspected" class="form-control" id="date-pre-inspected">
+        </div>
+        <!-- /# Date Pre Inspected -->
+        <!-- /# Pre Inspection Select Fields -->
+
+        <hr style="border-color: white">
+
+        <!-- Post Repair Inspection -->
+        <h5 class="text-uppercase">Post-repair Inspection Findings</h5>
+
+        <div class="row mb-4">
+          <div class="col-md-5 form-group">
+            <textarea name="findings" class="form-control" id="findings" cols="30" rows="3" placeholder="Findings"></textarea>
+          </div>
+          <!-- /# Post Repair Inspection -->
+
+          <!-- Checkboxes -->
+          <div class="col-md-6 offset-md-1">
+            <div class="form-check">
+              <label class="form-check-label d-flex align-items-center" for="stock-supplies">
+                <input type="checkbox" name="stock_supplies" class="form-check-input" id="stock-supplies" style="position:relative;bottom:1px;">
+                <span class="ml-1">Stock / Supplies</span>
+              </label>
+            </div>
+            <div class="form-check">
+              <label class="form-check-label d-flex align-items-center" for="with">
+                <input type="checkbox" name="stock_supplies" class="form-check-input" id="with" style="position:relative;bottom:1px;">
+                <span class="ml-1 text-capitalize">With Waste Material / Property Return Slip</span>
+              </label>
+            </div>
+            <div class="form-check">
+              <label class="form-check-label d-flex align-items-center" for="without">
+                <input type="checkbox" name="stock_supplies" class="form-check-input" id="without" style="position:relative;bottom:1px;">
+                <span class="ml-1 text-capitalize">Without Waste Material / Property Return Slip</span>
+              </label>
+            </div>
+          </div>
+          <!-- /# Checkboxes -->
+        </div>
+
+        <!-- Post Inspection Select Fields -->
+        <div class="form-group d-flex mb-0">
+          <!-- Post Inspected by -->
+          <div class="form-group mr-4">
+            <label for="post-inspected-by">Post Inspected By:</label>
+            <select name="post_inspected_by" class="form-control" id="post-inspected-by">
+              <option value="0" disabled>-- Select Employee --</option>
+              <?php foreach ($employees as $employee) : ?>
+                <option value="<?= $employee['emp_id'] ?>"><?= "{$employee['emp_fname']} {$employee['emp_lname']}" ?></option>
+              <?php endforeach; ?>
+            </select>
+          </div>
+          <!-- /# Post Inspected by -->
+
+          <!-- Post-repair Inspection Recommending Approval -->
+          <div class="form-group mr-4">
+            <label for="post-recommending-approval">Recommending Approval:</label>
+            <select name="post_recommending_approval" class="form-control" id="post-recommending-approval">
+              <option value="0" disabled>-- Select Employee --</option>
+              <?php foreach ($employees as $employee) : ?>
+                <option value="<?= $employee['emp_id'] ?>"><?= "{$employee['emp_fname']} {$employee['emp_lname']}" ?></option>
+              <?php endforeach; ?>
+            </select>
+          </div>
+          <!-- /# Post-repair Inspection Recommending Approval -->
+
+          <!-- Post-repair Inspection Approved -->
+          <div class="form-group mr-4">
+            <label for="post-approved">Approved:</label>
+            <select name="post_approved" class="form-control" id="post-approved">
+              <option value="0" disabled>-- Select Employee --</option>
+              <?php foreach ($employees as $employee) : ?>
+                <option value="<?= $employee['emp_id'] ?>"><?= "{$employee['emp_fname']} {$employee['emp_lname']}" ?></option>
+              <?php endforeach; ?>
+            </select>
+          </div>
+          <!-- /# Post-repair Inspection Approved -->
+        </div>
+
+        <!-- Date Post Inspected -->
+        <div class="form-group col-md-2 pl-0">
+          <label for="date-inspected">Date Inspected:</label>
+          <input type="date" name="date_pre_inspected" class="form-control" id="date-pre-inspected">
+        </div>
+        <!-- /# Date Post Inspected -->
+
+        <!-- /# Post Inspection Select Fields -->
+
+        <!-- Create Button -->
+        <button type="submit" class="btn btn-primary d-block mx-auto mt-4" id="submit-btn">Create</button>
+        <!-- /# Create Button -->
+      </form>
+    </div>
+    <!--/# Container -->
+
   </div>
-
-  <header>
-    <div class="container">
-      <div class="d-flex justify-content-center">
-        <img src="../../images/beng_cap_logo.png" class="logo" alt="BenguetCapitolLogo">
-        <div class="ml-3">
-          <h2 class="province text-uppercase">PROVINCE OF BENGUET</h2>
-          <h1 class="title text-uppercase">Information Technology Services</h1>
-          <h3 class="subtitle-1 text-uppercase">PROVINCIAL GOVERNOR’S OFFICE</h3>
-          <h4 class="subtitle-2 mt-4"><u>REPAIR / ASSESSMENT REPORT</u></h4>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <!--  Hardware Info Table  -->
-  <div class="hardware-info-table">
-    <div class="row">
-      <!-- First Column -->
-      <div class="hardware-info-table__col col-6">
-        <div class="row">
-          <!-- Labels -->
-          <div class="hardware-info-table__labels body-1">
-            <div class="label">Date:</div>
-            <div class="label">Name of Item:</div>
-            <div class="label">Date Acquired:</div>
-            <div class="label">Model/Description:</div>
-          </div>
-          <!-- /# Labels -->
-          <!-- Values -->
-          <div class="hardware-info-table__values body-1">
-            <div id="date" class="value"><?= $date ?></div>
-            <div id="name-of-item" class="value"><?= $nameOfItem ?></div>
-            <div id="date-acquired" class="value"><?= $dateAcquired ?></div>
-            <div id="model-or-description" class="value"><?= $modelOrDescription ?></div>
-          </div>
-          <!-- /# Values -->
-        </div>
-      </div>
-      <!-- /# First Column -->
-
-      <!-- / Second Column -->
-      <div class="hardware-info-table__col col-6">
-        <div class="d-flex">
-          <!-- Labels -->
-          <div class="hardware-info-table__labels body-1">
-            <div class="label">DEPARTMENT/OFFICE:</div>
-            <div class="label">PROPERTY NO.:</div>
-            <div class="label">ISSUED TO:</div>
-            <div class="label">ACQUISITION PRICE:</div>
-          </div>
-          <!-- /# Labels -->
-          <!-- Values -->
-          <div class="hardware-info-table__values body-1">
-            <div id="department-or-office" class="value"><?= $departmentCode ?></div>
-            <div id="property-number" class="value"><?= $propertyNumber ?></div>
-            <div id="issued-to" class="value"><?= $issuedTo ?></div>
-            <div id="acquisition-price" class="value"><?= $acquisitionCost ?></div>
-          </div>
-          <!-- /# Values -->
-        </div>
-      </div>
-      <!-- /# Second Column -->
-    </div>
-    <!--  /# Hardware Info Table  -->
-
-    <!-- Problems table -->
-    <!-- <div class="problems-table">
-      <div class="row">
-        <div class="problems-table__col col-3">
-          <span class="problems-table__label">
-            <span class="text-uppercase">problem</span> (issues or errors):
-          </span>
-        </div>
-        <div class="problems-table__col col-9 pl-1">
-          <span class="problems-table__value">
-            Error : Blinking Lights
-          </span>
-        </div>
-      </div>
-    </div> -->
-    <!-- /# Problems table -->
-
-    <!-- Components Table -->
-    <div class="components mt-4 pt-4">
-      <h4 class="subtitle-2 text-uppercase">Components:</h4>
-      <div class="d-flex">
-        <div class="flex-1">
-          <!-- CPU -->
-          <div>
-            <h5 class="main-component bordered mb-0">cpu</h5>
-            <?php foreach ($cpuComponents as $component) : ?>
-              <div class="sub-component bordered"><?= $component['hwcomponent_name'] ?></div>
-            <?php endforeach ?>
-            <div class="sub-component bordered">&nbsp;</div>
-          </div>
-          <!-- /# CPU -->
-          <!-- Printers -->
-          <div>
-            <h5 class="main-component bordered mb-0">printers</h5>
-            <?php foreach ($printerComponents as $component) : ?>
-              <div class="sub-component bordered"><?= $component['hwcomponent_name'] ?></div>
-            <?php endforeach ?>
-            <div class="sub-component bordered">&nbsp;</div>
-          </div>
-          <!-- /# Printers -->
-        </div>
-        <div class="flex-1">
-          <div>
-            <!-- CPU components remarks -->
-            <h5 class="main-component bordered mb-0">&nbsp;</h5>
-            <!-- Show remark description if exists otherwise show a blank -->
-            <?php foreach ($cpuComponents as $component) : ?>
-              <div class="sub-component bordered">
-                <?php
-                foreach ($subComponents as $subComponentRemark) {
-                  if ($component['hwcomponent_id'] == $subComponentRemark['sub_component_id']) {
-                    echo $subComponentRemark['remark'];
-                  } else {
-                    echo '&nbsp;';
-                  }
-                }
-                ?>
-              </div>
-            <?php endforeach ?>
-            <div class="sub-component bordered">&nbsp;</div>
-            <!-- /# CPU components remarks -->
-          </div>
-          <div>
-            <!-- Printer components remarks -->
-            <h5 class="main-component bordered mb-0">&nbsp;</h5>
-            <!-- Show remark description if exists otherwise show a blank -->
-            <?php foreach ($printerComponents as $component) : ?>
-              <div class="sub-component bordered">
-                <?php
-                foreach ($subComponents as $subComponentRemark) {
-                  if ($component['hwcomponent_id'] == $subComponentRemark['sub_component_id']) {
-                    echo $subComponentRemark['remark'];
-                  } else {
-                    echo '&nbsp;';
-                  }
-                }
-                ?>
-              </div>
-            <?php endforeach ?>
-            <div class="sub-component bordered">&nbsp;</div>
-            <!-- /# Printer components remarks -->
-          </div>
-        </div>
-        <div class="flex-1">
-          <!-- UPS -->
-          <div>
-            <h5 class="main-component bordered mb-0">ups</h5>
-            <?php foreach ($upsComponents as $component) : ?>
-              <div class="sub-component bordered"><?= $component['hwcomponent_name'] ?></div>
-            <?php endforeach ?>
-            <div class="sub-component bordered">&nbsp;</div>
-          </div>
-          <!-- /# UPS -->
-          <!-- Accessories -->
-          <div>
-            <h5 class="main-component bordered mb-0">accessories</h5>
-            <?php foreach ($accessoriesComponents as $component) : ?>
-              <div class="sub-component bordered"><?= $component['hwcomponent_name'] ?></div>
-            <?php endforeach ?>
-            <div class="sub-component bordered">&nbsp;</div>
-          </div>
-          <!-- /# Accessories -->
-          <div>
-            <h5 class="main-component bordered mb-0">others</h5>
-            <div class="sub-component bordered">&nbsp;</div>
-            <div class="sub-component bordered">&nbsp;</div>
-          </div>
-          <!-- /# Accessories -->
-        </div>
-        <div class="flex-1">
-          <div>
-            <!-- UPS components remarks -->
-            <h5 class="main-component bordered mb-0">&nbsp;</h5>
-            <!-- Show remark description if exists otherwise show a blank -->
-            <?php foreach ($upsComponents as $component) : ?>
-              <div class="sub-component bordered">
-                <?php
-                foreach ($subComponents as $subComponentRemark) {
-                  if ($component['hwcomponent_id'] == $subComponentRemark['sub_component_id']) {
-                    echo $subComponentRemark['remark'];
-                  } else {
-                    echo '&nbsp;';
-                  }
-                }
-                ?>
-              </div>
-            <?php endforeach ?>
-            <div class="sub-component bordered">&nbsp;</div>
-            <!-- /# UPS components remarks -->
-          </div>
-          <div>
-            <!-- Accessories components remarks -->
-            <h5 class="main-component bordered mb-0">&nbsp;</h5>
-            <!-- Show remark description if exists otherwise show a blank -->
-            <?php foreach ($accessoriesComponents as $component) : ?>
-              <div class="sub-component bordered">
-                <?php
-                foreach ($subComponents as $subComponentRemark) {
-                  if ($component['hwcomponent_id'] == $subComponentRemark['sub_component_id']) {
-                    echo $subComponentRemark['remark'];
-                  } else {
-                    echo '&nbsp;';
-                  }
-                }
-                ?>
-              </div>
-            <?php endforeach ?>
-            <!-- /# Accessories components remarks -->
-            <div class="sub-component bordered">&nbsp;</div>
-            <div class="sub-component bordered">&nbsp;</div>
-            <div class="sub-component bordered">&nbsp;</div>
-            <div class="sub-component bordered">&nbsp;</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- /# Components Table -->
-
-    <!-- Findings Table -->
-    <div class="findings mt-4">
-      <h4 class="subtitle-2 text-uppercase">Findings:</h4>
-      <div class="row">
-        <div class="col-6">
-          <div class="partly-damaged findings__category">
-            <?php if ($findingsCategory === 'partly damaged') : ?>
-              <i class="fa fa-circle fa-fw text-danger"></i>
-            <?php else :  ?>
-              <i class="fa fa-square-o fa-fw"></i>
-            <?php endif; ?>
-            <span class="text-uppercase">partly damaged</span>
-          </div>
-        </div>
-        <div class="col-6">
-          <div class="beyond-repair findings__category">
-            <?php if ($findingsCategory === 'beyond repair') : ?>
-              <i class="fa fa-circle fa-fw text-danger"></i>
-            <?php else :  ?>
-              <i class="fa fa-square-o fa-fw"></i>
-            <?php endif; ?>
-            <span class="text-uppercase">beyond repair</span>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-6">
-          <div class="for-replacement findings__category">
-            <?php if ($findingsCategory === 'for replacement') : ?>
-              <i class="fa fa-circle fa-fw text-danger"></i>
-            <?php else :  ?>
-              <i class="fa fa-square-o fa-fw"></i>
-            <?php endif; ?>
-            <span class="text-uppercase">for replacement</span>
-          </div>
-        </div>
-        <div class="col-6">
-          <div class="repaired findings__category">
-            <?php if ($findingsCategory === 'repaired') : ?>
-              <i class="fa fa-circle fa-fw text-success"></i>
-            <?php else :  ?>
-              <i class="fa fa-square-o fa-fw"></i>
-            <?php endif; ?>
-            <span class="text-uppercase">Repaired</span>
-          </div>
-          <div class="others findings__category">
-            <?php if ($findingsCategory === 'others') : ?>
-              <i class="fa fa-circle fa-fw text-danger"></i>
-            <?php else :  ?>
-              <i class="fa fa-square-o fa-fw"></i>
-            <?php endif; ?>
-            <span class="text-uppercase">others</span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- /# Findings Table -->
-
-    <!-- Notes -->
-    <div class="notes mt-4 mb-4 pb-4">
-      <h4 class="subtitle-2 text-uppercase">Notes:</h4>
-      <p class="body-1"><?= $notes ?></p>
-    </div>
-    <!-- /# Notes -->
-
-    <!-- Technical Representative -->
-    <div class="mt-4">
-      <span class="tech-rep-name"><?= "{$techRepresentative['emp_fname']} {$techRepresentative['emp_lname']}" ?></span>
-      <div class="tech-rep-position"><?= $techRepresentative['emp_position'] ?></div>
-    </div>
-    <!-- /# Technical Representative -->
-
-    <!-- Info -->
-    <div class="info text-center text-uppercase mt-4 pt-4">
-      <div class="text-danger subtitle-2">****** ANY TYPE OF COMPUTER REPAIR MAY RESULT IN THE LOSS OF DATA ******</div>
-      <div class="text-danger subtitle-2">***** BACKING-UP OF DATA IS THE USER’S RESPONSIBILITY *****</div>
-      <div class="font-size-x-small font-weight-bold mt-4">(THIS FORM IS MADE FOR THE BENGUET PROVINCIAL GOVERNMENT)</div>
-    </div>
-    <!-- /# Info -->
-  </div>
+  <!-- /# Page Content -->
 
 </body>
 

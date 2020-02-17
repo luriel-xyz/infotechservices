@@ -5,27 +5,21 @@
 	<meta charset="UTF-8">
 	<!-- Meta Tag to Set Page's Width -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 	<!--  Title Page  -->
 	<title>PGO IT Services - Pre And Post Repair Inspection Report</title>
-
 	<!--  Link Bootstrap stylesheet -->
 	<link href="../../plug-ins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="../../plug-ins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 	<link href="../../css/app.css" rel="stylesheet">
-
 	<!-- Bootstrap core JavaScript -->
 	<script src="../../plug-ins/jquery/jquery.min.js"></script>
 	<script src="../../plug-ins/bootstrap/js/bootstrap.bundle.min.js"></script>
-
 	<!-- Jquery Redirect JavaScript -->
 	<script src="../../plug-ins/jquery/jquery.redirect.js"></script>
 </head>
-
 <body>
 	<div class="container py-5">
 		<div class="inspection-report">
-
 			<!-- Propery plant and equipment section -->
 			<div class="row">
 				<!--  -->
@@ -56,7 +50,6 @@
 				</div>
 			</div>
 			<!-- /# -->
-
 			<h2 class="subtitle-1 text-uppercase">Propery Plant And Equipment</h2>
 			<div class="mt-2">
 				<div class="text-uppercase font-size-small">type:</div>
@@ -67,7 +60,6 @@
 				<div class="text-uppercase font-size-small">acquisition cost:</div>
 				<div class="text-uppercase font-size-small">issued to:</div>
 			</div>
-
 			<!-- Requested by -->
 			<div class="d-flex justify-content-end mt-3">
 				<div>
@@ -78,9 +70,7 @@
 			</div>
 			<!-- /# Requested by -->
 			<!-- /# Propery plant and equipment section -->
-
 			<hr class="border border-dark">
-
 			<!-- Pre-repair inspection section -->
 			<h2 class="subtitle-1 text-uppercase">Pre-repair inspection</h2>
 			<!-- Pre-repair inspection list -->
@@ -121,7 +111,6 @@
 				</li>
 			</ol>
 			<!-- /# Psre-repair inspection list -->
-
 			<div class="d-flex justify-content-between">
 				<!-- Pre-inspected by -->
 				<div class="d-flex">
@@ -133,7 +122,6 @@
 					</div>
 				</div>
 				<!-- /# Pre-inspected by -->
-
 				<!-- Pre-inspected by -->
 				<div class="d-flex">
 					<div class="mt-3">
@@ -144,7 +132,6 @@
 				</div>
 				<!-- /# Pre-inspected by -->
 			</div>
-
 			<!-- Approved -->
 			<div class="d-flex justify-content-end mt-3">
 				<div>
@@ -154,21 +141,14 @@
 				</div>
 			</div>
 			<!-- /# Approved -->
-
 			<!-- /# Pre-repair inspection section -->
-
 			<hr class="border border-dark">
-
 			<!-- Post-repair inspection section -->
-
 			<!-- Pre-repair inspection section -->
 			<h2 class="subtitle-1 text-uppercase mb-1">Post-repair inspection</h2>
 			<!-- Pre-repair inspection list -->
-
 			<p class="body-1">New Memory Module 4gb installed. End-user to submit waste material report to PGSO etc.</p>
-
 			<!-- /# Post-repair inspection section -->
-
 			<div class="p-1 px-3 d-flex flex-wrap bg-grey mx-4">
 				<div class="d-flex align-items-center">
 					<div class="checkbox"></div>
@@ -189,7 +169,6 @@
 					<span class="checkbox-label font-weight-bold">S/N:</span>
 				</div>
 			</div>
-
 			<!--  -->
 			<div class="row mt-2 mx-4">
 				<div class="col-md-6">
@@ -206,7 +185,6 @@
 				</div>
 			</div>
 			<!-- /# -->
-
 			<div class="d-flex justify-content-between">
 				<!-- Post-inspected by -->
 				<div class="d-flex">
@@ -217,7 +195,6 @@
 					</div>
 				</div>
 				<!-- /# Post-inspected by -->
-
 				<!-- Recommending approval -->
 				<div class="d-flex">
 					<div class="mt-3">
@@ -228,7 +205,6 @@
 				</div>
 				<!-- /# Recommending approval -->
 			</div>
-
 			<!-- Approved approval -->
 			<div class="d-flex justify-content-end">
 				<div class="mt-3">
@@ -240,13 +216,10 @@
 			<!-- /# Approved approval -->
 		</div>
 	</div>
-
 	<script>
 		$(() => {
 			// window.print()
 		})
 	</script>
-
 </body>
-
 </html>

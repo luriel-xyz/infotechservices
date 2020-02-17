@@ -29,7 +29,7 @@ include_once "../config/controllers/controller.php";
 $control = new Controller();
 
 $requests = $control->getRequestByDepartment($_SESSION['dept_id']);
-$requestCount = $control->getTotalRequests($_SESSION['emp_id']);
+$requestCount = $control->getTotalRequestsByDepartment($_SESSION['dept_id']);
 ?>
 
 <!DOCTYPE html>

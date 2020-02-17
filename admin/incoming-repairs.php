@@ -45,17 +45,13 @@ $hardwareComponents = $control->getHardwareComponentsByCategory('main');
 ?>
 
 <!DOCTYPE html>
-
 <html class="h-100 w-100">
 
 <head>
-
   <!-- Meta Tag to Set Page's Width -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <!--  Title Page  -->
   <title>PGO IT Services - Admin Page</title>
-
   <!--  Link Bootstrap stylesheet -->
   <link href="../plug-ins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
@@ -80,28 +76,21 @@ $hardwareComponents = $control->getHardwareComponentsByCategory('main');
 
     <!-- Sidebar -->
     <div class="bg-secondary border-right mt-5 pt-2" id="sidebar-wrapper">
-
       <div class="list-group list-group-flush">
-
         <a href="incoming-requests.php" class="list-group-item list-group-item-action bg-secondary text-light border-bottom"><i class="fa fa-bell" aria-hidden="true"></i> Incoming Requests</a>
-
         <a href="incoming-repairs.php" class="list-group-item list-group-item-action bg-secondary text-light border-bottom"><i class="fa fa-wrench" aria-hidden="true"></i> Incoming Repairs</a>
 
+        <!-- The settings menu can only be accessed by the admin and programmer.  -->
         <?php if (
           $_SESSION['usertype'] === 'admin'
           || $_SESSION['usertype'] === 'programmer'
         ) : ?>
           <a href="#settingsSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle list-group-item list-group-item-action bg-secondary text-light"><i class="fa fa-cog" aria-hidden="true"></i> Settings</a>
           <ul class="collapse list-unstyled" id="settingsSubmenu">
-
             <li><a href="settings/user-accounts.php" class="list-group-item list-group-item-action text-white border-bottom" style="background-color: #adb5bd">User Accounts</a></li>
-
             <li><a href="settings/employees.php" class="list-group-item list-group-item-action text-white border-bottom" style="background-color: #adb5bd">Employees</a></li>
-
             <li><a href="settings/departments.php" class="list-group-item list-group-item-action text-white border-bottom" style="background-color: #adb5bd">Departments</a></li>
-
             <li><a href="settings/hardware-components.php" class="list-group-item list-group-item-action text-white" style="background-color: #adb5bd">Hardware Components</a></li>
-
           </ul>
         <?php endif; ?>
 
@@ -125,19 +114,15 @@ $hardwareComponents = $control->getHardwareComponentsByCategory('main');
         </div>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
           <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-
             <li class="nav-item">
               <a class="nav-link text-primary font-weight-bold disabled"><?= $_SESSION['username'] ?></a>
             </li>
             <li class="nav-item">
               <a class="nav-link text-primary " href="../logout.php" data-toggle="tooltip" title="Logout"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
             </li>
-
           </ul>
         </div>
-
       </nav>
 
       <div class="container-fluid h-100" style="margin-top: 80px;">
@@ -249,204 +234,6 @@ $hardwareComponents = $control->getHardwareComponentsByCategory('main');
 
   </div>
   <!-- /# Wrapper -->
-
-  <!-- Create Assessment Form Modal -->
-  <div id="assessment-form-modal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog">
-    <!-- Create Assessment Form -->
-    <form id="assessment-form" method="post">
-      <input type="hidden" name="itsrequest_id" class="modal__itsrequest_id" style="display: hidden">
-      <input type="hidden" name="useraccount_id" class="modal__useraccount_id" style="display: hidden">
-      <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-          <!-- Modal Header -->
-          <div class="modal-header">
-            <h5 class="modal-title">Repair Assessment Report Creation Form</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <!-- /# Modal Header -->
-          <!-- Modal Body -->
-          <div class="modal-body p-0 pt-2">
-            <!-- More Fields -->
-            <div class="container-fluid">
-              <!-- First Row -->
-              <div class="row">
-                <!-- First Column -->
-                <div class="col-6">
-                  <!-- Date Field -->
-                  <div class="form-group">
-                    <label> Date: </label>
-                    <div>
-                      <input class="form-control" type="date" name="assessment_date" id="assessment_date" />
-                    </div>
-                  </div>
-                  <!-- /# Date Field -->
-
-                  <!-- Name of Item Field -->
-                  <div class="form-group">
-                    <label> Name of Item: </label>
-                    <div>
-                      <select class="form-control" name="hwcomponent_id" id="hwcomponent_id">
-                        <?php foreach ($hardwareComponents as $value) : ?>
-                          <option value="<?= $value['hwcomponent_id'] ?>" <?php if ($value['hwcomponent_id'] == $hwcomponent_id) : ?> selected <?php endif ?>>
-                            <?= $value['hwcomponent_name'] ?>
-                          </option>
-                        <?php endforeach; ?>
-                      </select>
-                    </div>
-                  </div>
-                  <!-- /# Name of Item Field -->
-
-                  <!-- Model/Description Field -->
-                  <div class="form-group">
-                    <label>Model/Description: </label>
-                    <div>
-                      <input class="form-control" type="text" name="hwcomponent_description" id="hwcomponent_description">
-                    </div>
-                  </div>
-                  <!-- /# Model/Description Field -->
-
-                  <!-- Model/Description Field -->
-                  <div class="form-group">
-                    <label> Date Acquired: </label>
-                    <div>
-                      <input class="form-control" type="date" name="hwcomponent_dateacquired" id="hwcomponent_dateacquired" />
-                    </div>
-                  </div>
-                  <!-- /# Model/Description Field -->
-
-                  <!-- Acquisition Cost Field -->
-                  <div class="form-group">
-                    <label>Acquisition Cost: </label>
-                    <div>
-                      <input class="form-control" type="text" name="hwcomponent_acquisitioncost" id="hwcomponent_acquisitioncost">
-                    </div>
-                  </div>
-                  <!-- /# Acquisition Cost Field -->
-                </div>
-
-                <!-- Second Column -->
-                <div class="col-6">
-                  <!-- Department/Office Field -->
-                  <div class="form-group">
-                    <label>Department/Office: </label>
-                    <div>
-                      <select class="form-control" name="dept_id" id="dept_id">
-                        <?php // foreach ($departments as $value) : 
-                        ?>
-                        <!-- <option value="<?= $value['dept_id'] ?>" <?php if ($dept_id == $value['dept_id']) : ?> selected='selected' <?php endif; ?>>
-										<?= $value['dept_code'] ?>
-									</option> -->
-                        <!-- <.?php endforeach; ?> -->
-                      </select>
-                    </div>
-                  </div>
-                  <!-- /# Department/Office Field -->
-
-                  <!-- Property Number Field -->
-                  <div class="form-group">
-                    <label>Propery Number: </label>
-                    <div>
-                      <input class="form-control" type="text" name="property_num" id="property_num" />
-                    </div>
-                  </div>
-                  <!-- /# Property Number Field -->
-
-                  <!-- Issued To Field -->
-                  <div class="form-group">
-                    <label>Issued To: </label>
-                    <div>
-                      <select class="form-control" name="emp_id" id="emp_id">
-                        <option>Name of employee1</option>
-                        <option>Name of employee2</option>
-                      </select>
-                    </div>
-                  </div>
-                  <!-- /# Issued To Field -->
-
-                  <!-- Serial Number Field -->
-                  <div class="form-group">
-                    <label>Serial Number: </label>
-                    <div>
-                      <input class="form-control" type="text" name="serial_num" id="serial_num">
-                    </div>
-                  </div>
-                  <!-- /# Serial Number Field -->
-                </div>
-              </div>
-              <!-- /# First Row -->
-
-              <!-- Problems Table -->
-              <div class="row">
-                <label class="form-group col-lg-12"> Problem: </label>
-                <div class="col-lg-9 form-group">
-                  <div class="col-lg-12 border border-dark rounded overflow-auto" style="height: 90px;">
-                    <div class="checkbox text-left " id="checkbox">
-                      <label class="row px-2">
-                        <div class="col-lg-12" id="checkbox_container">
-                        </div>
-                      </label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- /# Problems Table -->
-
-              <!-- Findings / Recommendations -->
-              <div class="row">
-
-                <div class="col-12">
-                  <!-- Serial Number Field -->
-                  <div class="form-group">
-                    <label>Findings: </label>
-                    <div class="col-lg-4 form-group">
-                      <select class="form-control" name="findings_category" id="findings_category">
-                        <option disabled selected>--Select Findings--</option>
-                        <option value="repaired">Repaired</option>
-                        <option value="partly damaged">Partly Damaged</option>
-                        <option value="beyond repair">Beyond Repair</option>
-                        <option value="for replacement">For Replacement</option>
-                      </select>
-                    </div>
-                    <div class="col-lg-8 form-group">
-                      <input class="form-control" type="text" name="findings_description" id="findings_description" placeholder="Findings Description">
-                    </div>
-
-                  </div>
-                  <!-- /# Serial Number Field -->
-
-                  <!-- Issued To Field -->
-                  <div class="form-group">
-                    <label>Notes: </label>
-                    <div>
-                      <textarea name="notes" id="notes" class="form-control" cols="20" rows="3" placeholder="Notes"></textarea>
-                    </div>
-                  </div>
-                  <!-- /# Issued To Field -->
-                </div>
-              </div>
-              <!-- /# Findings / Recommendations -->
-            </div>
-            <!-- /# Modal Body -->
-            <div class="modal-footer">
-              <button id="btn-create-assessment" type="submit" class="btn btn-primary">Create</button>
-              <button class="btn btn-success" data-dismiss="modal" onclick="(window).open('../forms/pre-post-repair-form.php')">
-                <i class="fa fa-print fa-fw"></i>
-                <span>Print</span>
-              </button>
-              <button type="reset" class="btn btn-secondary" data-dismiss="modal">
-                <i class="fa fa-times"></i>
-                <span>Cancel</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </form>
-    <!-- /# Create Assessment Form -->
-  </div>
-  <!-- /# Create Assessment Form Modal -->
 </body>
 
 </html>
@@ -666,47 +453,54 @@ $hardwareComponents = $control->getHardwareComponentsByCategory('main');
       });
     });
 
-    $('.pre-inspect').click(function(e) {
-      e.preventDefault();
+    $('.pre-post-inspect').click(function() {
 
-      var action = 'statusPreInspected';
-      var itsrequest_id = $(this).attr('id');
-      var useraccount_id = $(this).attr('data-id');
-
-      $.ajax({
-        url: "../config/processors/requestArguments.php",
-        type: "POST",
-        data: {
-          action: action,
-          itsrequest_id: itsrequest_id,
-          useraccount_id: useraccount_id
-        },
-      }).done(function(val) {
-        alert(val);
-        location.reload(true);
+      $.redirect('../forms/prepostinspectionreport-addingform.php', {
+        
       });
     });
 
-    $('.post-inspect').click(function(e) {
-      e.preventDefault();
+    // $('.pre-inspect').click(function(e) {
+    //   e.preventDefault();
 
-      var action = 'statusPostInspected';
-      var itsrequest_id = $(this).attr('id');
-      var useraccount_id = $(this).attr('data-id');
+    //   var action = 'statusPreInspected';
+    //   var itsrequest_id = $(this).attr('id');
+    //   var useraccount_id = $(this).attr('data-id');
 
-      $.ajax({
-        url: "../config/processors/requestArguments.php",
-        type: "POST",
-        data: {
-          action: action,
-          itsrequest_id: itsrequest_id,
-          useraccount_id: useraccount_id
-        },
-      }).done(function(val) {
-        alert(val);
-        location.reload(true);
-      });
-    });
+    //   $.ajax({
+    //     url: "../config/processors/requestArguments.php",
+    //     type: "POST",
+    //     data: {
+    //       action: action,
+    //       itsrequest_id: itsrequest_id,
+    //       useraccount_id: useraccount_id
+    //     },
+    //   }).done(function(val) {
+    //     alert(val);
+    //     location.reload(true);
+    //   });
+    // });
+
+    // $('.post-inspect').click(function(e) {
+    //   e.preventDefault();
+
+    //   var action = 'statusPostInspected';
+    //   var itsrequest_id = $(this).attr('id');
+    //   var useraccount_id = $(this).attr('data-id');
+
+    //   $.ajax({
+    //     url: "../config/processors/requestArguments.php",
+    //     type: "POST",
+    //     data: {
+    //       action: action,
+    //       itsrequest_id: itsrequest_id,
+    //       useraccount_id: useraccount_id
+    //     },
+    //   }).done(function(val) {
+    //     alert(val);
+    //     location.reload(true);
+    //   });
+    // });
 
     /*$('.download-assessrep').click(function(e){
      	e.preventDefault();

@@ -130,20 +130,15 @@ class Controller
 
 		if ($emp_id == null) {
 			$qry = "SELECT * FROM employee_tbl INNER JOIN department_tbl ON employee_tbl.dept_id=department_tbl.dept_id";
-
 			if ($con->query($qry)) {
-
 				$result = $con->query($qry);
 				if ($result->num_rows == 0) {
 					return 0;
 				}
-
 				$users = array();
-
 				while ($row = $result->fetch_assoc()) {
 					$users[] = $row;
 				}
-
 				return $users;
 			} else {
 				return false;
@@ -579,7 +574,6 @@ class Controller
 		 		LEFT JOIN hardwarecomponent_tbl ON itservices_request_tbl.hwcomponent_id=hardwarecomponent_tbl.hwcomponent_id 
 				WHERE itservices_request_tbl.emp_id = {$emp_id} ORDER BY itsrequest_date DESC";
 
-		// spaghetti
 		if ($con->query($qry)) {
 			$result = $con->query($qry);
 			if ($result->num_rows) {
@@ -594,6 +588,12 @@ class Controller
 		} else {
 			return false;
 		}
+	}
+
+	public function getTotalRequestsByDepartment($dept_id)
+	{
+		$requests = $this->getRequestByDepartment($dept_id);
+		return is_array($requests) ? count($requests) : 0;
 	}
 
 	/* Add Incoming Request */
@@ -983,25 +983,12 @@ class Controller
 		}
 	}
 
-	public function getTotalRequests($emp_id)
-	{
-		global $con;
 
-		$sql = 'SELECT count(*) AS request_count 
-				FROM itservices_request_tbl
-				INNER JOIN employee_tbl
-				ON employee_tbl.emp_id = itservices_request_tbl.emp_id';
-
-		$result = $con->query($sql);
-		return $result->fetch_assoc()['request_count'] ?? 0;
-	}
-
-	// 
 	public function dd($any)
 	{
-		echo '<pre style="background-color: #eee; color:#fff;">
-				' . var_dump($any) . '
-			 </pre>';
+		echo "<pre style='background-color: #eee; color:#fff;'>";
+		var_dump($any);
+		echo	"</pre>";
 		die;
 	}
 }

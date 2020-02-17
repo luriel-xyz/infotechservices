@@ -23,12 +23,12 @@ if (!$repairs) {
     </thead>
     <tbody id="table_body">
       <?php
-      $ctr = 1;
+      $id = 1;
       foreach ($repairs as $value) {
         $component = $control->getHardwareComponents($value['hwcomponent_sub_id']);
       ?>
         <tr>
-          <td> <?= $ctr ?> </td>
+          <td> <?= $id ?> </td>
           <td> <?= $value['itsrequest_date'] ?> </td>
           <td> <?= $value['dept_code'] ?> </td>
           <td> <?= $value['emp_fname'] ?> <?= $value['emp_lname'] ?> </td>
@@ -75,26 +75,32 @@ if (!$repairs) {
             <?php
             } else if ($value['status'] === 'assessed') {
             ?>
-              <input type="hidden" name="" value="<?=$value['itsrequest_id']?>">
-              <button type="button" class="btn btn-warning pre-inspect" data-toggle="tooltip" title="Pre-Repair Inspect" id="<?= $value['itsrequest_id'] ?>" data-id="<?= $_SESSION['useraccount_id'] ?>"><i class="fa fa-file-text-o" aria-hidden="true"></i></button>
+              <input type="hidden" name="" value="<?= $value['itsrequest_id'] ?>">
+              <button type="button" class="btn btn-warning pre-post-inspect" data-toggle="tooltip" title="Pre And Post Repair Inspect" id="<?= $value['itsrequest_id'] ?>" data-id="<?= $_SESSION['useraccount_id'] ?>"><i class="fa fa-file-text-o" aria-hidden="true"></i></button>
               <?php $assessmentReport = $control->getAssessmentReportByRequestId($value['itsrequest_id']); ?>
               <button type="button" class="btn btn-secondary btn-print-assessment" data-toggle="tooltip" title="Print Assessment Form" data-assessment-report-id="<?= $assessmentReport['repassessreport_id'] ?>"><i class="fa fa-print" aria-hidden="true"></i></button>
-            <?php
+              <?php
               // show
-            } else if ($value['status'] === 'pre-repair inspected') {
-            ?>
-              <button type="button" class="btn btn-warning post-inspect" data-toggle="tooltip" title="Post-Repair Inspect" id="<?= $value['itsrequest_id'] ?>" data-id="<?= $_SESSION['useraccount_id'] ?>"><i class="fa fa-check" aria-hidden="true"></i></button>
-            <?php
-            } else if ($value['status'] === 'post-repair inspected') {
-            ?>
-              <button type="button" class="btn btn-success done" data-toggle="tooltip" title="Done" id="<?= $value['itsrequest_id'] ?>" data-id="<?= $_SESSION['useraccount_id'] ?>"><i class="fa fa-check" aria-hidden="true"></i></button>
-            <?php
-            }
-            ?>
+              // } else if ($value['status'] === 'pre-repair inspected') {
+              // 
+              ?>
+              <!-- <button type="button" class="btn btn-warning post-inspect" data-toggle="tooltip" title="Post-Repair Inspect" id="<?= $value['itsrequest_id'] ?>" data-id="<?= $_SESSION['useraccount_id'] ?>"><i class="fa fa-check" aria-hidden="true"></i></button> -->
+              <?php
+              // } else if ($value['status'] === 'post-repair inspected') {
+              // 
+              ?>
+              <!-- <button type="button" class="btn btn-success done" data-toggle="tooltip" title="Done" id="<?= $value['itsrequest_id'] ?>" data-id="<?= $_SESSION['useraccount_id'] ?>"><i class="fa fa-check" aria-hidden="true"></i></button> -->
+              <?php
+              // }
+              // 
+              ?>
+            <?php } else if ($value['status'] === 'pre-post-repair inspected') { ?>
+              <button type="button" class="btn btn-success done" data-toggle="tooltip" title="Done" id="<?= $value['itsrequest_id'] ?>" data-id="<?= $_SESSION['useraccount_id'] ?>"><i class="fa fa-check" aria-hidden="true"></i></button> -->
+            <?php } ?>
           </td>
         </tr>
       <?php
-        $ctr += 1;
+        $id += 1;
       }
       ?>
     </tbody>

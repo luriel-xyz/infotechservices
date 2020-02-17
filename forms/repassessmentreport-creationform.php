@@ -214,9 +214,7 @@ $subHardwareComponents = $control->getHardwareComponentsByCategory('sub');
 						<br>
 						<label class="form-group col-lg-12"> Notes: </label>
 					</div>
-
 					<div class="col-lg-9 row">
-
 						<div class="col-lg-4 form-group">
 							<!-- Findings Select Field -->
 							<select class="form-control" name="findings_category" id="findings_category" required>
@@ -415,7 +413,7 @@ $subHardwareComponents = $control->getHardwareComponentsByCategory('sub');
 		const dept_id = $('#dept_id').val();
 		const emp_id = $('#emp_id').val();
 		const findings_category = $('#findings_category').val();
-		const findings_description = $('#findings_description').val();  
+		const findings_description = $('#findings_description').val();
 		const notes = $('#notes').val();
 		const serial_number = $('#serial_number').val();
 		const property_num = $('#property_num').val();
