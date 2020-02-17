@@ -756,15 +756,11 @@ class Controller
 							ORDER BY itsrequest_date DESC";
 			if ($con->query($qry)) {
 				$result = $con->query($qry);
-				if ($result->num_rows) {
-					$requests = array();
-					while ($row = $result->fetch_assoc()) {
-						$requests[] = $row;
-					}
-					return $requests;
-				} else {
-					return $result->num_rows;
+				$requests = array();
+				while ($row = $result->fetch_assoc()) {
+					$requests[] = $row;
 				}
+				return $requests;
 			} else {
 				return false;
 			}
