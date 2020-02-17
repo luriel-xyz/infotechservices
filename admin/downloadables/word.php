@@ -1,8 +1,6 @@
 <?php
-if(isset($_POST['itsrequest_id'])){
-
+if (isset($_POST['itsrequest_id'])) {
   $itsrequest_id = $_POST['itsrequest_id'];
-
 }
 
 //include database connection
@@ -45,88 +43,91 @@ foreach ($assessment as $key => $value) {
 
 ?>
 <html>
+
 <head>
-	<title></title>
+  <title></title>
 </head>
+
 <body>
-<?php
+  <?php
 
-header("Content-type:application/msword");
-header("Content-Disposition:attachment;filename="."repassessment".$dept_code."-".$emp_lname.".docx");
+  header("Content-type:application/msword");
+  header("Content-Disposition:attachment;filename=" . "repassessment" . $dept_code . "-" . $emp_lname . ".docx");
 
-echo '<center>';
-echo '<h3>PROVINCE OF BENGUET</h3>';
-echo '<h2>INFORMATION TECHNOLOGY SERVICES</h2>';
-echo "<h4>PROVINCIAL GOVERNOR'S OFFICE</h4>";
-echo "<p>REPAIR ASSESSMENT REPORT</p>";
-echo "<br>";
-?>
+  echo '<center>';
+  echo '<h3>PROVINCE OF BENGUET</h3>';
+  echo '<h2>INFORMATION TECHNOLOGY SERVICES</h2>';
+  echo "<h4>PROVINCIAL GOVERNOR'S OFFICE</h4>";
+  echo "<p>REPAIR ASSESSMENT REPORT</p>";
+  echo "<br>";
+  ?>
 
-<table>
-  <tr>
-    <td> Date: </td>
-    <td> <?php echo $assessment_date; ?> </td>
-    <td> Department/Office: </td>
-    <td> <?php echo $dept_code; ?> </td>
-  </tr>
-  <tr>
-    <td> Name of Item: </td>
-    <td> <?php echo $hwcomponent_name; ?> </td>
-    <td> Property No.: </td>
-    <td> <?php echo $property_num; ?> </td>
-  </tr>
-  <tr>
-    <td> Date Acquired: </td>
-    <td> <?php echo $date_acquired; ?> </td>
-    <td> Issued To: </td>
-    <td> <?php echo $emp_fname." ".$emp_lname; ?> </td>
-  </tr>
-  <tr>
-    <td> Model/Description: </td>
-    <td> <?php echo $hwcomponent_description; ?> </td>
-    <td> Serial No.: </td>
-    <td> <?php echo $serial_num; ?> </td>
-  </tr>
-  <tr>
-    <td> </td>
-    <td> </td>
-    <td> Acquisition Cost: </td>
-    <td> <?php echo $acquisition_cost; ?> </td>
-  </tr>
-</table>
-
-<table class="table table-bordered text-center">
-  <p>PROBLEMS:</p>
-  <tbody>
-    <?php
-    foreach ($components as $key => $value) {
-    ?> 
+  <table>
     <tr>
-    <th><?=$value['hwcomponent_name']?></th> 
-    <td>
-      <ul>
-        <?php
-        $subcomponents = $control->getHardwareComponentsBySubCategory($value['hwcomponent_id']);
-        if($subcomponents !== 0){
-          foreach ($subcomponents as $key => $val) {
-          ?>
-          <li> <?php echo $val['hwcomponent_name']; ?> </li>
-        <?php
-          }  
-        }
-        ?>
-      </ul>
-    </td>
+      <td> Date: </td>
+      <td> <?php echo $assessment_date; ?> </td>
+      <td> Department/Office: </td>
+      <td> <?php echo $dept_code; ?> </td>
     </tr>
-    <?php
-    }  
-    ?>
-  </tbody>
-</table>
+    <tr>
+      <td> Name of Item: </td>
+      <td> <?php echo $hwcomponent_name; ?> </td>
+      <td> Property No.: </td>
+      <td> <?php echo $property_num; ?> </td>
+    </tr>
+    <tr>
+      <td> Date Acquired: </td>
+      <td> <?php echo $date_acquired; ?> </td>
+      <td> Issued To: </td>
+      <td> <?php echo $emp_fname . " " . $emp_lname; ?> </td>
+    </tr>
+    <tr>
+      <td> Model/Description: </td>
+      <td> <?php echo $hwcomponent_description; ?> </td>
+      <td> Serial No.: </td>
+      <td> <?php echo $serial_num; ?> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> Acquisition Cost: </td>
+      <td> <?php echo $acquisition_cost; ?> </td>
+    </tr>
+  </table>
 
-<?php
-echo '</center>';;
-?>
+  <table class="table table-bordered text-center">
+    <p>PROBLEMS:</p>
+    <tbody>
+      <?php
+      foreach ($components as $key => $value) {
+      ?>
+        <tr>
+          <th><?= $value['hwcomponent_name'] ?></th>
+          <td>
+            <ul>
+              <?php
+              $subcomponents = $control->getHardwareComponentsBySubCategory($value['hwcomponent_id']);
+              if ($subcomponents !== 0) {
+                foreach ($subcomponents as $key => $val) {
+              ?>
+                  <li> <?php echo $val['hwcomponent_name']; ?> </li>
+              <?php
+                }
+              }
+              ?>
+            </ul>
+          </td>
+        </tr>
+      <?php
+      }
+      ?>
+    </tbody>
+  </table>
+
+  <?php
+  echo '</center>';
+  ?>
 
 </body>
+
 </html>

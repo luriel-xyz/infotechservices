@@ -20,8 +20,8 @@ class Controller
 				ON useraccount_tbl.emp_id=employee_tbl.emp_id 
 				LEFT JOIN department_tbl 
 				ON useraccount_tbl.dept_id=department_tbl.dept_id 
-				WHERE username='" . $username . "' 
-				AND password='" . md5($password) . "'";
+				WHERE username = '{$username}'
+				AND password = '" . md5($password) . "'";
 
 		if ($con->query($qry)) {
 			$result = $con->query($qry);
@@ -48,17 +48,14 @@ class Controller
 
 	/**  DEPARTMENT  **/
 
-	/*  Get Department */
+	/*  Get Department*/
 	public function getDepartment($dept_id = null)
 	{
 		global $con;
 
 		if ($dept_id == null) {
-
 			$qry = "SELECT * FROM department_tbl";
-
 			if ($con->query($qry)) {
-
 				$result1 = $con->query($qry);
 				if ($result1->num_rows == 0) {
 					return $result1->num_rows;
@@ -79,18 +76,14 @@ class Controller
 			$qry = "SELECT * FROM department_tbl WHERE dept_id = '" . $dept_id . "' ";
 
 			if ($con->query($qry)) {
-
 				$result1 = $con->query($qry);
 				if ($result1->num_rows == 0) {
-					return $result1->num_rows;
+					return 0;
 				}
-
 				$depts = array();
-
 				while ($row = $result1->fetch_assoc()) {
 					$depts[] = $row;
 				}
-
 				return $depts;
 			} else {
 				return false;
@@ -306,7 +299,9 @@ class Controller
 		}
 	}
 
-	/*  Get Hardware Components by Sub Category */
+	/*  Get Hardware Components by Sub Category
+			@param hwcomponent_id - Id of the main component
+	*/
 	public function getHardwareComponentsBySubCategory($hwcomponent_id)
 	{
 		global $con;
@@ -729,6 +724,19 @@ class Controller
 		return $msg;
 	}
 
+	public function getSubComponentsAssessmentByMainAssessmentId($repassessreport_id)
+	{
+		global $con;
+
+		$sql = "SELECT * FROM assessment_sub_components
+						WHERE repassessreport_id = {$repassessreport_id}";
+		$result = $con->query($sql);
+		$subComponentsAssessmentReports = [];
+		while ($row = $result->fetch_assoc()) {
+			$subComponentsAssessmentReports[] = $row;
+		}
+		return $subComponentsAssessmentReports;
+	}
 
 
 	/**   REPAIRS   **/
@@ -740,11 +748,15 @@ class Controller
 		global $con;
 
 		if ($itsrequest_id == null) {
-
-			$qry = "SELECT * FROM itservices_request_tbl INNER JOIN employee_tbl ON itservices_request_tbl.emp_id=employee_tbl.emp_id INNER JOIN department_tbl ON itservices_request_tbl.dept_id=department_tbl.dept_id INNER JOIN hardwarecomponent_tbl ON itservices_request_tbl.hwcomponent_id=hardwarecomponent_tbl.hwcomponent_id WHERE itshw_category != 'on-site' AND itshw_category is NOT NULL ORDER BY itsrequest_date DESC";
+			$qry = "SELECT * FROM itservices_request_tbl 
+							INNER JOIN employee_tbl ON itservices_request_tbl.emp_id=employee_tbl.emp_id 
+							INNER JOIN department_tbl ON itservices_request_tbl.dept_id=department_tbl.dept_id 
+							INNER JOIN hardwarecomponent_tbl ON itservices_request_tbl.hwcomponent_id=hardwarecomponent_tbl.hwcomponent_id 
+							WHERE itshw_category != 'on-site' AND itshw_category is NOT NULL 
+							ORDER BY itsrequest_date DESC";
 			if ($con->query($qry)) {
 				$result = $con->query($qry);
-				if ($result->num_rows != 0) {
+				if ($result->num_rows) {
 					$requests = array();
 					while ($row = $result->fetch_assoc()) {
 						$requests[] = $row;
@@ -842,43 +854,104 @@ class Controller
 
 	/**   ASSESSMENT REPORTS   **/
 
-	/* Assess Repairs */
-	public function addRepAssessReport($statusupdate_useraccount_id, $assessment_date, $hwcomponent_id, $hwcomponent_description, $hwcomponent_dateacquired, $hwcomponent_acquisitioncost, $dept_id, $emp_id, $cb_hwcomponent, $findings_category, $findings_description, $notes, $itsrequest_id, $serial_num, $property_num)
+	/* Insert Assessment report data to db */
+	public function addRepAssessReport(
+		$itsrequest_id,
+		$hwcomponent_id,
+		$assessmenttechrep_useraccount_id,
+		$assessment_date,
+		$hwcomponent_dateAcquired,
+		$hwcomponent_description,
+		$hwcomponent_acquisitioncost,
+		$serial_number,
+		$findings_category,
+		$findings_description,
+		$notes,
+		$dept_id,
+		$emp_id,
+		$property_num
+	) {
+		global $con;
+
+		$assessmentReportId = null;
+		$sql = "INSERT INTO repassessreport_tbl  
+								(itsrequest_id, 
+								hwcomponent_id,
+								assessmenttechrep_useraccount_id,
+								assessment_date, 
+								hwcomponent_dateAcquired,
+								hwcomponent_description, 
+								serial_number, 
+								hwcomponent_acquisitioncost, 
+								findings_category,
+								findings_description,
+								notes) 
+								VALUES (
+									'" . $itsrequest_id . "',
+									'" . $hwcomponent_id . "',
+									'" . $assessmenttechrep_useraccount_id . "',
+									'" . $assessment_date . "',
+									'" . $hwcomponent_dateAcquired . "',
+									'" . $hwcomponent_description . "',
+									'" . $serial_number . "',
+									'" . $hwcomponent_acquisitioncost . "',
+									'" . $findings_category . "',
+									'" . $findings_description . "',
+									'" . $notes . "'
+								)";
+		// (recommendation) <-- missing column
+		$isInserted = $con->query($sql);
+		if (!$isInserted) {
+			return false;
+		}
+		$assessmentReportId = $con->insert_id;
+		$qry = "UPDATE itservices_request_tbl 
+						 SET dept_id = '" . $dept_id . "', 
+						 emp_id = '" . $emp_id . "', 
+						 statusupdate_useraccount_id = '" . $assessmenttechrep_useraccount_id . "', 
+						 hwcomponent_id = '" . $hwcomponent_id . "', 
+						 property_num = '" . $property_num . "', 
+						 status = 'assessed' 
+						 WHERE itsrequest_id = '" . $itsrequest_id . "' ";
+		if (!$con->query($qry)) {
+			return false;
+		}
+
+		return $assessmentReportId;
+	}
+
+	/** Insert subcomponents assessment report to db */
+	public function addAssessmentSubComponents($repassessreport_id, $subcomponents)
 	{
 		global $con;
 
-		$msg = "Please try again!";
+		foreach ($subcomponents as $subcomponent) {
+			$sql = "INSERT INTO assessment_sub_components (repassessreport_id, sub_component_id, remark)
+							VALUES (?,?,?)";
 
-		if ($cb_hwcomponent !== "") {
-
-			foreach ($cb_hwcomponent as $key => $value) {
-
-				$qry = $con->prepare("INSERT INTO repassessreport_tbl (assessment_date , itsrequest_id , hwcomponent_dateacquired, hwcomponent_description, serial_number, hwcomponent_acquisitioncost, hwcomponent_sub_id,findings_category,findings_description,notes) VALUES (?,?,?,?,?,?,?,?,?,?)");
-				$qry->bind_param('sissssisss', $assessment_date, $itsrequest_id, $hwcomponent_dateacquired, $hwcomponent_description, $serial_num, $hwcomponent_acquisitioncost, $value, $findings_category, $findings_description, $notes);
-
-				if ($qry->execute() == false) {
-
-					echo $msg;
-				} else {
-
-					$qry1 = "UPDATE itservices_request_tbl SET dept_id = '" . $dept_id . "', emp_id = '" . $emp_id . "', statusupdate_useraccount_id = '" . $statusupdate_useraccount_id . "', hwcomponent_id = '" . $hwcomponent_id . "', property_num = '" . $property_num . "', status = 'assessed' WHERE itsrequest_id = '" . $itsrequest_id . "' ";
-					if ($con->query($qry1) == false) {
-
-						echo $msg;
-					} else {
-
-						$msg = "Repair Assessment Created";
-					}
-				}
+			$stmt = $con->prepare($sql);
+			$stmt->bind_param('iis', $repassessreport_id, $subcomponent['sub_component_id'], $subcomponent['remark']);
+			if (!$stmt->execute()) {
+				return false;
 			}
 		}
 
-		return $msg;
+		return true;
 	}
 
-
 	/* Get Assess Reports */
-	public function getAssessmentReport($itsrequest_id = null)
+	public function getAssessmentReport($id)
+	{
+		global $con;
+		$sql = "SELECT * FROM repassessreport_tbl
+						WHERE repassessreport_id = {$id}
+						LIMIT 1";
+
+		$result = $con->query($sql);
+		return $result->fetch_assoc();
+	}
+
+	public function getAssessmentReportByRequestId($itsrequest_id = null)
 	{
 		global $con;
 
@@ -900,15 +973,11 @@ class Controller
 			}
 		} else {
 
-			$qry = "SELECT * FROM repassessreport_tbl WHERE itsrequest_id = '" . $itsrequest_id . "' ";
+			$qry = "SELECT * FROM repassessreport_tbl WHERE itsrequest_id = {$itsrequest_id} ";
 			if ($con->query($qry)) {
 				$result = $con->query($qry);
 				if ($result->num_rows != 0) {
-					$requests = array();
-					while ($row = $result->fetch_assoc()) {
-						$requests[] = $row;
-					}
-					return $requests;
+					return $result->fetch_assoc();
 				} else {
 					return $result->num_rows;
 				}

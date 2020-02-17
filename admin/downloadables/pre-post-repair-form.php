@@ -10,16 +10,16 @@
 	<title>PGO IT Services - Pre And Post Repair Inspection Report</title>
 
 	<!--  Link Bootstrap stylesheet -->
-	<link href="../plug-ins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<link href="../plug-ins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-	<link href="../css/app.css" rel="stylesheet">
+	<link href="../../plug-ins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="../../plug-ins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<link href="../../css/app.css" rel="stylesheet">
 
 	<!-- Bootstrap core JavaScript -->
-	<script src="../plug-ins/jquery/jquery.min.js"></script>
-	<script src="../plug-ins/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="../../plug-ins/jquery/jquery.min.js"></script>
+	<script src="../../plug-ins/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 	<!-- Jquery Redirect JavaScript -->
-	<script src="../plug-ins/jquery/jquery.redirect.js"></script>
+	<script src="../../plug-ins/jquery/jquery.redirect.js"></script>
 </head>
 
 <body>
@@ -31,7 +31,7 @@
 				<!--  -->
 				<div class="row mx-auto mt-1">
 					<div class="col-md-3 pr-0">
-						<img class="w-100" src="../images/beng_cap_logo.png" alt="logo">
+						<img class="w-100" src="../../images/beng_cap_logo.png" alt="logo">
 					</div>
 					<div class="col-md-9 d-flex flex-column justify-content-center">
 						<div class="republic">Republic of the Philippines</div>

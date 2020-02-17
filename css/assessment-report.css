@@ -1,0 +1,164 @@
+header {
+  text-align: center;
+}
+
+.logo {
+  float: left;
+  width: 90px !important;
+  height: 90px !important;
+}
+
+.province {
+  font-size: 1.2em;
+}
+
+.title {
+  font-size: 1.3em;
+  color: indigo;
+}
+
+.subtitle-1 {
+  font-size: 1em;
+}
+
+.subtitle-2,
+.main-component {
+  font-size: 0.9em;
+  font-weight: 600;
+}
+
+.body-1 {
+  font-size: 0.8em;
+}
+
+.province,
+.title,
+.subtitle-1 {
+  font-weight: bold;
+  line-height: 0.9;
+}
+
+.hardware-info-table,
+.problems-table {
+  margin-top: 3%;
+}
+
+.hardware-info-table__labels {
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: right;
+  margin-right: 1px;
+}
+
+.hardware-info-table__values {
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.problems-table__label {
+  color: red;
+}
+
+.problems-table__value {
+  text-transform: uppercase;
+}
+
+.problems-table__label,
+.problems-table__value {
+  font-size: small;
+  flex: 1;
+}
+
+.hardware-info-table__labels > .label,
+.hardware-info-table__values > .value {
+  border: 1px solid #ccc;
+  padding: 1px 4px;
+}
+
+.hardware-info-table__col,
+.problems-table__col {
+  flex: 1;
+  /* border: 1px solid; */
+  display: flex;
+}
+
+.hardware-info-table__col:first-child,
+.problems-table__col:first-child {
+  justify-content: flex-end;
+  padding-right: 0;
+}
+
+.hardware-info-table__col:last-child,
+.problems-table__col:last-child {
+  justify-content: flex-start;
+}
+
+.main-component {
+  font-weight: bold;
+  text-transform: uppercase;
+  background-color: lightblue;
+  text-indent: 0.6em;
+}
+
+.sub-component {
+  text-indent: 2em;
+  text-transform: capitalize;
+  font-size: 0.8em;
+}
+
+.bordered {
+  border: 1px solid;
+  padding: 1px 2px;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.findings__category {
+  font-size: small !important;
+}
+
+.tech-rep-name {
+  border-top: 1px solid black;
+  font-size: 0.8em;
+  font-weight: bold;
+}
+
+.tech-rep-position {
+  font-size: 0.6em;
+  font-weight: bold;
+}
+
+.tech-rep-name,
+.tech-rep-position {
+  line-height: 0.7;
+}
+
+.font-size-x-small {
+  font-size: x-small;
+}
+
+.floating-buttons {
+  position: fixed;
+}
+
+.notes > p {
+  line-height: 0.7;
+  text-decoration: underline;
+}
+
+.d-hidden {
+  visibility: hidden !important;
+}
+
+@media print {
+  button,
+  a {
+    display: none !important;
+  }
+}
+
+@page {
+  margin: 0;
+}

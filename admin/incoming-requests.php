@@ -258,7 +258,6 @@ $depts = $control->getDepartment();
 </html>
 
 <script>
-
 	/* Menu Toggle Script */
 	$("#menu-toggle").click(function(e) {
 		e.preventDefault();
@@ -410,7 +409,7 @@ $depts = $control->getDepartment();
 			data: $(this).serialize(),
 		}).done(function(val) {
 			alert(val);
-			location.reload(true);
+			window.location.replace('./incoming-repairs.php');
 		});
 
 	});

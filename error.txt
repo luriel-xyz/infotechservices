@@ -1,0 +1,2 @@
+ALTER TABLE repassessreport_tbl
+ADD FOREIGN KEY (`hwcomponent_sub_id`) REFERENCES itservices_request_tbl(`hwcomponent_sub_id`);

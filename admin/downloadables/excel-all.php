@@ -55,19 +55,16 @@ if (isset($_POST['action'])) {
       <th style="background-color: gray">Department/Office</th>
       <th style="background-color: gray">Employee</th>
       <th style="background-color: gray">Hardware</th>
-      <?php
-      if ($action === 'RepairSummaryReport') {
-        echo '<th style="background-color: gray">Property Number</th>';
-      }
-      ?>
+      <?php if ($action === 'RepairSummaryReport') : ?>
+        <th style="background-color: gray">Property Number</th>
+      <?php endif; ?>
       <th style="background-color: gray">Concern</th>
       <th style="background-color: gray">Status</th>
       <th style="background-color: gray">IT Personnel</th>
       <th style="background-color: gray">Solution</th>
-      <?php
-      if ($action === 'RepairSummaryReport') {
-        echo '<th style="background-color: gray">Deployment Date</th>';
-      }
+      <?php if ($action === 'RepairSummaryReport') : ?>
+        <th style="background-color: gray">Deployment Date</th>
+      <?php endif; ?>
       ?>
     </thead>
     <tbody>

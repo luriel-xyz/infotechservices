@@ -1,57 +1,49 @@
-<?php
-//if users is empty
-if($hardware_components == 0 || $hardware_components == false){
-?>
+<!-- if hardware components array is empty -->
+<?php if (!$hardware_components) : ?>
   <div class="alert alert-info text-center">
-    <?php echo "No Data Found!"; ?>
+    <?= "No Data Found!"; ?>
   </div>
-<?php
-//if not empty
-}else{
-?>
-    <table class="table table-bordered text-center">
-      <thead class="">
-        <th>#</th>
-        <th>Hardware Component Name</th>
-        <th>Hardware Component Type</th>
-        <th>Hardware Sub Component Category</th>
-        <th>Action</th>
-      </thead>
-      <tbody id="table_body">
-        <?php
-        $ctr = 1;
-        foreach ($hardware_components as $key => $value) {
-          if($value['hwcomponent_type'] === 'sub'){
-            $hwcomponent_categoryname = $control->getHardwareComponents($value['hwcomponent_category']);
-          }
-        ?>
+  <!-- if not empty -->
+<?php else : ?>
+  <table class="table table-bordered text-center">
+    <thead class="">
+      <th>#</th>
+      <th>Hardware Component Name</th>
+      <th>Hardware Component Type</th>
+      <th>Hardware Sub Component Category</th>
+      <th>Action</th>
+    </thead>
+    <tbody id="table_body">
+      <?php
+      $id = 1;
+      foreach ($hardware_components as $component) :
+        if ($component['hwcomponent_type'] === 'sub') {
+          $hwcomponent_categoryname = $control->getHardwareComponents($component['hwcomponent_category']);
+        }
+      ?>
         <tr>
-          	<td> <?=$ctr?> </td>
-          	<td> <?=$value['hwcomponent_name']?> </td>
-            <td> <?=$value['hwcomponent_type']?> </td>
-            <td>
+          <td> <?= $id ?> </td>
+          <td> <?= $component['hwcomponent_name'] ?> </td>
+          <td> <?= $component['hwcomponent_type'] ?> </td>
+          <td>
             <?php
-            if($value['hwcomponent_type'] === 'sub'){
-              if($hwcomponent_categoryname !== 0 && $hwcomponent_categoryname !== NULL && $hwcomponent_categoryname !== ""){
-                foreach ($hwcomponent_categoryname as $name) {
-                  echo $name['hwcomponent_name'];
-                }
+            if ($component['hwcomponent_type'] === 'sub' && $hwcomponent_categoryname) {
+              foreach ($hwcomponent_categoryname as $name) {
+                echo $name['hwcomponent_name'];
               }
             }
             ?>
-            </td>
-            <td> 
-                <button type="button" class="btn btn-primary edit" id="<?=$value['hwcomponent_id']?>" data-toggle="tooltip" title="Edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-            </td>
+          </td>
+          <td>
+            <button type="button" class="btn btn-primary edit" id="<?= $component['hwcomponent_id'] ?>" data-toggle="tooltip" title="Edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+          </td>
         </tr>
-        <?php 
-        $ctr+=1; 
-        }
-        ?>
-      </tbody>
-    </table>
+      <?php
+        $id += 1;
+      endforeach;
+      ?>
+    </tbody>
+  </table>
   </div>
-</div>
-<?php
-}
-?>
+  </div>
+<?php endif; ?>

@@ -5,21 +5,20 @@
 
 <!--  repair form adding page  -->
 
-<?php 
+<?php
 
 //start session
 session_start();
 
 //check if user is not logged in
-if(!isset($_SESSION["username"]) && !isset($_SESSION['usertype'])){
+if (!isset($_SESSION["username"]) && !isset($_SESSION['usertype'])) {
 
-  //redirect to login page
-  header ('location: ../login.php');
-
-}else{
-	if($_SESSION['usertype'] !== 'admin' && $_SESSION['usertype'] !== 'personnel' && $_SESSION['usertype'] !== 'programmer'){
+	//redirect to login page
+	header('location: ../login.php');
+} else {
+	if ($_SESSION['usertype'] !== 'admin' && $_SESSION['usertype'] !== 'personnel' && $_SESSION['usertype'] !== 'programmer') {
 		//redirect to login page
-  		header ('location: ../login.php');
+		header('location: ../login.php');
 	}
 }
 
@@ -38,7 +37,7 @@ $departments = $control->getDepartment();
 //get all hardware component
 $hardwarecomponents = $control->getHardwareComponentsByCategory('main');
 
-?>	
+?>
 
 <!DOCTYPE html>
 
@@ -46,145 +45,142 @@ $hardwarecomponents = $control->getHardwareComponentsByCategory('main');
 
 <head>
 
-    <!-- Meta Tag to Set Page's Width -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Meta Tag to Set Page's Width -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!--  Title Page  -->
-    <title>PGO IT Services - Admin Page</title>
+	<!--  Title Page  -->
+	<title>PGO IT Services - Admin Page</title>
 
-    <!--  Link Bootstrap stylesheet -->
-    <link href="../plug-ins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<!--  Link Bootstrap stylesheet -->
+	<link href="../plug-ins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet">
 
-    <!-- Bootstrap core JavaScript -->
-  	<script src="../plug-ins/jquery/jquery.min.js"></script>
-  	<script src="../plug-ins/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- Bootstrap core JavaScript -->
+	<script src="../plug-ins/jquery/jquery.min.js"></script>
+	<script src="../plug-ins/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-  	<!-- Jquery Redirect JavaScript -->
-  	<script src="../plug-ins/jquery/jquery.redirect.js"></script>
+	<!-- Jquery Redirect JavaScript -->
+	<script src="../plug-ins/jquery/jquery.redirect.js"></script>
 
 </head>
 
 <body class="h-100 w-100 bg-dark">
-  
-  	<!-- Page Content -->
-    <div class="h-100 w-100 row">
 
-      	<!--  Container -->
-      	<div class="container-fluid col-lg-6 col-md-6 col-sm-12 col-xs-12 offset-lg-3 offset-md-3 my-auto text-white">
+	<!-- Page Content -->
+	<div class="h-100 w-100 row">
 
-	        <form method="POST" class=" p-3 border rounded" id="incomingrepair-form">
+		<!--  Container -->
+		<div class="container-fluid col-lg-6 col-md-6 col-sm-12 col-xs-12 offset-lg-3 offset-md-3 my-auto text-white">
 
-	          <div class="form-group text-center">
+			<button class="btn btn-default text-white" onclick="(window).close()"><i class="fa fa-arrow-left"></i>Go back</button>
+			<form method="POST" class=" p-3 border rounded" id="incomingrepair-form">
+				<div class="form-group text-center">
+					<p class="h3"><i class="fa fa-wrench" aria-hidden="true"></i> Repair Adding Form</p>
+				</div>
+				<div class="form-group">
+					<input type="hidden" class="form-control" name="action" id="action" value="addWalk-inRepair">
+				</div>
 
-	            <p class="h3"><i class="fa fa-wrench" aria-hidden="true"></i> Repair Adding Form</p>
+				<div class="form-group">
+					<input type="hidden" class="form-control" name="statusupdate_useraccount_id" id="statusupdate_useraccount_id" value="<?php echo $_SESSION['useraccount_id']; ?>">
+				</div>
 
-	          </div>
+				<div>
+					<input type="hidden" class="form-control" name="itshw_category" id="itshw_category" value="walk-in">
+				</div>
 
-	          <div class="form-group">
-				<input type="hidden" class="form-control" name="action" id="action" value="addWalk-inRepair">
-			  </div>
+				<div class="form-group">
 
-			  <div class="form-group">
-				<input type="hidden" class="form-control" name="statusupdate_useraccount_id" id="statusupdate_useraccount_id" value="<?php echo $_SESSION['useraccount_id']; ?>">
-			  </div>
+					<select class="form-control" id="dept_id" name="dept_id">
 
-			  <div>
-			  	<input type="hidden" class="form-control" name="itshw_category" id="itshw_category" value="walk-in">
-			  </div>
+						<option value=""> -- Select Department -- </option>
 
-	          <div class="form-group">
+						<?php
+						foreach ($departments as $key => $value) {
+						?>
+							<option value="<?= $value['dept_id'] ?>"> <?= $value['dept_code'] ?> </option>
+						<?php
+						}
+						?>
 
-	            <select class="form-control" id="dept_id" name="dept_id">
+					</select>
 
-	              <option value="" > -- Select Department -- </option>
+				</div>
 
-	              <?php
-	              foreach ($departments as $key => $value) {
-	              ?>
-	                <option value="<?=$value['dept_id']?>"> <?=$value['dept_code']?> </option>
-	              <?php
-	              }
-	              ?>
+				<div class="form-group">
 
-	            </select>
+					<select class="form-control" id="emp_id" name="emp_id">
 
-	          </div>
+					</select>
 
-	          <div class="form-group">
+				</div>
 
-		        <select class="form-control" id="emp_id" name="emp_id">
+				<div class="form-group request_category" style="display: none">
 
-	            </select>
+					<select class="form-control" id="itsrequest_category" name="itsrequest_category">
 
-	      	  </div>
+						<option value=""> -- Select Request Category -- </option>
+						<option value="hw"> Hardware </option>
+						<option value="other"> Other </option>
 
-	          <div class="form-group request_category" style="display: none">
+					</select>
 
-	            <select class="form-control" id="itsrequest_category" name="itsrequest_category">
+				</div>
 
-	              <option value=""> -- Select Request Category -- </option>
-	              <option value="hw"> Hardware </option>
-	              <option value="other"> Other </option>
+				<div id="hw_category" style="display: none">
 
-	            </select>
+					<div class="form-group">
 
-	          </div>
+						<select class="form-control" id="hwcomponent_id" name="hwcomponent_id">
 
-	          <div id="hw_category" style="display: none">
+							<option value=""> -- Select Hardware -- </option>
 
-	            <div class="form-group">
+							<?php
+							foreach ($hardwarecomponents as $key => $value) {
+							?>
+								<option value="<?= $value['hwcomponent_id'] ?>"> <?= $value['hwcomponent_name'] ?> </option>
+							<?php
+							}
+							?>
 
-		            <select class="form-control" id="hwcomponent_id" name="hwcomponent_id">
+						</select>
 
-		              <option value=""> -- Select Hardware -- </option>
-		              
-		              <?php
-		              foreach ($hardwarecomponents as $key => $value) {
-		              ?>
-		                <option value="<?=$value['hwcomponent_id']?>"> <?=$value['hwcomponent_name']?> </option>
-		              <?php
-		              }
-		              ?>
+					</div>
 
-		            </select>
+					<div class="form-group property_num">
 
-		        </div>
-
-		        <div class="form-group property_num">
-
-		        	<select class="form-control" id="hwcomponent_subcategory" name="hwcomponent_subcategory">
-		            </select>
+						<select class="form-control" id="hwcomponent_subcategory" name="hwcomponent_subcategory">
+						</select>
 
 
-		        </div>
+					</div>
 
-		        <div class="form-group property_num">
+					<div class="form-group property_num">
 
-		        	<input type="text" name="property_num" id="property_num" class="form-control" placeholder="Property Number">
+						<input type="text" name="property_num" id="property_num" class="form-control" placeholder="Property Number">
 
-		        </div>
+					</div>
 
-	          </div>
+				</div>
 
-	          <div class="form-group">
-	          	<label for="concern">Concern:</label>
-	            <textarea class="form-control" id="concern" name="concern"></textarea>
+				<div class="form-group">
+					<label for="concern">Concern:</label>
+					<textarea class="form-control" id="concern" name="concern"></textarea>
 
-	          </div>
-	  
-	          <div class="row">
-	            <div class="col text-center">
+				</div>
 
-	              <button type="submit" class="btn btn-primary" id="submit-btn">Add Repair</button>
-	      
-	            </div>
-	          </div>
+				<div class="row">
+					<div class="col text-center">
 
-	        </form>
+						<button type="submit" class="btn btn-primary" id="submit-btn">Add Repair</button>
 
-      </div>
-      <!--/# Container -->
+					</div>
+				</div>
+
+			</form>
+
+		</div>
+		<!--/# Container -->
 
 	</div>
 	<!-- /# Page Content -->
@@ -194,63 +190,67 @@ $hardwarecomponents = $control->getHardwareComponentsByCategory('main');
 </html>
 
 <script type="text/javascript">
+	$(document).ready(function() {
 
-$(document).ready(function(){
+		$('#request_category').show();
+		$('#hw_category').show();
+		$('#itsrequest_category').val('hw');
 
-    $('#request_category').show();
-    $('#hw_category').show();
-    $('#itsrequest_category').val('hw');
+		$('#dept_id').change(function() {
+			var action = 'getEmployeesByDepartment';
+			var dept_id = $(this).val();
+			$.ajax({
+				url: "../config/processors/requestArguments.php",
+				type: "POST",
+				data: {
+					action: action,
+					dept_id: dept_id
+				},
+			}).done(function(employees) {
+				employees = JSON.parse(employees);
+				$('#emp_id').empty();
+				$('#emp_id').append('<option value = "">' + '-- Select Employee --' + '</option>');
+				employees.forEach(function(employee) {
+					$('#emp_id').append('<option value = ' + employee.emp_id + '>' + employee.emp_fname + ' ' + employee.emp_lname + '</option>')
+				});
+			});
+		});
 
-	$('#dept_id').change(function(){
-    var action = 'getEmployeesByDepartment';
-    var dept_id = $(this).val();
-      $.ajax({
-        url: "../config/processors/requestArguments.php",
-        type: "POST",
-        data: { action:action, dept_id:dept_id},
-      }).done(function(employees){   
-        employees = JSON.parse(employees);
-        $('#emp_id').empty();
-        $('#emp_id').append('<option value = "">'+ '-- Select Employee --' +'</option>');
-        employees.forEach(function(employee){
-        	$('#emp_id').append('<option value = '+ employee.emp_id +'>'+ employee.emp_fname + ' ' + employee.emp_lname +'</option>')
-     	 });
-      });        
-    });
+		$('#hwcomponent_id').change(function() {
+			var action = 'getHardwareComponentsBySubCategory';
+			var hwcomponent_id = $(this).val();
 
-	$('#hwcomponent_id').change(function(){
-    var action = 'getHardwareComponentsBySubCategory';
-    var hwcomponent_id = $(this).val();
+			$.ajax({
+				url: "../config/processors/requestArguments.php",
+				type: "POST",
+				data: {
+					action: action,
+					hwcomponent_id: hwcomponent_id
+				},
+			}).done(function(components) {
 
-      $.ajax({
-        url: "../config/processors/requestArguments.php",
-        type: "POST",
-        data: { action:action, hwcomponent_id:hwcomponent_id},
-      }).done(function(components){  
+				components = JSON.parse(components);
+				$('#hwcomponent_subcategory').empty();
+				$('#hwcomponent_subcategory').append('<option value = "">' + '-- Select Specific Hardware Component(Optional) --' + '</option>');
+				components.forEach(function(components) {
+					$('#hwcomponent_subcategory').append('<option value = ' + components.hwcomponent_id + '>' + components.hwcomponent_name + '</option>')
+				});
+			});
+		});
 
-        components = JSON.parse(components);
-        $('#hwcomponent_subcategory').empty();
-        $('#hwcomponent_subcategory').append('<option value = "">'+ '-- Select Specific Hardware Component(Optional) --' +'</option>');
-        components.forEach(function(components){
-        	$('#hwcomponent_subcategory').append('<option value = '+ components.hwcomponent_id +'>'+ components.hwcomponent_name +'</option>')
-     	 });
-      });        
-    });
+		$('#incomingrepair-form').submit(function(e) {
+			e.preventDefault();
 
-    $('#incomingrepair-form').submit(function(e){
-	 	e.preventDefault();
+			$.ajax({
+				url: "../config/processors/requestArguments.php",
+				type: "POST",
+				data: $(this).serialize(),
+			}).done(function(val) {
+				alert(val);
+				window.close();
+			});
 
-	 	$.ajax({
-          	url: "../config/processors/requestArguments.php",
-          	type: "POST",
-          	data: $(this).serialize(),
-        }).done(function(val){
-        	alert(val);
-        	window.close();
-        });
+		});
 
 	});
-
-});
-	
 </script>
