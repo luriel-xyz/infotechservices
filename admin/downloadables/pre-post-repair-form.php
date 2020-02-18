@@ -1,3 +1,41 @@
+<?php
+
+session_start();
+
+//include database connection
+require_once('../../config/db_connection.php');
+
+//include file containing queries
+include_once "../../config/controllers/controller.php";
+
+//instantiate controller
+$control = new Controller();
+
+if (!isset($_SESSION["username"])) {
+	//redirect to login page
+	header('Location: ../login.php');
+	return;
+}
+
+if (!isset($_POST['data'])) {
+	header('Location: ../incoming-repairs.php');
+	return;
+}
+
+$data = json_decode($_POST['data']);
+$issuedTo = $control->getEmployee($data->issued_to);
+$requestedBy = $control->getEmployee($data->requested_by);
+$preInspectedBy = $control->getEmployee($data->pre_inspected_by);
+$preInspectedDate = $data->pre_inspected_date;
+$preRecommendingApproval = $control->getEmployee($data->pre_recommending_approval);
+$preApproved = $control->getEmployee($data->pre_approved);
+
+$postInspectedBy = $control->getEmployee($data->post_inspected_by);
+$postInspectedDate = $data->post_inspected_date;
+$postRecommendingApproval = $control->getEmployee($data->post_recommending_approval);
+$postApproved = $control->getEmployee($data->post_approved);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,9 +55,23 @@
 	<!-- Jquery Redirect JavaScript -->
 	<script src="../../plug-ins/jquery/jquery.redirect.js"></script>
 </head>
+
 <body>
 	<div class="container py-5">
 		<div class="inspection-report">
+			<!-- Floating buttons -->
+			<div class="floating-buttons">
+				<!-- Don't Print Button -->
+				<a href="../../admin/incoming-repairs.php" class="btn btn-sm btn-do-not-print btn-secondary" role="button">
+					<i class="fa fa-arrow-left fa-fw"></i>
+					Cancel
+				</a>
+				<!-- /# Don't Print Button -->
+				<!-- Print Button -->
+				<button class="btn btn-sm btn-print btn-info" onclick="window.print()"><i class="fa fa-print fa-fw"></i>Print</button>
+				<!-- /# Print Button -->
+			</div>
+			<!-- /# Floating buttons -->
 			<!-- Propery plant and equipment section -->
 			<div class="row">
 				<!--  -->
@@ -36,7 +88,7 @@
 				<!-- /# -->
 				<div class="col-md-3 offset-md-8 text-right">
 					<div class="pgo-it-file font-weight-bold red--text">PGO - IT FILE</div>
-					<div class="to">TO: ____________</div>
+					<div class="to">TO: <span class="underlined"><?= $data->to ?></span></div>
 				</div>
 			</div>
 			<!-- Form Title -->
@@ -45,26 +97,26 @@
 			<!--  -->
 			<div class="d-flex justify-content-end">
 				<div class="d-flex flex-column mr-2">
-					<span class="font-size-small">Control No.:______________</span>
-					<span class="font-size-small">Date:</span>
+					<span class="font-size-small">Control No.: <span class="underlined"><?= $data->control_number ?></span></span>
+					<span class="font-size-small">Date: <span class="font-weight-bold"><?= $data->date ?></span></span>
 				</div>
 			</div>
 			<!-- /# -->
 			<h2 class="subtitle-1 text-uppercase">Propery Plant And Equipment</h2>
-			<div class="mt-2">
-				<div class="text-uppercase font-size-small">type:</div>
-				<div class="text-uppercase font-size-small">model:</div>
-				<div class="text-uppercase font-size-small">propery number:</div>
-				<div class="text-uppercase font-size-small">serial number:</div>
-				<div class="text-uppercase font-size-small">acquisition date:</div>
-				<div class="text-uppercase font-size-small">acquisition cost:</div>
-				<div class="text-uppercase font-size-small">issued to:</div>
+			<div class="mt-2 w-25">
+				<div class="text-uppercase font-size-small d-flex justify-content-between">type: <span class="font-weight-bold underlined"><?= $data->type ?></span></div>
+				<div class="text-uppercase font-size-small d-flex justify-content-between">model: <span class="font-weight-bold underlined"><?= $data->model ?></span></div>
+				<div class="text-uppercase font-size-small d-flex justify-content-between">propery number: <span class="font-weight-bold underlined"><?= $data->property_number ?></span></div>
+				<div class="text-uppercase font-size-small d-flex justify-content-between">serial number: <span class="font-weight-bold underlined"><?= $data->serial_number ?></span></div>
+				<div class="text-uppercase font-size-small d-flex justify-content-between">acquisition date: <span class="font-weight-bold underlined"><?= $data->acquisition_date ?></span></div>
+				<div class="text-uppercase font-size-small d-flex justify-content-between">acquisition cost: <span class="font-weight-bold underlined"><?= $data->acquisition_cost ?></span></div>
+				<div class="text-uppercase font-size-small d-flex justify-content-between">issued to: <span class="font-weight-bold underlined"><?= $issuedTo['emp_fname'] . ' ' . $issuedTo['emp_lname'] ?></span></div>
 			</div>
 			<!-- Requested by -->
 			<div class="d-flex justify-content-end mt-3">
 				<div>
 					<div class="signed-by">Requested by:</div>
-					<div class="name">FirstName M.I. LastName</div>
+					<div class="name text-center"><?= "{$requestedBy['emp_fname']} {$requestedBy['emp_lname']}" ?></div>
 					<div class="position">Position</div>
 				</div>
 			</div>
@@ -82,32 +134,36 @@
 				</li>
 				<li>
 					<span class="subtitle-2">Parts to be replaced and / or procured:</span>
-					<div class="container-fluid">
-						<table class="table table-bordered mt-3 parts-to-replace">
-							<thead>
-								<tr>
-									<th class="text-uppercase">QTY</th>
-									<th class="text-capitalize">Unit</th>
-									<th class="text-capitalize">Particulars / Description</th>
-									<th class="text-capitalize">Amount</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>1</td>
-									<td>pc</td>
-									<td>Memory Module, 4GB DDR3 1133-1666 MHz etc.</td>
-									<td>1,580.00</td>
-								</tr>
-								<tr>
-									<td>1</td>
-									<td>pc</td>
-									<td>Memory Module, 4GB DDR3 1133-1666 MHz etc.</td>
-									<td>1,400.00</td>
-								</tr>
-							</tbody>
-						</table>
+					<!-- Tables row -->
+					<div class="container-fluid row">
+						<!-- Parts Table -->
+						<div class="col-6">
+							<?php if (count($data->parts)) : ?>
+								<table class="table table-bordered mt-3 parts-to-replace">
+									<thead>
+										<tr>
+											<th class="text-uppercase">QTY</th>
+											<th class="text-capitalize">Unit</th>
+											<th class="text-capitalize">Particulars / Description</th>
+											<th class="text-capitalize">Amount</th>
+										</tr>
+									</thead>
+									<tbody>
+										<?php foreach ($data->parts as $part) : ?>
+											<tr class="text-center">
+												<td><?= $part->qty ?></td>
+												<td><?= $part->unit ?></td>
+												<td><?= $part->particularsDescriptions ?></td>
+												<td><?= $part->amount ?></td>
+											</tr>
+										<?php endforeach;	 ?>
+									</tbody>
+								</table>
+							<?php endif; ?>
+						</div>
+						<!-- /# Parts Table -->
 					</div>
+					<!-- /# Tables row -->
 				</li>
 			</ol>
 			<!-- /# Psre-repair inspection list -->
@@ -116,9 +172,9 @@
 				<div class="d-flex">
 					<div class="mt-3">
 						<div class="signed-by">Pre-inspected by:</div>
-						<div class="name">FirstName M.I. LastName</div>
-						<div class="position">Position</div>
-						<div class="date">Date: ______________</div>
+						<div class="name text-center"><?= "{$preInspectedBy['emp_fname']} {$preInspectedBy['emp_lname']}" ?></div>
+						<div class="position"></div>
+						<div class="date">Date: <span class="font-weight-bold"><?= $preInspectedDate ?></span></div>
 					</div>
 				</div>
 				<!-- /# Pre-inspected by -->
@@ -126,7 +182,7 @@
 				<div class="d-flex">
 					<div class="mt-3">
 						<div class="signed-by">Recommending Approval:</div>
-						<div class="name">FirstName M.I. LastName</div>
+						<div class="name text-center"><?= "{$preRecommendingApproval['emp_fname']} {$preRecommendingApproval['emp_lname']}" ?></div>
 						<div class="position">Position</div>
 					</div>
 				</div>
@@ -134,9 +190,9 @@
 			</div>
 			<!-- Approved -->
 			<div class="d-flex justify-content-end mt-3">
-				<div>
+				<div class="text-center">
 					<div class="signed-by">Approved:</div>
-					<div class="name">FirstName M.I. LastName</div>
+					<div class="name"><?= "{$preApproved['emp_fname']} {$preApproved['emp_lname']}" ?></div>
 					<div class="position">Position</div>
 				</div>
 			</div>
@@ -157,16 +213,17 @@
 				<div class="d-flex ml-2 align-items-center">
 					<div class="checkbox"></div>
 					<span class="checkbox-label font-weight-bold mr-2">ICS Number: </span>
-					<span class="caption">1011-1234</span>
+					<span class="caption"><?= $data->ics_number ?></span>
 				</div>
 				<div class="d-flex ml-2 align-items-center mt-1">
 					<div class="checkbox"></div>
 					<span class="checkbox-label font-weight-bold mr-2">Inventory Item No:</span>
-					<span class="caption">1011-4323</span>
+					<span class="caption"><?= $data->inventory_item_number ?></span>
 				</div>
 				<div class="d-flex ml-2 align-items-center mt-1">
 					<div class="checkbox"></div>
-					<span class="checkbox-label font-weight-bold">S/N:</span>
+					<span class="checkbox-label font-weight-bold mr-2">S/N:</span>
+					<span class="caption"><?= $data->serial_number ?></span>
 				</div>
 			</div>
 			<!--  -->
@@ -190,8 +247,9 @@
 				<div class="d-flex">
 					<div class="mt-3">
 						<div class="signed-by">Post-inspected by:</div>
-						<div class="name">FirstName M.I. LastName</div>
+						<div class="name text-center"><?= "{$postInspectedBy['emp_fname']} {$postInspectedBy['emp_lname']}" ?></div>
 						<div class="position">Position</div>
+						<div class="date">Date: <span class="font-weight-bold"><?= $postInspectedDate ?></span></div>
 					</div>
 				</div>
 				<!-- /# Post-inspected by -->
@@ -199,7 +257,7 @@
 				<div class="d-flex">
 					<div class="mt-3">
 						<div class="signed-by">Recommending Approval:</div>
-						<div class="name">FirstName M.I. LastName</div>
+						<div class="name text-center"><?= "{$postRecommendingApproval['emp_fname']} {$postRecommendingApproval['emp_lname']}" ?></div>
 						<div class="position">Position</div>
 					</div>
 				</div>
@@ -207,9 +265,9 @@
 			</div>
 			<!-- Approved approval -->
 			<div class="d-flex justify-content-end">
-				<div class="mt-3">
+				<div class="mt-3 text-center">
 					<div class="signed-by">Approved:</div>
-					<div class="name">FirstName M.I. LastName</div>
+					<div class="name"><?= "{$postApproved['emp_fname']} {$postApproved['emp_lname']}" ?></div>
 					<div class="position">Position</div>
 				</div>
 			</div>
@@ -222,4 +280,5 @@
 		})
 	</script>
 </body>
+
 </html>

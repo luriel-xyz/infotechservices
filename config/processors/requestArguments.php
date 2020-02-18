@@ -177,6 +177,10 @@ if (isset($_POST['action'])) {
 		echo $result;
 	}
 
+	if ($_POST['action'] === 'addInspectionReport') {
+		echo 'good';
+	}
+
 	if ($_POST['action'] === 'statusPreInspected') {
 
 		$itsrequest_id = $_POST['itsrequest_id'];

@@ -132,9 +132,6 @@ class Controller
 			$qry = "SELECT * FROM employee_tbl INNER JOIN department_tbl ON employee_tbl.dept_id=department_tbl.dept_id";
 			if ($con->query($qry)) {
 				$result = $con->query($qry);
-				if ($result->num_rows == 0) {
-					return 0;
-				}
 				$users = array();
 				while ($row = $result->fetch_assoc()) {
 					$users[] = $row;
@@ -147,19 +144,8 @@ class Controller
 			$qry = "SELECT * FROM employee_tbl INNER JOIN department_tbl ON employee_tbl.dept_id=department_tbl.dept_id WHERE emp_id = '" . $emp_id . "' ";
 
 			if ($con->query($qry)) {
-
-				$result1 = $con->query($qry);
-				if ($result1->num_rows == 0) {
-					return $result1->num_rows;
-				}
-
-				$users = array();
-
-				while ($row = $result1->fetch_assoc()) {
-					$users[] = $row;
-				}
-
-				return $users;
+				$result = $con->query($qry);
+				return $result->fetch_assoc();
 			} else {
 				return false;
 			}
