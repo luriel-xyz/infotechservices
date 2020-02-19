@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 17, 2020 at 01:48 AM
+-- Generation Time: Feb 19, 2020 at 01:29 AM
 -- Server version: 10.1.29-MariaDB
 -- PHP Version: 7.2.0
 
@@ -208,10 +208,7 @@ INSERT INTO `itservices_request_tbl` (`itsrequest_id`, `dept_id`, `emp_id`, `its
 (6, 8, 15, '2020-02-04 16:55:27', 'Paper Jam', 'deployed', 40, 'hw', 24, 0, 'pulled-out', 'PN213232', 'OK replaced\r\n', '2020-02-12 09:24:12'),
 (7, 8, 13, '2020-02-05 14:48:59', 'Paper Jam', 'done', 40, 'hw', 24, 0, 'pulled-out', 'PNsfds13213', '', NULL),
 (8, 8, 16, '2020-02-10 15:18:46', 'Layout Tarp 12x12', 'done', 40, 'other', NULL, 0, '', NULL, '', NULL),
-(9, 1, 19, '2020-02-10 15:42:40', 'asdf', 'done', 40, 'hw', 25, 39, 'walk-in', 'PN213232', '', NULL),
 (10, 8, 14, '2020-02-10 15:51:49', 'Paper Jam', 'deployed', 40, 'hw', 24, 0, 'pulled-out', 'PNprinter23213', '', '2020-02-11 10:55:36'),
-(11, 1, 19, '2020-02-10 15:56:37', 'dasda', 'done', 40, 'hw', 23, 29, 'walk-in', 'PNsjadhas', 'TEST', NULL),
-(14, 8, 15, '2020-02-11 11:00:26', 'something here', 'done', 1, 'hw', 26, 0, 'on-site', NULL, 'solution....\r\n', NULL),
 (15, 8, 36, '2020-02-11 11:02:09', 'testing', 'done', 40, 'other', NULL, 0, '', NULL, 'amazing solution\r\n', NULL),
 (17, 8, 13, '2020-02-11 11:29:08', 'the concern', 'deployed', 40, 'hw', 27, 0, 'pulled-out', '12312213123', '', '2020-02-12 08:28:14'),
 (18, 8, 36, '2020-02-11 11:57:43', '', 'done', 40, 'other', NULL, 0, '', NULL, '', NULL),
@@ -242,7 +239,6 @@ INSERT INTO `itservices_request_tbl` (`itsrequest_id`, `dept_id`, `emp_id`, `its
 (44, 8, 13, '2020-02-16 11:20:08', 'asdfasdfadsf', 'assessed', 40, 'hw', 24, 0, 'pulled-out', 'adfsdaf', NULL, NULL),
 (45, 8, 14, '2020-02-16 11:35:19', 'ho', 'assessed', 40, 'hw', 24, 0, 'pulled-out', 'sdf2', NULL, NULL),
 (46, 8, 13, '2020-02-16 11:51:32', 'adsf', 'pre-repair inspected', 40, 'hw', 25, 0, 'pulled-out', 'lll', NULL, NULL),
-(47, 8, 16, '2020-02-16 11:52:17', 'wrger', 'pending', 40, 'hw', 26, 0, 'pulled-out', 'eyey', NULL, NULL),
 (48, 8, 13, '2020-02-16 16:43:43', 'asdfasdff heheh heheh ', 'assessed', 40, 'hw', 25, 0, 'pulled-out', 'prop num!', NULL, NULL);
 
 -- --------------------------------------------------------
@@ -464,7 +460,7 @@ ALTER TABLE `department_tbl`
 -- AUTO_INCREMENT for table `employee_tbl`
 --
 ALTER TABLE `employee_tbl`
-  MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `hardwarecomponent_tbl`

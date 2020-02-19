@@ -175,14 +175,14 @@ class Controller
 	}
 
 	/* Add Employee */
-	public function addEmployee($dept_id, $emp_idnum, $emp_fname, $emp_lname)
+	public function addEmployee($dept_id, $emp_idnum, $emp_fname, $emp_lname, $emp_position)
 	{
 		global $con;
 
 		$msg = "Please try again!";
 
-		$qry = $con->prepare("INSERT INTO employee_tbl (dept_id,emp_idnum,emp_fname,emp_lname) VALUES (?,?,?,?)");
-		$qry->bind_param('isss', $dept_id, $emp_idnum, $emp_fname, $emp_lname);
+		$qry = $con->prepare("INSERT INTO employee_tbl (dept_id,emp_idnum,emp_fname,emp_lname,emp_position) VALUES (?,?,?,?,?)");
+		$qry->bind_param('issss', $dept_id, $emp_idnum, $emp_fname, $emp_lname, $emp_position);
 		if ($qry->execute()) {
 			$msg = "Employee Added!";
 		}

@@ -34,7 +34,7 @@ if (isset($_POST['action'])) {
 		$username = $_POST['username'];
 		$password = $_POST['password'];
 
-		$pass = $control->addPersonnelUserAccount($usertype, $emp_id, $username, $password);
+		$pass = $control->addPersonnelUserAccount($usertype, $emp_id, $username, $password); 
 
 		echo $pass;
 	}
@@ -45,8 +45,9 @@ if (isset($_POST['action'])) {
 		$emp_idnum = $_POST['emp_idnum'];
 		$emp_fname = $_POST['fname'];
 		$emp_lname = $_POST['lname'];
+		$emp_position = $_POST['position'];
 
-		$pass = $control->addEmployee($dept_id, $emp_idnum, $emp_fname, $emp_lname);
+		$pass = $control->addEmployee($dept_id, $emp_idnum, $emp_fname, $emp_lname, $emp_position);
 
 		echo $pass;
 	}
