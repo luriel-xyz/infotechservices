@@ -34,6 +34,7 @@ $postInspectedBy = $control->getEmployee($data->post_inspected_by);
 $postInspectedDate = $data->post_inspected_date;
 $postRecommendingApproval = $control->getEmployee($data->post_recommending_approval);
 $postApproved = $control->getEmployee($data->post_approved);
+
 ?>
 
 <!DOCTYPE html>

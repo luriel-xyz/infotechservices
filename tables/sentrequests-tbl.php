@@ -1,12 +1,10 @@
-<?php
-//if users is empty
-if ($requests == 0 || $requests == false) {
-?>
+<!-- if requests is empty -->
+<?php if (!$requests) { ?>
   <div class="alert alert-info text-center">
     <?php echo "No Request Sent!"; ?>
   </div>
 <?php
-  //if not empty
+//if not empty
 } else {
 ?>
   <table class="table table-bordered text-center">
@@ -22,12 +20,12 @@ if ($requests == 0 || $requests == false) {
     </thead>
     <tbody id="table_body">
       <?php
-      $ctr = 1;
-      foreach ($requests as $key => $value) {
+      $id = 1;
+      foreach ($requests as $value) {
         $component = $control->getHardwareComponents($value['hwcomponent_sub_id']);
       ?>
         <tr>
-          <td> <?= $ctr ?> </td>
+          <td> <?= $id ?> </td>
           <td> <?= $value['itsrequest_date'] ?> </td>
           <td> <?= $value['dept_code'] ?> </td>
           <td> <?= $value['emp_fname'] ?> <?= $value['emp_lname'] ?> </td>
@@ -48,7 +46,7 @@ if ($requests == 0 || $requests == false) {
           <td> <?= $value['status'] ?> </td>
           <td>
             <?php
-            if ($value['statusupdate_useraccount_id'] != "") {
+            if ($value['statusupdate_useraccount_id']) {
               $techRepEmployee = $control->getUserAccount($value['statusupdate_useraccount_id']);
               echo $techRepEmployee['emp_fname'] . ' ' . $techRepEmployee['emp_lname'];
             }
@@ -71,7 +69,7 @@ if ($requests == 0 || $requests == false) {
           </td>
         </tr>
       <?php
-        $ctr += 1;
+        $id += 1;
       }
       ?>
     </tbody>

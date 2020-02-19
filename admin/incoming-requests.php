@@ -326,7 +326,6 @@ $depts = $control->getDepartment();
 			},
 			dataType: 'JSON',
 		}).done(function(request) {
-
 			$('#modalView').modal('toggle');
 			if (request.status === 'received') {
 				$('#data').append('<label class="font-weight-bold text-info">' + request.status + '</label><br>');
@@ -352,8 +351,6 @@ $depts = $control->getDepartment();
 					$('#data').append('<label class="font-weight-bold">' + request.property_num + '</label><br>');
 				}
 			}
-
-
 		});
 
 
