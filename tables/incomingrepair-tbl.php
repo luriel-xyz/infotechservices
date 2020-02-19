@@ -56,7 +56,7 @@ if (!$repairs) {
             <?php
             } else if ($repair['status'] == 'pending') {
               $techRepEmployee = $control->getUserAccount($repair['statusupdate_useraccount_id']);
-              $dept_id = $techRepEmployee[0]['dept_id'];
+              $dept_id = $techRepEmployee['dept_id'];
             ?>
               <button type="button" class="btn btn-assessment btn-danger assess" data-toggle="tooltip" title="For Assessment" id="<?= $repair['itsrequest_id'] ?>" data-useraccount_id="<?= $_SESSION['useraccount_id'] ?>" data-hwcomponent_id="<?= $repair['hwcomponent_id'] ?>" data-dept_id="<?= $repair['dept_id'] ?>"><i class="fa fa-file-text-o" aria-hidden="true"></i></button>
               <button type="button" class="btn btn-success done" data-toggle="tooltip" title="Done" id="<?= $repair['itsrequest_id'] ?>" data-id="<?= $_SESSION['useraccount_id'] ?>"><i class="fa fa-check" aria-hidden="true"></i></button>
