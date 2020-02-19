@@ -88,7 +88,7 @@ $hardwareComponents = $control->getHardwareComponentsByCategory('main');
         ) : ?>
           <a href="#settingsSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle list-group-item list-group-item-action bg-secondary text-light"><i class="fa fa-cog" aria-hidden="true"></i> Settings</a>
           <ul class="collapse list-unstyled" id="settingsSubmenu">
-            <li><a href="settings/user-accounts.php" class="list-group-item list-group-item-action text-white border-bottom" style="background-color: #adb5bd">User Accounts <i class="fa fa-users fa-fw"></i></a></li>
+            <li><a href="settings/user-accounts.php" class="list-group-item list-group-item-action text-white bo*rder-bottom" style="background-color: #adb5bd">User Accounts</a></li>
             <li><a href="settings/employees.php" class="list-group-item list-group-item-action text-white border-bottom" style="background-color: #adb5bd">Employees</a></li>
             <li><a href="settings/departments.php" class="list-group-item list-group-item-action text-white border-bottom" style="background-color: #adb5bd">Departments</a></li>
             <li><a href="settings/hardware-components.php" class="list-group-item list-group-item-action text-white" style="background-color: #adb5bd">Hardware Components</a></li>

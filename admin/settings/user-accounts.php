@@ -145,8 +145,8 @@ $useraccounts = $control->getUserAccount();
 						<div class="input-group">
 							<input type="text" class="form-control " id="search" placeholder="Search">
 							<div class="input-group-append">
-								<button type="button" class="btn btn-primary" id="addPersonnelAccount" data-toggle="tooltip" title="Add Personnel Account"><i class="fa fa-user-plus fa-fw" aria-hidden="true"></i>Admin</button>
-								<button type="button" class="btn btn-primary" id="addDeptAccount" data-toggle="tooltip" title="Add Department Account"><i class="fa fa-user-plus fa-fw" aria-hidden="true"></i>Department</button>
+								<button type="button" class="btn btn-primary mr-1" style="font-size: small" id="addPersonnelAccount" data-toggle="tooltip" title="Add Personnel Account"><i class="fa fa-user-plus fa-fw" aria-hidden="true"></i>Admin</button>
+								<button type="button" class="btn btn-primary" style="font-size: small" id="addDeptAccount" data-toggle="tooltip" title="Add Department Account"><i class="fa fa-user-plus fa-fw" aria-hidden="true"></i>Department</button>
 							</div>
 						</div>
 					</div>
