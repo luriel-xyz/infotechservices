@@ -68,7 +68,6 @@ $hardwareComponents = $control->getHardwareComponentsByCategory('main');
 
   <!-- Jquery Redirect JavaScript -->
   <script src="../plug-ins/jquery/jquery.redirect.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 </head>
 
 <body class="h-100 w-100">

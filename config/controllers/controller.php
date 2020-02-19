@@ -2,6 +2,7 @@
 
 /* File containing all query functions */
 
+
 class Controller
 {
 

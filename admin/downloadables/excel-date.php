@@ -71,9 +71,7 @@ header("Cache-Control: private",false);
       foreach ($requests as $key => $value) {
         if($value['statusupdate_useraccount_id'] !== NULL){
           $technician = $control->getUserAccount($value['statusupdate_useraccount_id']);
-          foreach ($technician as $key => $val) {
-            $tech_name = $val['emp_fname'].' '.$val['emp_lname'];
-          }
+          $tech_name = $technician['emp_fname'].' '.$technician['emp_lname'];
         }else{
           $tech_name = "";
         }

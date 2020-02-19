@@ -22,64 +22,64 @@ if (!$requests) {
     <tbody id="table_body">
       <?php
       $id = 1;
-      foreach ($requests as $value) {
-        $component = $control->getHardwareComponents($value['hwcomponent_sub_id']);
+      foreach ($requests as $request) {
+        $component = $control->getHardwareComponents($request['hwcomponent_sub_id']);
       ?>
         <tr>
           <td> <?= $id ?> </td>
-          <td> <?= $value['itsrequest_date'] ?> </td>
-          <td> <?= $value['dept_code'] ?> </td>
-          <td> <?= $value['emp_fname'] ?> <?= $value['emp_lname'] ?> </td>
+          <td> <?= date_format(date_create($request['itsrequest_date']), "M d, Y h:i a") ?> </td>
+          <td> <?= $request['dept_code'] ?> </td>
+          <td> <?= $request['emp_fname'] ?> <?= $request['emp_lname'] ?> </td>
           <td style="width:20%">
             <?php
-            if ($value['itsrequest_category'] == 'hw') {
+            if ($request['itsrequest_category'] == 'hw') {
               if ($component) {
-                echo $value['hwcomponent_name'] . '(' . $component['hwcomponent_name'] . ')' . ' -';
+                echo $request['hwcomponent_name'] . '(' . $component['hwcomponent_name'] . ')' . ' -';
               } else {
-                echo $value['hwcomponent_name'] . ' -';
+                echo $request['hwcomponent_name'] . ' -';
               }
             }
             ?>
 
-            <?= $value['concern'] ?>
+            <?= $request['concern'] ?>
 
           </td>
-          <td> <?= $value['status'] ?>
+          <td> <?= $request['status'] ?>
             <?php
-            if ($value['statusupdate_useraccount_id']) {
-              $userAccount = $control->getUserAccount($value['statusupdate_useraccount_id']);
+            if ($request['statusupdate_useraccount_id']) {
+              $userAccount = $control->getUserAccount($request['statusupdate_useraccount_id']);
               $techRepEmployee = $control->getEmployee($userAccount['emp_id']);
               echo 'by ' . '<b>' . $techRepEmployee['emp_fname'] . '</b>';
             }
             ?>
           </td>
           <td style="width:15%">
-            <button type="button" class="btn btn-info view" data-toggle="tooltip" title="View Details" id="<?= $value['itsrequest_id'] ?>"><i class="fa fa-eye" aria-hidden="true"></i></button>
+            <button type="button" class="btn btn-info view" data-toggle="tooltip" title="View Details" id="<?= $request['itsrequest_id'] ?>"><i class="fa fa-eye" aria-hidden="true"></i></button>
 
             <?php
-            if ($value['itsrequest_category'] == 'hw') {
+            if ($request['itsrequest_category'] == 'hw') {
 
-              if ($value['itshw_category'] == 'on-site') {
+              if ($request['itshw_category'] == 'on-site') {
 
-                if ($value['status'] === 'received') {
+                if ($request['status'] === 'received') {
             ?>
-                  <button type="button" class="btn btn-warning pending" data-toggle="tooltip" title="Go" id="<?= $value['itsrequest_id'] ?>" data-id="<?= $_SESSION['useraccount_id'] ?>"><i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i></button>
+                  <button type="button" class="btn btn-warning pending" data-toggle="tooltip" title="Go" id="<?= $request['itsrequest_id'] ?>" data-id="<?= $_SESSION['useraccount_id'] ?>"><i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i></button>
                 <?php
-                } else if ($value['status'] == 'pending') {
+                } else if ($request['status'] == 'pending') {
                 ?>
-                  <button type="button" class="btn btn-danger pullout" data-toggle="tooltip" title="Pullout" id="<?= $value['itsrequest_id'] ?>" data-id="<?= $_SESSION['useraccount_id'] ?>" hw-id="<?= $value['hwcomponent_id'] ?>"><i class="fa fa-hand-rock-o" aria-hidden="true"></i></button>
-                  <button type="button" class="btn btn-success done" data-toggle="tooltip" title="Done" id="<?= $value['itsrequest_id'] ?>" data-id="<?= $_SESSION['useraccount_id'] ?>"><i class="fa fa-check-circle-o" aria-hidden="true"></i></button>
+                  <button type="button" class="btn btn-danger pullout" data-toggle="tooltip" title="Pullout" id="<?= $request['itsrequest_id'] ?>" data-id="<?= $_SESSION['useraccount_id'] ?>" hw-id="<?= $request['hwcomponent_id'] ?>"><i class="fa fa-hand-rock-o" aria-hidden="true"></i></button>
+                  <button type="button" class="btn btn-success done" data-toggle="tooltip" title="Done" id="<?= $request['itsrequest_id'] ?>" data-id="<?= $_SESSION['useraccount_id'] ?>"><i class="fa fa-check-circle-o" aria-hidden="true"></i></button>
                 <?php
                 }
               }
-            } else if ($value['itsrequest_category'] == 'other') {
-              if ($value['status'] === 'received') {
+            } else if ($request['itsrequest_category'] == 'other') {
+              if ($request['status'] === 'received') {
                 ?>
-                <button type="button" class="btn btn-warning pending" data-toggle="tooltip" title="Do" id="<?= $value['itsrequest_id'] ?>" data-id="<?= $_SESSION['useraccount_id'] ?>"><i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i></button>
+                <button type="button" class="btn btn-warning pending" data-toggle="tooltip" title="Do" id="<?= $request['itsrequest_id'] ?>" data-id="<?= $_SESSION['useraccount_id'] ?>"><i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i></button>
               <?php
-              } else if ($value['status'] == 'pending') {
+              } else if ($request['status'] == 'pending') {
               ?>
-                <button type="button" class="btn btn-success done" data-toggle="tooltip" title="Done" id="<?= $value['itsrequest_id'] ?>" data-id="<?= $_SESSION['useraccount_id'] ?>"><i class="fa fa-check-circle-o" aria-hidden="true"></i></button>
+                <button type="button" class="btn btn-success done" data-toggle="tooltip" title="Done" id="<?= $request['itsrequest_id'] ?>" data-id="<?= $_SESSION['useraccount_id'] ?>"><i class="fa fa-check-circle-o" aria-hidden="true"></i></button>
             <?php
               }
             }
