@@ -325,36 +325,34 @@ $depts = $control->getDepartment();
 				itsrequest_id: itsrequest_id
 			},
 			dataType: 'JSON',
-		}).done(function(data) {
+		}).done(function(request) {
 
-			$.each(data, function(index, value) {
-				$('#modalView').modal('toggle');
-				if (value.status === 'received') {
-					$('#data').append('<label class="font-weight-bold text-info">' + value.status + '</label><br>');
-				} else if (value.status === 'pending') {
-					$('#data').append('<label class="font-weight-bold text-success">' + value.status + '</label><br>');
-				} else if (value.status === 'done') {
-					$('#data').append('<label class="font-weight-bold text-secondary">' + value.status + '</label><br>');
+			$('#modalView').modal('toggle');
+			if (request.status === 'received') {
+				$('#data').append('<label class="font-weight-bold text-info">' + request.status + '</label><br>');
+			} else if (request.status === 'pending') {
+				$('#data').append('<label class="font-weight-bold text-success">' + request.status + '</label><br>');
+			} else if (request.status === 'done') {
+				$('#data').append('<label class="font-weight-bold text-secondary">' + request.status + '</label><br>');
+			}
+
+			$('#data').append('<label class="font-weight-bold">' + request.itsrequest_date + '</label><br>');
+			$('#data').append('<label class="font-weight-bold">' + request.dept_code + '|' + request.emp_fname + ' ' + request.emp_lname + '</label><br>');
+			$('#data').append('<label class="font-weight-bold">' + request.concern + '</label><br>');
+
+			if (request.itsrequest_category == 'hw') {
+				$('#other-labels').append('<label> Repair Location: </label> <br>');
+				$('#data').append('<label class="font-weight-bold">' + request.itshw_category + '</label><br>')
+				$('#other-labels').append('<label> Hardware: </label> <br>');
+				$('#data').append('<label class="font-weight-bold">' + request.hwcomponent_name + '</label><br>')
+
+				if (request.itshw_category == 'pulled-out' || request.itshw_category == 'walk-in') {
+					;
+					$('#other-labels').append('<label> Property Number: </label> <br>');
+					$('#data').append('<label class="font-weight-bold">' + request.property_num + '</label><br>');
 				}
+			}
 
-				$('#data').append('<label class="font-weight-bold">' + value.itsrequest_date + '</label><br>');
-				$('#data').append('<label class="font-weight-bold">' + value.dept_code + '|' + value.emp_fname + ' ' + value.emp_lname + '</label><br>');
-				$('#data').append('<label class="font-weight-bold">' + value.concern + '</label><br>');
-
-				if (value.itsrequest_category == 'hw') {
-					$('#other-labels').append('<label> Repair Location: </label> <br>');
-					$('#data').append('<label class="font-weight-bold">' + value.itshw_category + '</label><br>')
-					$('#other-labels').append('<label> Hardware: </label> <br>');
-					$('#data').append('<label class="font-weight-bold">' + value.hwcomponent_name + '</label><br>')
-
-					if (value.itshw_category == 'pulled-out' || value.itshw_category == 'walk-in') {
-						;
-						$('#other-labels').append('<label> Property Number: </label> <br>');
-						$('#data').append('<label class="font-weight-bold">' + value.property_num + '</label><br>');
-					}
-				}
-
-			});
 
 		});
 
