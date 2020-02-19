@@ -214,19 +214,12 @@ class Controller
 		if ($hwcomponent_id == null) {
 			$qry = "SELECT * FROM hardwarecomponent_tbl";
 
-			if ($con->query($qry)) {
-
-				$result1 = $con->query($qry);
-				if ($result1->num_rows == 0) {
-					return $result1->num_rows;
-				}
-
+			$result = $con->query($qry);
+			if ($result) {
 				$components = array();
-
-				while ($row = $result1->fetch_assoc()) {
+				while ($row = $result->fetch_assoc()) {
 					$components[] = $row;
 				}
-
 				return $components;
 			} else {
 				return false;
@@ -234,23 +227,8 @@ class Controller
 		} else {
 			$qry = "SELECT * FROM hardwarecomponent_tbl WHERE hwcomponent_id = '" . $hwcomponent_id . "' ";
 
-			if ($con->query($qry)) {
-
-				$result1 = $con->query($qry);
-				if ($result1->num_rows == 0) {
-					return $result1->num_rows;
-				}
-
-				$components = array();
-
-				while ($row = $result1->fetch_assoc()) {
-					$components[] = $row;
-				}
-
-				return $components;
-			} else {
-				return false;
-			}
+			$result = $con->query($qry);
+			return $result ? $result->fetch_assoc() : false;
 		}
 	}
 
@@ -364,22 +342,10 @@ class Controller
 				return false;
 			}
 		} else {
-
 			$qry = "SELECT * FROM useraccount_tbl LEFT JOIN employee_tbl ON useraccount_tbl.emp_id=employee_tbl.emp_id LEFT JOIN department_tbl ON useraccount_tbl.dept_id=department_tbl.dept_id WHERE useraccount_tbl.useraccount_id = '" . $useraccount_id . "' ";
-			if ($con->query($qry)) {
-				$result = $con->query($qry);
-				if ($result->num_rows != 0) {
-					$users = array();
-					while ($row = $result->fetch_assoc()) {
-						$users[] = $row;
-					}
-					return $users;
-				} else {
-					return $result->num_rows;
-				}
-			} else {
-				return false;
-			}
+			$result = $con->query($qry);
+
+			return $result ? $result->fetch_assoc() : false;
 		}
 	}
 
@@ -510,22 +476,9 @@ class Controller
 				return false;
 			}
 		} else {
-
 			$qry = "SELECT * FROM itservices_request_tbl INNER JOIN employee_tbl ON itservices_request_tbl.emp_id=employee_tbl.emp_id INNER JOIN department_tbl ON itservices_request_tbl.dept_id=department_tbl.dept_id LEFT JOIN hardwarecomponent_tbl ON itservices_request_tbl.hwcomponent_id=hardwarecomponent_tbl.hwcomponent_id WHERE itsrequest_id = '" . $itsrequest_id . "' ";
-			if ($con->query($qry)) {
-				$result = $con->query($qry);
-				if ($result->num_rows == 1) {
-					$requests = array();
-					while ($row = $result->fetch_assoc()) {
-						$requests[] = $row;
-					}
-					return $requests;
-				} else {
-					return $result->num_rows;
-				}
-			} else {
-				return false;
-			}
+			$result = $con->query($qry);
+			return $result ? $result->fetch_assoc() : false;
 		}
 	}
 

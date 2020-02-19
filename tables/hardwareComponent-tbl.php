@@ -1,12 +1,12 @@
 <!-- if hardware components array is empty -->
-<?php if (!$hardware_components) : ?>
+<?php if (count($hardware_components) == 0) : ?>
   <div class="alert alert-info text-center">
     <?= "No Data Found!"; ?>
   </div>
   <!-- if not empty -->
 <?php else : ?>
   <table class="table table-bordered text-center">
-    <thead class="">
+    <thead>
       <th>#</th>
       <th>Hardware Component Name</th>
       <th>Hardware Component Type</th>
@@ -18,7 +18,7 @@
       $id = 1;
       foreach ($hardware_components as $component) :
         if ($component['hwcomponent_type'] === 'sub') {
-          $hwcomponent_categoryname = $control->getHardwareComponents($component['hwcomponent_category']);
+          $hwcomponent = $control->getHardwareComponents($component['hwcomponent_category']);
         }
       ?>
         <tr>
@@ -27,10 +27,8 @@
           <td> <?= $component['hwcomponent_type'] ?> </td>
           <td>
             <?php
-            if ($component['hwcomponent_type'] === 'sub' && $hwcomponent_categoryname) {
-              foreach ($hwcomponent_categoryname as $name) {
-                echo $name['hwcomponent_name'];
-              }
+            if ($component['hwcomponent_type'] === 'sub' && $hwcomponent) {
+              echo $hwcomponent['hwcomponent_name'];
             }
             ?>
           </td>

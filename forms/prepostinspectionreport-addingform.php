@@ -7,7 +7,7 @@ if (!isset($_SESSION["username"]) && !isset($_SESSION['usertype'])) {
   //redirect to login page
   header('location: ../login.php');
 } else {
-  if ($_SESSION['usertype'] !== 'admin' && $_SESSION['usertype'] !== 'personnel') {
+  if (!in_array($_SESSION['usertype'], ['admin', 'personnel'])) {
     //redirect to login page
     header('location: ../login.php');
   }

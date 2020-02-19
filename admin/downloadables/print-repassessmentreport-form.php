@@ -23,16 +23,16 @@ if (!isset($_POST['assessment_report_id'])) {
   $date = $assessmentReport['assessment_date'];
 
   $mainComponentId = $assessmentReport['hwcomponent_id'];
-  $nameOfItem = $control->getHardwareComponents($mainComponentId)[0]['hwcomponent_name'];
+  $nameOfItem = $control->getHardwareComponents($mainComponentId)['hwcomponent_name'];
   $modelOrDescription = $assessmentReport['hwcomponent_description'];
   $dateAcquired = $assessmentReport['hwcomponent_dateAcquired'];
   $acquisitionCost = $assessmentReport['hwcomponent_acquisitioncost'];
 
-  $request = $control->getRequest($assessmentReport['itsrequest_id'])[0];
+  $request = $control->getRequest($assessmentReport['itsrequest_id']);
   $departmentCode = $request['dept_code'];
   $propertyNumber = $request['property_num'];
   
-  $issuedTo = $control->getEmployee($request['emp_id'])[0];
+  $issuedTo = $control->getEmployee($request['emp_id']);
   $issuedTo = $issuedTo['emp_fname'] . ' ' . $issuedTo['emp_lname'];
   
   $subComponents = $control->getSubComponentsAssessmentByMainAssessmentId($assessmentReportId);
@@ -40,8 +40,8 @@ if (!isset($_POST['assessment_report_id'])) {
   $findingsDescription = $assessmentReport['findings_description'];
   $notes = $assessmentReport['notes'];
   
-  $techRepresentativeEmpId = $control->getUserAccount($assessmentReport['assessmenttechrep_useraccount_id'])[0]['emp_id'];
-  $techRepresentative = $control->getEmployee($techRepresentativeEmpId)[0];
+  $techRepresentativeEmpId = $control->getUserAccount($assessmentReport['assessmenttechrep_useraccount_id'])['emp_id'];
+  $techRepresentative = $control->getEmployee($techRepresentativeEmpId);
 
   // Hardcoded parameter
   $cpuComponents = $control->getHardwareComponentsBySubCategory(23);

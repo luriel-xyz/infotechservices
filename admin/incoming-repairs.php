@@ -16,6 +16,7 @@ session_start();
 if (!isset($_SESSION["username"]) && !isset($_SESSION['usertype'])) {
   //redirect to login page
   header('location: ../login.php');
+  exit;
 } else {
   if (
     $_SESSION['usertype'] !== 'admin'
@@ -132,6 +133,7 @@ $hardwareComponents = $control->getHardwareComponentsByCategory('main');
 
         <hr class="border border-bottom border-primary">
         <div class="row">
+          <!-- Search Field -->
           <div class="col-lg-4">
             <div class="input-group">
               <input type="text" class="form-control " id="search" placeholder="Search">
@@ -140,9 +142,12 @@ $hardwareComponents = $control->getHardwareComponentsByCategory('main');
               </div>
             </div>
           </div>
+          <!-- /# Search Field -->
+          <!-- Download Summary Button -->
           <div class="mr-3 ml-auto">
             <button type="button" class="btn btn-primary" data-toggle="tooltip" title="Download Summary in MSword" id="printSummary"><i class="fa fa-download" aria-hidden="true"></i></button>
           </div>
+          <!-- /# Download Summary Button -->
         </div>
 
       </div>
@@ -157,7 +162,7 @@ $hardwareComponents = $control->getHardwareComponentsByCategory('main');
             <div id="view-form">
               <div class="modal-header text-light bg-primary">
                 <div class="container-fluid text-center">
-                  <p class="h5 modal-title" id="exampleModalLabel">VIEW REPAIR DETAILS</p>
+                  <p class="h5 modal-title text-uppercase" id="exampleModalLabel">VIEW REPAIR DETAILS</p>
                 </div>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
@@ -328,7 +333,7 @@ $hardwareComponents = $control->getHardwareComponentsByCategory('main');
       var action = 'getRequest';
       var itsrequest_id = $(this).attr('id');
 
-      $.ajax({
+      $.post({
         url: "../config/processors/requestArguments.php",
         type: "post",
         data: {
@@ -336,27 +341,24 @@ $hardwareComponents = $control->getHardwareComponentsByCategory('main');
           itsrequest_id: itsrequest_id
         },
         dataType: 'JSON',
-      }).done(function(data) {
-        $.each(data, function(index, value) {
-          $('#modalView').modal('toggle');
-          if (value.status === 'received') {
-            $('#data').append('<label class="font-weight-bold text-info">' + value.status + '</label><br>');
-          } else if (value.status === 'pending' || value.status === 'assessment pending') {
-            $('#data').append('<label class="font-weight-bold text-success">' + value.status + '</label><br>');
-          } else if (value.status === 'deployed' || value.status === 'assessed' || value.status === 'done') {
-            $('#data').append('<label class="font-weight-bold text-secondary">' + value.status + '</label><br>');
-          } else if (value.status === 'pre-repair inspected' || value.status === 'post-repair inspected') {
-            $('#data').append('<label class="font-weight-bold text-warning">' + value.status + '</label><br>');
-          }
+      }).done(function(request) {
+        $('#modalView').modal('toggle');
+        if (request.status === 'received') {
+          $('#data').append('<label class="font-weight-bold text-info">' + request.status + '</label><br>');
+        } else if (request.status === 'pending' || request.status === 'assessment pending') {
+          $('#data').append('<label class="font-weight-bold text-success">' + request.status + '</label><br>');
+        } else if (request.status === 'deployed' || request.status === 'assessed' || request.status === 'done') {
+          $('#data').append('<label class="font-weight-bold text-secondary">' + request.status + '</label><br>');
+        } else if (request.status === 'pre-repair inspected' || request.status === 'post-repair inspected') {
+          $('#data').append('<label class="font-weight-bold text-warning">' + request.status + '</label><br>');
+        }
 
-          $('#data').append('<label class="font-weight-bold">' + value.itsrequest_date + '</label><br>');
-          $('#data').append('<label class="font-weight-bold">' + value.dept_code + '|' + value.emp_fname + ' ' + value.emp_lname + '</label><br>');
-          $('#data').append('<label class="font-weight-bold">' + value.hwcomponent_name + '</label><br>')
-          $('#data').append('<label class="font-weight-bold">' + value.property_num + '</label><br>');
-          $('#data').append('<label class="font-weight-bold">' + value.concern + '</label><br>');
-          $('#data').append('<label class="font-weight-bold">' + value.itshw_category + '</label><br>')
-        });
-
+        $('#data').append('<label class="font-weight-bold">' + request.itsrequest_date + '</label><br>');
+        $('#data').append('<label class="font-weight-bold">' + request.dept_code + '|' + request.emp_fname + ' ' + request.emp_lname + '</label><br>');
+        $('#data').append('<label class="font-weight-bold">' + request.hwcomponent_name + '</label><br>')
+        $('#data').append('<label class="font-weight-bold">' + request.property_num + '</label><br>');
+        $('#data').append('<label class="font-weight-bold">' + request.concern + '</label><br>');
+        $('#data').append('<label class="font-weight-bold">' + request.itshw_category + '</label><br>')
       });
 
       $("#modalView").modal({
@@ -456,7 +458,7 @@ $hardwareComponents = $control->getHardwareComponentsByCategory('main');
     $('.pre-post-inspect').click(function() {
 
       $.redirect('../forms/prepostinspectionreport-addingform.php', {
-        
+
       });
     });
 

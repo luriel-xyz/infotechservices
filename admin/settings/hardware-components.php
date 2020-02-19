@@ -42,6 +42,8 @@ $control = new Controller();
 
 $hardware_components = $control->getHardwareComponents();
 
+// var_dump($hardware_components); die;
+
 $main_hwcomponents = $control->getHardwareComponentsByCategory('main');
 
 ?>
