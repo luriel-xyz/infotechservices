@@ -147,7 +147,7 @@ if (!isset($_POST['assessment_report_id'])) {
             <div id="department-or-office" class="value"><?= $departmentCode ?></div>
             <div id="property-number" class="value"><?= $propertyNumber ?></div>
             <div id="issued-to" class="value"><?= $issuedTo ?></div>
-            <div id="acquisition-price" class="value"><?= $acquisitionCost ?></div>
+            <div id="acquisition-price" class="value"><span class="text-capitalize">Php</span> <?= $acquisitionCost ?></div>
           </div>
           <!-- /# Values -->
         </div>
@@ -336,67 +336,110 @@ if (!isset($_POST['assessment_report_id'])) {
     <!-- Findings Table -->
     <div class="findings mt-4">
       <h4 class="subtitle-2 text-uppercase">Findings / Recommendations:</h4>
-      <div class="row">
-        <div class="col-6">
-          <div class="partly-damaged findings__category">
-            <?php if ($findingsCategory === 'partly damaged') : ?>
-              <i class="fa fa-circle fa-fw text-danger"></i>
-            <?php else :  ?>
-              <i class="fa fa-square-o fa-fw"></i>
-            <?php endif; ?>
-            <span class="text-uppercase">partly damaged</span>
-          </div>
-        </div>
-        <div class="col-6">
-          <div class="beyond-repair findings__category">
+      <!-- Partly Damaged -->
+      <div class="d-flex">
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="findings__category">
             <?php if ($findingsCategory === 'beyond repair') : ?>
               <i class="fa fa-circle fa-fw text-danger"></i>
             <?php else :  ?>
               <i class="fa fa-square-o fa-fw"></i>
             <?php endif; ?>
-            <span class="text-uppercase">beyond repair</span>
+            <span class="text-uppercase">beyond repair : </span>
+          </div>
+
+          <div class="findings__description ml-4">
+            <?php if ($findingsCategory === 'beyond repair') : ?>
+              <?= $findingsDescription ?>
+            <?php endif; ?>
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-6">
-          <div class="for-replacement">
-            <div class="d-flex align-items-center">
-              <div class="findings__category">
-                <?php if ($findingsCategory === 'for replacement') : ?>
-                  <i class="fa fa-circle fa-fw text-danger"></i>
-                <?php else :  ?>
-                  <i class="fa fa-square-o fa-fw"></i>
-                <?php endif; ?>
-                <span class="text-uppercase">for replacement</span>
-              </div>
-              <div class="findings__description ml-4">
-                <?php if ($findingsCategory === 'for replacement') : ?>
-                  <?= $findingsDescription ?>
-                <?php endif; ?>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-6">
-          <div class="repaired findings__category">
-            <?php if ($findingsCategory === 'repaired') : ?>
-              <i class="fa fa-circle fa-fw text-success"></i>
+      <!-- /# Partly Damaged -->
+
+      <!-- Beyond Repair -->
+      <div class="d-flex">
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="findings__category">
+            <?php if ($findingsCategory === 'partly damaged') : ?>
+              <i class="fa fa-circle fa-fw text-danger"></i>
             <?php else :  ?>
               <i class="fa fa-square-o fa-fw"></i>
             <?php endif; ?>
-            <span class="text-uppercase">Repaired</span>
+            <span class="text-uppercase">partly damaged : </span>
           </div>
-          <div class="others findings__category">
+
+          <div class="findings__description ml-4">
+            <?php if ($findingsCategory === 'partly damaged') : ?>
+              <?= $findingsDescription ?>
+            <?php endif; ?>
+          </div>
+        </div>
+      </div>
+      <!-- /# Beyond Repair -->
+
+      <!-- For Replacement -->
+      <div class="d-flex">
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="findings__category">
+            <?php if ($findingsCategory === 'for replacement') : ?>
+              <i class="fa fa-circle fa-fw text-danger"></i>
+            <?php else :  ?>
+              <i class="fa fa-square-o fa-fw"></i>
+            <?php endif; ?>
+            <span class="text-uppercase">for replacement : </span>
+          </div>
+
+          <div class="findings__description ml-4">
+            <?php if ($findingsCategory === 'for replacement') : ?>
+              <?= $findingsDescription ?>
+            <?php endif; ?>
+          </div>
+        </div>
+      </div>
+      <!-- /# For Replacement -->
+
+      <!-- Repaired -->
+      <div class="d-flex">
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="findings__category">
+            <?php if ($findingsCategory === 'repaired') : ?>
+              <i class="fa fa-circle fa-fw text-danger"></i>
+            <?php else :  ?>
+              <i class="fa fa-square-o fa-fw"></i>
+            <?php endif; ?>
+            <span class="text-uppercase">repaired : </span>
+          </div>
+
+          <div class="findings__description ml-4">
+            <?php if ($findingsCategory === 'repaired') : ?>
+              <?= $findingsDescription ?>
+            <?php endif; ?>
+          </div>
+        </div>
+      </div>
+      <!-- /# Repaired -->
+
+      <!-- Others -->
+      <div class="d-flex">
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="findings__category">
             <?php if ($findingsCategory === 'others') : ?>
               <i class="fa fa-circle fa-fw text-danger"></i>
             <?php else :  ?>
               <i class="fa fa-square-o fa-fw"></i>
             <?php endif; ?>
-            <span class="text-uppercase">others</span>
+            <span class="text-uppercase">others : </span>
+          </div>
+
+          <div class="findings__description ml-4">
+            <?php if ($findingsCategory === 'others') : ?>
+              <?= $findingsDescription ?>
+            <?php endif; ?>
           </div>
         </div>
       </div>
+      <!-- /# Others -->
     </div>
     <!-- /# Findings Table -->
 
