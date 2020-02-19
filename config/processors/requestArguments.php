@@ -145,9 +145,9 @@ if (isset($_POST['action'])) {
 
 		// Get request
 		$request = $control->getRequest($itsrequest_id);
-		$dept_id = $request[0]['dept_id'];
-		$emp_id = $request[0]['emp_id'];
-		$property_num = $request[0]['property_num'];
+		$dept_id = $request['dept_id'];
+		$emp_id = $request['emp_id'];
+		$property_num = $request['property_num'];
 
 		$result = $control->addRepAssessReport(
 			$itsrequest_id,
@@ -192,7 +192,6 @@ if (isset($_POST['action'])) {
 	}
 
 	if ($_POST['action'] === 'statusPostInspected') {
-
 		$itsrequest_id = $_POST['itsrequest_id'];
 		$statusupdate_useraccount_id = $_POST['useraccount_id'];
 
@@ -201,7 +200,14 @@ if (isset($_POST['action'])) {
 		echo $result;
 	}
 
+	if ($_POST['action'] === 'statusPreAndPostInspected') {
+		$itsrequest_id = $_POST['itsrequest_id'];
+		$statusupdate_useraccount_id = $_POST['useraccount_id'];
 
+		$result = $control->statusPrePostInspectedRequest($itsrequest_id, $statusupdate_useraccount_id);
+
+		echo $result;
+	}
 
 	/**  SET REQUEST CATEGORY  **/
 

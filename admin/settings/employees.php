@@ -92,27 +92,16 @@ $employees = $control->getEmployee();
 	          <li><a href="../repairinspect-reports.php" class="list-group-item list-group-item-action text-white" style="background-color: #adb5bd">Repair Inspection Reports</a></li>
 	        </ul> -->
 
-				<?php
-				if ($_SESSION['usertype'] === 'admin' || $_SESSION['usertype'] === 'programmer') {
-				?>
+				<?php if ($_SESSION['usertype'] === 'admin' || $_SESSION['usertype'] === 'programmer') : ?>
 					<a href="#settingsSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle list-group-item list-group-item-action bg-secondary text-light"><i class="fa fa-cog" aria-hidden="true"></i> Settings</a>
 					<ul class="collapse list-unstyled" id="settingsSubmenu">
-
 						<li><a href="user-accounts.php" class="list-group-item list-group-item-action text-white border-bottom" style="background-color: #adb5bd">User Accounts</a></li>
-
 						<li><a href="employees.php" class="list-group-item list-group-item-action text-white border-bottom" style="background-color: #adb5bd">Employees</a></li>
-
 						<li><a href="departments.php" class="list-group-item list-group-item-action text-white border-bottom" style="background-color: #adb5bd">Departments</a></li>
-
 						<li><a href="hardware-components.php" class="list-group-item list-group-item-action text-white" style="background-color: #adb5bd">Hardware Components</a></li>
-
 					</ul>
-				<?php
-				}
-				?>
-
+				<?php endif; ?>
 			</div>
-
 		</div>
 		<!-- /#sidebar-wrapper -->
 
@@ -251,6 +240,8 @@ $employees = $control->getEmployee();
 		//Edit Employee Script
 		$(".edit").click(function(e) {
 			e.preventDefault();
+
+			// Fetch Employee Data
 			var action = 'editEmployee';
 			var emp_id = $(this).attr('id');
 			$.ajax({
@@ -262,16 +253,18 @@ $employees = $control->getEmployee();
 				},
 				dataType: 'JSON',
 			}).done(function(employee) {
+				// Set Modal Fields
 				$('.modal-title').text('EMPLOYEE UPDATING FORM');
-				$('#emp_id').append('<input type="hidden" name="emp_id" id="emp_id" value=' + value.emp_id + '>');
+				$('#emp_id').append('<input type="hidden" name="emp_id" id="emp_id" value=' + employee.emp_id + '>');
 				$('#dept_id').val(employee.dept_id);
 				$('#emp_idnum').val(employee.emp_idnum);
 				$('#fname').val(employee.emp_fname);
 				$('#lname').val(employee.emp_lname);
-				$('#emp_position').val(employee.emp_position);
+				$('#emp-position').val(employee.emp_position);
 				$('#emp_btn').val('Save Changes');
 				$('#action').val('updateEmployee');
 			});
+			// Show Edit Employee Modal
 			$('#modal').modal({
 				backdrop: 'static',
 				keyboard: false

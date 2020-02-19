@@ -88,7 +88,7 @@ $hardwareComponents = $control->getHardwareComponentsByCategory('main');
         ) : ?>
           <a href="#settingsSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle list-group-item list-group-item-action bg-secondary text-light"><i class="fa fa-cog" aria-hidden="true"></i> Settings</a>
           <ul class="collapse list-unstyled" id="settingsSubmenu">
-            <li><a href="settings/user-accounts.php" class="list-group-item list-group-item-action text-white border-bottom" style="background-color: #adb5bd">User Accounts</a></li>
+            <li><a href="settings/user-accounts.php" class="list-group-item list-group-item-action text-white border-bottom" style="background-color: #adb5bd">User Accounts <i class="fa fa-users fa-fw"></i></a></li>
             <li><a href="settings/employees.php" class="list-group-item list-group-item-action text-white border-bottom" style="background-color: #adb5bd">Employees</a></li>
             <li><a href="settings/departments.php" class="list-group-item list-group-item-action text-white border-bottom" style="background-color: #adb5bd">Departments</a></li>
             <li><a href="settings/hardware-components.php" class="list-group-item list-group-item-action text-white" style="background-color: #adb5bd">Hardware Components</a></li>
@@ -387,7 +387,6 @@ $hardwareComponents = $control->getHardwareComponentsByCategory('main');
       });
     });
 
-
     $('.done').click(function(e) {
       e.preventDefault();
       var itsrequest_id = $(this).attr('id');
@@ -437,15 +436,15 @@ $hardwareComponents = $control->getHardwareComponentsByCategory('main');
       });
 
       // var action = 'statusAssessmentPending';
-      var itsrequest_id = $(this).attr('id');
-      var useraccount_id = $(this).attr('data-id');
+      const itsrequest_id = $(this).attr('id');
+      const useraccount_id = $(this).attr('data-id');
 
     });
 
     $('.assessment-created').click(function(e) {
       e.preventDefault();
-      var itsrequest_id = $(this).attr('id');
-      var useraccount_id = $(this).attr('data-id');
+      const itsrequest_id = $(this).attr('id');
+      const useraccount_id = $(this).attr('data-id');
       setAssessmentDone(itsrequest_id, useraccount_id);
     });
 
@@ -455,10 +454,16 @@ $hardwareComponents = $control->getHardwareComponentsByCategory('main');
       });
     });
 
+    // Pre and Post Inspect Button
     $('.pre-post-inspect').click(function() {
-
+      // Redirect to Inspection Report Form
+      const action = 'statusPreAndPostInspected';
+      const itsrequest_id = $(this).attr('id');
+      const useraccount_id = $(this).attr('data-id');
       $.redirect('../forms/prepostinspectionreport-addingform.php', {
-
+        action: action,
+        itsrequest_id: itsrequest_id,
+        useraccount_id: useraccount_id
       });
     });
 

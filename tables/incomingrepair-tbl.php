@@ -88,7 +88,7 @@ if (!$repairs) {
               // 
               ?>
             <?php } else if ($repair['status'] === 'pre-post-repair inspected') { ?>
-              <button type="button" class="btn btn-success done" data-toggle="tooltip" title="Done" id="<?= $repair['itsrequest_id'] ?>" data-id="<?= $_SESSION['useraccount_id'] ?>"><i class="fa fa-check" aria-hidden="true"></i></button> -->
+              <button type="button" class="btn btn-success done" data-toggle="tooltip" title="Done" id="<?= $repair['itsrequest_id'] ?>" data-id="<?= $_SESSION['useraccount_id'] ?>"><i class="fa fa-check" aria-hidden="true"></i></button>
             <?php } ?>
           </td>
         </tr>

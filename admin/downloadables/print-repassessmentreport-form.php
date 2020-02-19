@@ -31,15 +31,15 @@ if (!isset($_POST['assessment_report_id'])) {
   $request = $control->getRequest($assessmentReport['itsrequest_id']);
   $departmentCode = $request['dept_code'];
   $propertyNumber = $request['property_num'];
-  
+
   $issuedTo = $control->getEmployee($request['emp_id']);
   $issuedTo = $issuedTo['emp_fname'] . ' ' . $issuedTo['emp_lname'];
-  
+
   $subComponents = $control->getSubComponentsAssessmentByMainAssessmentId($assessmentReportId);
   $findingsCategory = $assessmentReport['findings_category'];
   $findingsDescription = $assessmentReport['findings_description'];
   $notes = $assessmentReport['notes'];
-  
+
   $techRepresentativeEmpId = $control->getUserAccount($assessmentReport['assessmenttechrep_useraccount_id'])['emp_id'];
   $techRepresentative = $control->getEmployee($techRepresentativeEmpId);
 
@@ -48,6 +48,7 @@ if (!isset($_POST['assessment_report_id'])) {
   $printerComponents = $control->getHardwareComponentsBySubCategory(24);
   $upsComponents = $control->getHardwareComponentsBySubCategory(25);
   $accessoriesComponents = $control->getHardwareComponentsBySubCategory(26);
+  $othersComponents = $control->getHardwareComponentsBySubCategory(27);
 }
 ?>
 
@@ -259,7 +260,9 @@ if (!isset($_POST['assessment_report_id'])) {
           <!-- /# Accessories -->
           <div>
             <h5 class="main-component bordered mb-0">others</h5>
-            <div class="sub-component bordered">&nbsp;</div>
+            <?php foreach ($othersComponents as $component) : ?>
+              <div class="sub-component bordered"><?= $component['hwcomponent_name'] ?></div>
+            <?php endforeach ?>
             <div class="sub-component bordered">&nbsp;</div>
           </div>
           <!-- /# Accessories -->
@@ -304,8 +307,25 @@ if (!isset($_POST['assessment_report_id'])) {
             <?php endforeach ?>
             <!-- /# Accessories components remarks -->
             <div class="sub-component bordered">&nbsp;</div>
-            <div class="sub-component bordered">&nbsp;</div>
-            <div class="sub-component bordered">&nbsp;</div>
+          </div>
+          <div>
+            <!-- Others components remarks -->
+            <h5 class="main-component bordered mb-0">&nbsp;</h5>
+            <!-- Show remark description if exists otherwise show a blank -->
+            <?php foreach ($othersComponents as $component) : ?>
+              <div class="sub-component bordered">
+                <?php
+                foreach ($subComponents as $subComponentRemark) {
+                  if ($component['hwcomponent_id'] == $subComponentRemark['sub_component_id']) {
+                    echo $subComponentRemark['remark'];
+                  } else {
+                    echo '&nbsp;';
+                  }
+                }
+                ?>
+              </div>
+            <?php endforeach ?>
+            <!-- Others components remarks -->
             <div class="sub-component bordered">&nbsp;</div>
           </div>
         </div>
@@ -315,7 +335,7 @@ if (!isset($_POST['assessment_report_id'])) {
 
     <!-- Findings Table -->
     <div class="findings mt-4">
-      <h4 class="subtitle-2 text-uppercase">Findings:</h4>
+      <h4 class="subtitle-2 text-uppercase">Findings / Recommendations:</h4>
       <div class="row">
         <div class="col-6">
           <div class="partly-damaged findings__category">
@@ -340,13 +360,22 @@ if (!isset($_POST['assessment_report_id'])) {
       </div>
       <div class="row">
         <div class="col-6">
-          <div class="for-replacement findings__category">
-            <?php if ($findingsCategory === 'for replacement') : ?>
-              <i class="fa fa-circle fa-fw text-danger"></i>
-            <?php else :  ?>
-              <i class="fa fa-square-o fa-fw"></i>
-            <?php endif; ?>
-            <span class="text-uppercase">for replacement</span>
+          <div class="for-replacement">
+            <div class="d-flex align-items-center">
+              <div class="findings__category">
+                <?php if ($findingsCategory === 'for replacement') : ?>
+                  <i class="fa fa-circle fa-fw text-danger"></i>
+                <?php else :  ?>
+                  <i class="fa fa-square-o fa-fw"></i>
+                <?php endif; ?>
+                <span class="text-uppercase">for replacement</span>
+              </div>
+              <div class="findings__description ml-4">
+                <?php if ($findingsCategory === 'for replacement') : ?>
+                  <?= $findingsDescription ?>
+                <?php endif; ?>
+              </div>
+            </div>
           </div>
         </div>
         <div class="col-6">

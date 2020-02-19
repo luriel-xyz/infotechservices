@@ -278,22 +278,20 @@ $main_hwcomponents = $control->getHardwareComponentsByCategory('main');
 					hwcomponent_id: hwcomponent_id
 				},
 				dataType: 'JSON',
-			}).done(function(data) {
-				$.each(data, function(index, value) {
-					$('.modal-title').text('HARDWARE COMPONENT UPDATING FORM');
-					$('#hwcomponent_id').append('<input type="hidden" name="hwcomponent_id" id="hwcomponent_id" value=' + value.hwcomponent_id + '>');
-					$('#hwcomponent_name').val(value.hwcomponent_name);
-					$('#hwcomponent_type').val(value.hwcomponent_type);
+			}).done(function(component) {
+				$('.modal-title').text('HARDWARE COMPONENT UPDATING FORM');
+				$('#hwcomponent_id').append('<input type="hidden" name="hwcomponent_id" id="hwcomponent_id" value=' + component.hwcomponent_id + '>');
+				$('#hwcomponent_name').val(component.hwcomponent_name);
+				$('#hwcomponent_type').val(component.hwcomponent_type);
 
-					if (value.hwcomponent_type == 'sub') {
-						$('.sub_type').show();
-					} else {
-						$('.sub_type').hide();
-					}
+				if (component.hwcomponent_type == 'sub') {
+					$('.sub_type').show();
+				} else {
+					$('.sub_type').hide();
+				}
 
-					$('#hwcomponent_btn').text('Save Changes');
-					$('#action').val('updateHardwareComponent');
-				});
+				$('#hwcomponent_btn').text('Save Changes');
+				$('#action').val('updateHardwareComponent');
 			});
 
 			$('#modal').modal({

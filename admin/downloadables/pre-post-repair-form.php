@@ -208,21 +208,25 @@ $postApproved = $control->getEmployee($data->post_approved);
 			<!-- /# Post-repair inspection section -->
 			<div class="p-1 px-3 d-flex flex-wrap bg-grey mx-4">
 				<div class="d-flex align-items-center">
-					<div class="checkbox"></div>
+					<div class="checkbox d-flex align-items-center justify-content-center text-center">
+						<?php if ($data->stock_supplies) : ?>
+							<small><i class="fa fa-circle"></i></small>
+						<?php endif; ?>
+					</div>
 					<span class="body-2 font-weight-bold">Stock / Supplies from PGO-IT</span>
 				</div>
 				<div class="d-flex ml-2 align-items-center">
-					<div class="checkbox"></div>
+					<div class="checkbox d-flex align-items-center justify-content-center text-center"></div>
 					<span class="checkbox-label font-weight-bold mr-2">ICS Number: </span>
 					<span class="caption"><?= $data->ics_number ?></span>
 				</div>
 				<div class="d-flex ml-2 align-items-center mt-1">
-					<div class="checkbox"></div>
+					<div class="checkbox d-flex align-items-center justify-content-center text-center"></div>
 					<span class="checkbox-label font-weight-bold mr-2">Inventory Item No:</span>
 					<span class="caption"><?= $data->inventory_item_number ?></span>
 				</div>
 				<div class="d-flex ml-2 align-items-center mt-1">
-					<div class="checkbox"></div>
+					<div class="checkbox d-flex align-items-center justify-content-center text-center"></div>
 					<span class="checkbox-label font-weight-bold mr-2">S/N:</span>
 					<span class="caption"><?= $data->serial_number ?></span>
 				</div>
@@ -231,13 +235,21 @@ $postApproved = $control->getEmployee($data->post_approved);
 			<div class="row mt-2 mx-4">
 				<div class="col-md-6">
 					<div class="d-flex align-items-center">
-						<div class="checkbox"></div>
+						<div class="checkbox d-flex align-items-center justify-content-center text-center">
+							<?php if ($data->with) : ?>
+								<small><i class="fa fa-circle"></i></small>
+							<?php endif; ?>
+						</div>
 						<span class="checkbox-label-smaller">With Waste Material / Property Return Slip</span>
 					</div>
 				</div>
 				<div class="col-md-6">
 					<div class="d-flex align-items-center">
-						<div class="checkbox"></div>
+						<div class="checkbox d-flex align-items-center justify-content-center text-center">
+							<?php if (!$data->with) : ?>
+								<small><i class="fa fa-circle"></i></small>
+							<?php endif; ?>
+						</div>
 						<span class="checkbox-label-smaller">Without Waste Material / Property Return Slip</span>
 					</div>
 				</div>

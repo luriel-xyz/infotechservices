@@ -6,19 +6,29 @@ session_start();
 if (!isset($_SESSION["username"]) && !isset($_SESSION['usertype'])) {
   //redirect to login page
   header('location: ../login.php');
+  exit;
 } else {
   if (!in_array($_SESSION['usertype'], ['admin', 'personnel'])) {
     //redirect to login page
     header('location: ../login.php');
+    exit;
   }
 }
 
-if (isset($_POST['useraccount_id']) && isset($_POST['itsrequest_id'])) {
-  $useraccount_id = $_POST['useraccount_id'];
-  $itsrequest_id = $_POST['itsrequest_id'];
-  $dept_id = $_POST['dept_id'];
-  $hwcomponent_id = $_POST['hwcomponent_id'];
+if (
+  !isset($_POST['useraccount_id'])
+  || !isset($_POST['itsrequest_id'])
+  || !isset($_POST['action'])
+) {
+  header('Location: ../admin/incoming-repairs.php');
+  exit;
 }
+
+$action = $_POST['action'];
+$useraccount_id = $_POST['useraccount_id'];
+$itsrequest_id = $_POST['itsrequest_id'];
+// $dept_id = $_POST['dept_id'];
+// $hwcomponent_id = $_POST['hwcomponent_id'];
 
 //include database connection
 require_once('../config/db_connection.php');
@@ -65,9 +75,9 @@ $employees = $control->getEmployee();
       </a>
       <form method="POST" class="p-3 border rounded d-block mx-auto" id="pre-post-repair-form">
         <!-- <input type="hidden" class="form-control" name="action" id="action" value="addWalk-inRepair"> -->
-        <input type="hidden" class="form-control" name="action" id="action" value="addInspectionReport">
-        <input type="hidden" class="form-control" name="statusupdate_useraccount_id" id="statusupdate_useraccount_id" value="<?= $_SESSION['useraccount_id'];  ?>">
-        <input type="hidden" class="form-control" name="itshw_category" id="itshw_category" value="walk-in">
+        <input type="hidden" class="form-control" name="action" id="action" value="<?= $action ?>">
+        <input type="hidden" class="form-control" name="statusupdate_useraccount_id" id="statusupdate_useraccount_id" value="<?= $useraccount_id ?>">
+        <input type="hidden" class="form-control" name="itsrequest_id" id="itsrequest_id" value="<?= $itsrequest_id ?>">
         <p class="h3 text-center">
           <i class="fa fa-wrench" aria-hidden="true"></i>
           Pre and Post Repair Inspection Report
@@ -191,7 +201,7 @@ $employees = $control->getEmployee();
         <hr style="border-color: white">
         <div class="form-group">
           <label class="d-flex align-items-center">
-            <input type="checkbox" name="additional_sheet" class="mr-1" id="additional-sheet">
+            <input type="checkbox" name="additional_sheet_attached" class="mr-1" id="additional-sheet-attached">
             <span>Additional Sheet Attached</span>
           </label>
         </div>
@@ -264,22 +274,16 @@ $employees = $control->getEmployee();
               </label>
             </div>
             <div class="form-check">
-              <label class="form-check-label d-flex align-items-center" for="with">
-                <input type="checkbox" name="with_waste_material" class="form-check-input" id="with" style="position:relative;bottom:1px;">
+              <label class="form-check-label d-flex align-items-center" for="with-waste-material">
+                <input type="checkbox" name="with_waste_material" class="form-check-input" id="with-waste-material" style="position:relative;bottom:1px;">
                 <span class="ml-1 text-capitalize">With Waste Material / Property Return Slip</span>
-              </label>
-            </div>
-            <div class="form-check">
-              <label class="form-check-label d-flex align-items-center" for="without">
-                <input type="checkbox" name="without_waste_material" class="form-check-input" id="without" style="position:relative;bottom:1px;">
-                <span class="ml-1 text-capitalize">Without Waste Material / Property Return Slip</span>
               </label>
             </div>
           </div>
           <!-- /# Checkboxes -->
         </div>
 
-        <div class="stock-container form-group w-75">
+        <div class="stock-container d-none form-group w-75">
           <div class="d-flex">
             <input type="text" name="ics_number" class="form-control" id="ics-number" placeholder="ICS Number">
             <input type="text" name="inventory_item_number" class="form-control ml-4" id="inventory-item-number" placeholder="Inventory Item No">
@@ -363,6 +367,33 @@ $employees = $control->getEmployee();
       $('#pre-post-repair-form').submit(function(e) {
         e.preventDefault();
 
+        // Set request status to pre-post-repair inspected 
+        $.post('../config/processors/requestArguments.php', {
+            action: $('#action').val(),
+            itsrequest_id: $('#itsrequest_id').val(),
+            useraccount_id: $('#statusupdate_useraccount_id').val(),
+          })
+          .fail(function() {
+            alert('Error!')
+          })
+          .done(function(res) {
+            alert(res ? 'Request Inspected' : 'Error');
+            redirectToPrintInspectionPage();
+          });
+
+
+
+        // $.post('../config/processors/requestArguments.php', $(this).serialize())
+        //   .fail(function() {
+        //     alert('Error')
+        //   })
+        //   .done(function(res) {
+        //     alert(res)
+        //   });
+      });
+
+      function redirectToPrintInspectionPage() {
+        // Gather inspection report data
         const partsToReplaceProcure = [];
         $('.row-part').each(function(i, val) {
           // Row column datum
@@ -371,7 +402,7 @@ $employees = $control->getEmployee();
           const unit = $(`.row-part-${i} .unit`).val();
           const amount = $(`.row-part-${i} .amount`).val();
 
-          // Check if all the fields have values
+          // Check if some of the fields have values
           if (!qty || !particularsDescriptions || !unit || !amount) return;
           partsToReplaceProcure.push({
             qty,
@@ -381,6 +412,7 @@ $employees = $control->getEmployee();
           });
         });
 
+        // Redirect to print inspection report page
         $.redirect('../admin/downloadables/pre-post-repair-form.php', {
           data: JSON.stringify({
             to: $('#to').val() || 'n/a',
@@ -403,9 +435,9 @@ $employees = $control->getEmployee();
             pre_approved: $('#pre-approved').val() || 'n/a',
             pre_inspected_date: $('#pre-inspected-date').val() || 'n/a',
             findings: $('#findings').val() || 'n/a',
-            stock_supplies: $('#stock-supplies').val() || 'n/a',
-            with: $('#with').val() || 'n/a',
-            without: $('#without').val() || 'n/a',
+            stock_supplies: $('#stock-supplies').is(':checked'),
+            with: $('#with-waste-material').is(':checked'),
+            additional_sheet_attached: $('#additional-sheet-attached').is(':checked'),
             ics_number: $('#ics-number').val() || 'n/a',
             inventory_item_number: $('#inventory-item-number').val() || 'n/a',
             stock_serial_number: $('#stock-serial-number').val() || 'n/a',
@@ -415,15 +447,7 @@ $employees = $control->getEmployee();
             post_inspected_date: $('#post-inspected-date').val() || 'n/a',
           })
         });
-
-        // $.post('../config/processors/requestArguments.php', $(this).serialize())
-        //   .fail(function() {
-        //     alert('Error')
-        //   })
-        //   .done(function(res) {
-        //     alert(res)
-        //   });
-      });
+      }
     });
   </script>
 

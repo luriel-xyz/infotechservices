@@ -119,6 +119,10 @@ header {
   font-size: small !important;
 }
 
+.findings__description {
+  text-decoration: underline !important;
+}
+
 .tech-rep-name {
   border-top: 1px solid black;
   font-size: 0.8em;

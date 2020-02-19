@@ -82,11 +82,8 @@ $useraccounts = $control->getUserAccount();
 
 		<!-- Sidebar -->
 		<div class="bg-secondary border-right mt-5 pt-2" id="sidebar-wrapper">
-
 			<div class="list-group list-group-flush">
-
 				<a href="../incoming-requests.php" class="list-group-item list-group-item-action bg-secondary text-light border-bottom"><i class="fa fa-bell" aria-hidden="true"></i> Incoming Requests</a>
-
 				<a href="../incoming-repairs.php" class="list-group-item list-group-item-action bg-secondary text-light border-bottom"><i class="fa fa-wrench" aria-hidden="true"></i> Incoming Repairs</a>
 
 				<!-- <a href="#reportsSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle list-group-item list-group-item-action bg-secondary text-light"><i class="fa fa-file" aria-hidden="true"></i> Repair Reports</a>
@@ -95,9 +92,7 @@ $useraccounts = $control->getUserAccount();
 	          <li><a href="../repairinspect-reports.php" class="list-group-item list-group-item-action text-white" style="background-color: #adb5bd">Repair Inspection Reports</a></li>
 	        </ul> -->
 
-				<?php
-				if ($_SESSION['usertype'] === 'admin' || $_SESSION['usertype'] === 'programmer') {
-				?>
+				<?php if ($_SESSION['usertype'] === 'admin' || $_SESSION['usertype'] === 'programmer') : ?>
 					<a href="#settingsSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle list-group-item list-group-item-action bg-secondary text-light"><i class="fa fa-cog" aria-hidden="true"></i> Settings</a>
 					<ul class="collapse list-unstyled" id="settingsSubmenu">
 						<li><a href="user-accounts.php" class="list-group-item list-group-item-action text-white border-bottom" style="background-color: #adb5bd">User Accounts</a></li>
@@ -105,22 +100,16 @@ $useraccounts = $control->getUserAccount();
 						<li><a href="departments.php" class="list-group-item list-group-item-action text-white border-bottom" style="background-color: #adb5bd">Departments</a></li>
 						<li><a href="hardware-components.php" class="list-group-item list-group-item-action text-white" style="background-color: #adb5bd">Hardware Components</a></li>
 					</ul>
-				<?php
-				}
-				?>
+				<?php endif; ?>
 
 			</div>
-
 		</div>
 		<!-- /#sidebar-wrapper -->
 
 		<!-- Page Content -->
 		<div class="h-100 w-100">
-
 			<nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-dark">
-
 				<button class="btn btn-primary" id="menu-toggle" data-toggle="tooltip" title="Toggle Sidebar"><i class="fa fa-caret-square-o-down" aria-hidden="true"></i></button>
-
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav ml-auto">
 						<li class="nav-item active">
@@ -132,40 +121,38 @@ $useraccounts = $control->getUserAccount();
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 
 					<ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-
 						<li class="nav-item">
-							<a class="nav-link text-primary font-weight-bold disabled"><?php echo $_SESSION['username']; ?></a>
+							<a class="nav-link text-primary font-weight-bold disabled"><?= $_SESSION['username']; ?></a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link text-primary " href="../../logout.php" data-toggle="tooltip" title="Logout"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
 						</li>
-
 					</ul>
 				</div>
 
 			</nav>
 
 			<div class="container-fluid h-100" style="margin-top: 80px;">
-
 				<div class="row">
 					<p class="h3 mx-auto"> <i class="fa fa-user" aria-hidden="true"></i> User Accounts </p>
 				</div>
 
 				<hr class="border border-bottom border-primary">
 
+				<!-- Search Bar -->
 				<div class="row">
-					<div class="col-lg-3">
-						<input type="text" class="form-control " id="search" placeholder="Search">
-
+					<div class="col-sm-8 col-md-5">
+						<div class="input-group">
+							<input type="text" class="form-control " id="search" placeholder="Search">
+							<div class="input-group-append">
+								<button type="button" class="btn btn-primary" id="addPersonnelAccount" data-toggle="tooltip" title="Add Personnel Account"><i class="fa fa-user-plus fa-fw" aria-hidden="true"></i>Admin</button>
+								<button type="button" class="btn btn-primary" id="addDeptAccount" data-toggle="tooltip" title="Add Department Account"><i class="fa fa-user-plus fa-fw" aria-hidden="true"></i>Department</button>
+							</div>
+						</div>
 					</div>
-					<div class="col-xs-3">
-						<button type="button" class="btn btn-primary" id="addPersonnelAccount" data-toggle="tooltip" title="Add Personnel Account"><i class="fa fa-user-plus fa-fw" aria-hidden="true"></i>Admin</button>
-					</div>
-					<div class="col-xs-4 pl-2">
-						<button type="button" class="btn btn-primary" id="addDeptAccount" data-toggle="tooltip" title="Add Department Account"><i class="fa fa-user-plus fa-fw" aria-hidden="true"></i>Department</button>
-					</div>
-
 				</div>
+				<!-- /# Search Bar -->
+
 				<!--/# Container -->
 
 				<!-- Modal Department -->
@@ -176,9 +163,7 @@ $useraccounts = $control->getUserAccount();
 							<!-- Forms -->
 							<!--  Add Modal  -->
 							<div id="add-form">
-								<?php
-								include_once('../../forms/departmentUserAccount-addingform.php');
-								?>
+								<?php include_once('../../forms/departmentUserAccount-addingform.php'); ?>
 							</div>
 							<!-- /#Add Modal -->
 
@@ -196,9 +181,7 @@ $useraccounts = $control->getUserAccount();
 							<!-- Forms -->
 							<!--  Add Modal  -->
 							<div id="add-form">
-								<?php
-								include_once('../../forms/personnelUserAccount-addingform.php');
-								?>
+								<?php include_once('../../forms/personnelUserAccount-addingform.php'); ?>
 							</div>
 							<!-- /#Add Modal -->
 
@@ -230,7 +213,7 @@ $useraccounts = $control->getUserAccount();
 			$("#wrapper").toggleClass("toggled");
 		});
 
-		$("#search").on("keyup", function() {
+		$("#search").keyup(function() {
 			var search_text = $(this).val().toLowerCase();
 			$("#table_body tr").filter(function() {
 				$(this).toggle($(this).text().toLowerCase().indexOf(search_text) > -1)
@@ -288,26 +271,23 @@ $useraccounts = $control->getUserAccount();
 					useraccount_id: useraccount_id
 				},
 				dataType: 'JSON',
-			}).done(function(data) {
-
-				$.each(data, function(index, value) {
-					if (value.usertype === "personnel" || value.usertype === "admin") {
-						$('#modalPersonnelAccount').modal('show');
-						$('.modal-title').text('PERSONNEL ACCOUNT UPDATING FORM');
-					} else {
-						$('#modalDepartmentAccount').modal('show');
-						$('.modal-title').text('DEPARTMENT ACCOUNT UPDATING FORM');
-					}
-					$('.useraccount_id').append('<input type="hidden" name="useraccount_id" id="useraccount_id" class="useraccount_id" value=' + value.useraccount_id + '>');
-					$('.usertype').val(value.usertype);
-					$('#emp_id').val(value.emp_id);
-					$('#dept_id').val(value.dept_id);
-					$('.username').val(value.username);
-					$('.password').val(value.password);
-					$('.password').hide();
-					$('.useraccount_btn').text('Save Changes');
-					$('.action').val('updateUserAccount');
-				});
+			}).done(function(user) {
+				if (user.usertype === "personnel" || user.usertype === "admin") {
+					$('#modalPersonnelAccount').modal('show');
+					$('.modal-title').text('PERSONNEL ACCOUNT UPDATING FORM');
+				} else {
+					$('#modalDepartmentAccount').modal('show');
+					$('.modal-title').text('DEPARTMENT ACCOUNT UPDATING FORM');
+				}
+				$('.useraccount_id').append('<input type="hidden" name="useraccount_id" id="useraccount_id" class="useraccount_id" value=' + user.useraccount_id + '>');
+				$('.usertype').val(user.usertype);
+				$('#emp_id').val(user.emp_id);
+				$('#dept_id').val(user.dept_id);
+				$('.username').val(user.username);
+				$('.password').val(user.password);
+				$('.password').hide();
+				$('.useraccount_btn').text('Save Changes');
+				$('.action').val('updateUserAccount');
 
 			});
 		});

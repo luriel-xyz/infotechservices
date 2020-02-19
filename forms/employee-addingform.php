@@ -32,7 +32,7 @@
 				<input type="text" class="form-control" name="emp_idnum" id="emp_idnum" placeholder="Employee ID Number" required>
 			</div>
 			<div class="col-6">
-				<input type="text" class="form-control" name="position" id="position" placeholder="Position" required>
+				<input type="text" class="form-control" name="position" id="emp-position" placeholder="Position" required>
 			</div>
 		</div>
 

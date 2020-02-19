@@ -55,39 +55,16 @@ class Controller
 
 		if ($dept_id == null) {
 			$qry = "SELECT * FROM department_tbl";
-			if ($con->query($qry)) {
-				$result1 = $con->query($qry);
-				if ($result1->num_rows == 0) {
-					return $result1->num_rows;
-				}
-
-				$depts = array();
-
-				while ($row = $result1->fetch_assoc()) {
-					$depts[] = $row;
-				}
-
-				return $depts;
-			} else {
-				return false;
+			$result = $con->query($qry);
+			$depts = array();
+			while ($row = $result->fetch_assoc()) {
+				$depts[] = $row;
 			}
+			return $depts;
 		} else {
-
 			$qry = "SELECT * FROM department_tbl WHERE dept_id = '" . $dept_id . "' ";
-
-			if ($con->query($qry)) {
-				$result1 = $con->query($qry);
-				if ($result1->num_rows == 0) {
-					return 0;
-				}
-				$depts = array();
-				while ($row = $result1->fetch_assoc()) {
-					$depts[] = $row;
-				}
-				return $depts;
-			} else {
-				return false;
-			}
+			$result = $con->query($qry);
+			return $result->fetch_assoc();
 		}
 	}
 
@@ -96,7 +73,7 @@ class Controller
 	{
 		global $con;
 
-		$msg = "Please try again!";
+		$msg = "Error!";
 
 		$qry = $con->prepare("INSERT INTO department_tbl (dept_code,dept_name) VALUES (?,?)");
 		$qry->bind_param('ss', $dept_code, $dept_name);
@@ -111,7 +88,7 @@ class Controller
 	{
 		global $con;
 
-		$msg = "Please try again!";
+		$msg = "Error!";
 
 		$qry = "UPDATE department_tbl SET dept_code = '" . $dept_code . "', dept_name = '" . $dept_name . "' WHERE dept_id = '" . $dept_id . "'";
 		if ($con->query($qry)) {
@@ -159,19 +136,12 @@ class Controller
 
 		$qry = "SELECT * FROM employee_tbl WHERE dept_id = '" . $dept_id . "'";
 
-		if ($con->query($qry)) {
-			$result = $con->query($qry);
-			if ($result->num_rows == 0) {
-				return 0;
-			}
-			$users = array();
-			while ($row = $result->fetch_assoc()) {
-				$users[] = $row;
-			}
-			return $users;
-		} else {
-			return false;
+		$result = $con->query($qry);
+		$users = array();
+		while ($row = $result->fetch_assoc()) {
+			$users[] = $row;
 		}
+		return $result ? $users : false;
 	}
 
 	/* Add Employee */
@@ -179,7 +149,7 @@ class Controller
 	{
 		global $con;
 
-		$msg = "Please try again!";
+		$msg = "Error!";
 
 		$qry = $con->prepare("INSERT INTO employee_tbl (dept_id,emp_idnum,emp_fname,emp_lname,emp_position) VALUES (?,?,?,?,?)");
 		$qry->bind_param('issss', $dept_id, $emp_idnum, $emp_fname, $emp_lname, $emp_position);
@@ -194,7 +164,7 @@ class Controller
 	{
 		global $con;
 
-		$msg = "Please try again!";
+		$msg = "Error!";
 
 		$qry = "UPDATE employee_tbl SET dept_id = '" . $dept_id . "', emp_idnum = '" . $emp_idnum . "', emp_fname = '" . $emp_fname . "', emp_lname = '" . $emp_lname . "' WHERE emp_id = '" . $emp_id . "'";
 		if ($con->query($qry)) {
@@ -291,7 +261,7 @@ class Controller
 	{
 		global $con;
 
-		$msg = "Please try again!";
+		$msg = "Error!";
 
 		$qry = $con->prepare("INSERT INTO hardwarecomponent_tbl (hwcomponent_name,hwcomponent_type,hwcomponent_category) VALUES (?,?,?)");
 		$qry->bind_param('sss', $hwcomponent_name, $hwcomponent_type, $hwcomponent_category);
@@ -306,7 +276,7 @@ class Controller
 	{
 		global $con;
 
-		$msg = "Please try again!";
+		$msg = "Error!";
 
 		$qry = "UPDATE hardwarecomponent_tbl SET hwcomponent_name = '" . $hwcomponent_name . "', hwcomponent_type = '" . $hwcomponent_type . "', hwcomponent_category = '" . $hwcomponent_category . "' WHERE hwcomponent_id = '" . $hwcomponent_id . "'";
 		if ($con->query($qry)) {
@@ -354,7 +324,7 @@ class Controller
 	{
 		global $con;
 
-		$msg = "Please try again!";
+		$msg = "Error!";
 		$status = 1;
 		$enc_password = md5($password);
 
@@ -381,7 +351,7 @@ class Controller
 	{
 		global $con;
 
-		$msg = "Please try again!";
+		$msg = "Error!";
 		$status = 1;
 		$enc_password = md5($password);
 
@@ -398,7 +368,7 @@ class Controller
 	{
 		global $con;
 
-		$msg = "Please try again!";
+		$msg = "Error!";
 
 		if ($usertype == 'department') {
 
@@ -424,7 +394,7 @@ class Controller
 	{
 		global $con;
 
-		$msg = "Please try again!";
+		$msg = "Error!";
 
 		$qry = "UPDATE useraccount_tbl SET status = '0' WHERE useraccount_id = '" . $useraccount_id . "' ";
 		if ($con->query($qry)) {
@@ -438,7 +408,7 @@ class Controller
 	{
 		global $con;
 
-		$msg = "Please try again!";
+		$msg = "Error!";
 
 		$qry = "UPDATE useraccount_tbl SET status = '1' WHERE useraccount_id = '" . $useraccount_id . "' ";
 		if ($con->query($qry)) {
@@ -459,22 +429,14 @@ class Controller
 		global $con;
 
 		if ($itsrequest_id == null) {
-
 			$qry = "SELECT * FROM itservices_request_tbl INNER JOIN employee_tbl ON itservices_request_tbl.emp_id=employee_tbl.emp_id INNER JOIN department_tbl ON itservices_request_tbl.dept_id=department_tbl.dept_id LEFT JOIN hardwarecomponent_tbl ON itservices_request_tbl.hwcomponent_id=hardwarecomponent_tbl.hwcomponent_id  WHERE itshw_category is null OR itshw_category != 'pulled-out' AND itshw_category != 'walk-in' ORDER BY itsrequest_date DESC";
-			if ($con->query($qry)) {
-				$result = $con->query($qry);
-				if ($result->num_rows != 0) {
-					$requests = array();
-					while ($row = $result->fetch_assoc()) {
-						$requests[] = $row;
-					}
-					return $requests;
-				} else {
-					return $result->num_rows;
-				}
-			} else {
-				return false;
+			$result = $con->query($qry);
+			$requests = array();
+			while ($row = $result->fetch_assoc()) {
+				$requests[] = $row;
 			}
+			return $requests;
+			return $result ? $requests : false;
 		} else {
 			$qry = "SELECT * FROM itservices_request_tbl INNER JOIN employee_tbl ON itservices_request_tbl.emp_id=employee_tbl.emp_id INNER JOIN department_tbl ON itservices_request_tbl.dept_id=department_tbl.dept_id LEFT JOIN hardwarecomponent_tbl ON itservices_request_tbl.hwcomponent_id=hardwarecomponent_tbl.hwcomponent_id WHERE itsrequest_id = '" . $itsrequest_id . "' ";
 			$result = $con->query($qry);
@@ -540,7 +502,7 @@ class Controller
 	{
 		global $con;
 
-		$msg = "Please try again!";
+		$msg = "Error!";
 
 		$qry = $con->prepare("INSERT INTO itservices_request_tbl (dept_id,emp_id,itsrequest_category,hwcomponent_id,concern,itsrequest_date,itshw_category) VALUES (?,?,?,?,?,?,?)");
 		$qry->bind_param('iisisss', $dept_id, $emp_id, $itsrequest_category, $hwcomponent_id, $concern, $req_date, $itshw_category);
@@ -555,7 +517,7 @@ class Controller
 	{
 		global $con;
 
-		$msg = "Please try again!";
+		$msg = "Error!";
 
 		$qry = "UPDATE itservices_request_tbl SET status = 'done', solution = '" . $solution . "', statusupdate_useraccount_id = '" . $statusupdate_useraccount_id . "' WHERE itsrequest_id = '" . $itsrequest_id . "' ";
 		if ($con->query($qry)) {
@@ -569,7 +531,7 @@ class Controller
 	{
 		global $con;
 
-		$msg = "Please try again!";
+		$msg = "Error!";
 
 		$qry = "UPDATE itservices_request_tbl SET status = 'pending', statusupdate_useraccount_id = '" . $statusupdate_useraccount_id . "' WHERE itsrequest_id = '" . $itsrequest_id . "' ";
 		if ($con->query($qry)) {
@@ -583,7 +545,7 @@ class Controller
 	{
 		global $con;
 
-		$msg = "Please try again!";
+		$msg = "Error!";
 
 		$qry = "UPDATE itservices_request_tbl SET status = 'Assessment Pending', statusupdate_useraccount_id = '" . $statusupdate_useraccount_id . "' WHERE itsrequest_id = '" . $itsrequest_id . "' ";
 		if ($con->query($qry)) {
@@ -597,7 +559,7 @@ class Controller
 	{
 		global $con;
 
-		$msg = "Please try again!";
+		$msg = "Error!";
 
 		$qry = "UPDATE itservices_request_tbl SET status = 'Assessed', statusupdate_useraccount_id = '" . $statusupdate_useraccount_id . "' WHERE itsrequest_id = '" . $itsrequest_id . "' ";
 		if ($con->query($qry)) {
@@ -611,7 +573,7 @@ class Controller
 	{
 		global $con;
 
-		$msg = "Please try again!";
+		$msg = "Error!";
 
 		$qry = "UPDATE itservices_request_tbl SET status = 'Pre-repair Inspected', statusupdate_useraccount_id = '" . $statusupdate_useraccount_id . "' WHERE itsrequest_id = '" . $itsrequest_id . "' ";
 		if ($con->query($qry)) {
@@ -625,7 +587,7 @@ class Controller
 	{
 		global $con;
 
-		$msg = "Please try again!";
+		$msg = "Error!";
 
 		$qry = "UPDATE itservices_request_tbl SET status = 'Post-repair Inspected', statusupdate_useraccount_id = '" . $statusupdate_useraccount_id . "' WHERE itsrequest_id = '" . $itsrequest_id . "' ";
 		if ($con->query($qry)) {
@@ -634,13 +596,23 @@ class Controller
 		return $msg;
 	}
 
+	/*  Set Request Status to Pre and Post Repair Inspected */
+	public function statusPrePostInspectedRequest($itsrequest_id, $statusupdate_useraccount_id)
+	{
+		global $con;
+
+		$qry = "UPDATE itservices_request_tbl SET status = 'pre-post-repair inspected', statusupdate_useraccount_id = '" . $statusupdate_useraccount_id . "' WHERE itsrequest_id = '" . $itsrequest_id . "' ";
+
+		return $con->query($qry);
+	}
+
 
 	/*  Set Request Status to Deployed */
 	public function statusDeployedRequest($itsrequest_id, $rec_date)
 	{
 		global $con;
 
-		$msg = "Please try again!";
+		$msg = "Error!";
 
 		$qry = "UPDATE itservices_request_tbl SET status = 'deployed', received_date = '" . $rec_date . "' WHERE itsrequest_id = '" . $itsrequest_id . "' ";
 		if ($con->query($qry)) {
@@ -654,7 +626,7 @@ class Controller
 	{
 		global $con;
 
-		$msg = "Please try again!";
+		$msg = "Error!";
 
 		$qry = "UPDATE itservices_request_tbl SET itshw_category = 'pulled-out', hwcomponent_id = '" . $hwcomponent_id . "', property_num = '" . $property_num . "', status = 'received', statusupdate_useraccount_id = '" . $statusupdate_useraccount_id . "' WHERE itsrequest_id = '" . $itsrequest_id . "' ";
 		if ($con->query($qry)) {
@@ -773,7 +745,7 @@ class Controller
 	{
 		global $con;
 
-		$msg = "Please try again!";
+		$msg = "Error!";
 
 		$qry = $con->prepare("INSERT INTO itservices_request_tbl (dept_id,emp_id,itsrequest_category,itshw_category,hwcomponent_id,hwcomponent_sub_id,property_num,concern,statusupdate_useraccount_id,itsrequest_date) VALUES (?,?,?,?,?,?,?,?,?,?)");
 		$qry->bind_param('iissiissis', $dept_id, $emp_id, $itsrequest_category, $itshw_category, $hwcomponent_id, $hwcomponent_subcategory, $property_num, $concern, $statusupdate_useraccount_id, $req_date);

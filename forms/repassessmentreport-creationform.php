@@ -163,12 +163,12 @@ $subHardwareComponents = $control->getHardwareComponentsByCategory('sub');
 						<label class="form-group col-lg-12"> Serial Number: </label>
 					</div>
 
-					<div class="col-lg-3 form-group ">
+					<div class="col-lg-3 form-group">
 						<!-- Department Field -->
 						<select class="form-control" name="dept_id" id="dept_id" required>
-							<?php foreach ($departments as $value) : ?>
-								<option value="<?= $value['dept_id'] ?>" <?php if ($dept_id == $value['dept_id']) : ?> selected='selected' <?php endif; ?>>
-									<?= $value['dept_code'] ?>
+							<?php foreach ($departments as $department) : ?>
+								<option value="<?= $department['dept_id'] ?>" <?php if ($dept_id == $department['dept_id']) : ?> selected='selected' <?php endif; ?>>
+									<?= $department['dept_code'] ?>
 								</option>
 							<?php endforeach; ?>
 						</select>
@@ -274,9 +274,9 @@ $subHardwareComponents = $control->getHardwareComponentsByCategory('sub');
 		}).done(function(employees) {
 			employees = JSON.parse(employees);
 			$('#emp_id').empty();
-			$('#emp_id').append('<option value = "">' + '-- Select Employee --' + '</option>');
+			$('#emp_id').append('<option selected option>-- Select Employee --</option>');
 			employees.forEach(function(employee) {
-				$('#emp_id').append('<option value = ' + employee.emp_id + '>' + employee.emp_fname + ' ' + employee.emp_lname + '</option>')
+				$('#emp_id').append('<option value = ' + employee.emp_id + '>' + employee.emp_fname + ' ' + employee.emp_lname + '</option>');
 			});
 		});
 
@@ -381,7 +381,7 @@ $subHardwareComponents = $control->getHardwareComponentsByCategory('sub');
 		(window).open('../admin/downloadables/print-repassessmentreport-form.php');
 	});
 
-	$('#repassessmentreport-form').submit(e => {
+	$('#repassessmentreport-form').submit(function(e) {
 		e.preventDefault();
 
 		const action = $('#action').val();
@@ -438,28 +438,29 @@ $subHardwareComponents = $control->getHardwareComponentsByCategory('sub');
 
 		// Insert assessment report data to db
 		$.post('../config/processors/requestArguments.php', assessmentReportData)
-			.done(function(assessmentReportId) {
-				const subComponentAssessmentData = {
-					action: 'addAssessmentSubComponents',
-					assessmentReportId: assessmentReportId,
-					subcomponents: hwSubComponentsAssessments
-				};
+			.done(
+				function(assessmentReportId) {
+					const subComponentAssessmentData = {
+						action: 'addAssessmentSubComponents',
+						assessmentReportId: assessmentReportId,
+						subcomponents: hwSubComponentsAssessments
+					};
 
-				// Insert sub-component hardware assessment data
-				$.post('../config/processors/requestArguments.php', subComponentAssessmentData)
-					.fail(() => alert('Error!'))
-					.done(res => {
-						if (res) {
-							alert('Assessment Report Created!');
-							// Redirect to Assessment Report Print Page
-							$.redirect('../admin/downloadables/print-repassessmentreport-form.php', {
-								assessment_report_id: assessmentReportId
-							});
-						} else {
-							alert('Error!, Try again');
-						}
-					});
-			});
+					// Insert sub-component hardware assessment data
+					$.post('../config/processors/requestArguments.php', subComponentAssessmentData)
+						.fail(() => alert('Error!'))
+						.done(res => {
+							if (res) {
+								alert('Assessment Report Created!');
+								// Redirect to Assessment Report Print Page
+								$.redirect('../admin/downloadables/print-repassessmentreport-form.php', {
+									assessment_report_id: assessmentReportId
+								});
+							} else {
+								alert('Error!, Try again');
+							}
+						});
+				});
 
 	});
 </script>
