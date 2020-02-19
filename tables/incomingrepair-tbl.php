@@ -25,7 +25,7 @@ if (!$repairs) {
       <?php
       $id = 1;
       foreach ($repairs as $repair) {
-        $components = $control->getHardwareComponents($repair['hwcomponent_sub_id']);
+        $component = $control->getHardwareComponents($repair['hwcomponent_sub_id']);
       ?>
         <tr>
           <td> <?= $id ?> </td>
@@ -33,15 +33,9 @@ if (!$repairs) {
           <td> <?= $repair['dept_code'] ?> </td>
           <td> <?= $repair['emp_fname'] ?> <?= $repair['emp_lname'] ?> </td>
           <td> <?= $repair['hwcomponent_name'] ?>
-            <?php
-            if ($components) {
-              foreach ($components as $component) {
-            ?>
-                (<?= $component['hwcomponent_name'] ?>)
-            <?php
-              }
-            }
-            ?>
+            <?php if ($component) : ?>
+              (<?= $component['hwcomponent_name'] ?>)
+            <?php endif; ?>
             - <?= $repair['concern'] ?> </td>
           <td> <?= $repair['status'] ?> </td>
           <td>
