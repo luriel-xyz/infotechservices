@@ -261,17 +261,16 @@ $employees = $control->getEmployee();
 					emp_id: emp_id
 				},
 				dataType: 'JSON',
-			}).done(function(data) {
-				$.each(data, function(index, value) {
-					$('.modal-title').text('EMPLOYEE UPDATING FORM');
-					$('#emp_id').append('<input type="hidden" name="emp_id" id="emp_id" value=' + value.emp_id + '>');
-					$('#dept_id').val(value.dept_id);
-					$('#emp_idnum').val(value.emp_idnum);
-					$('#fname').val(value.emp_fname);
-					$('#lname').val(value.emp_lname);
-					$('#emp_btn').text('Save Changes');
-					$('#action').val('updateEmployee');
-				});
+			}).done(function(employee) {
+				$('.modal-title').text('EMPLOYEE UPDATING FORM');
+				$('#emp_id').append('<input type="hidden" name="emp_id" id="emp_id" value=' + value.emp_id + '>');
+				$('#dept_id').val(employee.dept_id);
+				$('#emp_idnum').val(employee.emp_idnum);
+				$('#fname').val(employee.emp_fname);
+				$('#lname').val(employee.emp_lname);
+				$('#emp_position').val(employee.emp_position);
+				$('#emp_btn').val('Save Changes');
+				$('#action').val('updateEmployee');
 			});
 			$('#modal').modal({
 				backdrop: 'static',
