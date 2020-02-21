@@ -230,7 +230,6 @@ $depts = $control->getDepartment();
 
 <script>
 	$(function() { 
-
 		fetchAllRequests();
 
 		// Fetch requests every 5 seconds
@@ -241,8 +240,8 @@ $depts = $control->getDepartment();
 				.fail(function() {
 					alert('Error');
 				})
-				.done(function(data) {
-					$('#incoming-requests').html(data);
+				.done(function(table) {
+					$('#incoming-requests').html(table);
 				});
 		}
 
