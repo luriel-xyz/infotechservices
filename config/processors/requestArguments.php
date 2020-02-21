@@ -149,7 +149,7 @@ if (isset($_POST['action'])) {
 		$emp_id = $request['emp_id'];
 		$property_num = $request['property_num'];
 
-		$result = $control->addRepAssessReport(
+		$result = $control->addRepAssessReport( 
 			$itsrequest_id,
 			$hwcomponent_id,
 			$assessmenttechrep_useraccount_id,

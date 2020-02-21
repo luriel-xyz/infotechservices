@@ -121,9 +121,9 @@ if (!isset($_POST['assessment_report_id'])) {
           <!-- /# Labels -->
           <!-- Values -->
           <div class="hardware-info-table__values body-1">
-            <div id="date" class="value"><?= $date ?></div>
+            <div id="date" class="value"><?= date_format(date_create($date), "M d, Y h:i a") ?></div>
             <div id="name-of-item" class="value"><?= $nameOfItem ?></div>
-            <div id="date-acquired" class="value"><?= $dateAcquired ?></div>
+            <div id="date-acquired" class="value"><?= date_format(date_create($dateAcquired), "M d, Y h:i a") ?> </div> 
             <div id="model-or-description" class="value"><?= $modelOrDescription ?></div>
           </div>
           <!-- /# Values -->
