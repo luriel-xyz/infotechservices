@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 19, 2020 at 01:29 AM
+-- Generation Time: Feb 21, 2020 at 04:55 AM
 -- Server version: 10.1.29-MariaDB
 -- PHP Version: 7.2.0
 
@@ -73,7 +73,13 @@ INSERT INTO `assessment_sub_components` (`id`, `sub_component_id`, `remark`, `re
 (40, 37, 'hays', 42),
 (41, 39, 'asdf', 43),
 (42, 39, 'asdf', 44),
-(43, 40, 'suro', 44);
+(43, 40, 'suro', 44),
+(45, 47, '', 47),
+(46, 35, 'ink remark', 48),
+(47, 37, 'vwer Adapt', 48),
+(48, 38, 'asdfadsfads', 48),
+(49, 46, 'dsfasfd', 49),
+(50, 47, 'adffdsaf', 49);
 
 -- --------------------------------------------------------
 
@@ -128,7 +134,8 @@ INSERT INTO `employee_tbl` (`emp_id`, `dept_id`, `emp_idnum`, `emp_fname`, `emp_
 (21, 1, 4, 'Gretchen', 'Marrero', 'I don\'t know position'),
 (22, 1, 2312, 'Jando', 'Sasa', NULL),
 (35, 1, 123, 'Ad', 'Min', NULL),
-(36, 8, 321, 'Depart', 'Ment', NULL);
+(36, 8, 321, 'Depart', 'Ment', NULL),
+(38, 12, 2147483647, 'Test Fname', 'Test Lname', 'Test Position');
 
 -- --------------------------------------------------------
 
@@ -171,7 +178,8 @@ INSERT INTO `hardwarecomponent_tbl` (`hwcomponent_id`, `hwcomponent_name`, `hwco
 (43, 'Speakers', 'sub', 26),
 (44, 'Monitor LCD/LED', 'sub', 26),
 (45, 'Monitor Circuit Board', 'sub', 26),
-(46, 'External HDD', 'sub', 27);
+(46, 'External HDD', 'sub', 27),
+(47, 'Sensors', 'sub', 27);
 
 -- --------------------------------------------------------
 
@@ -185,7 +193,7 @@ CREATE TABLE `itservices_request_tbl` (
   `emp_id` int(11) DEFAULT NULL,
   `itsrequest_date` datetime NOT NULL,
   `concern` varchar(255) NOT NULL,
-  `status` enum('post-repair inspected','pre-repair inspected','assessment pending','deployed','done','pending','received','assessed') NOT NULL DEFAULT 'received',
+  `status` enum('post-repair inspected','pre-repair inspected','assessment pending','deployed','done','pending','received','assessed','pre-post-repair inspected') NOT NULL DEFAULT 'received',
   `statusupdate_useraccount_id` int(255) DEFAULT NULL,
   `itsrequest_category` enum('hw','other') DEFAULT NULL,
   `hwcomponent_id` int(11) DEFAULT NULL,
@@ -233,13 +241,19 @@ INSERT INTO `itservices_request_tbl` (`itsrequest_id`, `dept_id`, `emp_id`, `its
 (38, 8, 36, '2020-02-15 15:47:01', '54h45h5h5h5h', 'deployed', 40, 'hw', 26, 0, 'pulled-out', '123123', 'done bruh\r\n', '2020-02-15 16:12:44'),
 (39, 8, 14, '2020-02-15 16:17:24', 'asdf', 'assessed', 40, 'hw', 24, 0, 'pulled-out', '123f123f', NULL, NULL),
 (40, 8, 14, '2020-02-15 16:20:32', 'asdfsadf', 'assessed', 40, 'hw', 25, 0, 'pulled-out', 'adfasdf', NULL, NULL),
-(41, 8, 13, '2020-02-15 17:04:04', 'asdfsadf', 'done', 40, 'hw', 25, 0, 'pulled-out', 'asdf12asdf', 'Solution', NULL),
+(41, 8, 13, '2020-02-15 17:04:04', 'asdfsadf', 'deployed', 40, 'hw', 25, 0, 'pulled-out', 'asdf12asdf', 'Solution', '2020-02-19 11:40:07'),
 (42, 8, 14, '2020-02-16 08:47:03', '123123123\r\n', 'assessed', 40, 'hw', 24, 0, 'pulled-out', '123', NULL, NULL),
 (43, 8, 16, '2020-02-16 11:06:39', 'alpha male', 'assessed', 40, 'hw', 24, 0, 'pulled-out', '123-=123-=123', NULL, NULL),
-(44, 8, 13, '2020-02-16 11:20:08', 'asdfasdfadsf', 'assessed', 40, 'hw', 24, 0, 'pulled-out', 'adfsdaf', NULL, NULL),
-(45, 8, 14, '2020-02-16 11:35:19', 'ho', 'assessed', 40, 'hw', 24, 0, 'pulled-out', 'sdf2', NULL, NULL),
+(44, 8, 13, '2020-02-16 11:20:08', 'asdfasdfadsf', 'pre-post-repair inspected', 40, 'hw', 24, 0, 'pulled-out', 'adfsdaf', NULL, NULL),
+(45, 8, 14, '2020-02-16 11:35:19', 'ho', 'pre-post-repair inspected', 40, 'hw', 24, 0, 'pulled-out', 'sdf2', NULL, NULL),
 (46, 8, 13, '2020-02-16 11:51:32', 'adsf', 'pre-repair inspected', 40, 'hw', 25, 0, 'pulled-out', 'lll', NULL, NULL),
-(48, 8, 13, '2020-02-16 16:43:43', 'asdfasdff heheh heheh ', 'assessed', 40, 'hw', 25, 0, 'pulled-out', 'prop num!', NULL, NULL);
+(48, 8, 13, '2020-02-16 16:43:43', 'asdfasdff heheh heheh ', 'pre-post-repair inspected', 40, 'hw', 25, 0, 'pulled-out', 'prop num!', NULL, NULL),
+(49, 12, 38, '2020-02-19 09:06:33', 'concern', 'assessed', 40, 'hw', 24, 36, 'walk-in', 'dsfasd', NULL, NULL),
+(50, 8, 13, '2020-02-19 11:35:02', 'test 123 do ', 'done', 40, 'other', NULL, 0, '', NULL, 'solution', NULL),
+(51, 8, 36, '2020-02-19 11:42:38', 'testing 123\r\n', 'assessed', 40, 'hw', 27, 0, 'pulled-out', '123123', NULL, NULL),
+(52, 8, 14, '2020-02-19 13:24:36', 'others hardware', 'assessed', 40, 'hw', 27, 0, 'pulled-out', 'prop num', NULL, NULL),
+(53, 8, 15, '2020-02-19 16:34:01', 'adsfsadfasfdsa', 'received', 40, 'hw', 24, 37, 'walk-in', 'dsafdsafsa', NULL, NULL),
+(54, 8, 16, '2020-02-21 10:24:16', 'tseting 123\r\n', 'pending', 40, 'hw', 24, 0, 'pulled-out', 'asdf', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -310,7 +324,12 @@ INSERT INTO `repassessreport_tbl` (`repassessreport_id`, `itsrequest_id`, `asses
 (41, 44, 40, 24, '2020-01-31 16:00:00', '2020-01-31 16:00:00', 'asdfasdfsdaf', 0.05, 'asdfasdfasdf', 'for replacement', 'hehehe', 'heheh'),
 (42, 45, 40, 24, '2020-01-31 16:00:00', '2020-02-01 16:00:00', 'Model/Description:', 0.06, 'asdfasdf', 'partly damaged', 'damaged ', 'the notes'),
 (43, 46, 40, 25, '2020-01-31 16:00:00', '2020-01-31 16:00:00', 'asdfsdafsdaf', 10.1, 'asdfsdaf', 'partly damaged', 'asdf', 'fasd'),
-(44, 48, 40, 25, '2020-01-31 16:00:00', '2020-02-01 16:00:00', 'reegerwgewrgewrg', 0.07, 'ewrgewrgerwgergereger', 'for replacement', 'i replace mon', 'testing notes 123');
+(44, 48, 40, 25, '2020-01-31 16:00:00', '2020-02-01 16:00:00', 'reegerwgewrgewrg', 0.07, 'ewrgewrgerwgergereger', 'for replacement', 'i replace mon', 'testing notes 123'),
+(45, 51, 40, 27, '2020-01-31 16:00:00', '2020-01-31 16:00:00', 'mod desc', 0.1, 'serial num 123', 'partly damaged', 'test', 'notes'),
+(46, 51, 40, 27, '2020-01-31 16:00:00', '2019-12-31 16:00:00', 'ds', 0.01, 'serial num', 'repaired', 'dfescriptoin', 'notes'),
+(47, 51, 40, 27, '2020-01-31 16:00:00', '2020-01-31 16:00:00', 'adsfdsafdsa', 0.02, 'AASDFADSFDS', 'partly damaged', 'adsf', 'asdf'),
+(48, 49, 40, 24, '2020-01-31 16:00:00', '2020-01-31 16:00:00', 'adsfadsfdsafdsafdsaf', 0.17, 'dsafasdfsadfsdaf', 'partly damaged', 'test', 'notes'),
+(49, 52, 40, 27, '2020-01-31 16:00:00', '2020-01-31 16:00:00', 'Model/Description', 100, 'serial number', 'for replacement', 'sukatn', 'fdasfads');
 
 -- --------------------------------------------------------
 
@@ -369,7 +388,8 @@ INSERT INTO `useraccount_tbl` (`useraccount_id`, `emp_id`, `username`, `password
 (42, 20, 'raesandy', '5e89b388c66d9b3e7f74aa1d29bfa124', '1', 'personnel', NULL),
 (43, 21, 'gretchen', '759949062e065aff5dadea6a27e6b00d', '1', 'personnel', NULL),
 (44, 22, 'jando', 'f45731e3d39a1b2330bbf93e9b3de59e', '1', 'admin', NULL),
-(46, 24, 'programmer', '5f4dcc3b5aa765d61d8327deb882cf99', '1', 'programmer', NULL);
+(46, 24, 'programmer', '5f4dcc3b5aa765d61d8327deb882cf99', '1', 'programmer', NULL),
+(47, NULL, 'test', '098f6bcd4621d373cade4e832627b4f6', '1', 'department', 12);
 
 --
 -- Indexes for dumped tables
@@ -448,7 +468,7 @@ ALTER TABLE `useraccount_tbl`
 -- AUTO_INCREMENT for table `assessment_sub_components`
 --
 ALTER TABLE `assessment_sub_components`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `department_tbl`
@@ -460,25 +480,25 @@ ALTER TABLE `department_tbl`
 -- AUTO_INCREMENT for table `employee_tbl`
 --
 ALTER TABLE `employee_tbl`
-  MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `hardwarecomponent_tbl`
 --
 ALTER TABLE `hardwarecomponent_tbl`
-  MODIFY `hwcomponent_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `hwcomponent_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `itservices_request_tbl`
 --
 ALTER TABLE `itservices_request_tbl`
-  MODIFY `itsrequest_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `itsrequest_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT for table `repassessreport_tbl`
 --
 ALTER TABLE `repassessreport_tbl`
-  MODIFY `repassessreport_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `repassessreport_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT for table `repinspectreport_tbl`
@@ -490,7 +510,7 @@ ALTER TABLE `repinspectreport_tbl`
 -- AUTO_INCREMENT for table `useraccount_tbl`
 --
 ALTER TABLE `useraccount_tbl`
-  MODIFY `useraccount_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `useraccount_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- Constraints for dumped tables
