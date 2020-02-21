@@ -140,7 +140,8 @@ $subHardwareComponents = $control->getHardwareComponentsByCategory('sub');
 						<!-- /# Name of Item Select Field -->
 						<br>
 						<!-- Hardware Component Description Field -->
-						<input class="form-control" type="text" name="hwcomponent_description" id="hwcomponent_description" required>
+						<textarea name="hwcomponent_description" class="form-control" id="hwcomponent_description" rows="2" required></textarea>
+						<!-- <input class="form-control" type="text" name="hwcomponent_description" id="hwcomponent_description" required> -->
 						<!-- /# Hardware Component Description Field -->
 						<br>
 						<!-- Date Acquired Field -->
@@ -235,7 +236,7 @@ $subHardwareComponents = $control->getHardwareComponentsByCategory('sub');
 						</div>
 						<div class="col-lg-12 form-group">
 							<!-- Notes Field -->
-							<input class="form-control" type="text" name="notes" id="notes" required placeholder="Notes">
+							<input class="form-control" type="text" name="notes" id="notes" placeholder="Notes">
 							<!-- /# Notes Field -->
 						</div>
 					</div>

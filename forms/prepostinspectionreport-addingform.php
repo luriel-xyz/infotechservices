@@ -92,7 +92,7 @@ $request = $control->getRequest($assessmentReport['itsrequest_id']);
             <div class="col-6">
               <!-- To Field -->
               <div class="form-group">
-                <input type="text" class="form-control mb-2" name="to" id="to" placeholder="To" required>
+                <input type="text" class="form-control mb-2" name="to" id="to" placeholder="To">
               </div>
               <!-- /# To Field -->
 
@@ -127,7 +127,7 @@ $request = $control->getRequest($assessmentReport['itsrequest_id']);
               <input type="text" class="form-control" name="model" id="model" placeholder="Model" required>
             </div>
             <div class="form-group">
-              <input type="text" class="form-control" name="property_number" id="property-number" placeholder="Property Number" value="<?=$request['property_num']?>" required>
+              <input type="text" class="form-control" name="property_number" id="property-number" placeholder="Property Number" value="<?= $request['property_num'] ?>" required>
             </div>
             <div class="form-group">
               <input type="text" class="form-control" name="serial_number" id="serial-number" placeholder="Serial Number" value="<?= $assessmentReport['serial_number'] ?>" required>
@@ -136,10 +136,10 @@ $request = $control->getRequest($assessmentReport['itsrequest_id']);
           <div class="col-md-6">
             <div class="form-group mt-4 pt-2">
               <label for="acquisition-date" class="font-size-small">Acquisition Date:</label>
-              <input type="date" class="form-control" name="acquisition_date" id="acquisition-date" placeholder="Acquisition Date" required>
+              <input type="date" class="form-control" name="acquisition_date" id="acquisition-date" placeholder="Acquisition Date" value="<?=$assessmentReport['hwcomponent_dateAcquired']?>" required>
             </div>
             <div class="form-group">
-              <input type="number" min="0" step=".01" class="form-control" name="acquisition_cost" id="acquisition-cost" placeholder="Acquisition Cost" required>
+              <input type="number" min="0" step=".01" class="form-control" name="acquisition_cost" id="acquisition-cost" placeholder="Acquisition Cost" value="<?= $assessmentReport['hwcomponent_acquisitioncost'] ?>" required>
             </div>
             <div class="form-group">
               <label for="issued-to" class="font-size-small">Issued To:</label>

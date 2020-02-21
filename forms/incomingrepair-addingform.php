@@ -188,7 +188,7 @@ $hardwarecomponents = $control->getHardwareComponentsByCategory('main');
 				$('#emp_id').empty();
 				$('#emp_id').append('<option value = "">' + '-- Select Employee --' + '</option>');
 				employees.forEach(function(employee) {
-					$('#emp_id').append('<option value = ' + employee.emp_id + '>' + employee.emp_fname + ' ' + employee.emp_lname + '</option>')
+					$('#emp_id').append('<option value = ' + employee.emp_id + '>' + employee.emp_fname + ' ' + employee.emp_lname + '</option>');
 				});
 			});
 		});
