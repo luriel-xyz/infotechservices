@@ -514,13 +514,18 @@ class Controller
 	}
 
 	/*  Set Request Status to Done */
-	public function statusDoneRequest($itsrequest_id, $solution, $statusupdate_useraccount_id)
+	public function statusDoneRequest($itsrequest_id, $solution, $statusupdate_useraccount_id, $deployment_date)
 	{
 		global $con;
 
 		$msg = "Error!";
 
-		$qry = "UPDATE itservices_request_tbl SET status = 'done', solution = '" . $solution . "', statusupdate_useraccount_id = '" . $statusupdate_useraccount_id . "' WHERE itsrequest_id = '" . $itsrequest_id . "' ";
+		$qry = "UPDATE itservices_request_tbl 
+						SET status = 'done', 
+						solution = '" . $solution . "', 
+						statusupdate_useraccount_id = '" . $statusupdate_useraccount_id . "',
+						deployment_date = '" . $deployment_date . "'
+						WHERE itsrequest_id = '" . $itsrequest_id . "' ";
 		if ($con->query($qry)) {
 			$msg = "Request Done!";
 		}

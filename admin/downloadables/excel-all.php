@@ -69,31 +69,31 @@ if (isset($_POST['action'])) {
     </thead>
     <tbody>
       <?php
-      foreach ($requests as $value) {
-        if ($value['statusupdate_useraccount_id'] !== NULL) {
-          $technician = $control->getUserAccount($value['statusupdate_useraccount_id']);
+      foreach ($requests as $request) {
+        if ($request['statusupdate_useraccount_id']) {
+          $technician = $control->getUserAccount($request['statusupdate_useraccount_id']);
           $tech_name = $technician['emp_fname'] . ' ' . $technician['emp_lname'];
         } else {
           $tech_name = "";
         }
       ?>
         <tr>
-          <td><?= $value['itsrequest_date'] ?></td>
-          <td><?= $value['dept_name'] ?></td>
-          <td><?= $value['emp_fname'] ?> <?= $value['emp_lname'] ?></td>
-          <td><?= $value['hwcomponent_name'] ?></td>
+          <td><?= $request['itsrequest_date'] ?></td>
+          <td><?= $request['dept_name'] ?></td>
+          <td><?= $request['emp_fname'] ?> <?= $request['emp_lname'] ?></td>
+          <td><?= $request['hwcomponent_name'] ?></td>
           <?php
           if ($action === 'RepairSummaryReport') {
-            echo '<td>' . $value['property_num'] . '</td>';
+            echo '<td>' . $request['property_num'] . '</td>';
           }
           ?>
-          <td><?= $value['concern'] ?></td>
-          <td><?= $value['status'] ?></td>
+          <td><?= $request['concern'] ?></td>
+          <td><?= $request['status'] ?></td>
           <td><?= $tech_name ?></td>
-          <td><?= $value['solution'] ?></td>
+          <td><?= $request['solution'] ?></td>
           <?php
           if ($action === 'RepairSummaryReport') {
-            echo '<td>' . $value['received_date'] . '</td>';
+            echo '<td>' . $request['deployment_date'] . '</td>';
           }
           ?>
         </tr>

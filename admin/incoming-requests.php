@@ -217,9 +217,7 @@ $depts = $control->getDepartment();
 					<div class="modal-content">
 						<!--  Print Modal  -->
 						<div id="printSorting-form">
-
 							<?php include_once('../forms/printSorting-form.php');	?>
-
 						</div>
 						<!-- /#Print Modal -->
 					</div>

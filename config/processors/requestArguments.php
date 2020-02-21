@@ -83,8 +83,9 @@ if (isset($_POST['action'])) {
 		$itsrequest_id = $_POST['itsrequest_id'];
 		$solution = $_POST['solution'];
 		$statusupdate_useraccount_id = $_POST['statusupdate_useraccount_id'];
+		$deployment_date = date('M d, Y');
 
-		$result = $control->statusDoneRequest($itsrequest_id, $solution, $statusupdate_useraccount_id);
+		$result = $control->statusDoneRequest($itsrequest_id, $solution, $statusupdate_useraccount_id, $deployment_date);
 
 		echo $result;
 	}
