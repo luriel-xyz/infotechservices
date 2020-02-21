@@ -13,43 +13,45 @@ $control = new Controller();
 if (!isset($_SESSION["username"])) {
   //redirect to login page
   header('Location: ../login.php');
+  exit;
 }
 
 if (!isset($_POST['assessment_report_id'])) {
   header('Location: ../incoming-repairs.php');
-} else {
-  $assessmentReportId = $_POST['assessment_report_id'];
-  $assessmentReport = $control->getAssessmentReport($assessmentReportId);
-  $date = $assessmentReport['assessment_date'];
-
-  $mainComponentId = $assessmentReport['hwcomponent_id'];
-  $nameOfItem = $control->getHardwareComponents($mainComponentId)['hwcomponent_name'];
-  $modelOrDescription = $assessmentReport['hwcomponent_description'];
-  $dateAcquired = $assessmentReport['hwcomponent_dateAcquired'];
-  $acquisitionCost = $assessmentReport['hwcomponent_acquisitioncost'];
-
-  $request = $control->getRequest($assessmentReport['itsrequest_id']);
-  $departmentCode = $request['dept_code'];
-  $propertyNumber = $request['property_num'];
-
-  $issuedTo = $control->getEmployee($request['emp_id']);
-  $issuedTo = $issuedTo['emp_fname'] . ' ' . $issuedTo['emp_lname'];
-
-  $subComponents = $control->getSubComponentsAssessmentByMainAssessmentId($assessmentReportId);
-  $findingsCategory = $assessmentReport['findings_category'];
-  $findingsDescription = $assessmentReport['findings_description'];
-  $notes = $assessmentReport['notes'];
-
-  $techRepresentativeEmpId = $control->getUserAccount($assessmentReport['assessmenttechrep_useraccount_id'])['emp_id'];
-  $techRepresentative = $control->getEmployee($techRepresentativeEmpId);
-
-  // Hardcoded parameter
-  $cpuComponents = $control->getHardwareComponentsBySubCategory(23);
-  $printerComponents = $control->getHardwareComponentsBySubCategory(24);
-  $upsComponents = $control->getHardwareComponentsBySubCategory(25);
-  $accessoriesComponents = $control->getHardwareComponentsBySubCategory(26);
-  $othersComponents = $control->getHardwareComponentsBySubCategory(27);
+  exit;
 }
+
+$assessmentReportId = $_POST['assessment_report_id'];
+$assessmentReport = $control->getAssessmentReport($assessmentReportId);
+$date = $assessmentReport['assessment_date'];
+
+$mainComponentId = $assessmentReport['hwcomponent_id'];
+$nameOfItem = $control->getHardwareComponents($mainComponentId)['hwcomponent_name'];
+$modelOrDescription = $assessmentReport['hwcomponent_description'];
+$dateAcquired = $assessmentReport['hwcomponent_dateAcquired'];
+$acquisitionCost = $assessmentReport['hwcomponent_acquisitioncost'];
+
+$request = $control->getRequest($assessmentReport['itsrequest_id']);
+$departmentCode = $request['dept_code'];
+$propertyNumber = $request['property_num'];
+
+$issuedTo = $control->getEmployee($request['emp_id']);
+$issuedTo = $issuedTo['emp_fname'] . ' ' . $issuedTo['emp_lname'];
+
+$subComponents = $control->getSubComponentsAssessmentByMainAssessmentId($assessmentReportId);
+$findingsCategory = $assessmentReport['findings_category'];
+$findingsDescription = $assessmentReport['findings_description'];
+$notes = $assessmentReport['notes'];
+
+$techRepresentativeEmpId = $control->getUserAccount($assessmentReport['assessmenttechrep_useraccount_id'])['emp_id'];
+$techRepresentative = $control->getEmployee($techRepresentativeEmpId);
+
+// Hardcoded parameter
+$cpuComponents = $control->getHardwareComponentsBySubCategory(23);
+$printerComponents = $control->getHardwareComponentsBySubCategory(24);
+$upsComponents = $control->getHardwareComponentsBySubCategory(25);
+$accessoriesComponents = $control->getHardwareComponentsBySubCategory(26);
+$othersComponents = $control->getHardwareComponentsBySubCategory(27);
 ?>
 
 <!DOCTYPE html>
@@ -123,7 +125,7 @@ if (!isset($_POST['assessment_report_id'])) {
           <div class="hardware-info-table__values body-1">
             <div id="date" class="value"><?= date_format(date_create($date), "M d, Y h:i a") ?></div>
             <div id="name-of-item" class="value"><?= $nameOfItem ?></div>
-            <div id="date-acquired" class="value"><?= date_format(date_create($dateAcquired), "M d, Y h:i a") ?> </div> 
+            <div id="date-acquired" class="value"><?= date_format(date_create($dateAcquired), "M d, Y h:i a") ?> </div>
             <div id="model-or-description" class="value"><?= $modelOrDescription ?></div>
           </div>
           <!-- /# Values -->

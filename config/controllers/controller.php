@@ -325,7 +325,7 @@ class Controller
 	{
 		global $con;
 
-		$msg = "Error!";
+		$msg = "This department already have an account.";
 		$status = 1;
 		$enc_password = md5($password);
 
@@ -352,7 +352,7 @@ class Controller
 	{
 		global $con;
 
-		$msg = "Error!";
+		$msg = "This personnel already have an account.";
 		$status = 1;
 		$enc_password = md5($password);
 

@@ -14,11 +14,13 @@ session_start();
 if (!isset($_SESSION["username"]) && !isset($_SESSION['usertype'])) {
 	//redirect to login page
 	header('location: ../login.php');
-} else {
-	if ($_SESSION['usertype'] !== 'admin' && $_SESSION['usertype'] !== 'personnel') {
-		//redirect to login page
-		header('location: ../login.php');
-	}
+	exit;
+}
+
+if (!in_array($_SESSION['usertype'], ['admin', 'personnel'])) {
+	//redirect to login page
+	header('location: ../login.php');
+	exit;
 }
 
 if (isset($_POST['useraccount_id']) && isset($_POST['itsrequest_id'])) {
@@ -108,7 +110,7 @@ $subHardwareComponents = $control->getHardwareComponentsByCategory('sub');
 						<label class="form-group"> Date: </label>
 					</div>
 					<div class="form-group col-lg-4">
-						<input class="form-control" type="date" name="assessment_date" id="assessment_date" required />
+						<input class="form-control" type="date" name="assessment_date" id="assessment_date" value="<?= date('Y-m-d') ?>" required />
 					</div>
 				</div>
 				<hr class="border border-light">
@@ -128,7 +130,7 @@ $subHardwareComponents = $control->getHardwareComponentsByCategory('sub');
 
 					<div class="col-lg-3 form-group">
 						<!-- Name of Item Select Field -->
-						<select class="form-control" name="hwcomponent_id" id="hwcomponent_id" required>
+						<select class="form-control" name="hwcomponent_id" id="hwcomponent_id" required disabled>
 							<?php foreach ($hardwareComponents as $component) : ?>
 								<option value="<?= $component['hwcomponent_id'] ?>" <?php if ($component['hwcomponent_id'] == $hwcomponent_id) : ?> selected <?php endif ?>>
 									<?= $component['hwcomponent_name'] ?>
@@ -377,9 +379,7 @@ $subHardwareComponents = $control->getHardwareComponentsByCategory('sub');
 		});
 	});
 
-	$('.btn-print').click(() => {
-		(window).open('../admin/downloadables/print-repassessmentreport-form.php');
-	});
+	$('.btn-print').click(() => (window).open('../admin/downloadables/print-repassessmentreport-form.php'));
 
 	$('#repassessmentreport-form').submit(function(e) {
 		e.preventDefault();
@@ -401,7 +401,8 @@ $subHardwareComponents = $control->getHardwareComponentsByCategory('sub');
 		// Determine if "others checkbox" is checked
 		// const othersCheckboxIsChecked = $('#checkbox-others').prop('checked');
 		// if (othersCheckboxIsChecked) {
-		// others-remark
+		// 	const othersComponentRecommendation = $('.others-recommendation').val();
+		// 	};
 		// }
 
 		const assessmenttechrep_useraccount_id = $('#assessmenttechrep_useraccount_id').val();
@@ -443,7 +444,7 @@ $subHardwareComponents = $control->getHardwareComponentsByCategory('sub');
 					const subComponentAssessmentData = {
 						action: 'addAssessmentSubComponents',
 						assessmentReportId: assessmentReportId,
-						subcomponents: hwSubComponentsAssessments
+						subcomponents: hwSubComponentsAssessments,
 					};
 
 					// Insert sub-component hardware assessment data

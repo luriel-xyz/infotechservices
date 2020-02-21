@@ -24,11 +24,13 @@ if (!isset($_SESSION["username"]) && !isset($_SESSION['usertype'])) {
 
 	//redirect to login page
 	header('location: ../login.php');
-} else {
-	if ($_SESSION['usertype'] !== 'admin' && $_SESSION['usertype'] !== 'programmer') {
-		//redirect to login page
-		header('location: ../login.php');
-	}
+	exit;
+}
+
+if (!in_array($_SESSION['usertype'], ['admin', 'programmer'])) {
+	//redirect to login page
+	header('location: ../login.php');
+	exit;
 }
 
 //include database connection
@@ -53,7 +55,6 @@ $useraccounts = $control->getUserAccount();
 <html class="h-100 w-100">
 
 <head>
-
 	<!-- Meta Tag to Set Page's Width -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -72,14 +73,11 @@ $useraccounts = $control->getUserAccount();
 	<!-- Bootstrap core JavaScript -->
 	<script src="../../plug-ins/jquery/jquery.min.js"></script>
 	<script src="../../plug-ins/bootstrap/js/bootstrap.bundle.min.js"></script>
-
 </head>
 
 <body class="h-100 w-100">
-
 	<!-- /# Wrapper -->
 	<div class="d-flex" id="wrapper">
-
 		<!-- Sidebar -->
 		<div class="bg-secondary border-right mt-5 pt-2" id="sidebar-wrapper">
 			<div class="list-group list-group-flush">
@@ -119,7 +117,6 @@ $useraccounts = $control->getUserAccount();
 				</div>
 
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-
 					<ul class="navbar-nav ml-auto mt-2 mt-lg-0">
 						<li class="nav-item">
 							<a class="nav-link text-primary font-weight-bold disabled"><?= $_SESSION['username']; ?></a>
