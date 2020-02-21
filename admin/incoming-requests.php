@@ -14,18 +14,19 @@ session_start();
 
 //check if user is not logged in
 if (!isset($_SESSION["username"]) && !isset($_SESSION['usertype'])) {
-
 	//redirect to login page
+	session_unset();
+	session_destroy();
 	header('location: ../login.php');
-} else {
-	if ($_SESSION['usertype'] !== 'admin') {
-		if ($_SESSION['usertype'] !== 'personnel') {
-			if ($_SESSION['usertype'] !== 'programmer') {
-				//redirect to login page
-				header('location: ../login.php');
-			}
-		}
-	}
+	exit;
+}
+
+if ($_SESSION['usertype'] == 'department') {
+	//redirect to login page
+	session_unset();
+	session_destroy();
+	header('location: ../login.php');
+	exit;
 }
 
 //include database connection
@@ -73,7 +74,6 @@ $depts = $control->getDepartment();
 
 	<!-- Jquery Redirect JavaScript -->
 	<script src="../plug-ins/jquery/jquery.redirect.js"></script>
-
 </head>
 
 <body class="h-100 w-100">
@@ -228,9 +228,7 @@ $depts = $control->getDepartment();
 						<!--  Print Modal  -->
 						<div id="printSorting-form">
 
-							<?php
-							include_once('../forms/printSorting-form.php');
-							?>
+							<?php include_once('../forms/printSorting-form.php');	?>
 
 						</div>
 						<!-- /#Print Modal -->
