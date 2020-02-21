@@ -82,7 +82,7 @@ $hardwarecomponents = $control->getHardwareComponentsByCategory('main');
 				</div>
 
 				<div class="form-group">
-					<input type="hidden" class="form-control" name="statusupdate_useraccount_id" id="statusupdate_useraccount_id" value="<?php echo $_SESSION['useraccount_id']; ?>">
+					<input type="hidden" class="form-control" name="statusupdate_useraccount_id" id="statusupdate_useraccount_id" value="<?= $_SESSION['useraccount_id']; ?>">
 				</div>
 
 				<div>
@@ -90,21 +90,12 @@ $hardwarecomponents = $control->getHardwareComponentsByCategory('main');
 				</div>
 
 				<div class="form-group">
-
 					<select class="form-control" id="dept_id" name="dept_id">
-
-						<option value=""> -- Select Department -- </option>
-
-						<?php
-						foreach ($departments as $key => $value) {
-						?>
-							<option value="<?= $value['dept_id'] ?>"> <?= $value['dept_code'] ?> </option>
-						<?php
-						}
-						?>
-
+						<option disabled selected> -- Select Department -- </option>
+						<?php foreach ($departments as $department) :	?>
+							<option value="<?= $department['dept_id'] ?>"> <?= $department['dept_code'] ?> </option>
+						<?php endforeach;	?>
 					</select>
-
 				</div>
 
 				<div class="form-group">
@@ -119,7 +110,7 @@ $hardwarecomponents = $control->getHardwareComponentsByCategory('main');
 
 					<select class="form-control" id="itsrequest_category" name="itsrequest_category">
 
-						<option value=""> -- Select Request Category -- </option>
+						<option disabled selected> -- Select Request Category -- </option>
 						<option value="hw"> Hardware </option>
 						<option value="other"> Other </option>
 
@@ -133,32 +124,23 @@ $hardwarecomponents = $control->getHardwareComponentsByCategory('main');
 
 						<select class="form-control" id="hwcomponent_id" name="hwcomponent_id">
 
-							<option value=""> -- Select Hardware -- </option>
+							<option disabled selected> -- Select Hardware -- </option>
 
-							<?php
-							foreach ($hardwarecomponents as $key => $value) {
-							?>
-								<option value="<?= $value['hwcomponent_id'] ?>"> <?= $value['hwcomponent_name'] ?> </option>
-							<?php
-							}
-							?>
+							<?php foreach ($hardwarecomponents as $component) : ?>
+								<option value="<?= $component['hwcomponent_id'] ?>"> <?= $component['hwcomponent_name'] ?> </option>
+							<?php endforeach; ?>
 
 						</select>
 
 					</div>
 
 					<div class="form-group property_num">
-
 						<select class="form-control" id="hwcomponent_subcategory" name="hwcomponent_subcategory">
 						</select>
-
-
 					</div>
 
 					<div class="form-group property_num">
-
 						<input type="text" name="property_num" id="property_num" class="form-control" placeholder="Property Number">
-
 					</div>
 
 				</div>
@@ -166,22 +148,17 @@ $hardwarecomponents = $control->getHardwareComponentsByCategory('main');
 				<div class="form-group">
 					<label for="concern">Concern:</label>
 					<textarea class="form-control" id="concern" name="concern"></textarea>
-
 				</div>
 
 				<div class="row">
 					<div class="col text-center">
-
 						<button type="submit" class="btn btn-primary" id="submit-btn">Add Repair</button>
-
 					</div>
 				</div>
 
 			</form>
-
 		</div>
 		<!--/# Container -->
-
 	</div>
 	<!-- /# Page Content -->
 
