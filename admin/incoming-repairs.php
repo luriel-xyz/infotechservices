@@ -459,10 +459,12 @@ $hardwareComponents = $control->getHardwareComponentsByCategory('main');
       const action = 'statusPreAndPostInspected';
       const itsrequest_id = $(this).attr('id');
       const useraccount_id = $(this).attr('data-id');
+      const assessment_report_id = $(this).data('assessment-report-id');
       $.redirect('../forms/prepostinspectionreport-addingform.php', {
         action: action,
         itsrequest_id: itsrequest_id,
-        useraccount_id: useraccount_id
+        useraccount_id: useraccount_id,
+        assessment_report_id: assessment_report_id
       });
     });
 

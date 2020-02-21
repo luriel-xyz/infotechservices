@@ -1,6 +1,5 @@
 <?php
 //if repairs is empty
-
 if (!$repairs) {
 ?>
   <div class="alert alert-info text-center">
@@ -26,6 +25,7 @@ if (!$repairs) {
       $id = 1;
       foreach ($repairs as $repair) {
         $component = $control->getHardwareComponents($repair['hwcomponent_sub_id']);
+        $assessmentReport = $control->getAssessmentReportByRequestId($repair['itsrequest_id']);
       ?>
         <tr>
           <td> <?= $id ?> </td>
@@ -69,8 +69,7 @@ if (!$repairs) {
             } else if ($repair['status'] === 'assessed') {
             ?>
               <input type="hidden" name="" value="<?= $repair['itsrequest_id'] ?>">
-              <button type="button" class="btn btn-warning pre-post-inspect" data-toggle="tooltip" title="Pre And Post Repair Inspect" id="<?= $repair['itsrequest_id'] ?>" data-id="<?= $_SESSION['useraccount_id'] ?>"><i class="fa fa-file-text-o" aria-hidden="true"></i></button>
-              <?php $assessmentReport = $control->getAssessmentReportByRequestId($repair['itsrequest_id']); ?>
+              <button type="button" class="btn btn-warning pre-post-inspect" data-toggle="tooltip" title="Pre And Post Repair Inspect" id="<?= $repair['itsrequest_id'] ?>" data-id="<?= $_SESSION['useraccount_id'] ?>" data-assessment-report-id="<?= $assessmentReport['repassessreport_id'] ?>"><i class="fa fa-file-text-o" aria-hidden="true"></i></button>
               <button type="button" class="btn btn-secondary btn-print-assessment" data-toggle="tooltip" title="Print Assessment Form" data-assessment-report-id="<?= $assessmentReport['repassessreport_id'] ?>"><i class="fa fa-print" aria-hidden="true"></i></button>
               <?php
               // show

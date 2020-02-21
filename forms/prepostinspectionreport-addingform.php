@@ -7,12 +7,12 @@ if (!isset($_SESSION["username"]) && !isset($_SESSION['usertype'])) {
   //redirect to login page
   header('location: ../login.php');
   exit;
-} else {
-  if (!in_array($_SESSION['usertype'], ['admin', 'personnel'])) {
-    //redirect to login page
-    header('location: ../login.php');
-    exit;
-  }
+}
+
+if (!in_array($_SESSION['usertype'], ['admin', 'personnel'])) {
+  //redirect to login page
+  header('location: ../login.php');
+  exit;
 }
 
 if (
@@ -24,9 +24,6 @@ if (
   exit;
 }
 
-$action = $_POST['action'];
-$useraccount_id = $_POST['useraccount_id'];
-$itsrequest_id = $_POST['itsrequest_id'];
 // $dept_id = $_POST['dept_id'];
 // $hwcomponent_id = $_POST['hwcomponent_id'];
 
@@ -39,9 +36,16 @@ include_once "../config/controllers/controller.php";
 //instantiate controller
 $control = new Controller();
 
+$action = $_POST['action'];
+$useraccount_id = $_POST['useraccount_id'];
+$itsrequest_id = $_POST['itsrequest_id'];
+$assessment_report_id = $_POST['assessment_report_id'];
+
 //get all employees
 $employees = $control->getEmployee();
 
+$assessmentReport = $control->getAssessmentReport($assessment_report_id);
+$request = $control->getRequest($assessmentReport['itsrequest_id']);
 ?>
 
 <!DOCTYPE html>
@@ -123,10 +127,10 @@ $employees = $control->getEmployee();
               <input type="text" class="form-control" name="model" id="model" placeholder="Model" required>
             </div>
             <div class="form-group">
-              <input type="text" class="form-control" name="property_number" id="property-number" placeholder="Property Number" required>
+              <input type="text" class="form-control" name="property_number" id="property-number" placeholder="Property Number" value="<?=$request['property_num']?>" required>
             </div>
             <div class="form-group">
-              <input type="text" class="form-control" name="serial_number" id="serial-number" placeholder="Serial Number" required>
+              <input type="text" class="form-control" name="serial_number" id="serial-number" placeholder="Serial Number" value="<?= $assessmentReport['serial_number'] ?>" required>
             </div>
           </div>
           <div class="col-md-6">

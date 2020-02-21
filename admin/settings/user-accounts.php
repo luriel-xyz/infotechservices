@@ -316,9 +316,9 @@ $useraccounts = $control->getUserAccount();
 		//Enable User Account Access Script
 		$(".enable").click(function(e) {
 			e.preventDefault();
-			var confirmation = confirm("Are you sure?");
+			var confirmed = confirm("Are you sure?");
 
-			if (confirmation == true) {
+			if (confirmed) {
 				var action = 'enableUserAccount';
 				var useraccount_id = $(this).attr('id');
 
