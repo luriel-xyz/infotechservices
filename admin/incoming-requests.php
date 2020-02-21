@@ -158,12 +158,11 @@ $depts = $control->getDepartment();
 			<div class="modal fade" id="modalView" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
-
 						<!--  View Modal  -->
 						<div id="view-form">
 							<div class="modal-header text-light bg-primary">
 								<div class="container-fluid text-center">
-									<p class="h5 modal-title" id="exampleModalLabel">VIEW REQUEST DETAILS</p>
+									<p class="h5 modal-title text-uppercase" id="exampleModalLabel">VIEW REQUEST DETAILS</p>
 								</div>
 								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 									<span aria-hidden="true">&times;</span>
@@ -171,9 +170,7 @@ $depts = $control->getDepartment();
 							</div>
 
 							<div id="view-table" class="modal-body">
-
 								<form>
-
 									<div class="container-fluid form-row">
 										<div class="form-group col-lg-5 col-md-5 col-sm-12 col-xs-12">
 											<label> Status: </label> <br>
@@ -187,9 +184,7 @@ $depts = $control->getDepartment();
 										<div class="form-group col-lg-7 col-md-7 col-sm-12 col-xs-12" id="data">
 										</div>
 									</div>
-
 								</form>
-
 							</div>
 
 							<div class="modal-footer text-light bg-primary" id="footer-buttons" style="margin-bottom: 0">
@@ -197,7 +192,6 @@ $depts = $control->getDepartment();
 							</div>
 						</div>
 						<!-- /#View Modal -->
-
 					</div>
 				</div>
 			</div>
@@ -207,15 +201,11 @@ $depts = $control->getDepartment();
 			<div class="modal fade" id="modalPulloutDone" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
-
 						<!--  Pullout Modal  -->
 						<div id="pullout-done-form">
-
 							<?php include_once('../forms/pullout_done-form.php');	?>
-
 						</div>
 						<!-- /#Pullout Modal -->
-
 					</div>
 				</div>
 			</div>
@@ -244,13 +234,10 @@ $depts = $control->getDepartment();
 				<!-- /# Incoming Requests Table -->
 			</div>
 			<!--/#Table Container-->
-
 		</div>
 		<!-- /# Page Content -->
-
 	</div>
 	<!-- /# Wrapper -->
-
 </body>
 
 </html>
@@ -262,7 +249,7 @@ $depts = $control->getDepartment();
 		$("#wrapper").toggleClass("toggled");
 	});
 
-	$("#search").on("keyup", function() {
+	$("#search").keyup(function() {
 		var search_text = $(this).val().toLowerCase();
 		$("#table_body tr").filter(function() {
 			$(this).toggle($(this).text().toLowerCase().indexOf(search_text) > -1)
