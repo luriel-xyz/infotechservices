@@ -229,7 +229,7 @@ $depts = $control->getDepartment();
 </html>
 
 <script>
-	$(function() {
+	$(function() { 
 
 		fetchAllRequests();
 
