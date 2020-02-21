@@ -236,7 +236,7 @@ $subHardwareComponents = $control->getHardwareComponentsByCategory('sub');
 						</div>
 						<div class="col-lg-12 form-group">
 							<!-- Notes Field -->
-							<input class="form-control" type="text" name="notes" id="notes" placeholder="Notes">
+							<input class="form-control" type="text" name="notes" id="notes" required placeholder="Notes">
 							<!-- /# Notes Field -->
 						</div>
 					</div>

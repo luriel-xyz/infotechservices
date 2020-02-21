@@ -1,4 +1,18 @@
 <?php
+//include database connection
+require_once('../config/db_connection.php');
+
+//include file containing queries
+include_once "../config/controllers/controller.php";
+
+//instantiate Controller
+$control = new Controller();
+$requests = $control->getRequest();
+
+?>
+
+
+<?php
 //if no requests
 if (!$requests) :
 ?>
@@ -25,7 +39,7 @@ else :
       foreach ($requests as $request) :
         $component = $control->getHardwareComponents($request['hwcomponent_sub_id']);
         $userAccount = $control->getUserAccount($request['statusupdate_useraccount_id']);
-        $techRepEmployee = $control->getEmployee($userAccount['emp_id']);
+        // $techRepEmployee = $control->getEmployee($userAccount['emp_id']);
       ?>
         <tr>
           <td> <?= $id ?> </td>
@@ -50,9 +64,9 @@ else :
           </td>
           <td> <?= $request['status'] ?>
             <?php
-            if ($request['statusupdate_useraccount_id']) {
-              echo 'by ' . '<b>' . $techRepEmployee['emp_fname'] . '</b>';
-            }
+            // if ($request['statusupdate_useraccount_id']) {
+            //   echo 'by ' . '<b>' . $techRepEmployee['emp_fname'] . '</b>';
+            // }
             ?>
           </td>
           <td style="width:15%">

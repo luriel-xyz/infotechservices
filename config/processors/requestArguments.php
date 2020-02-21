@@ -25,6 +25,11 @@ if (isset($_POST['action'])) {
 		echo json_encode($result);
 	}
 
+	if ($_POST['action'] === 'getAllRequests') {
+		$requests = $control->getRequest();
+		echo json_encode($requests);
+	}
+
 	if ($_POST['action'] == 'getRequestsByEmployee') {
 
 		$emp_id = $_POST['emp_id'];
