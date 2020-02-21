@@ -1,13 +1,13 @@
 <?php
 //if no requests
-if (!$requests) {
+if (!$requests) :
 ?>
   <div class="alert alert-info text-center">
     <?= "No Incoming Request Queued!"; ?>
   </div>
 <?php
-  //if not empty
-} else {
+//if not empty
+else :
 ?>
   <table class="table table-bordered text-center">
     <thead>
@@ -22,8 +22,10 @@ if (!$requests) {
     <tbody id="table_body">
       <?php
       $id = 1;
-      foreach ($requests as $request) {
+      foreach ($requests as $request) :
         $component = $control->getHardwareComponents($request['hwcomponent_sub_id']);
+        $userAccount = $control->getUserAccount($request['statusupdate_useraccount_id']);
+        $techRepEmployee = $control->getEmployee($userAccount['emp_id']);
       ?>
         <tr>
           <td> <?= $id ?> </td>
@@ -31,6 +33,7 @@ if (!$requests) {
           <td> <?= $request['dept_code'] ?> </td>
           <td> <?= $request['emp_fname'] ?> <?= $request['emp_lname'] ?> </td>
           <td style="width:20%">
+            <!-- Hardware component name -->
             <?php
             if ($request['itsrequest_category'] == 'hw') {
               if ($component) {
@@ -40,6 +43,7 @@ if (!$requests) {
               }
             }
             ?>
+            <!-- /# Hardware component name -->
 
             <?= $request['concern'] ?>
 
@@ -47,20 +51,15 @@ if (!$requests) {
           <td> <?= $request['status'] ?>
             <?php
             if ($request['statusupdate_useraccount_id']) {
-              $userAccount = $control->getUserAccount($request['statusupdate_useraccount_id']);
-              $techRepEmployee = $control->getEmployee($userAccount['emp_id']);
               echo 'by ' . '<b>' . $techRepEmployee['emp_fname'] . '</b>';
             }
             ?>
           </td>
           <td style="width:15%">
             <button type="button" class="btn btn-info view" data-toggle="tooltip" title="View Details" id="<?= $request['itsrequest_id'] ?>"><i class="fa fa-eye" aria-hidden="true"></i></button>
-
             <?php
             if ($request['itsrequest_category'] == 'hw') {
-
               if ($request['itshw_category'] == 'on-site') {
-
                 if ($request['status'] === 'received') {
             ?>
                   <button type="button" class="btn btn-warning pending" data-toggle="tooltip" title="Go" id="<?= $request['itsrequest_id'] ?>" data-id="<?= $_SESSION['useraccount_id'] ?>"><i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i></button>
@@ -88,12 +87,10 @@ if (!$requests) {
         </tr>
       <?php
         $id += 1;
-      }
+      endforeach;
       ?>
     </tbody>
   </table>
   </div>
   </div>
-<?php
-}
-?>
+<?php endif; ?>

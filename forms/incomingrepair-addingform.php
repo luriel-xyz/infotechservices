@@ -12,14 +12,15 @@ session_start();
 
 //check if user is not logged in
 if (!isset($_SESSION["username"]) && !isset($_SESSION['usertype'])) {
-
 	//redirect to login page
 	header('location: ../login.php');
-} else {
-	if ($_SESSION['usertype'] !== 'admin' && $_SESSION['usertype'] !== 'personnel' && $_SESSION['usertype'] !== 'programmer') {
-		//redirect to login page
-		header('location: ../login.php');
-	}
+	exit;
+}
+
+if ($_SESSION['usertype'] == 'department') {
+	//redirect to login page
+	header('location: ../login.php');
+	exit;
 }
 
 //include database connection
@@ -42,26 +43,19 @@ $hardwarecomponents = $control->getHardwareComponentsByCategory('main');
 <!DOCTYPE html>
 
 <html class="h-100 w-100">
-
 <head>
-
 	<!-- Meta Tag to Set Page's Width -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 	<!--  Title Page  -->
 	<title>PGO IT Services - Admin Page</title>
-
 	<!--  Link Bootstrap stylesheet -->
 	<link href="../plug-ins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet">
-
 	<!-- Bootstrap core JavaScript -->
 	<script src="../plug-ins/jquery/jquery.min.js"></script>
 	<script src="../plug-ins/bootstrap/js/bootstrap.bundle.min.js"></script>
-
 	<!-- Jquery Redirect JavaScript -->
 	<script src="../plug-ins/jquery/jquery.redirect.js"></script>
-
 </head>
 
 <body class="h-100 w-100 bg-dark">
