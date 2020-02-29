@@ -1,3 +1,15 @@
 <?php
+// database
+define('HOST', 'localhost');
+define('USERNAME', 'root');
+define('PASSWORD', '');
+define('DB_NAME', 'infotechservices');
 
-date_default_timezone_set('Asia/Manila');
+// User types
+define('ADMIN', 'admin');
+define('PERSONNEL', 'personnel');
+define('PROGRAMMER', 'programmer');
+define('DEPARTMENT', 'department');
+
+// App name
+define('APP_NAME', 'infotechservices');

@@ -1,39 +1,28 @@
 <?php
+use App\Request;
+use App\Repair;
+use App\Employee;
+use App\Hardware;
+use App\Assessment;
 
-//include database connection
-require_once('../db_connection.php');
-
-//include file containing queries
-include_once "../controllers/controller.php";
-
-//instantiate Controller
-$control = new Controller();
-
+require_once('../init.php');
 
 if (isset($_POST['action'])) {
-
-
 	/**   GET REQUEST  **/
-
-
 	if ($_POST['action'] === 'getRequest') {
-
 		$itsrequest_id = $_POST['itsrequest_id'];
-
-		$result = $control->getRequest($itsrequest_id);
-
+		$result = Request::getRequest($itsrequest_id);
 		echo json_encode($result);
 	}
 
 	if ($_POST['action'] === 'getAllRequests') {
-		$requests = $control->getRequest();
+		$requests = Request::getRequest();
 		echo json_encode($requests);
 	}
 
 	if ($_POST['action'] == 'getRequestsByEmployee') {
-
 		$emp_id = $_POST['emp_id'];
-		$requests = $control->getRequestsByEmployee($emp_id);
+		$requests = Request::getRequestsByEmployee($emp_id);
 		echo json_encode($result);
 	}
 
@@ -43,11 +32,8 @@ if (isset($_POST['action'])) {
 
 
 	if ($_POST['action'] === 'getRepair') {
-
 		$itsrequest_id = $_POST['itsrequest_id'];
-
-		$result = $control->getRepair($itsrequest_id);
-
+		$result = Repair::getRepair($itsrequest_id);
 		echo json_encode($result);
 	}
 
@@ -55,13 +41,9 @@ if (isset($_POST['action'])) {
 
 	/**   GET EMPLOYEE BY DEPARTMENT  **/
 
-
-	if ($_POST['action'] === 'getEmployeesByDepartment') {
-
+	if ($_POST['action'] === 'getEmployeesByDepartment') { 
 		$dept_id = $_POST['dept_id'];
-
-		$result = $control->getEmployeesByDepartment($dept_id);
-
+		$result = Employee::getEmployeesByDepartment($dept_id);
 		echo json_encode($result);
 	}
 
@@ -71,11 +53,8 @@ if (isset($_POST['action'])) {
 
 
 	if ($_POST['action'] === 'getHardwareComponentsBySubCategory') {
-
 		$hwcomponent_id = $_POST['hwcomponent_id'];
-
-		$result = $control->getHardwareComponentsBySubCategory($hwcomponent_id);
-
+		$result = Hardware::getHardwareComponentsBySubCategory($hwcomponent_id);
 		echo json_encode($result);
 	}
 
@@ -84,55 +63,44 @@ if (isset($_POST['action'])) {
 
 
 	if ($_POST['action'] === 'statusDone') {
-
 		$itsrequest_id = $_POST['itsrequest_id'];
 		$solution = $_POST['solution'];
 		$statusupdate_useraccount_id = $_POST['statusupdate_useraccount_id'];
 		$deployment_date = date('M d, Y');
-
-		$result = $control->statusDoneRequest($itsrequest_id, $solution, $statusupdate_useraccount_id, $deployment_date);
-
+		$result = Request::statusDoneRequest($itsrequest_id, $solution, $statusupdate_useraccount_id, $deployment_date);
 		echo $result;
 	}
 
 	if ($_POST['action'] === 'statusPending') {
-
 		$itsrequest_id = $_POST['itsrequest_id'];
 		$statusupdate_useraccount_id = $_POST['statusupdate_useraccount_id'];
 
-		$result = $control->statusPendingRequest($itsrequest_id, $statusupdate_useraccount_id);
-
+		$result = Request::statusPendingRequest($itsrequest_id, $statusupdate_useraccount_id);
 		echo $result;
 	}
 
 	if ($_POST['action'] === 'statusDeployed') {
-
 		$itsrequest_id = $_POST['itsrequest_id'];
-		date_default_timezone_set('Asia/Manila');
 		$rec_date = date('Y-m-d H:i:s');
 
-		$result = $control->statusDeployedRequest($itsrequest_id, $rec_date);
+		$result = Request::statusDeployedRequest($itsrequest_id, $rec_date);
 
 		echo $result;
 	}
 
 	if ($_POST['action'] === 'statusAssessmentPending') {
-
 		$itsrequest_id = $_POST['itsrequest_id'];
 		$statusupdate_useraccount_id = $_POST['useraccount_id'];
 
-		$result = $control->statusAssessmentPendingRequest($itsrequest_id, $statusupdate_useraccount_id);
-
+		$result = Request::statusAssessmentPendingRequest($itsrequest_id, $statusupdate_useraccount_id);
 		echo $result;
 	}
 
 	if ($_POST['action'] === 'statusAssessed') {
-
 		$itsrequest_id = $_POST['itsrequest_id'];
 		$statusupdate_useraccount_id = $_POST['useraccount_id'];
 
-		$result = $control->statusAssessedRequest($itsrequest_id, $statusupdate_useraccount_id);
-
+		$result = Request::statusAssessedRequest($itsrequest_id, $statusupdate_useraccount_id);
 		echo $result;
 	}
 
@@ -150,12 +118,12 @@ if (isset($_POST['action'])) {
 		$notes = $_POST['notes'];
 
 		// Get request
-		$request = $control->getRequest($itsrequest_id);
-		$dept_id = $request['dept_id'];
-		$emp_id = $request['emp_id'];
-		$property_num = $request['property_num'];
+		$request = Request::getRequest($itsrequest_id);
+		$dept_id = $request->dept_id;
+		$emp_id = $request->emp_id;
+		$property_num = $request->property_num;
 
-		$result = $control->addRepAssessReport( 
+		$result = Assessment::addRepAssessReport(
 			$itsrequest_id,
 			$hwcomponent_id,
 			$assessmenttechrep_useraccount_id,
@@ -179,7 +147,7 @@ if (isset($_POST['action'])) {
 		$assessmentReportId = $_POST['assessmentReportId'];
 		$subcomponents = $_POST['subcomponents'];
 
-		$result = $control->addAssessmentSubComponents($assessmentReportId, $subcomponents);
+		$result = Assessment::addAssessmentSubComponents($assessmentReportId, $subcomponents);
 		echo $result;
 	}
 
@@ -192,7 +160,7 @@ if (isset($_POST['action'])) {
 		$itsrequest_id = $_POST['itsrequest_id'];
 		$statusupdate_useraccount_id = $_POST['useraccount_id'];
 
-		$result = $control->statusPreInspectedRequest($itsrequest_id, $statusupdate_useraccount_id);
+		$result = Request::statusPreInspectedRequest($itsrequest_id, $statusupdate_useraccount_id);
 
 		echo $result;
 	}
@@ -201,7 +169,7 @@ if (isset($_POST['action'])) {
 		$itsrequest_id = $_POST['itsrequest_id'];
 		$statusupdate_useraccount_id = $_POST['useraccount_id'];
 
-		$result = $control->statusPostInspectedRequest($itsrequest_id, $statusupdate_useraccount_id);
+		$result = Request::statusPostInspectedRequest($itsrequest_id, $statusupdate_useraccount_id);
 
 		echo $result;
 	}
@@ -210,7 +178,7 @@ if (isset($_POST['action'])) {
 		$itsrequest_id = $_POST['itsrequest_id'];
 		$statusupdate_useraccount_id = $_POST['useraccount_id'];
 
-		$result = $control->statusPrePostInspectedRequest($itsrequest_id, $statusupdate_useraccount_id);
+		$result = Request::statusPrePostInspectedRequest($itsrequest_id, $statusupdate_useraccount_id);
 
 		echo $result;
 	}
@@ -225,7 +193,7 @@ if (isset($_POST['action'])) {
 		$property_num = $_POST['property_num'];
 		$statusupdate_useraccount_id = $_POST['statusupdate_useraccount_id'];
 
-		$result = $control->categoryPulloutRequest($itsrequest_id, $hwcomponent_id, $property_num, $statusupdate_useraccount_id);
+		$result = Request::categoryPulloutRequest($itsrequest_id, $hwcomponent_id, $property_num, $statusupdate_useraccount_id);
 
 		echo $result;
 	}
@@ -235,20 +203,18 @@ if (isset($_POST['action'])) {
 
 
 	if ($_POST['action'] === 'addWalk-inRepair') {
-
 		$dept_id = $_POST['dept_id'];
 		$emp_id = $_POST['emp_id'];
 		$itsrequest_category = $_POST['itsrequest_category'];
 		$itshw_category = $_POST['itshw_category'];
 		$hwcomponent_id = $_POST['hwcomponent_id'];
-		$hwcomponent_subcategory = $_POST['hwcomponent_subcategory'];
+		$hwcomponent_sub_id = $_POST['hwcomponent_subcategory'];
 		$property_num = $_POST['property_num'];
 		$concern = $_POST['concern'];
 		$statusupdate_useraccount_id = $_POST['statusupdate_useraccount_id'];
-		date_default_timezone_set('Asia/Manila');
-		$req_date = date('Y-m-d H:i:s');
+		$itsrequest_date = date('Y-m-d H:i:s');
 
-		$result = $control->addRepair($dept_id, $emp_id, $itsrequest_category, $itshw_category, $hwcomponent_id, $hwcomponent_subcategory, $property_num, $concern, $statusupdate_useraccount_id, $req_date);
+		$result = Repair::addRepair($dept_id, $emp_id, $itsrequest_category, $itshw_category, $hwcomponent_id, $hwcomponent_sub_id, $property_num, $concern, $statusupdate_useraccount_id, $itsrequest_date);
 
 		echo $result;
 	}
@@ -260,23 +226,21 @@ if (isset($_POST['action'])) {
 
 
 	if ($_POST['action'] === 'addRequest') {
-
 		$dept_id = $_POST['dept_id'];
 		$emp_id = $_POST['emp_id'];
 		$itsrequest_category = $_POST['itsrequest_category'];
-		$hwcomponent_id = $_POST['hwcomponent_id'];
+		$hwcomponent_id = $_POST['hwcomponent_id'] ?? null;
 		$concern = $_POST['concern'];
-		date_default_timezone_set('Asia/Manila');
 		$req_date = date('Y-m-d H:i:s');
 
 		if ($itsrequest_category === 'hw') {
 			$itshw_category = "on-site";
-			$result = $control->addRequest($dept_id, $emp_id, $itsrequest_category, $hwcomponent_id, $concern, $req_date, $itshw_category);
+			$result = Request::addRequest($dept_id, $emp_id, $itsrequest_category, $hwcomponent_id, $concern, $req_date, $itshw_category);
 		} else {
 			$itshw_category = "";
 			$hwcomponent_id = null;
 			$hwcomponent_subcategory = null;
-			$result = $control->addRequest($dept_id, $emp_id, $itsrequest_category, $hwcomponent_id, $concern, $req_date, $itshw_category);
+			$result = Request::addRequest($dept_id, $emp_id, $itsrequest_category, $hwcomponent_id, $concern, $req_date, $itshw_category);
 		}
 
 		echo $result;

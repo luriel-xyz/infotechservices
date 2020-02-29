@@ -1,25 +1,17 @@
 <?php
 
-//start session
-session_start();
+require_once('./config/init.php');
 
 //check if user is not logged in
-if (!isset($_SESSION["username"])) {
+if (!isUserLoggedIn()) {
   // redirect to login page
-  header('Location: ./login.php');
+  redirect(getPath('app/auth/login.php'));
   exit;
 }
 
-// Go back to previous page.
-if (isset($_SERVER['HTTP_REFERER'])) {
-  $previous = $_SERVER['HTTP_REFERER'];
-  header("Location: {$previous}");
-  exit;
-}
 
-if (in_array($_SESSION['usertype'], ['admin', 'personnel', 'programmer'])) {
-  header("Location: ./admin/incoming-requests.php");
-  exit;
-}
+// Redirect to previous page if already logged in.
+redirectToPreviousPage();
 
-header("Location: ./client/index.php");
+// Redirect to user dashboard if already logged in.
+redirectIfLoggedIn();

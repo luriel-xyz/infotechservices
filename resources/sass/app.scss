@@ -1,0 +1,194 @@
+/* .inspection-report {
+  border: 1px solid #000;
+  padding: 2px;
+} */
+
+// Variables
+@import "variables";
+
+// Assessment report
+@import "assessment-report";
+
+// Sidebar
+@import "sidebar";
+
+// Bootstrap
+// @import "~bootstrap/scss/bootstrap";
+
+
+// Fontawesome
+// @import "~@fortawesome/fontawesome-free/scss/fontawesome";
+// @import "~@fortawesome/fontawesome-free/scss/solid";
+// @import "~@fortawesome/fontawesome-free/scss/brands";
+
+// mdbootstrap
+@import 'https://use.fontawesome.com/releases/v5.11.2/css/all.css';
+@import 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap';
+@import '~mdbootstrap/css/bootstrap.min.css';
+@import '~mdbootstrap/css/mdb.min.css';
+@import '~mdbootstrap/css/style.css';
+
+.title {
+  font-size: 1.3em;
+  font-weight: 600;
+}
+
+.subtitle-1 {
+  font-size: 1em;
+}
+
+.subtitle-1 {
+  text-transform: uppercase;
+}
+
+.body-1 {
+  font-size: 0.8em;
+}
+
+.body-2 {
+  font-size: 0.7em;
+}
+
+.caption {
+  font-size: 0.6em;
+  color: grey;
+}
+
+.to {
+  font-weight: 500;
+}
+
+.subtitle-2,
+.pgo-it-file {
+  font-weight: 600;
+  font-size: 0.8em;
+  text-transform: uppercase;
+}
+
+.republic {
+  font-family: cursive;
+  line-height: 0.8;
+}
+
+.province {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.address {
+  font-size: x-small;
+  font-weight: bold;
+}
+
+.signed-by {
+  text-transform: uppercase;
+  font-weight: 600;
+  padding-left: 0;
+  line-height: 2;
+  margin-bottom: 1.3rem;
+}
+
+.d-none {
+  display: none !important;
+}
+
+.font-size-small,
+.signed-by {
+  font-size: small;
+}
+
+.font-size-x-small {
+  font-size: x-small;
+}
+
+.red--text {
+  color: red;
+}
+
+.underlined {
+  text-decoration: underline;
+}
+
+.name {
+  font-weight: bold;
+  font-size: 0.8em;
+  padding-right: 0;
+  text-transform: uppercase;
+  border-bottom: 1px solid #000;
+}
+
+.position,
+.date {
+  text-align: center;
+  font-size: x-small;
+}
+
+.checkbox {
+  border: 1px solid #000;
+  border-radius: 4px;
+  width: 2.3rem;
+  height: 1.2rem;
+  margin-top: 3px;
+  margin-right: 4px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.checkbox > i {
+  font-size: small;
+  color: #707070;
+}
+
+.checkbox-label {
+  font-size: x-small;
+}
+
+.checkbox-label-smaller {
+  font-size: xx-small;
+}
+
+.bg-grey {
+  background-color: #eee;
+}
+
+.floating-buttons {
+  position: fixed;
+}
+
+.btn-request {
+  width: 300px !important;
+  height: 300px !important;
+  font-size: 200px !important;
+}
+
+assessment-table.table.table-bordered > thead > tr > th {
+  border: 1px solid #000;
+  font-size: 0.7em;
+  text-align: center;
+  padding: 0;
+}
+
+assessment-table.table.table-bordered > tbody > tr > td {
+  border: 1px solid #000;
+  font-size: small;
+  padding: 0;
+}
+
+/* @media (min-width: 769px) {
+  .container {
+    width: 50%;
+  }
+} */
+
+@media print {
+  button,
+  a {
+    display: none !important;
+  }
+}
+
+@page {
+  margin: 0;
+}
