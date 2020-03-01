@@ -30,11 +30,11 @@ class DB
 
   /**
    * Fetch a single record from the database.
-   * @param $sql
+   * @param string $sql
    * @param $params
    * @return 
    */
-  public static function single($sql, $params = [])
+  public static function single(string $sql, $params = [])
   {
     $stmt = self::prepare($sql);
     $stmt->execute($params);
@@ -42,12 +42,12 @@ class DB
   }
 
   /**
-   * Fetch a multiple records from the database.
-   * @param $sql
+   * Fetch multiple records from the database.
+   * @param string $sql
    * @param $params
    * @return 
    */
-  public static function all($sql, $params = [])
+  public static function all(string $sql, $params = [])
   {
     $stmt = self::prepare($sql);
     $stmt->execute($params);
@@ -55,20 +55,26 @@ class DB
   }
 
   /**
-   * Insert or update records to the database.
-   * @param $sql
+   * Insert or update record(s) to the database.
+   * @param string $sql
    * @param $params
    * @return 
    */
-  public static function insert($sql, $params = [])
+  public static function insert(string $sql, $params = [])
   {
     $pdo = self::connection();
     $stmt = $pdo->prepare($sql);
-    $stmt->execute($params);
-    return $pdo->lastInsertId();
+    $isInserted = $stmt->execute($params);
+
+    $isInsertQuery = strpos(strtolower($sql), 'insert');
+    if ($isInsertQuery && $isInserted) {
+      return $pdo->lastInsertId();
+    }
+    // else if UPDATE query
+    return $isInserted;
   }
 
-  private function prepare($sql)
+  private function prepare(string $sql)
   {
     $pdo = self::connection();
     $stmt = $pdo->prepare($sql);
