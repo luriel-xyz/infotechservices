@@ -7,7 +7,7 @@
 	<div class="container-fluid col-lg-6 col-md-6 col-sm-12 col-xs-12 offset-lg-3 offset-md-3 my-auto">
 
 		<!-- Go back link -->
-		<a href="<?= getPath('app/admin/incoming-repairs.php') ?>" class="btn btn-sm btn-default">
+		<a href="<?= getPath('app/admin/incoming-repairs.php') ?>" class="btn pl-0 btn-link">
 			<i class="fa fa-arrow-left fa-fw"></i>
 			<span class="text-capitalize">Go back</span>
 		</a>

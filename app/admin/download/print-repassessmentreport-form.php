@@ -14,7 +14,7 @@ if (!isUserLoggedIn()) {
 }
 
 if (!isset($_POST['assessment_report_id'])) {
-  redirect(getPath('app/admin/incoming-repairs.php')); 
+  redirect(getPath('app/admin/incoming-repairs.php'));
   exit;
 }
 

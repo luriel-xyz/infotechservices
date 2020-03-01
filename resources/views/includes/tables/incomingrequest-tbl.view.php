@@ -58,7 +58,7 @@ else :
               if ($request->itshw_category == 'on-site') {
                 if ($request->status === 'received') {
             ?>
-                  <button type="button" class="btn btn-sm btn-warning pending" data-toggle="tooltip" title="Go" id="<?= $request->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>"><i class="fas fa-arrow-right" aria-hidden="true"></i></button>
+                  <button type="button" class="btn btn-sm btn-warning pending" data-toggle="tooltip" title="Receive Request" id="<?= $request->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>"><i class="fas fa-arrow-right" aria-hidden="true"></i></button>
                 <?php
                 } else if ($request->status == 'pending') {
                 ?>

@@ -1,4 +1,5 @@
 <?php
+
 use App\Request;
 use App\Repair;
 use App\Employee;
@@ -41,7 +42,7 @@ if (isset($_POST['action'])) {
 
 	/**   GET EMPLOYEE BY DEPARTMENT  **/
 
-	if ($_POST['action'] === 'getEmployeesByDepartment') { 
+	if ($_POST['action'] === 'getEmployeesByDepartment') {
 		$dept_id = $_POST['dept_id'];
 		$result = Employee::getEmployeesByDepartment($dept_id);
 		echo json_encode($result);
@@ -133,7 +134,7 @@ if (isset($_POST['action'])) {
 			$hwcomponent_acquisitioncost,
 			$serial_number,
 			$findings_category,
-			$findings_description,
+			$findings_description, 
 			$notes,
 			$dept_id,
 			$emp_id,

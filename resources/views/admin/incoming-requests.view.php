@@ -25,9 +25,11 @@
         <!-- /# Search Field -->
 
         <!-- Print Request Summary Button -->
-        <div class="mr-3 ml-auto">
-          <button type="button" class="btn btn-sm btn-primary" data-toggle="tooltip" title="Download Summary in MSword" id="printSummary"><i class="fa fa-download" aria-hidden="true"></i></button>
-        </div>
+        <?php if (count($requests)) : ?>
+          <div class="mr-3 ml-auto">
+            <button type="button" class="btn btn-sm btn-primary" data-toggle="tooltip" title="Download Summary in MSword" id="printSummary"><i class="fa fa-download" aria-hidden="true"></i></button>
+          </div>
+        <?php endif; ?>
         <!-- /# Print Request Summary Button -->
       </div>
     </div>
@@ -92,11 +94,13 @@
 
     <!-- Modal Print -->
     <div class="modal fade" id="modalPrint" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
+      <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <!--  Print Modal  -->
           <div id="printSorting-form">
-            <?php view('includes/forms/printSorting-form');  ?>
+            <?php
+            view('includes/forms/printSorting-form', compact('depts', 'type'));
+            ?>
           </div>
           <!-- /#Print Modal -->
         </div>

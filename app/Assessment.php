@@ -53,7 +53,7 @@ class Assessment
       ':itsrequest_id' => $itsrequest_id,
       ':hwcomponent_id' => $hwcomponent_id,
       ':assessmenttechrep_useraccount_id' => $assessmenttechrep_useraccount_id,
-      ':assessment_date' => $assessment_date,
+      ':assessment_date' => $assessment_date, 
       ':hwcomponent_dateAcquired' => $hwcomponent_dateAcquired,
       ':hwcomponent_description' => $hwcomponent_description,
       ':serial_number' => $serial_number,
@@ -72,6 +72,7 @@ class Assessment
       return false;
     }
 
+
     return $assessmentReportId;
   }
 
@@ -79,7 +80,8 @@ class Assessment
   public function addAssessmentSubComponents($repassessreport_id, $subcomponents)
   {
     foreach ($subcomponents as $subcomponent) {
-      $sql = "INSERT INTO assessment_sub_components (repassessreport_id, sub_component_id, remark)
+      $sql = "INSERT INTO assessment_sub_components 
+              (repassessreport_id, sub_component_id, remark)
 							VALUES (:repassessreport_id,:sub_component_id,:remark)";
 
       $data = [
@@ -88,7 +90,7 @@ class Assessment
         ':remark' => $subcomponent['remark']
       ];
 
-      if (!DB::insert($sql, [$data])) {
+      if (!DB::insert($sql, $data)) {
         return false;
       }
     }
@@ -100,7 +102,7 @@ class Assessment
   public function getAssessmentReport($id)
   {
     $sql = "SELECT * FROM repassessreport_tbl
-						WHERE repassessreport_id = :repassessreport_id
+						WHERE repassessreport_id = ?
 						LIMIT 1";
 
     return DB::single($sql, [$id]);
@@ -135,7 +137,7 @@ class Assessment
 						 status = :status 
              WHERE itsrequest_id = :itsrequest_id";
 
-    $requestId = DB::insert($sql, [
+    $isInserted = DB::insert($sql, [
       ':dept_id' => $dept_id,
       ':emp_id' => $emp_id,
       ':statusupdate_useraccount_id' => $assessmenttechrep_useraccount_id,
@@ -145,6 +147,6 @@ class Assessment
       ':itsrequest_id' => $itsrequest_id
     ]);
 
-    return $requestId > 0;
+    return $isInserted;
   }
 }

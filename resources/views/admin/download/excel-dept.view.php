@@ -57,9 +57,9 @@
     <tbody>
       <?php
       if ($requests) :
-        foreach ($requests as $request) :
+        foreach ($requests as $request) : 
           if ($request->statusupdate_useraccount_id) {
-            $technician = $control->getUserAccount($request->statusupdate_useraccount_id);
+            $technician = App\User::getUserAccount($request->statusupdate_useraccount_id);
             $tech_name = "{$technician->emp_fname} {$technician->emp_lname}";
           } else {
             $tech_name = "";
@@ -80,7 +80,7 @@
             <td><?= $request->solution ?></td>
             <?php
             if ($action === 'RepairSummaryReport') {
-              echo '<td>' . $request->received_date . '</td>';
+              echo '<td>' . $request->deployment_date . '</td>';
             }
             ?>
           </tr>

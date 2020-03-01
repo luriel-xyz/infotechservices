@@ -1,6 +1,7 @@
 <?php view('includes/header'); ?>
 <!-- /# Wrapper -->
 <div class="d-flex" id="wrapper">
+
   <!-- Sidebar -->
   <?php view('includes/sidebar'); ?>
   <!-- /#Sidebar -->
@@ -18,21 +19,25 @@
         <div class="row">
           <!-- Search Field -->
           <div class="col-md-6">
-            <i class="fas fa-search prefix"></i> 
+            <i class="fas fa-search prefix"></i>
             <input type="text" class="form-control " id="search" placeholder="Search">
           </div>
+
           <div class="col-md-3">
             <button type="button" class="btn btn-sm btn-primary text-capitalize" data-toggle="tooltip" title="Add Incoming Repair" id="add">
               <i class="fas fa-plus-circle fa-fw" aria-hidden="true"></i>
               New Repair
             </button>
           </div>
+
           <!-- /# Search Field -->
-          <!-- Download Summary Button -->
-          <div class="col-md-3 d-flex justify-content-end"> 
-            <button type="button" class="btn btn-sm btn-primary" data-toggle="tooltip" title="Download Summary in MSword" id="printSummary"><i class="fa fa-download" aria-hidden="true"></i></button>
-          </div>
-          <!-- /# Download Summary Button -->
+          <!-- Download Repair Summary Button -->
+          <?php if (count($repairs)) : ?>
+            <div class="col-md-3 d-flex justify-content-end">
+              <button type="button" class="btn btn-sm btn-primary" data-toggle="tooltip" title="Download Summary in MSword" id="printSummary"><i class="fa fa-download" aria-hidden="true"></i></button>
+            </div>
+          <?php endif; ?>
+          <!-- /# Download Repair Summary Button -->
         </div>
       </div>
 
@@ -106,7 +111,7 @@
         <div class="modal-content">
           <!--  Print Modal  -->
           <div id="printSorting-form">
-            <?php view('includes/forms/printSorting-form'); ?>
+            <?php view('includes/forms/printSorting-form', compact('depts', 'type')); ?>
           </div>
           <!-- /#Print Modal -->
         </div>

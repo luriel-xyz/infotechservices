@@ -23,27 +23,26 @@ $("#add-department").click(function(e) {
 $("#department-form").submit(function(e) {
   e.preventDefault();
 
-  $.ajax({
-    url: "../../config/processors/settingsArguments.php",
-    type: "POST",
-    data: $(this).serialize()
-  }).done(function(res) {
+  $.post(
+    "../../../config/processors/settingsArguments.php",
+    $(this).serialize()
+  ).done(async res => {
     if (res) {
-      alert("Department Data Saved");
+      await Swal.fire("Success", "Department Data Saved", "success");
       location.reload(true);
     } else {
-      alert("Error");
+      Swal.fire("Failure", "An error occured", "error");
     }
   });
 });
 
 //Edit Department Script
-$(".edit-department").click(function(e) { 
+$(".edit-department").click(function(e) {
   e.preventDefault();
   const action = "editDepartment";
   const dept_id = $(this).attr("id");
 
-  $.post("../../config/processors/settingsArguments.php", {
+  $.post("../../../config/processors/settingsArguments.php", {
     action: action,
     dept_id: dept_id
   })
@@ -62,7 +61,7 @@ $(".edit-department").click(function(e) {
       $("#action").val("updateDepartment");
     })
     .fail(function() {
-      alert("error");
+      Swal.fire("Failure", "An error occured", "error");
     });
 
   $("#modal").modal({

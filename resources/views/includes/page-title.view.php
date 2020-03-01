@@ -5,15 +5,15 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link text-primary font-weight-bold text-capitalize" style="font-size:1.3em;">
-          <?= pageTitle() ?> 
-        </a>
+        <span class="text-primary font-weight-bold text-capitalize" style="font-size:1.3em;">
+          <?= pageTitle() ?>
+        </span>
       </li>
     </ul>
   </div>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav ml-auto mt-2 mt-lg-0"> 
+    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
       <li class="nav-item">
         <a class="nav-link text-primary font-weight-bold disabled"><?= user()->username ?></a>
       </li>

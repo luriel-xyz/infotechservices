@@ -58839,6 +58839,8 @@ __webpack_require__.r(__webpack_exports__);
 
 window.moment = moment__WEBPACK_IMPORTED_MODULE_2___default.a;
 window.Swal = sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a;
+window.appName = "infotechservices";
+window.baseUrl = "".concat(window.location.origin, "/").concat(appName, "/");
 $(function () {
   __webpack_require__(/*! ./components/add-repair */ "./resources/js/components/add-repair.js");
 
@@ -58963,8 +58965,18 @@ $("#incomingrepair-form").submit(function (e) {
 /*!************************************************!*\
   !*** ./resources/js/components/add-request.js ***!
   \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 $("#itsrequest_category").change(function (e) {
   e.preventDefault();
@@ -58996,21 +59008,52 @@ $("#itsrequest_category").change(function (e) {
 // 	});
 // });
 
-$("#incomingrequest-form").submit(function (e) {
-  e.preventDefault();
-  $.ajax({
-    url: "../../config/processors/requestArguments.php",
-    type: "POST",
-    data: $(this).serialize()
-  }).done(function (res) {
-    if (res) {
-      alert("Request Sent!");
-      $.redirect('../../app/client/index.php');
-    } else {
-      alert("Error");
-    }
-  });
-});
+$("#incomingrequest-form").submit(
+/*#__PURE__*/
+function () {
+  var _ref = _asyncToGenerator(
+  /*#__PURE__*/
+  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(e) {
+    var res;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            e.preventDefault();
+            _context.next = 3;
+            return axios.post("../../config/processors/requestArguments.php", $(this).serialize());
+
+          case 3:
+            res = _context.sent;
+
+            if (!res) {
+              _context.next = 10;
+              break;
+            }
+
+            _context.next = 7;
+            return Swal.fire("Success", "Request Sent!", "success");
+
+          case 7:
+            $.redirect("../../app/client/index.php");
+            _context.next = 11;
+            break;
+
+          case 10:
+            Swal.fire("Failure", "An error occured", "error");
+
+          case 11:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee, this);
+  }));
+
+  return function (_x) {
+    return _ref.apply(this, arguments);
+  };
+}());
 
 /***/ }),
 
@@ -59018,25 +59061,35 @@ $("#incomingrequest-form").submit(function (e) {
 /*!***********************************************!*\
   !*** ./resources/js/components/assessment.js ***!
   \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 var dept_id = $("#dept_id").val();
-$.ajax({
-  url: "../../config/processors/requestArguments.php",
-  type: "POST",
-  data: {
+
+if (dept_id) {
+  $.post("../../config/processors/requestArguments.php", {
     action: "getEmployeesByDepartment",
     dept_id: dept_id
-  }
-}).done(function (employees) {
-  employees = JSON.parse(employees);
-  $("#emp_id").empty();
-  $("#emp_id").append("<option selected disabled>-- Select Employee --</option>");
-  employees.forEach(function (employee) {
-    $("#emp_id").append("<option value = " + employee.emp_id + ">" + employee.emp_fname + " " + employee.emp_lname + "</option>");
+  }).done(function (employees) {
+    employees = JSON.parse(employees);
+    $("#emp_id").empty();
+    $("#emp_id").append("<option selected disabled>-- Select Employee --</option>");
+    employees.forEach(function (employee) {
+      $("#emp_id").append("<option value = " + employee.emp_id + ">" + employee.emp_fname + " " + employee.emp_lname + "</option>");
+    });
   });
-}); // var itsrequest_id = <?php echo $itsrequest_id; ?>;
+} // var itsrequest_id = <?php echo $itsrequest_id; ?>;
+
 
 var itsrequest_id = $("#itsrequest_id").val();
 $.ajax({
@@ -59171,19 +59224,47 @@ $("#repassessmentreport-form").submit(function (e) {
       subcomponents: hwSubComponentsAssessments
     }; // Insert sub-component hardwares assessment data
 
-    $.post("../../config/processors/requestArguments.php", subComponentAssessmentData).fail(function () {
-      return alert("Error!");
-    }).done(function (res) {
-      if (res) {
-        alert("Assessment Report Created!"); // Redirect to Assessment Report Print Page
+    $.post("../../config/processors/requestArguments.php", subComponentAssessmentData).done(
+    /*#__PURE__*/
+    function () {
+      var _ref = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(res) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (!res) {
+                  _context.next = 6;
+                  break;
+                }
 
-        $.redirect("../../app/admin/download/print-repassessmentreport-form.php", {
-          assessment_report_id: assessmentReportId
-        });
-      } else {
-        alert("Error!, Try again");
-      }
-    });
+                _context.next = 3;
+                return Swal.fire("Success", "Assessment Report Created!", "success");
+
+              case 3:
+                // Redirect to Assessment Report Print Page
+                $.redirect("../../app/admin/download/print-repassessmentreport-form.php", {
+                  assessment_report_id: assessmentReportId
+                });
+                _context.next = 7;
+                break;
+
+              case 6:
+                Swal.fire("Error", "An error occured", "error");
+
+              case 7:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+
+      return function (_x) {
+        return _ref.apply(this, arguments);
+      };
+    }());
   });
 });
 
@@ -59193,8 +59274,18 @@ $("#repassessmentreport-form").submit(function (e) {
 /*!************************************************!*\
   !*** ./resources/js/components/departments.js ***!
   \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 $("#search").on("keyup", function () {
   var search_text = $(this).val().toLowerCase();
@@ -59211,25 +59302,51 @@ $("#add-department").click(function (e) {
 
 $("#department-form").submit(function (e) {
   e.preventDefault();
-  $.ajax({
-    url: "../../config/processors/settingsArguments.php",
-    type: "POST",
-    data: $(this).serialize()
-  }).done(function (res) {
-    if (res) {
-      alert("Department Data Saved");
-      location.reload(true);
-    } else {
-      alert("Error");
-    }
-  });
+  $.post("../../../config/processors/settingsArguments.php", $(this).serialize()).done(
+  /*#__PURE__*/
+  function () {
+    var _ref = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(res) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              if (!res) {
+                _context.next = 6;
+                break;
+              }
+
+              _context.next = 3;
+              return Swal.fire("Success", "Department Data Saved", "success");
+
+            case 3:
+              location.reload(true);
+              _context.next = 7;
+              break;
+
+            case 6:
+              Swal.fire("Failure", "An error occured", "error");
+
+            case 7:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    return function (_x) {
+      return _ref.apply(this, arguments);
+    };
+  }());
 }); //Edit Department Script
 
 $(".edit-department").click(function (e) {
   e.preventDefault();
   var action = "editDepartment";
   var dept_id = $(this).attr("id");
-  $.post("../../config/processors/settingsArguments.php", {
+  $.post("../../../config/processors/settingsArguments.php", {
     action: action,
     dept_id: dept_id
   }).done(function (department) {
@@ -59241,7 +59358,7 @@ $(".edit-department").click(function (e) {
     $("#dept_btn").text("Save Changes");
     $("#action").val("updateDepartment");
   }).fail(function () {
-    alert("error");
+    Swal.fire("Failure", "An error occured", "error");
   });
   $("#modal").modal({
     backdrop: "static",
@@ -59484,7 +59601,7 @@ function () {
   var _ref = _asyncToGenerator(
   /*#__PURE__*/
   _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(e) {
-    var _ref2, value, path, baseUrl;
+    var _ref2, value, logoutPath;
 
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
       while (1) {
@@ -59496,8 +59613,7 @@ function () {
               icon: "question",
               title: "Confirm",
               text: "Are you sure?",
-              showCancelButton: true,
-              confirmButtonColor: "#009688"
+              showCancelButton: true
             });
 
           case 3:
@@ -59505,17 +59621,8 @@ function () {
             value = _ref2.value;
 
             if (value) {
-              path = window.location.pathname;
-              baseUrl = location.href.split("mywebsite")[0]; // let directoryLevel;
-              // if (path.indexOf("settings")) {
-              //   directoryLevel = "../../../";
-              // } else if (path.indexOf("admin") || path.indexOf('client')) {
-              //   directoryLevel = "../";
-              // } else {
-              //   directoryLevel = "../../";
-              // }
-
-              alert(baseUrl); // window.location.href = `${directoryLevel}app/auth/logout.php`;
+              logoutPath = "".concat(window.location.origin, "/").concat(appName, "/app/auth/logout.php");
+              window.location.href = logoutPath;
             }
 
           case 6:
@@ -59537,8 +59644,18 @@ function () {
 /*!********************************************!*\
   !*** ./resources/js/components/repairs.js ***!
   \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 function setAssessmentDone(itsrequest_id, useraccount_id) {
   var action = "statusAssessed";
@@ -59546,10 +59663,44 @@ function setAssessmentDone(itsrequest_id, useraccount_id) {
     action: action,
     itsrequest_id: itsrequest_id,
     useraccount_id: useraccount_id
-  }).done(function (data) {
-    alert(data);
-    location.reload(true);
-  }); // $.ajax({
+  }).done(
+  /*#__PURE__*/
+  function () {
+    var _ref = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(res) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              if (!res) {
+                _context.next = 6;
+                break;
+              }
+
+              _context.next = 3;
+              return Swal.fire("Success", "Assessed", "success");
+
+            case 3:
+              location.reload(true);
+              _context.next = 7;
+              break;
+
+            case 6:
+              Swal.fire("Error", "An error occured", "error");
+
+            case 7:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    return function (_x) {
+      return _ref.apply(this, arguments);
+    };
+  }()); // $.ajax({
   //   url: "../../config/processors/requestArguments.php",
   //   type: "POST",
   //   data: {
@@ -59585,7 +59736,7 @@ $("#printSummary").click(function (e) {
   e.preventDefault();
   $("#modalPrint").modal("toggle");
 });
-$("#printSorting-form").submit(function (e) {
+$("#printSorting-repairs-form").submit(function (e) {
   e.preventDefault();
   var action = "RepairSummaryReport";
   var sort = $('input[name="sort"]:checked').val();
@@ -59594,11 +59745,11 @@ $("#printSorting-form").submit(function (e) {
   var url = "";
 
   if (sort === "all") {
-    url = "downloads/excel-all.php";
+    url = "../../app/admin/download/excel-all.php";
   } else if (sort === "department") {
-    url = "downloads/excel-dept.php";
+    url = "../../app/admin/download/excel-dept.php";
   } else if (sort === "day") {
-    url = "downloads/excel-date.php";
+    url = "../../app/admin/download/excel-date.php";
   }
 
   $.redirect(url, {
@@ -59676,17 +59827,52 @@ $(".done-repair").click(function (e) {
     keyboard: false
   });
 });
-$("#pullout_done-form").submit(function (e) {
-  e.preventDefault();
-  $.ajax({
-    url: "../../config/processors/requestArguments.php",
-    type: "POST",
-    data: $(this).serialize()
-  }).done(function (val) {
-    alert(val);
-    location.reload(true);
-  });
-}); // Add new repair button click listener
+$("#pullout_done-form").submit(
+/*#__PURE__*/
+function () {
+  var _ref2 = _asyncToGenerator(
+  /*#__PURE__*/
+  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(e) {
+    var res;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            e.preventDefault();
+            _context2.next = 3;
+            return axios.post("../../config/processors/requestArguments.php", $(this).serialize());
+
+          case 3:
+            res = _context2.sent;
+
+            if (!res) {
+              _context2.next = 10;
+              break;
+            }
+
+            _context2.next = 7;
+            return Swal.fire("Success", "Done", "success");
+
+          case 7:
+            location.reload(true);
+            _context2.next = 11;
+            break;
+
+          case 10:
+            Swal.fire("Error", "An error occured", "error");
+
+          case 11:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2, this);
+  }));
+
+  return function (_x2) {
+    return _ref2.apply(this, arguments);
+  };
+}()); // Add new repair button click listener
 
 $("#add").click(function (e) {
   e.preventDefault();
@@ -59788,8 +59974,18 @@ $(".cancel").click(function () {
 /*!*********************************************!*\
   !*** ./resources/js/components/requests.js ***!
   \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 // fetchAllRequests();
 // // Fetch requests every 5 seconds
@@ -59807,16 +60003,16 @@ $("#search").keyup(function () {
 });
 $('input[name="sort"]').change(function (e) {
   if ($('input[name="sort"]:checked').val() === "department") {
-    $("#dept_selection").show();
+    $("#dept_selection").fadeIn(600);
   } else {
-    $("#dept_selection").hide();
+    $("#dept_selection").fadeOut(600);
   }
 });
 $("#printSummary").click(function (e) {
   e.preventDefault();
   $("#modalPrint").modal("toggle");
 });
-$("#printSorting-form").submit(function (e) {
+$("#printSorting-requests-form").submit(function (e) {
   e.preventDefault();
   var action = "RequestSummaryReport";
   var sort = $('input[name="sort"]:checked').val();
@@ -59825,11 +60021,11 @@ $("#printSorting-form").submit(function (e) {
   var url = "";
 
   if (sort === "all") {
-    url = "downloadables/excel-all.php";
+    url = "../../app/admin/download/excel-all.php";
   } else if (sort === "department") {
-    url = "downloadables/excel-dept.php";
+    url = "../../app/admin/download/excel-dept.php";
   } else if (sort === "day") {
-    url = "downloadables/excel-date.php";
+    url = "../../app/admin/download/excel-date.php";
   }
 
   $.redirect(url, {
@@ -59914,43 +60110,101 @@ $(".pullout").click(function (e) {
     keyboard: false
   });
 });
-$("#pullout_done-form").submit(function (e) {
-  e.preventDefault();
-  $.ajax({
-    url: "../../config/processors/requestArguments.php",
-    type: "POST",
-    data: $(this).serialize()
-  }).done(function (res) {
-    if (res) {
-      alert("Request Done");
-      $.redirect("../../app/admin/incoming-repairs.php");
-    } else {
-      alert("Error");
-    }
-  });
-});
-$(".pending").click(function (e) {
-  e.preventDefault();
-  var action = "statusPending";
-  var itsrequest_id = $(this).attr("id");
-  var statusupdate_useraccount_id = $(this).attr("data-id");
-  $.ajax({
-    url: "../../config/processors/requestArguments.php",
-    type: "post",
-    data: {
-      action: action,
-      itsrequest_id: itsrequest_id,
-      statusupdate_useraccount_id: statusupdate_useraccount_id
-    }
-  }).done(function (res) {
-    if (res) {
-      alert("Request Set to Pending");
-      location.reload(true);
-    } else {
-      alert("Error");
-    }
-  });
-});
+$("#pullout_done-form").submit(
+/*#__PURE__*/
+function () {
+  var _ref = _asyncToGenerator(
+  /*#__PURE__*/
+  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(e) {
+    var res;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            e.preventDefault();
+            _context.next = 3;
+            return axios.post("../../config/processors/requestArguments.php", $(this).serialize());
+
+          case 3:
+            res = _context.sent;
+
+            if (!res) {
+              _context.next = 10;
+              break;
+            }
+
+            _context.next = 7;
+            return Swal.fire("Success", "Request Done", "success");
+
+          case 7:
+            $.redirect("../../app/admin/incoming-repairs.php");
+            _context.next = 11;
+            break;
+
+          case 10:
+            Swal.fire("Error", "An error occured", "error");
+
+          case 11:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee, this);
+  }));
+
+  return function (_x) {
+    return _ref.apply(this, arguments);
+  };
+}());
+$(".pending").click(
+/*#__PURE__*/
+function () {
+  var _ref2 = _asyncToGenerator(
+  /*#__PURE__*/
+  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(e) {
+    var action, itsrequest_id, statusupdate_useraccount_id, res;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            e.preventDefault();
+            action = "statusPending";
+            itsrequest_id = $(this).attr("id");
+            statusupdate_useraccount_id = $(this).attr("data-id");
+            res = axios.post("../../config/processors/requestArguments.php", {
+              action: action,
+              itsrequest_id: itsrequest_id,
+              statusupdate_useraccount_id: statusupdate_useraccount_id
+            });
+
+            if (!res) {
+              _context2.next = 11;
+              break;
+            }
+
+            _context2.next = 8;
+            return Swal.fire("Success", "Request Set to Pending", "success");
+
+          case 8:
+            location.reload(true);
+            _context2.next = 12;
+            break;
+
+          case 11:
+            Swal.fire("Error", "An error occured", "error");
+
+          case 12:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2, this);
+  }));
+
+  return function (_x2) {
+    return _ref2.apply(this, arguments);
+  };
+}());
 $(".close").click(function () {
   location.reload(true);
 });

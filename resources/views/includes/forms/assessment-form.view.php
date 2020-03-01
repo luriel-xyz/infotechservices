@@ -5,14 +5,14 @@
 	<!--  Container -->
 	<div class="container-fluid col-md-10 col-md-10 col-sm-12 col-xs-12 offset-lg-1 offset-md-1 my-auto text-dark">
 		<form method="POST" class="p-3 border border-light rounded" id="repassessmentreport-form">
-			<div class="form-group text-center">
+			<div class="form-group text-center border-bottom pt-3">
 				<div class="row">
 					<div class="col-2">
 						<!-- Redirect to incoming repairs page -->
-						<a href="<?= getPath('app/admin/incoming-repairs.php') ?>" class="btn btn-default pl-0 text-white"><i class="fa fa-arrow-left fa-fw"></i>Go Back</a>
+						<a href="<?= getPath('app/admin/incoming-repairs.php') ?>" class="btn btn-link pl-0 text-dark"><i class="fas fa-arrow-left fa-fw"></i>Go Back</a>
 					</div>
-					<div class="col-8"> 
-						<p class="h3"><i class="fas fa-file" aria-hidden="true"></i> Repair Assessment Report Creation Form </p>
+					<div class="col-8">
+						<p class="h3"><i class="fas fa-file fa-fw" aria-hidden="true"></i> Repair Assessment Report Creation Form </p>
 					</div>
 				</div>
 			</div>
@@ -136,7 +136,7 @@
 				</div>
 			</div>
 
-			<div class="container-fluid row"> 
+			<div class="container-fluid row">
 				<div class="col-md-3">
 					<label class="form-group col-md-12"> Findings: </label>
 					<br>

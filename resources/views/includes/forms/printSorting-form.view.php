@@ -4,22 +4,30 @@
 	</div>
 	<div class="card-body">
 		<!-- Login Form -->
-		<form enctype="multipart/form-data" id="printSorting-form">
+		<form enctype="multipart/form-data" id="printSorting-<?=$type?>-form">
 			<div class="modal-body">
-				<div class="form-group col-md-6">
-					<label><input type="radio" name="sort" value="all">All</label><br>
+
+				<div class="form-group">
+					<label>
+						<input type="radio" name="sort" value="all" class="mr-1" checked>All
+					</label>
 					<div class="row">
-						<div class="col-md-8">
-							<label><input type="radio" name="sort" value="department">By Department</label><br>
+						<!-- Department Radio Button -->
+						<div class="col-md-5">
+							<label>
+								<input type="radio" name="sort" value="department" class="mr-1">By Department</label><br> 
 						</div>
-						<div class="form-group col-md-4" id="dept_selection" style="display: none">
+						<!-- /# Department Radio Button -->
+						<!-- Select Department -->
+						<div class="form-group col-md-7" id="dept_selection" style="display: none">
 							<select id="dept_id" class="form-control">
 								<option selected disabled> -- Select Department -- </option>
 								<?php foreach ($depts as $department) : ?>
-									<option value="<?= $department->dept_id ?>"><?= $department->dept_code ?></option>;
+									<option value="<?= $department->dept_id ?>"><?= $department->dept_code ?></option>
 								<?php endforeach;	?>
 							</select>
 						</div>
+						<!-- /# Select Department -->
 					</div>
 					<!-- <div class="row">
 	      		<div class="col-md-8">

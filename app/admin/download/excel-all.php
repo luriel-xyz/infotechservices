@@ -1,9 +1,8 @@
 <?php
-
-require_once('../../../config/init.php');
-
 use App\Repair;
 use App\Request;
+
+require_once('../../../config/init.php');
 
 if (!isUserLoggedIn()) {
   //redirect to login page
@@ -23,6 +22,6 @@ if ($action === 'RepairSummaryReport') {
   $requests = Request::getRequest();
 }
 
-view('includes/excel-all', compact('action', 'requests'));
+view('admin/download/excel-all', compact('action', 'requests'));
 
 ?>

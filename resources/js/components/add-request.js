@@ -31,19 +31,18 @@ $("#itsrequest_category").change(function(e) {
 // 	});
 // });
 
-$("#incomingrequest-form").submit(function(e) {
+$("#incomingrequest-form").submit(async function(e) {
   e.preventDefault();
 
-  $.ajax({
-    url: "../../config/processors/requestArguments.php",
-    type: "POST",
-    data: $(this).serialize()
-  }).done(function(res) {
-    if (res) {
-      alert("Request Sent!");
-      $.redirect('../../app/client/index.php'); 
-    } else {
-      alert("Error");
-    }
-  });
+  const res = await axios.post(
+    "../../config/processors/requestArguments.php", 
+    $(this).serialize()
+  );
+ 
+  if (res) {
+    await Swal.fire("Success", "Request Sent!", "success");
+    $.redirect("../../app/client/index.php");
+  } else {
+    Swal.fire("Failure", "An error occured", "error");
+  }
 });

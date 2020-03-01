@@ -29,6 +29,6 @@ if ($action === 'RepairSummaryReport') {
   $requests = Request::getRequestsByDepartment($dept_id);
 }
 
-view('includes/excel-dept', compact('action', 'dept_code', 'requests'));
+view('admin/download/excel-dept', compact('action', 'dept_code', 'requests'));
 
 ?>

@@ -1,32 +1,30 @@
 const dept_id = $("#dept_id").val();
-$.ajax({
-  url: "../../config/processors/requestArguments.php",
-  type: "POST",
-  data: {
+if (dept_id) {
+  $.post("../../config/processors/requestArguments.php", {
     action: "getEmployeesByDepartment",
     dept_id: dept_id
-  }
-}).done(function(employees) {
-  employees = JSON.parse(employees);
-  $("#emp_id").empty();
-  $("#emp_id").append(
-    "<option selected disabled>-- Select Employee --</option>"
-  );
-  employees.forEach(function(employee) {
+  }).done(employees => {
+    employees = JSON.parse(employees);
+    $("#emp_id").empty();
     $("#emp_id").append(
-      "<option value = " +
-        employee.emp_id +
-        ">" +
-        employee.emp_fname +
-        " " +
-        employee.emp_lname +
-        "</option>"
+      "<option selected disabled>-- Select Employee --</option>"
     );
+    employees.forEach(function(employee) {
+      $("#emp_id").append(
+        "<option value = " +
+          employee.emp_id +
+          ">" +
+          employee.emp_fname +
+          " " +
+          employee.emp_lname +
+          "</option>"
+      );
+    });
   });
-});
+}
 
 // var itsrequest_id = <?php echo $itsrequest_id; ?>;
-var itsrequest_id = $("#itsrequest_id").val();
+let itsrequest_id = $("#itsrequest_id").val();
 
 $.ajax({
   url: "../../config/processors/requestArguments.php",
@@ -190,7 +188,7 @@ $("#repassessmentreport-form").submit(function(e) {
     emp_id: emp_id,
     findings_category: findings_category,
     findings_description: findings_description,
-    notes: notes, 
+    notes: notes,
     itsrequest_id: itsrequest_id,
     serial_number: serial_number,
     property_num: property_num
@@ -211,21 +209,19 @@ $("#repassessmentreport-form").submit(function(e) {
     $.post(
       "../../config/processors/requestArguments.php",
       subComponentAssessmentData
-    )
-      .fail(() => alert("Error!"))
-      .done(res => {
-        if (res) {
-          alert("Assessment Report Created!");
-          // Redirect to Assessment Report Print Page
-          $.redirect(
-            "../../app/admin/download/print-repassessmentreport-form.php",
-            {
-              assessment_report_id: assessmentReportId
-            }
-          );
-        } else {
-          alert("Error!, Try again");
-        }
-      });
+    ).done(async res => {
+      if (res) {
+        await Swal.fire("Success", "Assessment Report Created!", "success");
+        // Redirect to Assessment Report Print Page
+        $.redirect(
+          "../../app/admin/download/print-repassessmentreport-form.php",
+          {
+            assessment_report_id: assessmentReportId
+          }
+        );
+      } else {
+        Swal.fire("Error", "An error occured", "error");
+      }
+    });
   });
 });

@@ -10,7 +10,7 @@
 // }
 
 $("#search").keyup(function() {
-  var search_text = $(this)
+  const search_text = $(this)
     .val()
     .toLowerCase();
   $("#table_body tr").filter(function() {
@@ -25,9 +25,9 @@ $("#search").keyup(function() {
 
 $('input[name="sort"]').change(function(e) {
   if ($('input[name="sort"]:checked').val() === "department") {
-    $("#dept_selection").show();
+    $("#dept_selection").fadeIn(600);
   } else {
-    $("#dept_selection").hide();
+    $("#dept_selection").fadeOut(600);
   }
 });
 
@@ -37,7 +37,7 @@ $("#printSummary").click(function(e) {
   $("#modalPrint").modal("toggle");
 });
 
-$("#printSorting-form").submit(function(e) {
+$("#printSorting-requests-form").submit(function(e) {
   e.preventDefault();
 
   const action = "RequestSummaryReport";
@@ -47,11 +47,11 @@ $("#printSorting-form").submit(function(e) {
   let url = "";
 
   if (sort === "all") {
-    url = "downloadables/excel-all.php";
+    url = "../../app/admin/download/excel-all.php";
   } else if (sort === "department") {
-    url = "downloadables/excel-dept.php";
+    url = "../../app/admin/download/excel-dept.php";
   } else if (sort === "day") {
-    url = "downloadables/excel-date.php";
+    url = "../../app/admin/download/excel-date.php";
   }
 
   $.redirect(url, {
@@ -208,45 +208,40 @@ $(".pullout").click(function(e) {
   });
 });
 
-$("#pullout_done-form").submit(function(e) {
+$("#pullout_done-form").submit(async function(e) {
   e.preventDefault();
 
-  $.ajax({
-    url: "../../config/processors/requestArguments.php",
-    type: "POST",
-    data: $(this).serialize()
-  }).done(function(res) {
-    if (res) {
-      alert("Request Done");
-      $.redirect("../../app/admin/incoming-repairs.php");
-    } else {
-      alert("Error");
-    }
-  });
+  const res = await axios.post(
+    "../../config/processors/requestArguments.php",
+    $(this).serialize()
+  );
+
+  if (res) {
+    await Swal.fire("Success", "Request Done", "success");
+    $.redirect("../../app/admin/incoming-repairs.php");
+  } else {
+    Swal.fire("Error", "An error occured", "error");
+  }
 });
 
-$(".pending").click(function(e) {
+$(".pending").click(async function(e) {
   e.preventDefault();
   const action = "statusPending";
   const itsrequest_id = $(this).attr("id");
   const statusupdate_useraccount_id = $(this).attr("data-id");
 
-  $.ajax({
-    url: "../../config/processors/requestArguments.php",
-    type: "post",
-    data: {
-      action: action,
-      itsrequest_id: itsrequest_id,
-      statusupdate_useraccount_id: statusupdate_useraccount_id
-    }
-  }).done(function(res) {
-    if (res) {
-      alert("Request Set to Pending");
-      location.reload(true);
-    } else {
-      alert("Error");
-    }
+  const res = axios.post("../../config/processors/requestArguments.php", {
+    action: action,
+    itsrequest_id: itsrequest_id,
+    statusupdate_useraccount_id: statusupdate_useraccount_id
   });
+
+  if (res) {
+    await Swal.fire("Success", "Request Set to Pending", "success");
+    location.reload(true);
+  } else {
+    Swal.fire("Error", "An error occured", "error");
+  }
 });
 
 $(".close").click(function() {

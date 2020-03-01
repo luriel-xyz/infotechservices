@@ -5,9 +5,13 @@ function setAssessmentDone(itsrequest_id, useraccount_id) {
     action: action,
     itsrequest_id: itsrequest_id,
     useraccount_id: useraccount_id
-  }).done(function(data) {
-    alert(data);
-    location.reload(true);
+  }).done(async function(res) {
+    if (res) {
+      await Swal.fire("Success", "Assessed", "success");
+      location.reload(true);
+    } else {
+      Swal.fire("Error", "An error occured", "error");
+    }
   });
 
   // $.ajax({
@@ -56,7 +60,7 @@ $("#printSummary").click(function(e) {
   $("#modalPrint").modal("toggle");
 });
 
-$("#printSorting-form").submit(function(e) {
+$("#printSorting-repairs-form").submit(function(e) {
   e.preventDefault();
 
   const action = "RepairSummaryReport";
@@ -66,11 +70,11 @@ $("#printSorting-form").submit(function(e) {
   let url = "";
 
   if (sort === "all") {
-    url = "downloads/excel-all.php";
+    url = "../../app/admin/download/excel-all.php";
   } else if (sort === "department") {
-    url = "downloads/excel-dept.php";
+    url = "../../app/admin/download/excel-dept.php";
   } else if (sort === "day") {
-    url = "downloads/excel-date.php";
+    url = "../../app/admin/download/excel-date.php";
   }
 
   $.redirect(url, {
@@ -216,17 +220,19 @@ $(".done-repair").click(function(e) {
   });
 });
 
-$("#pullout_done-form").submit(function(e) {
+$("#pullout_done-form").submit(async function(e) {
   e.preventDefault();
 
-  $.ajax({
-    url: "../../config/processors/requestArguments.php",
-    type: "POST",
-    data: $(this).serialize()
-  }).done(function(val) {
-    alert(val);
+  const res = await axios.post(
+    "../../config/processors/requestArguments.php",
+    $(this).serialize()
+  );
+  if (res) {
+    await Swal.fire("Success", "Done", "success");
     location.reload(true);
-  });
+  } else {
+    Swal.fire("Error", "An error occured", "error");
+  }
 });
 
 // Add new repair button click listener

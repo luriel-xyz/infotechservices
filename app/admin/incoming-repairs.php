@@ -20,5 +20,7 @@ $depts = Department::getDepartment();
 
 $hardwareComponents = Hardware::getHardwareComponentsByCategory('main');
 
-view('admin/incoming-repairs', compact('repairs', 'depts', 'hardwareComponents'));
+$type = 'repairs';
+
+view('admin/incoming-repairs', compact('repairs', 'depts', 'hardwareComponents', 'type'));
 ?>

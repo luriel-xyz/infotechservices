@@ -5,11 +5,13 @@ import moment from "moment";
 
 window.moment = moment;
 window.Swal = Swal;
+window.appName = "infotechservices";
+window.baseUrl = `${window.location.origin}/${appName}/`;
 
 $(() => {
   require("./components/add-repair");
   require("./components/add-request");
-  require("./components/departments");
+  require("./components/departments"); 
   require("./components/hwcomponents");
   require("./components/repairs");
   require("./components/requests");
