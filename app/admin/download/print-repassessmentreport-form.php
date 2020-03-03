@@ -19,7 +19,6 @@ if (!isset($_POST['assessment_report_id'])) {
 }
 
 $assessmentReportId = $_POST['assessment_report_id'];
-
 $assessmentReport = Assessment::getAssessmentReport($assessmentReportId);
 $date = $assessmentReport->assessment_date;
 

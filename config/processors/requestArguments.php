@@ -134,21 +134,24 @@ if (isset($_POST['action'])) {
 			$hwcomponent_acquisitioncost,
 			$serial_number,
 			$findings_category,
-			$findings_description, 
-			$notes,
-			$dept_id,
-			$emp_id,
-			$property_num
+			$findings_description,
+			$notes
 		);
+
+		Assessment::setAssessmentDone($dept_id, $emp_id, $assessmenttechrep_useraccount_id, $hwcomponent_id, $property_num, $itsrequest_id);
 
 		echo $result;
 	}
 
-	if ($_POST['action'] === 'addAssessmentSubComponents') {
+	if ($_POST['action'] === 'addAssessmentSubComponents') { 
 		$assessmentReportId = $_POST['assessmentReportId'];
 		$subcomponents = $_POST['subcomponents'];
 
-		$result = Assessment::addAssessmentSubComponents($assessmentReportId, $subcomponents);
+		if (empty($subcomponents)) {
+			$result = true;
+		} else {
+			$result = Assessment::addAssessmentSubComponents($assessmentReportId, $subcomponents);
+		}
 		echo $result;
 	}
 

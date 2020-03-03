@@ -22,6 +22,5 @@ $requests = Request::getRequest();
 $depts = Department::getDepartment();
 
 $type = 'requests';
-
 view('admin/incoming-requests', compact('hardwarecomponents', 'requests', 'depts', 'type'));
 ?>

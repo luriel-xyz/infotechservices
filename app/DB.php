@@ -66,7 +66,7 @@ class DB
     $stmt = $pdo->prepare($sql);
     $isInserted = $stmt->execute($params);
 
-    $isInsertQuery = strpos(strtolower($sql), 'insert');
+    $isInsertQuery = strpos(strtolower($sql), 'insert') !== false;
     if ($isInsertQuery && $isInserted) {
       return $pdo->lastInsertId();
     }

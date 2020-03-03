@@ -1,6 +1,7 @@
 <?php
 
 use App\Assessment;
+use App\Employee;
 use App\Request;
 
 require_once('../../config/init.php');
@@ -36,7 +37,17 @@ $itsrequest_id = $_POST['itsrequest_id'];
 $assessment_report_id = $_POST['assessment_report_id'];
 
 //get all employees
-$employees = $control->getEmployee();
+$employees = Employee::getEmployee();
 
 $assessmentReport = Assessment::getAssessmentReport($assessment_report_id);
 $request = Request::getRequest($assessmentReport->itsrequest_id);
+
+view('includes/forms/prepostinspectionreport-addingform', compact(
+  'action',
+  'useraccount_id',
+  'itsrequest_id',
+  'assessment_report_id',
+  'employees',
+  'assessmentReport',
+  'request'
+));

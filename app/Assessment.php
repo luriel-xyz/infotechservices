@@ -17,10 +17,7 @@ class Assessment
     $serial_number,
     $findings_category,
     $findings_description,
-    $notes,
-    $dept_id,
-    $emp_id,
-    $property_num
+    $notes
   ) {
 
     $assessmentReportId = null;
@@ -63,17 +60,7 @@ class Assessment
       ':notes' => $notes
     ]);
 
-    if (!$assessmentReportId) {
-      return false;
-    }
-
-    $success = self::setAssessmentDone($dept_id, $emp_id, $assessmenttechrep_useraccount_id, $hwcomponent_id, $property_num, $itsrequest_id);
-    if (!$success) {
-      return false;
-    }
-
-
-    return $assessmentReportId;
+    return $assessmentReportId ?? false;
   }
 
   /** Insert subcomponents assessment report data to db */
