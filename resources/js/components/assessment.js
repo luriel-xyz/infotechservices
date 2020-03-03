@@ -196,32 +196,35 @@ $("#repassessmentreport-form").submit(function(e) {
 
   // Insert assessment report data to db
   $.post(
-    "../../config/processors/requestArguments.php",
+    `${baseUrl}config/processors/requestArguments.php`,
     assessmentReportData
-  ).done(function(assessmentReportId) {
+  ).done(res => {
     const subComponentAssessmentData = {
       action: "addAssessmentSubComponents",
-      assessmentReportId: assessmentReportId,
+      assessmentReportId: res,
       subcomponents: hwSubComponentsAssessments
     };
 
     // Insert sub-component hardwares assessment data
-    $.post(
-      "../../config/processors/requestArguments.php",
-      subComponentAssessmentData
-    ).done(async res => {
-      if (res) {
-        await Swal.fire("Success", "Assessment Report Created!", "success");
-        // Redirect to Assessment Report Print Page
-        $.redirect(
-          "../../app/admin/download/print-repassessmentreport-form.php",
-          {
-            assessment_report_id: assessmentReportId
-          }
-        );
-      } else {
-        Swal.fire("Error", "An error occured", "error");
-      }
-    });
+    insertSubComponentAssessments(res, subComponentAssessmentData);
   });
 });
+
+function insertSubComponentAssessments(
+  assessmentReportId,
+  subComponentAssessmentData
+) {
+  const url = `${baseUrl}config/processors/requestArguments.php`;
+  $.post(url, subComponentAssessmentData).done(async res => {
+    if (res) {
+      await Swal.fire("Success", "Assessment Report Created!", "success");
+      // Redirect to Assessment Report Print Page
+      const url = `${baseUrl}app/admin/download/print-repassessmentreport-form.php`;
+      $.redirect(url, {
+        assessment_report_id: assessmentReportId
+      });
+    } else {
+      Swal.fire("Error", "An error occured", "error");
+    }
+  });
+}

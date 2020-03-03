@@ -18,6 +18,7 @@ $(() => {
   require("./components/sent_requests");
   require("./components/user-accounts");
   require("./components/assessment");
+  require("./components/pre-post-insp");
   require("./components/employee");
   require("./components/logout");
 });

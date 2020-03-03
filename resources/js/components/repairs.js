@@ -92,7 +92,7 @@ $(".view-repair").click(function(e) {
   const itsrequest_id = $(this).attr("id");
 
   $.post({
-    url: "../../config/processors/requestArguments.php",
+    url: `${baseUrl}config/processors/requestArguments.php`, 
     type: "post",
     data: {
       action: action,
@@ -101,6 +101,7 @@ $(".view-repair").click(function(e) {
     dataType: "JSON"
   }).done(function(request) {
     $("#modalView").modal("toggle");
+    $("#data").empty();
     if (request.status === "received") {
       $("#data").append(
         '<label class="font-weight-bold text-info">' +
@@ -112,7 +113,7 @@ $(".view-repair").click(function(e) {
       request.status === "assessment pending"
     ) {
       $("#data").append(
-        '<label class="font-weight-bold text-success">' +
+        '<label class="font-weight-bold text-warning">' +
           request.status +
           "</label><br>"
       );
@@ -122,16 +123,17 @@ $(".view-repair").click(function(e) {
       request.status === "done"
     ) {
       $("#data").append(
-        '<label class="font-weight-bold text-secondary">' +
+        '<label class="font-weight-bold text-success">' +
           request.status +
           "</label><br>"
       );
     } else if (
       request.status === "pre-repair inspected" ||
-      request.status === "post-repair inspected"
+      request.status === "post-repair inspected" ||
+      request.status === 'pre-post-repair inspected'
     ) {
       $("#data").append(
-        '<label class="font-weight-bold text-warning">' +
+        '<label class="font-weight-bold text-secondary">' +
           request.status +
           "</label><br>"
       );
@@ -139,7 +141,7 @@ $(".view-repair").click(function(e) {
 
     $("#data").append(
       '<label class="font-weight-bold">' +
-        moment(request.itsrequest_date).format("MMM d, Y h:mm a") +
+        moment(request.itsrequest_date).format("MMM D, Y h:mm a") +
         "</label><br>"
     );
     $("#data").append(
@@ -179,7 +181,7 @@ $(".pending").click(function(e) {
   e.preventDefault();
   const action = "statusPending";
   const itsrequest_id = $(this).attr("id");
-  const statusupdate_useraccount_id = $(this).attr("data-id");
+  const statusupdate_useraccount_id = $(this).attr("data-id"); 
 
   $.ajax({
     url: "../../config/processors/requestArguments.php",
@@ -189,9 +191,13 @@ $(".pending").click(function(e) {
       itsrequest_id: itsrequest_id,
       statusupdate_useraccount_id: statusupdate_useraccount_id
     }
-  }).done(function(val) {
-    alert(val);
-    location.reload(true);
+  }).done(async function(res) {
+    if (res) {
+      await Swal.fire("Success", 'Request set to "Pending"');
+      location.reload(true);
+    } else {
+      Swal.fire("Error", "An error occured", "error");
+    }
   });
 });
 
@@ -220,19 +226,18 @@ $(".done-repair").click(function(e) {
   });
 });
 
-$("#pullout_done-form").submit(async function(e) {
+$("#pullout_done-form").submit(function(e) {
   e.preventDefault();
 
-  const res = await axios.post(
-    "../../config/processors/requestArguments.php",
-    $(this).serialize()
-  );
-  if (res) {
-    await Swal.fire("Success", "Done", "success");
-    location.reload(true);
-  } else {
-    Swal.fire("Error", "An error occured", "error");
-  }
+  const url = `${baseUrl}config/processors/requestArguments.php`;
+  $.post(url, $(this).serialize()).done(async res => {
+    if (res) {
+      await Swal.fire("Success", "Done", "success");
+      location.reload(true);
+    } else {
+      Swal.fire("Error", "An error occured", "error");
+    }
+  });
 });
 
 // Add new repair button click listener
@@ -253,8 +258,8 @@ $(".assess").click(function(e) {
   });
 
   // var action = 'statusAssessmentPending';
-  const itsrequest_id = $(this).attr("id");
-  const useraccount_id = $(this).attr("data-id");
+  // const itsrequest_id = $(this).attr("id");
+  // const useraccount_id = $(this).attr("data-id");
 });
 
 $(".assessment-created").click(function(e) {
@@ -277,7 +282,7 @@ $(".pre-post-inspect").click(function() {
   const itsrequest_id = $(this).attr("id");
   const useraccount_id = $(this).attr("data-id");
   const assessment_report_id = $(this).data("assessment-report-id");
-  $.redirect("../includes/forms/prepostinspectionreport-addingform.php", {
+  $.redirect(`${baseUrl}app/admin/pre-post-insp.php`, { 
     action: action,
     itsrequest_id: itsrequest_id,
     useraccount_id: useraccount_id,
@@ -335,11 +340,3 @@ $(".pre-post-inspect").click(function() {
 
    $.redirect(url, {itsrequest_id:itsrequest_id});
 });*/
-
-$(".close").click(function() {
-  location.reload(true);
-});
-
-$(".cancel").click(function() {
-  location.reload(true);
-});

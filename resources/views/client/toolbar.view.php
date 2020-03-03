@@ -2,8 +2,8 @@
   <!-- Back Button -->
   <!-- Show when we're not at index.php -->
   <?php if (basename($_SERVER['PHP_SELF'], '.php') != 'index') : ?>
-    <div class="ml-4 mt-2 p-0">
-      <a href="<?= getPath('client/index.php') ?>" class="btn btn-link text-white" style="font-size: 1em;" role="button">
+    <div class="ml-4 p-0">
+      <a href="<?= getPath('client/index.php') ?>" class="btn btn-sm p-0 btn-link text-white" style="font-size: 1em;" role="button">
         <i class="fas fa-arrow-left"></i>
       </a>
     </div> 

@@ -64,7 +64,7 @@
 
     <!-- Table Container -->
     <div class="container-fluid mt-2">
-      <?php view('includes/tables/hardwareComponent-tbl', compact('hardware_components'));  ?>
+      <?php view('includes/tables/hardwareComponent-tbl', compact('hardware_components')); ?>
     </div>
     <!--/#Table Container-->
 

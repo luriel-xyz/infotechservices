@@ -115,12 +115,12 @@ $(".receive").click(function(e) {
       action: action,
       itsrequest_id: itsrequest_id
     }
-  }).done(function(res) {
+  }).done(async function(res) {
     if (res) {
-      alert("Hardware received");
+      await Swal.fire("Success", "Hardware received", "success");
       location.reload(true);
     } else {
-      alert("Please try again...");
+      Swal.fire("Failure", "An error occured", "error");
     }
   });
 });

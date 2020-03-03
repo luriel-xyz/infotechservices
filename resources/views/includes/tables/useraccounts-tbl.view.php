@@ -10,7 +10,7 @@ if (!$useraccounts) :
 else :
 ?>
   <table class="table table-bordered table-hover text-center">
-    <thead class="">
+    <thead>
       <th>#</th>
       <th>Username</th>
       <th>Employee/Department Name</th>

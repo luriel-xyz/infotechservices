@@ -55,9 +55,9 @@
               <div class="container-fluid text-center">
                 <p class="h5 modal-title text-capitalize" id="exampleModalLabel">VIEW REPAIR DETAILS</p>
               </div>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <a class="p-1" type="button" data-dismiss="modal" aria-label="Close" onclick="$('#modalView').modal('hide')">
                 <span aria-hidden="true">&times;</span>
-              </button>
+              </a>
             </div>
 
             <div id="view-table" class="modal-body">
@@ -82,7 +82,7 @@
             </div>
 
             <div class="modal-footer text-light mb-0" id="footer-buttons">
-              <button type="button" class="btn btn-secondary cancel" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#modalView').modal('hide')">Close</button>
             </div>
           </div>
           <!-- /#View Modal -->

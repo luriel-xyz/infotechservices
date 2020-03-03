@@ -15,7 +15,7 @@ else :
       <th>Employee Name</th>
       <th>Concern</th>
       <th>Status</th>
-      <th>By</th>
+      <th>IT Rep</th>
       <th>Action</th>
     </thead>
     <tbody id="table_body">
@@ -42,7 +42,7 @@ else :
           </td>
           <td>
             <?php if ($request->status == 'received') : ?>
-              <span class="text-info"><?= $request->status ?></span>
+              <span class="text-info"><?= 'Sent' ?></span>
             <?php elseif ($request->status == 'pending') : ?>
               <span class="text-warning"><?= $request->status ?></span>
             <?php elseif ($request->status == 'done') : ?>
@@ -57,7 +57,7 @@ else :
               $techRepEmployee = App\User::getUserAccount($request->statusupdate_useraccount_id);
               echo "{$techRepEmployee->emp_fname} {$techRepEmployee->emp_lname}";
             } else {
-              echo 'None';
+              echo 'n/a';
             }
             ?>
           </td>

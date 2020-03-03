@@ -68,16 +68,14 @@ $(".view-request").click(function(e) {
   const action = "getRequest";
   const itsrequest_id = $(this).attr("id");
 
-  $.ajax({
-    url: "../../config/processors/requestArguments.php",
-    type: "post",
-    data: {
-      action: action,
-      itsrequest_id: itsrequest_id
-    },
-    dataType: "JSON"
-  }).done(function(request) {
+  $.post(`${baseUrl}config/processors/requestArguments.php`, {
+    action: action,
+    itsrequest_id: itsrequest_id
+  }).done(request => {
+    request = JSON.parse(request);
     $("#modalView").modal("toggle");
+    $('#data').empty();
+    $('#other-labels').empty();
     if (request.status === "received") {
       $("#data").append(
         '<label class="font-weight-bold text-info">' +
@@ -100,7 +98,7 @@ $(".view-request").click(function(e) {
 
     $("#data").append(
       '<label class="font-weight-bold">' +
-        moment(request.itsrequest_date.itsrequest_date).format("MMM d, Y") +
+        moment(request.itsrequest_date.itsrequest_date).format("MMM D, Y") +
         "</label><br>"
     );
     $("#data").append(
@@ -218,7 +216,7 @@ $("#pullout_done-form").submit(async function(e) {
 
   if (res) {
     await Swal.fire("Success", "Request Done", "success");
-    $.redirect("../../app/admin/incoming-repairs.php");
+    $.redirect(`${baseUrl}app/admin/incoming-repairs.php`);
   } else {
     Swal.fire("Error", "An error occured", "error");
   }
@@ -244,10 +242,3 @@ $(".pending").click(async function(e) {
   }
 });
 
-$(".close").click(function() {
-  location.reload(true);
-});
-
-$(".cancel").click(function() {
-  location.reload(true);
-});

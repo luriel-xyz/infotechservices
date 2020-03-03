@@ -11,7 +11,7 @@ if (!isUserLoggedIn()) {
 }
 
 // Check if usertype is not department
-if (!user()->usertype == 'department') {
+if (user()->usertype != 'department') {
 	//redirect to login page
 	redirect(getPath('auth/login.php'));
 }

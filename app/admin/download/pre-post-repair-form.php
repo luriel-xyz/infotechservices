@@ -18,11 +18,13 @@ if (!isset($_POST['data'])) {
 $data = json_decode($_POST['data']);
 $issuedTo = Employee::getEmployee($data->issued_to);
 $requestedBy = Employee::getEmployee($data->requested_by);
+$preRepairFindings = $data->pre_repair_findings;
 $preInspectedBy = Employee::getEmployee($data->pre_inspected_by);
 $preInspectedDate = $data->pre_inspected_date;
 $preRecommendingApproval = Employee::getEmployee($data->pre_recommending_approval);
 $preApproved = Employee::getEmployee($data->pre_approved);
 
+$postRepairFindings = $data->post_repair_findings;
 $postInspectedBy = Employee::getEmployee($data->post_inspected_by);
 $postInspectedDate = $data->post_inspected_date;
 $postRecommendingApproval = Employee::getEmployee($data->post_recommending_approval);
@@ -32,10 +34,12 @@ $viewData = compact(
 	'data',
 	'issuedTo',
 	'requestedBy',
+	'preRepairFindings',
 	'preInspectedBy',
 	'preInspectedDate',
 	'preRecommendingApproval',
 	'preApproved',
+	'postRepairFindings',
 	'postInspectedBy',
 	'postInspectedDate',
 	'postRecommendingApproval',

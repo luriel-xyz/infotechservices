@@ -5,7 +5,7 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <span class="text-primary font-weight-bold text-capitalize" style="font-size:1.3em;">
+        <span class="font-weight-bold text-primary text-capitalize" style="font-size:1.3em;">
           <?= pageTitle() ?>
         </span>
       </li>

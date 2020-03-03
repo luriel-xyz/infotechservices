@@ -1,6 +1,6 @@
 <?php view('includes/header'); ?>
 <!-- Page Content -->
-<div class="h-100 w-100 row">
+<div class="w-100 row">
 
 	<!--  Container -->
 	<div class="container-fluid col-md-10 col-md-10 col-sm-12 col-xs-12 offset-lg-1 offset-md-1 my-auto text-dark">
@@ -19,7 +19,7 @@
 
 			<div class="form-group">
 				<input type="hidden" class="form-control" name="action" id="action" value="addRepAssessReport">
-				<input type="hidden" class="form-control" name="itsrequest_id" id="itsrequest_id" value="<?= $itsrequest_id ?>">
+				<input type="hidden" class="form-control" name="itsrequest_id" id="itsrequest_id" value="<?= $itsrequest_id ?>"> 
 			</div>
 
 			<div class="form-group">

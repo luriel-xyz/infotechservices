@@ -156,7 +156,7 @@ if (isset($_POST['action'])) {
 	}
 
 	if ($_POST['action'] === 'addInspectionReport') {
-		echo 'good';
+		return json_encode('testingn lang');
 	}
 
 	if ($_POST['action'] === 'statusPreInspected') {

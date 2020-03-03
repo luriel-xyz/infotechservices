@@ -4,6 +4,7 @@
 	</div>
 	<div class="card-body">
 		<!-- Login Form -->
+		<!-- $type -> [request, repair] -->
 		<form enctype="multipart/form-data" id="printSorting-<?=$type?>-form">
 			<div class="modal-body">
 

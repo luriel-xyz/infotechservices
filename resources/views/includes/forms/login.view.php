@@ -18,7 +18,7 @@
 
             <div class="row">
                 <div class="col text-center">
-                    <button type="submit" name="login" class="btn btn-primary form text-capitalize mt-2 mx-auto">
+                    <button type="submit" name="login" class="btn btn-md btn-rounded btn-primary form text-capitalize mt-2 mx-auto">
                         <i class="fas fa-sign-in-alt"></i>
                         Login
                     </button>

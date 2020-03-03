@@ -13,6 +13,17 @@ $("#search").on("keyup", function() {
 });
 
 $("#add-employee").click(function(e) {
+  $(".modal-title").text("EMPLOYEE ADDING FORM");
+  $('#emp_btn').text('Add Employee');
+  $("#emp_id").html('');
+  $("#dept_id").val('');
+  $("#emp_idnum").val('');
+  $("#fname").val('');
+  $("#lname").val('');
+  $("#emp-position").val('');
+  $("#emp_btn").text("Save Changes");
+  $("#action").val("addEmployee");
+
   $("#modal").modal({
     backdrop: "static",
     keyboard: false
@@ -23,7 +34,7 @@ $("#add-employee").click(function(e) {
 $("#employee-form").submit(function(e) {
   e.preventDefault();
 
-  const url = "../../../config/processors/settingsArguments.php";
+  const url = `${baseUrl}config/processors/settingsArguments.php`;
   $.post(url, $(this).serialize()).done(async res => {
     if (res) {
       const { value } = await Swal.fire(
@@ -48,7 +59,7 @@ $(".edit-employee").click(function(e) {
   const action = "editEmployee";
   const emp_id = $(this).attr("id");
   $.ajax({
-    url: "../../../config/processors/settingsArguments.php",
+    url: `${baseUrl}config/processors/settingsArguments.php`,
     type: "post",
     data: {
       action: action,
@@ -56,7 +67,6 @@ $(".edit-employee").click(function(e) {
     },
     dataType: "JSON"
   }).done(function(employee) {
-    // Set Modal Fields
     $(".modal-title").text("EMPLOYEE UPDATING FORM");
     $("#emp_id").append(
       '<input type="hidden" name="emp_id" id="emp_id" value=' +
@@ -68,7 +78,7 @@ $(".edit-employee").click(function(e) {
     $("#fname").val(employee.emp_fname);
     $("#lname").val(employee.emp_lname);
     $("#emp-position").val(employee.emp_position);
-    $("#emp_btn").val("Save Changes");
+    $("#emp_btn").text("Save Changes");
     $("#action").val("updateEmployee");
   });
   // Show Edit Employee Modal
@@ -76,12 +86,4 @@ $(".edit-employee").click(function(e) {
     backdrop: "static",
     keyboard: false
   });
-});
-
-$(".close").click(function() {
-  location.reload(true);
-});
-
-$(".cancel").click(function() {
-  location.reload(true);
 });

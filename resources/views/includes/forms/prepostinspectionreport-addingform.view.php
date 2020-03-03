@@ -2,9 +2,9 @@
 <!-- Page Content -->
 <div class="h-100 w-100 row">
   <!--  Container -->
-  <div class="container-fluid col-lg-12 col-md-12 col-sm-12 col-xs-12 my-auto text-white">
-    <a href="javascript:history.back()" class="btn btn-default text-white" role="button">
-      <i class="fa fa-arrow-left fa-fw"></i>
+  <div class="container-fluid col-lg-12 col-md-12 col-sm-12 col-xs-12 my-auto">
+    <a href="<?= getPath('app/admin/incoming-repairs.php') ?>" class="btn btn-link text-capitalize" role="button">
+      <i class="fas fa-arrow-left fa-fw"></i>
       Go back
     </a>
     <form method="POST" class="p-3 border rounded d-block mx-auto" id="pre-post-repair-form">
@@ -13,13 +13,14 @@
       <input type="hidden" class="form-control" name="statusupdate_useraccount_id" id="statusupdate_useraccount_id" value="<?= $useraccount_id ?>">
       <input type="hidden" class="form-control" name="itsrequest_id" id="itsrequest_id" value="<?= $itsrequest_id ?>">
       <p class="h3 text-center">
-        <i class="fa fa-wrench" aria-hidden="true"></i>
+        <i class="fa fa-wrench fa-fw" aria-hidden="true"></i>
         Pre and Post Repair Inspection Report
       </p>
-      <hr style="border-color:white">
+      <hr class="border-grey">
       <div class="col-md-6">
         <div class="row">
           <div class="col-6">
+
             <!-- To Field -->
             <div class="form-group">
               <input type="text" class="form-control mb-2" name="to" id="to" placeholder="To">
@@ -36,7 +37,7 @@
             <!-- Date -->
             <div class="form-group">
               <label for="date" class="font-size-small mb-1">Date</label>
-              <input type="date" class="form-control" name="date" id="date" placeholder="Date" required>
+              <input type="date" class="form-control" name="date" id="date" placeholder="Date" value="<?=date('Y-m-d')?>" required>
             </div>
             <!-- /# Date -->
           </div>
@@ -44,7 +45,6 @@
       </div>
       <hr class="border border-light">
       <div class="container-fluid row">
-
         <!-- Property Plant and Equipment Section -->
         <div class="col-md-6">
           <h5 class="text-uppercase">DESCRIPTION OF PROPERTY, PLANT AND EQUIPMENT</h5>
@@ -98,7 +98,7 @@
       <div class="col-md-8">
         <h5 class="text-uppercase pb-2">Pre-repair Inspection</h5>
         <div class="form-group">
-          <input type="text" class="form-control" name="findings_recommendations" id="findings-recommendations" placeholder="Findings/Recommendations" required>
+          <textarea name="pre_repair_findings" id="pre-repair-findings" class="form-control" cols="30" rows="3" placeholder="Findings/Recommendations" required></textarea>
         </div>
 
         <div class="form-group">
@@ -110,7 +110,7 @@
       <div class="form-row">
         <div class="col-8 offset-2">
           <table>
-            <thead class="text-white text-center">
+            <thead class="text-center">
               <tr>
                 <th style="width: 8%">Qty</th>
                 <th style="width: 15%">Unit</th>
@@ -132,7 +132,7 @@
         </div>
       </div>
 
-      <hr style="border-color: white">
+      <hr class="border-grey">
       <div class="form-group">
         <label class="d-flex align-items-center">
           <input type="checkbox" name="additional_sheet_attached" class="mr-1" id="additional-sheet-attached">
@@ -188,14 +188,14 @@
 
       <!-- /# Pre Inspection Select Fields -->
 
-      <hr style="border-color: white">
+      <hr class="border-grey">
 
       <!-- Post Repair Inspection -->
       <h5 class="text-uppercase">Post-repair Inspection Findings</h5>
 
       <div class="row mb-4">
         <div class="col-md-5 form-group">
-          <textarea name="findings" class="form-control" id="findings" cols="30" rows="3" placeholder="Findings"></textarea>
+          <textarea name="post_repair_findings" class="form-control" id="post-repair-findings" cols="30" rows="3" placeholder="Findings"></textarea>
         </div>
         <!-- /# Post Repair Inspection -->
 
@@ -282,109 +282,5 @@
 
 </div>
 <!-- /# Page Content -->
-
-<!-- Script -->
-<script>
-  $(() => {
-    $('#stock-supplies').change(function() {
-      const stockContainer = $('.stock-container');
-      if (this.checked) {
-        stockContainer.removeClass('d-none');
-        stockContainer.show('fast');
-      } else {
-        $('#ics-number').val('');
-        $('#inventory-item-number').val('');
-        $('#stock-serial-number').val('');
-        stockContainer.hide('fast');
-      }
-    });
-
-    $('#pre-post-repair-form').submit(function(e) {
-      e.preventDefault();
-
-      // Set request status to pre-post-repair inspected 
-      $.post('../../config/processors/requestArguments.php', {
-          action: $('#action').val(),
-          itsrequest_id: $('#itsrequest_id').val(),
-          useraccount_id: $('#statusupdate_useraccount_id').val(),
-        })
-        .fail(function() {
-          alert('Error!')
-        })
-        .done(function(res) {
-          alert(res ? 'Request Inspected' : 'Error');
-          redirectToPrintInspectionPage();
-        });
-
-
-
-      // $.post('../config/processors/requestArguments.php', $(this).serialize())
-      //   .fail(function() {
-      //     alert('Error')
-      //   })
-      //   .done(function(res) {
-      //     alert(res)
-      //   });
-    });
-
-    function redirectToPrintInspectionPage() {
-      // Gather inspection report data
-      const partsToReplaceProcure = [];
-      $('.row-part').each(function(i, val) {
-        // Row column datum
-        const qty = $(`.row-part-${i} .qty`).val();
-        const particularsDescriptions = $(`.row-part-${i} .particulars_descriptions`).val();
-        const unit = $(`.row-part-${i} .unit`).val();
-        const amount = $(`.row-part-${i} .amount`).val();
-
-        // Check if some of the fields have values
-        if (!qty || !particularsDescriptions || !unit || !amount) return;
-        partsToReplaceProcure.push({
-          qty,
-          particularsDescriptions,
-          unit,
-          amount
-        });
-      });
-
-      // Redirect to print inspection report page
-      $.redirect('../../app/admin/download/pre-post-repair-form.php', {
-        data: JSON.stringify({
-          to: $('#to').val() || 'n/a',
-          control_number: $('#control-number').val() || 'n/a',
-          date: $('#date').val() || 'n/a',
-          type: $('#type').val() || 'n/a',
-          model: $('#model').val() || 'n/a',
-          property_number: $('#property-number').val() || 'n/a',
-          serial_number: $('#serial-number').val() || 'n/a',
-          acquisition_date: $('#acquisition-date').val() || 'n/a',
-          acquisition_cost: $('#acquisition-cost').val() || 'n/a',
-          issued_to: $('#issued-to').val() || 'n/a',
-          requested_by: $('#requested-by').val() || 'n/a',
-          findings_recommendations: $('#findings-recommendations').val() || 'n/a',
-          job_order: $('#job-order').val() || 'n/a',
-          parts: partsToReplaceProcure,
-          additional_sheet: $('#additional-sheet').val() || 'n/a',
-          pre_inspected_by: $('#pre-inspected-by').val() || 'n/a',
-          pre_recommending_approval: $('#pre-recommending-approval').val() || 'n/a',
-          pre_approved: $('#pre-approved').val() || 'n/a',
-          pre_inspected_date: $('#pre-inspected-date').val() || 'n/a',
-          findings: $('#findings').val() || 'n/a',
-          stock_supplies: $('#stock-supplies').is(':checked'),
-          with: $('#with-waste-material').is(':checked'),
-          additional_sheet_attached: $('#additional-sheet-attached').is(':checked'),
-          ics_number: $('#ics-number').val() || 'n/a',
-          inventory_item_number: $('#inventory-item-number').val() || 'n/a',
-          stock_serial_number: $('#stock-serial-number').val() || 'n/a',
-          post_inspected_by: $('#post-inspected-by').val() || 'n/a',
-          post_recommending_approval: $('#post-recommending-approval').val() || 'n/a',
-          post_approved: $('#post-approved').val() || 'n/a',
-          post_inspected_date: $('#post-inspected-date').val() || 'n/a',
-        })
-      });
-    }
-  });
-</script>
-<!-- /# Script -->
 
 <?php view('includes/footer'); ?>

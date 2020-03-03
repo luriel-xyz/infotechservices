@@ -40,26 +40,26 @@
     <div class="d-flex justify-content-end">
       <div class="d-flex flex-column mr-2">
         <span class="font-size-small">Control No.: <span class="underlined"><?= $data->control_number ?></span></span>
-        <span class="font-size-small">Date: <span class="font-weight-bold"><?= $data->date ?></span></span>
+        <span class="font-size-small">Date: <span class="font-weight-bold"><?= date('M d, Y', strtotime($data->date)) ?></span></span>
       </div>
     </div>
     <!-- /# -->
     <h2 class="subtitle-1 text-uppercase">Propery Plant And Equipment</h2>
-    <div class="mt-2 w-25">
+    <div class="mt-2 w-50">
       <div class="text-uppercase font-size-small d-flex justify-content-between">type: <span class="font-weight-bold underlined"><?= $data->type ?></span></div>
       <div class="text-uppercase font-size-small d-flex justify-content-between">model: <span class="font-weight-bold underlined"><?= $data->model ?></span></div>
       <div class="text-uppercase font-size-small d-flex justify-content-between">propery number: <span class="font-weight-bold underlined"><?= $data->property_number ?></span></div>
       <div class="text-uppercase font-size-small d-flex justify-content-between">serial number: <span class="font-weight-bold underlined"><?= $data->serial_number ?></span></div>
       <div class="text-uppercase font-size-small d-flex justify-content-between">acquisition date: <span class="font-weight-bold underlined"><?= $data->acquisition_date ?></span></div>
       <div class="text-uppercase font-size-small d-flex justify-content-between">acquisition cost: <span class="font-weight-bold underlined"><?= $data->acquisition_cost ?></span></div>
-      <div class="text-uppercase font-size-small d-flex justify-content-between">issued to: <span class="font-weight-bold underlined"><?= $issuedTo->emp_fname . ' ' . $issuedTo->emp_lname ?></span></div>
+      <div class="text-uppercase font-size-small d-flex justify-content-between">issued to: <span class="font-weight-bold underlined"><?= "{$issuedTo->emp_fname} {$issuedTo->emp_lname}" ?></span></div>
     </div>
     <!-- Requested by -->
     <div class="d-flex justify-content-end mt-3">
       <div>
         <div class="signed-by">Requested by:</div>
         <div class="name text-center"><?= "{$requestedBy->emp_fname} {$requestedBy->emp_lname}" ?></div>
-        <div class="position">Position</div>
+        <div class="position"><?= $requestedBy->emp_position ?></div>
       </div>
     </div>
     <!-- /# Requested by -->
@@ -74,14 +74,14 @@
         Job Order
         <span class="text-capitalize">(Nature & Scope of work to be done): </span>
       </li>
-      <li>
-        <span class="subtitle-2">Parts to be replaced and / or procured:</span>
+      <li class="subtitle-2">
+        <span class="text-uppercase">Parts to be replaced and / or procured:</span>
         <!-- Tables row -->
         <div class="container-fluid row">
           <!-- Parts Table -->
           <div class="col-6">
             <?php if (count($data->parts)) : ?>
-              <table class="table table-bordered mt-3 parts-to-replace">
+              <table class="assessment-table table table-bordered mt-3 parts-to-replace">
                 <thead>
                   <tr>
                     <th class="text-uppercase">QTY</th>
@@ -106,6 +106,17 @@
           <!-- /# Parts Table -->
         </div>
         <!-- /# Tables row -->
+
+        <!-- Additional Sheet Attached Checkbox -->
+        <div class="d-flex align-items-center ml-4">
+          <div class="checkbox d-flex align-items-center justify-content-center text-center">
+            <?php if ($data->additional_sheet_attached) : ?>
+              <i class="fas fa-circle font-size-x-small"></i>
+            <?php endif; ?>
+          </div>
+          <span class="body-2 font-weight-bold">Additional Sheet Attached</span>
+        </div>
+        <!-- /# Additional Sheet Attached Checkbox -->
       </li>
     </ol>
     <!-- /# Psre-repair inspection list -->
@@ -116,7 +127,7 @@
           <div class="signed-by">Pre-inspected by:</div>
           <div class="name text-center"><?= "{$preInspectedBy->emp_fname} {$preInspectedBy->emp_lname}" ?></div>
           <div class="position"></div>
-          <div class="date">Date: <span class="font-weight-bold"><?= $preInspectedDate ?></span></div>
+          <div class="date">Date: <span class="font-weight-bold"><?= date('M d, Y', strtotime($preInspectedDate)) ?></span></div>
         </div>
       </div>
       <!-- /# Pre-inspected by -->
@@ -125,7 +136,7 @@
         <div class="mt-3">
           <div class="signed-by">Recommending Approval:</div>
           <div class="name text-center"><?= "{$preRecommendingApproval->emp_fname} {$preRecommendingApproval->emp_lname}" ?></div>
-          <div class="position">Position</div>
+          <div class="position"><?= $preRecommendingApproval->emp_position ?></div>
         </div>
       </div>
       <!-- /# Pre-inspected by -->
@@ -135,7 +146,7 @@
       <div class="text-center">
         <div class="signed-by">Approved:</div>
         <div class="name"><?= "{$preApproved->emp_fname} {$preApproved->emp_lname}" ?></div>
-        <div class="position">Position</div>
+        <div class="position"><?= $preApproved->emp_position ?></div>
       </div>
     </div>
     <!-- /# Approved -->
@@ -145,29 +156,41 @@
     <!-- Pre-repair inspection section -->
     <h2 class="subtitle-1 text-uppercase mb-1">Post-repair inspection</h2>
     <!-- Pre-repair inspection list -->
-    <p class="body-1">New Memory Module 4gb installed. End-user to submit waste material report to PGSO etc.</p>
+    <p class="body-1"><?= $postRepairFindings ?></p>
     <!-- /# Post-repair inspection section -->
     <div class="p-1 px-3 d-flex flex-wrap bg-grey mx-4">
       <div class="d-flex align-items-center">
         <div class="checkbox d-flex align-items-center justify-content-center text-center">
           <?php if ($data->stock_supplies) : ?>
-            <small><i class="fa fa-circle"></i></small>
+            <i class="fas fa-circle font-size-x-small"></i>
           <?php endif; ?>
         </div>
         <span class="body-2 font-weight-bold">Stock / Supplies from PGO-IT</span>
       </div>
       <div class="d-flex ml-2 align-items-center">
-        <div class="checkbox d-flex align-items-center justify-content-center text-center"></div>
+        <div class="checkbox d-flex align-items-center justify-content-center text-center">
+          <?php if ($data->ics_number) : ?>
+            <i class="fas fa-circle font-size-x-small"></i>
+          <?php endif; ?>
+        </div>
         <span class="checkbox-label font-weight-bold mr-2">ICS Number: </span>
         <span class="caption"><?= $data->ics_number ?></span>
       </div>
       <div class="d-flex ml-2 align-items-center mt-1">
-        <div class="checkbox d-flex align-items-center justify-content-center text-center"></div>
+        <div class="checkbox d-flex align-items-center justify-content-center text-center">
+          <?php if ($data->inventory_item_number) : ?>
+            <i class="fas fa-circle font-size-x-small"></i>
+          <?php endif; ?>
+        </div>
         <span class="checkbox-label font-weight-bold mr-2">Inventory Item No:</span>
         <span class="caption"><?= $data->inventory_item_number ?></span>
       </div>
       <div class="d-flex ml-2 align-items-center mt-1">
-        <div class="checkbox d-flex align-items-center justify-content-center text-center"></div>
+        <div class="checkbox d-flex align-items-center justify-content-center text-center">
+          <?php if ($data->serial_number) : ?>
+            <i class="fas fa-circle font-size-x-small"></i>
+          <?php endif; ?>
+        </div>
         <span class="checkbox-label font-weight-bold mr-2">S/N:</span>
         <span class="caption"><?= $data->serial_number ?></span>
       </div>
@@ -178,7 +201,7 @@
         <div class="d-flex align-items-center">
           <div class="checkbox d-flex align-items-center justify-content-center text-center">
             <?php if ($data->with) : ?>
-              <small><i class="fa fa-circle"></i></small>
+              <i class="fas fa-circle font-size-x-small"></i>
             <?php endif; ?>
           </div>
           <span class="checkbox-label-smaller">With Waste Material / Property Return Slip</span>
@@ -188,7 +211,7 @@
         <div class="d-flex align-items-center">
           <div class="checkbox d-flex align-items-center justify-content-center text-center">
             <?php if (!$data->with) : ?>
-              <small><i class="fa fa-circle"></i></small>
+              <i class="fas fa-circle font-size-x-small"></i>
             <?php endif; ?>
           </div>
           <span class="checkbox-label-smaller">Without Waste Material / Property Return Slip</span>
@@ -202,8 +225,8 @@
         <div class="mt-3">
           <div class="signed-by">Post-inspected by:</div>
           <div class="name text-center"><?= "{$postInspectedBy->emp_fname} {$postInspectedBy->emp_lname}" ?></div>
-          <div class="position">Position</div>
-          <div class="date">Date: <span class="font-weight-bold"><?= $postInspectedDate ?></span></div>
+          <div class="position"><?= $postInspectedBy->emp_position ?></div>
+          <div class="date">Date: <span class="font-weight-bold"><?= date('M d, Y', strtotime($postInspectedDate)) ?></span></div>
         </div>
       </div>
       <!-- /# Post-inspected by -->
@@ -212,7 +235,7 @@
         <div class="mt-3">
           <div class="signed-by">Recommending Approval:</div>
           <div class="name text-center"><?= "{$postRecommendingApproval->emp_fname} {$postRecommendingApproval->emp_lname}" ?></div>
-          <div class="position">Position</div>
+          <div class="position"><?= $postRecommendingApproval->emp_position ?></div>
         </div>
       </div>
       <!-- /# Recommending approval -->
@@ -222,7 +245,7 @@
       <div class="mt-3 text-center">
         <div class="signed-by">Approved:</div>
         <div class="name"><?= "{$postApproved->emp_fname} {$postApproved->emp_lname}" ?></div>
-        <div class="position">Position</div>
+        <div class="position"><?= $postApproved->emp_position ?></div>
       </div>
     </div>
     <!-- /# Approved approval -->

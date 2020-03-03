@@ -69,11 +69,3 @@ $(".edit-department").click(function(e) {
     keyboard: false
   });
 });
-
-$(".close").click(function() {
-  location.reload(true);
-});
-
-$(".cancel").click(function() {
-  location.reload(true);
-});

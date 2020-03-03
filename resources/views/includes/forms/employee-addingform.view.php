@@ -3,9 +3,9 @@
 		<div class="container-fluid text-center">
 			<p class="h4 modal-title text-capitalize" id="exampleModalLabel">EMPLOYEE ADDING FORM</p>
 		</div>
-		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		<a type="reset" class="p-1" data-dismiss="modal" aria-label="Close" onclick="$('modal').modal('hide')">
 			<span aria-hidden="true">&times;</span>
-		</button>
+		</a>
 	</div>
 
 	<div class="modal-body">
@@ -48,7 +48,7 @@
 	</div>
 
 	<div class="modal-footer text-dark mb-0">
-		<button type="button" class="btn btn-secondary cancel" data-dismiss="modal">Cancel</button>
+		<button type="rest" class="btn btn-secondary" data-dismiss="modal" onclick="$('modal').modal('hide')">Cancel</button>
 		<button type="submit" name="submit" class="btn btn-primary" id="emp_btn">Add Employee</button>
 	</div>
 </form>

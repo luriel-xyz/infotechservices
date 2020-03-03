@@ -1,5 +1,3 @@
-import Swal from "sweetalert2";
-
 $("#search").on("keyup", function() {
   const search_text = $(this)
     .val()
@@ -15,6 +13,16 @@ $("#search").on("keyup", function() {
 });
 
 $("#add-hardware").click(function(e) {
+  $(".modal-title").text("HARDWARE COMPONENT ADDING FORM");
+  $("#hwcomponent_id").html("");
+  $("#hwcomponent_name").val("");
+  $("#hwcomponent_type").val("");
+  $("#hwcomponent_category").val("");
+  // $(".sub_type").hide();
+
+  $("#hwcomponent_btn").text("Add Hardware Component");
+  $("#action").val("addHardwareComponent");
+
   $("#modal").modal({
     backdrop: "static",
     keyboard: false
@@ -34,11 +42,10 @@ $("#hwcomponent_type").change(function(e) {
 $("#hardwareComponent-form").submit(function(e) {
   e.preventDefault();
 
-  $.ajax({
-    url: "../../../config/processors/settingsArguments.php",
-    type: "POST",
-    data: $(this).serialize()
-  }).done(function(res) {
+  $.post(
+    `${baseUrl}config/processors/settingsArguments.php`,
+    $(this).serialize()
+  ).done(function(res) {
     if (res) {
       Swal.fire(
         "Success",
@@ -58,7 +65,7 @@ $(".edit-hardware").click(function(e) {
   const action = "editHardwareComponent";
   const hwcomponent_id = $(this).attr("id");
 
-  $.post("../../../config/processors/settingsArguments.php", {
+  $.post(`${baseUrl}config/processors/settingsArguments.php`, {
     action: action,
     hwcomponent_id: hwcomponent_id
   }).done(component => {

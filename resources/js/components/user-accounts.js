@@ -1,5 +1,5 @@
 $("#search").keyup(function() {
-  var search_text = $(this)
+  const search_text = $(this)
     .val()
     .toLowerCase();
   $("#table_body tr").filter(function() {
@@ -24,25 +24,24 @@ $("#addDeptAccount").click(function(e) {
 $("#personnelUserAccount-form").submit(function(e) {
   e.preventDefault();
 
-  $.ajax({
-    url: "../../../config/processors/settingsArguments.php",
-    type: "POST",
-    data: $(this).serialize()
-  }).done(function(res) {
+  $.post(
+    `${baseUrl}config/processors/settingsArguments.php`,
+    $(this).serialize()
+  ).done(async res => {
     if (res) {
-      alert("Personnel Account Data Saved");
+      await Swal.fire("Success", "Personnel Account Data Saved", "success");
       location.reload(true);
     } else {
-      alert("Error");
+      Swal.fire("Failure", "An error occured", "error");
     }
   });
 });
 
 //Add Department User Account Script
-$("#departmentUserAccount-form").submit(function(e) { 
+$("#departmentUserAccount-form").submit(function(e) {
   e.preventDefault();
 
-  const url = "../../../config/processors/settingsArguments.php"; 
+  const url = `${baseUrl}config/processors/settingsArguments.php`;
   $.post(url, $(this).serialize()).done(async res => {
     if (res) {
       await Swal.fire("Success", "Department Account Data Saved", "success");
@@ -59,7 +58,7 @@ $(".edit-user").click(function(e) {
 
   const action = "editUserAccount";
   const useraccount_id = $(this).attr("id");
-  $.post("../../../config/processors/settingsArguments.php", {
+  $.post(`${baseUrl}config/processors/settingsArguments.php`, {
     action: action,
     useraccount_id: useraccount_id
   }).done(user => {
@@ -101,24 +100,25 @@ $(".disable").click(async function(e) {
   const useraccount_id = $(this).attr("id");
 
   $.ajax({
-    url: "../../../config/processors/settingsArguments.php",
+    url: `${baseUrl}config/processors/settingsArguments.php`,
     type: "post",
     data: {
       action: action,
       useraccount_id: useraccount_id
     }
   }).done(async function(res) {
-    if (res) {
-      const { value } = await Swal.fire(
-        "Success",
-        "User Account Disabled",
-        "success"
-      );
-      if (value) {
-        location.reload();
-      }
-    } else {
+    if (!res) {
       Swal.fire("Failure", "Error", "error");
+      return;
+    }
+
+    const { value } = await Swal.fire(
+      "Success",
+      "User Account Disabled",
+      "success"
+    );
+    if (value) {
+      location.reload();
     }
   });
 });
@@ -133,28 +133,25 @@ $(".enable").click(async function(e) {
   const useraccount_id = $(this).attr("id");
 
   $.ajax({
-    url: "../../../config/processors/settingsArguments.php",
+    url: `${baseUrl}config/processors/settingsArguments.php`,
     type: "post",
     data: {
       action: action,
       useraccount_id: useraccount_id
     }
   }).done(async function(res) {
-    if (res) {
-      const { value } = await Swal.fire(
-        "Success",
-        "User Account Enabled",
-        "success"
-      );
-      if (value) {
-        location.reload();
-      }
-    } else {
+    if (!res) {
       Swal.fire("Failure", "Error", "error");
+      return;
+    }
+
+    const { value } = await Swal.fire(
+      "Success",
+      "User Account Enabled",
+      "success"
+    );
+    if (value) {
+      location.reload();
     }
   });
 });
-
-$(".close").click(() => location.reload(true));
-
-$(".cancel").click(() => location.reload(true));

@@ -9,7 +9,7 @@ $(".btn-logout").click(async e => {
   });
 
   if (value) {
-    const logoutPath = `${window.location.origin}/${appName}/app/auth/logout.php`;
+    const logoutPath = `${baseUrl}/app/auth/logout.php`;
 
     window.location.href = logoutPath;
   }

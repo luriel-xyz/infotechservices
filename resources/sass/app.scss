@@ -15,18 +15,17 @@
 // Bootstrap
 // @import "~bootstrap/scss/bootstrap";
 
-
 // Fontawesome
 // @import "~@fortawesome/fontawesome-free/scss/fontawesome";
 // @import "~@fortawesome/fontawesome-free/scss/solid";
 // @import "~@fortawesome/fontawesome-free/scss/brands";
 
 // mdbootstrap
-@import 'https://use.fontawesome.com/releases/v5.11.2/css/all.css';
-@import 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap';
-@import '~mdbootstrap/css/bootstrap.min.css';
-@import '~mdbootstrap/css/mdb.min.css';
-@import '~mdbootstrap/css/style.css';
+@import "https://use.fontawesome.com/releases/v5.11.2/css/all.css";
+@import "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap";
+@import "~mdbootstrap/css/bootstrap.min.css";
+@import "~mdbootstrap/css/mdb.min.css";
+@import "~mdbootstrap/css/style.css";
 
 .title {
   font-size: 1.3em;
@@ -67,7 +66,7 @@
 
 .republic {
   font-family: cursive;
-  line-height: 0.8;
+  line-height: 1;
 }
 
 .province {
@@ -92,13 +91,17 @@
   display: none !important;
 }
 
+.w-30 {
+  width: 30% !important;
+}
+
 .font-size-small,
 .signed-by {
-  font-size: small;
+  font-size: small !important;
 }
 
 .font-size-x-small {
-  font-size: x-small;
+  font-size: x-small !important;
 }
 
 .red--text {
@@ -153,6 +156,10 @@
   background-color: #eee;
 }
 
+.nav-link.active {
+  color: #fa9b42 !important;
+}
+
 .floating-buttons {
   position: fixed;
 }
@@ -163,14 +170,14 @@
   font-size: 200px !important;
 }
 
-assessment-table.table.table-bordered > thead > tr > th {
+.assessment-table > thead > tr > th {
   border: 1px solid #000;
   font-size: 0.7em;
   text-align: center;
   padding: 0;
 }
 
-assessment-table.table.table-bordered > tbody > tr > td {
+.assessment-table > tbody > tr > td {
   border: 1px solid #000;
   font-size: small;
   padding: 0;

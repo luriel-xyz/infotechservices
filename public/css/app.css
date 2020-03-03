@@ -315,7 +315,7 @@ body {
 
 .republic {
   font-family: cursive;
-  line-height: 0.8;
+  line-height: 1;
 }
 
 .province {
@@ -340,13 +340,17 @@ body {
   display: none !important;
 }
 
+.w-30 {
+  width: 30% !important;
+}
+
 .font-size-small,
 .signed-by {
-  font-size: small;
+  font-size: small !important;
 }
 
 .font-size-x-small {
-  font-size: x-small;
+  font-size: x-small !important;
 }
 
 .red--text {
@@ -400,6 +404,10 @@ body {
   background-color: #eee;
 }
 
+.nav-link.active {
+  color: #fa9b42 !important;
+}
+
 .floating-buttons {
   position: fixed;
 }
@@ -410,14 +418,14 @@ body {
   font-size: 200px !important;
 }
 
-assessment-table.table.table-bordered > thead > tr > th {
+.assessment-table > thead > tr > th {
   border: 1px solid #000;
   font-size: 0.7em;
   text-align: center;
   padding: 0;
 }
 
-assessment-table.table.table-bordered > tbody > tr > td {
+.assessment-table > tbody > tr > td {
   border: 1px solid #000;
   font-size: small;
   padding: 0;

@@ -58860,6 +58860,8 @@ $(function () {
 
   __webpack_require__(/*! ./components/assessment */ "./resources/js/components/assessment.js");
 
+  __webpack_require__(/*! ./components/pre-post-insp */ "./resources/js/components/pre-post-insp.js");
+
   __webpack_require__(/*! ./components/employee */ "./resources/js/components/employee.js");
 
   __webpack_require__(/*! ./components/logout */ "./resources/js/components/logout.js");
@@ -59217,56 +59219,64 @@ $("#repassessmentreport-form").submit(function (e) {
     property_num: property_num
   }; // Insert assessment report data to db
 
-  $.post("../../config/processors/requestArguments.php", assessmentReportData).done(function (assessmentReportId) {
+  $.post("".concat(baseUrl, "config/processors/requestArguments.php"), assessmentReportData).done(function (res) {
     var subComponentAssessmentData = {
       action: "addAssessmentSubComponents",
-      assessmentReportId: assessmentReportId,
+      assessmentReportId: res,
       subcomponents: hwSubComponentsAssessments
     }; // Insert sub-component hardwares assessment data
 
-    $.post("../../config/processors/requestArguments.php", subComponentAssessmentData).done(
-    /*#__PURE__*/
-    function () {
-      var _ref = _asyncToGenerator(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(res) {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                if (!res) {
-                  _context.next = 6;
-                  break;
-                }
-
-                _context.next = 3;
-                return Swal.fire("Success", "Assessment Report Created!", "success");
-
-              case 3:
-                // Redirect to Assessment Report Print Page
-                $.redirect("../../app/admin/download/print-repassessmentreport-form.php", {
-                  assessment_report_id: assessmentReportId
-                });
-                _context.next = 7;
-                break;
-
-              case 6:
-                Swal.fire("Error", "An error occured", "error");
-
-              case 7:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }));
-
-      return function (_x) {
-        return _ref.apply(this, arguments);
-      };
-    }());
+    insertSubComponentAssessments(res, subComponentAssessmentData);
   });
 });
+
+function insertSubComponentAssessments(assessmentReportId, subComponentAssessmentData) {
+  var url = "".concat(baseUrl, "config/processors/requestArguments.php");
+  $.post(url, subComponentAssessmentData).done(
+  /*#__PURE__*/
+  function () {
+    var _ref = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(res) {
+      var _url;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              if (!res) {
+                _context.next = 7;
+                break;
+              }
+
+              _context.next = 3;
+              return Swal.fire("Success", "Assessment Report Created!", "success");
+
+            case 3:
+              // Redirect to Assessment Report Print Page
+              _url = "".concat(baseUrl, "app/admin/download/print-repassessmentreport-form.php");
+              $.redirect(_url, {
+                assessment_report_id: assessmentReportId
+              });
+              _context.next = 8;
+              break;
+
+            case 7:
+              Swal.fire("Error", "An error occured", "error");
+
+            case 8:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    return function (_x) {
+      return _ref.apply(this, arguments);
+    };
+  }());
+}
 
 /***/ }),
 
@@ -59365,12 +59375,6 @@ $(".edit-department").click(function (e) {
     keyboard: false
   });
 });
-$(".close").click(function () {
-  location.reload(true);
-});
-$(".cancel").click(function () {
-  location.reload(true);
-});
 
 /***/ }),
 
@@ -59398,6 +59402,16 @@ $("#search").on("keyup", function () {
   });
 });
 $("#add-employee").click(function (e) {
+  $(".modal-title").text("EMPLOYEE ADDING FORM");
+  $('#emp_btn').text('Add Employee');
+  $("#emp_id").html('');
+  $("#dept_id").val('');
+  $("#emp_idnum").val('');
+  $("#fname").val('');
+  $("#lname").val('');
+  $("#emp-position").val('');
+  $("#emp_btn").text("Save Changes");
+  $("#action").val("addEmployee");
   $("#modal").modal({
     backdrop: "static",
     keyboard: false
@@ -59406,7 +59420,7 @@ $("#add-employee").click(function (e) {
 
 $("#employee-form").submit(function (e) {
   e.preventDefault();
-  var url = "../../../config/processors/settingsArguments.php";
+  var url = "".concat(baseUrl, "config/processors/settingsArguments.php");
   $.post(url, $(this).serialize()).done(
   /*#__PURE__*/
   function () {
@@ -59461,7 +59475,7 @@ $(".edit-employee").click(function (e) {
   var action = "editEmployee";
   var emp_id = $(this).attr("id");
   $.ajax({
-    url: "../../../config/processors/settingsArguments.php",
+    url: "".concat(baseUrl, "config/processors/settingsArguments.php"),
     type: "post",
     data: {
       action: action,
@@ -59469,7 +59483,6 @@ $(".edit-employee").click(function (e) {
     },
     dataType: "JSON"
   }).done(function (employee) {
-    // Set Modal Fields
     $(".modal-title").text("EMPLOYEE UPDATING FORM");
     $("#emp_id").append('<input type="hidden" name="emp_id" id="emp_id" value=' + employee.emp_id + ">");
     $("#dept_id").val(employee.dept_id);
@@ -59477,7 +59490,7 @@ $(".edit-employee").click(function (e) {
     $("#fname").val(employee.emp_fname);
     $("#lname").val(employee.emp_lname);
     $("#emp-position").val(employee.emp_position);
-    $("#emp_btn").val("Save Changes");
+    $("#emp_btn").text("Save Changes");
     $("#action").val("updateEmployee");
   }); // Show Edit Employee Modal
 
@@ -59486,12 +59499,6 @@ $(".edit-employee").click(function (e) {
     keyboard: false
   });
 });
-$(".close").click(function () {
-  location.reload(true);
-});
-$(".cancel").click(function () {
-  location.reload(true);
-});
 
 /***/ }),
 
@@ -59499,13 +59506,8 @@ $(".cancel").click(function () {
 /*!*************************************************!*\
   !*** ./resources/js/components/hwcomponents.js ***!
   \*************************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
+/*! no static exports found */
+/***/ (function(module, exports) {
 
 $("#search").on("keyup", function () {
   var search_text = $(this).val().toLowerCase();
@@ -59514,6 +59516,14 @@ $("#search").on("keyup", function () {
   });
 });
 $("#add-hardware").click(function (e) {
+  $(".modal-title").text("HARDWARE COMPONENT ADDING FORM");
+  $("#hwcomponent_id").html("");
+  $("#hwcomponent_name").val("");
+  $("#hwcomponent_type").val("");
+  $("#hwcomponent_category").val(""); // $(".sub_type").hide();
+
+  $("#hwcomponent_btn").text("Add Hardware Component");
+  $("#action").val("addHardwareComponent");
   $("#modal").modal({
     backdrop: "static",
     keyboard: false
@@ -59531,17 +59541,13 @@ $("#hwcomponent_type").change(function (e) {
 
 $("#hardwareComponent-form").submit(function (e) {
   e.preventDefault();
-  $.ajax({
-    url: "../../../config/processors/settingsArguments.php",
-    type: "POST",
-    data: $(this).serialize()
-  }).done(function (res) {
+  $.post("".concat(baseUrl, "config/processors/settingsArguments.php"), $(this).serialize()).done(function (res) {
     if (res) {
-      sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire("Success", "Hardware Component Data Saved!", "success").then(function () {
+      Swal.fire("Success", "Hardware Component Data Saved!", "success").then(function () {
         return location.reload(true);
       });
     } else {
-      sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire("Failure", "Error", "error");
+      Swal.fire("Failure", "Error", "error");
     }
   });
 }); //Edit Hardware Component Script
@@ -59550,7 +59556,7 @@ $(".edit-hardware").click(function (e) {
   e.preventDefault();
   var action = "editHardwareComponent";
   var hwcomponent_id = $(this).attr("id");
-  $.post("../../../config/processors/settingsArguments.php", {
+  $.post("".concat(baseUrl, "config/processors/settingsArguments.php"), {
     action: action,
     hwcomponent_id: hwcomponent_id
   }).done(function (component) {
@@ -59621,7 +59627,7 @@ function () {
             value = _ref2.value;
 
             if (value) {
-              logoutPath = "".concat(window.location.origin, "/").concat(appName, "/app/auth/logout.php");
+              logoutPath = "".concat(baseUrl, "/app/auth/logout.php");
               window.location.href = logoutPath;
             }
 
@@ -59637,6 +59643,285 @@ function () {
     return _ref.apply(this, arguments);
   };
 }());
+
+/***/ }),
+
+/***/ "./resources/js/components/pre-post-insp.js":
+/*!**************************************************!*\
+  !*** ./resources/js/components/pre-post-insp.js ***!
+  \**************************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+var getPartsToReplaceProcure =
+/*#__PURE__*/
+function () {
+  var _ref = _asyncToGenerator(
+  /*#__PURE__*/
+  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+    var partsToReplaceProcure;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            partsToReplaceProcure = [];
+            $(".row-part").each(function (i, val) {
+              // Row column datum
+              var qty = $(".row-part-".concat(i, " .qty")).val();
+              var particularsDescriptions = $(".row-part-".concat(i, " .particulars_descriptions")).val();
+              var unit = $(".row-part-".concat(i, " .unit")).val();
+              var amount = $(".row-part-".concat(i, " .amount")).val(); // Check if some of the fields have values
+
+              if (!qty || !particularsDescriptions || !unit || !amount) return;
+              partsToReplaceProcure.push({
+                qty: qty,
+                particularsDescriptions: particularsDescriptions,
+                unit: unit,
+                amount: amount
+              });
+            });
+            return _context.abrupt("return", partsToReplaceProcure);
+
+          case 3:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function getPartsToReplaceProcure() {
+    return _ref.apply(this, arguments);
+  };
+}();
+
+var getFormData =
+/*#__PURE__*/
+function () {
+  var _ref2 = _asyncToGenerator(
+  /*#__PURE__*/
+  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            _context2.t0 = $("#to").val() || "n/a";
+            _context2.t1 = $("#control-number").val() || "n/a";
+            _context2.t2 = $("#date").val() || "n/a";
+            _context2.t3 = $("#type").val() || "n/a";
+            _context2.t4 = $("#model").val() || "n/a";
+            _context2.t5 = $("#property-number").val() || "n/a";
+            _context2.t6 = $("#serial-number").val() || "n/a";
+            _context2.t7 = $("#acquisition-date").val() || "n/a";
+            _context2.t8 = $("#acquisition-cost").val() || "n/a";
+            _context2.t9 = $("#issued-to").val() || "n/a";
+            _context2.t10 = $("#requested-by").val() || "n/a";
+            _context2.t11 = $("#pre-repair-findings").val() || "n/a";
+            _context2.t12 = $("#job-order").val() || "n/a";
+            _context2.next = 15;
+            return getPartsToReplaceProcure();
+
+          case 15:
+            _context2.t13 = _context2.sent;
+            _context2.t14 = $("#additional-sheet").val() || "n/a";
+            _context2.t15 = $("#pre-inspected-by").val() || "n/a";
+            _context2.t16 = $("#pre-recommending-approval").val() || "n/a";
+            _context2.t17 = $("#pre-approved").val() || "n/a";
+            _context2.t18 = $("#pre-inspected-date").val() || "n/a";
+            _context2.t19 = $("#post-repair-findings").val() || "n/a";
+            _context2.t20 = $("#stock-supplies").is(":checked");
+            _context2.t21 = $("#with-waste-material").is(":checked");
+            _context2.t22 = $("#additional-sheet-attached").is(":checked");
+            _context2.t23 = $("#ics-number").val() || "n/a";
+            _context2.t24 = $("#inventory-item-number").val() || "n/a";
+            _context2.t25 = $("#stock-serial-number").val() || "n/a";
+            _context2.t26 = $("#post-inspected-by").val() || "n/a";
+            _context2.t27 = $("#post-recommending-approval").val() || "n/a";
+            _context2.t28 = $("#post-approved").val() || "n/a";
+            _context2.t29 = $("#post-inspected-date").val() || "n/a";
+            return _context2.abrupt("return", {
+              action: "addInspectionReport",
+              to: _context2.t0,
+              control_number: _context2.t1,
+              date: _context2.t2,
+              type: _context2.t3,
+              model: _context2.t4,
+              property_number: _context2.t5,
+              serial_number: _context2.t6,
+              acquisition_date: _context2.t7,
+              acquisition_cost: _context2.t8,
+              issued_to: _context2.t9,
+              requested_by: _context2.t10,
+              pre_repair_findings: _context2.t11,
+              job_order: _context2.t12,
+              parts: _context2.t13,
+              additional_sheet: _context2.t14,
+              pre_inspected_by: _context2.t15,
+              pre_recommending_approval: _context2.t16,
+              pre_approved: _context2.t17,
+              pre_inspected_date: _context2.t18,
+              post_repair_findings: _context2.t19,
+              stock_supplies: _context2.t20,
+              "with": _context2.t21,
+              additional_sheet_attached: _context2.t22,
+              ics_number: _context2.t23,
+              inventory_item_number: _context2.t24,
+              stock_serial_number: _context2.t25,
+              post_inspected_by: _context2.t26,
+              post_recommending_approval: _context2.t27,
+              post_approved: _context2.t28,
+              post_inspected_date: _context2.t29
+            });
+
+          case 33:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2);
+  }));
+
+  return function getFormData() {
+    return _ref2.apply(this, arguments);
+  };
+}();
+
+$("#stock-supplies").change(function () {
+  var stockContainer = $(".stock-container");
+
+  if (this.checked) {
+    stockContainer.removeClass("d-none");
+    stockContainer.show("fast");
+  } else {
+    $("#ics-number").val("");
+    $("#inventory-item-number").val("");
+    $("#stock-serial-number").val("");
+    stockContainer.hide("fast");
+  }
+});
+$("#pre-post-repair-form").submit(function (e) {
+  e.preventDefault(); // Set request status to pre-post-repair inspected
+
+  $.post("".concat(baseUrl, "config/processors/requestArguments.php"), {
+    action: $("#action").val(),
+    itsrequest_id: $("#itsrequest_id").val(),
+    useraccount_id: $("#statusupdate_useraccount_id").val()
+  }).fail(function () {
+    Swal.fire("Failure", "An error occured", "error");
+  }).done(
+  /*#__PURE__*/
+  function () {
+    var _ref3 = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(res) {
+      var data;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              if (!res) {
+                _context3.next = 9;
+                break;
+              }
+
+              _context3.next = 3;
+              return Swal.fire("Success", "Request Inspected", "success");
+
+            case 3:
+              _context3.next = 5;
+              return getFormData();
+
+            case 5:
+              data = _context3.sent;
+              saveInspectionReport(data);
+              _context3.next = 10;
+              break;
+
+            case 9:
+              Swal.fire("Failure", "An error occured", "error");
+
+            case 10:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    }));
+
+    return function (_x) {
+      return _ref3.apply(this, arguments);
+    };
+  }()); // $.post('../config/processors/requestArguments.php', $(this).serialize())
+  //   .fail(function() {
+  //     alert('Error')
+  //   })
+  //   .done(function(res) {
+  //     alert(res)
+  //   });
+});
+
+function saveInspectionReport(_x2) {
+  return _saveInspectionReport.apply(this, arguments);
+}
+
+function _saveInspectionReport() {
+  _saveInspectionReport = _asyncToGenerator(
+  /*#__PURE__*/
+  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(reportData) {
+    var _ref4, data, _ref5, value, url;
+
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+      while (1) {
+        switch (_context4.prev = _context4.next) {
+          case 0:
+            _context4.prev = 0;
+            _context4.next = 3;
+            return axios.post("".concat(baseUrl, "config/processors"), reportData);
+
+          case 3:
+            _ref4 = _context4.sent;
+            data = _ref4.data;
+            console.log("data here: ", data);
+            _context4.next = 8;
+            return Swal.fire({
+              icon: "question",
+              title: "Confirm",
+              text: "Do you want to print the inspection report now?",
+              showCancelButton: true
+            });
+
+          case 8:
+            _ref5 = _context4.sent;
+            value = _ref5.value;
+            url = value ? "".concat(baseUrl, "app/admin/download/pre-post-repair-form.php") : "".concat(baseUrl, "app/admin/incoming-repairs.php");
+            window.location.replace(url);
+            _context4.next = 17;
+            break;
+
+          case 14:
+            _context4.prev = 14;
+            _context4.t0 = _context4["catch"](0);
+            Swal.fire("Failure", "An error occured, try again.", "error");
+
+          case 17:
+          case "end":
+            return _context4.stop();
+        }
+      }
+    }, _callee4, null, [[0, 14]]);
+  }));
+  return _saveInspectionReport.apply(this, arguments);
+}
 
 /***/ }),
 
@@ -59765,7 +60050,7 @@ $(".view-repair").click(function (e) {
   var action = "getRequest";
   var itsrequest_id = $(this).attr("id");
   $.post({
-    url: "../../config/processors/requestArguments.php",
+    url: "".concat(baseUrl, "config/processors/requestArguments.php"),
     type: "post",
     data: {
       action: action,
@@ -59774,18 +60059,19 @@ $(".view-repair").click(function (e) {
     dataType: "JSON"
   }).done(function (request) {
     $("#modalView").modal("toggle");
+    $("#data").empty();
 
     if (request.status === "received") {
       $("#data").append('<label class="font-weight-bold text-info">' + request.status + "</label><br>");
     } else if (request.status === "pending" || request.status === "assessment pending") {
-      $("#data").append('<label class="font-weight-bold text-success">' + request.status + "</label><br>");
-    } else if (request.status === "deployed" || request.status === "assessed" || request.status === "done") {
-      $("#data").append('<label class="font-weight-bold text-secondary">' + request.status + "</label><br>");
-    } else if (request.status === "pre-repair inspected" || request.status === "post-repair inspected") {
       $("#data").append('<label class="font-weight-bold text-warning">' + request.status + "</label><br>");
+    } else if (request.status === "deployed" || request.status === "assessed" || request.status === "done") {
+      $("#data").append('<label class="font-weight-bold text-success">' + request.status + "</label><br>");
+    } else if (request.status === "pre-repair inspected" || request.status === "post-repair inspected" || request.status === 'pre-post-repair inspected') {
+      $("#data").append('<label class="font-weight-bold text-secondary">' + request.status + "</label><br>");
     }
 
-    $("#data").append('<label class="font-weight-bold">' + moment(request.itsrequest_date).format("MMM d, Y h:mm a") + "</label><br>");
+    $("#data").append('<label class="font-weight-bold">' + moment(request.itsrequest_date).format("MMM D, Y h:mm a") + "</label><br>");
     $("#data").append('<label class="font-weight-bold">' + request.dept_code + "|" + request.emp_fname + " " + request.emp_lname + "</label><br>");
     $("#data").append('<label class="font-weight-bold">' + request.hwcomponent_name + "</label><br>");
     $("#data").append('<label class="font-weight-bold">' + request.property_num + "</label><br>");
@@ -59810,10 +60096,44 @@ $(".pending").click(function (e) {
       itsrequest_id: itsrequest_id,
       statusupdate_useraccount_id: statusupdate_useraccount_id
     }
-  }).done(function (val) {
-    alert(val);
-    location.reload(true);
-  });
+  }).done(
+  /*#__PURE__*/
+  function () {
+    var _ref2 = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(res) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              if (!res) {
+                _context2.next = 6;
+                break;
+              }
+
+              _context2.next = 3;
+              return Swal.fire("Success", 'Request set to "Pending"');
+
+            case 3:
+              location.reload(true);
+              _context2.next = 7;
+              break;
+
+            case 6:
+              Swal.fire("Error", "An error occured", "error");
+
+            case 7:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }));
+
+    return function (_x2) {
+      return _ref2.apply(this, arguments);
+    };
+  }());
 });
 $(".done-repair").click(function (e) {
   e.preventDefault();
@@ -59827,52 +60147,48 @@ $(".done-repair").click(function (e) {
     keyboard: false
   });
 });
-$("#pullout_done-form").submit(
-/*#__PURE__*/
-function () {
-  var _ref2 = _asyncToGenerator(
+$("#pullout_done-form").submit(function (e) {
+  e.preventDefault();
+  var url = "".concat(baseUrl, "config/processors/requestArguments.php");
+  $.post(url, $(this).serialize()).done(
   /*#__PURE__*/
-  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(e) {
-    var res;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-      while (1) {
-        switch (_context2.prev = _context2.next) {
-          case 0:
-            e.preventDefault();
-            _context2.next = 3;
-            return axios.post("../../config/processors/requestArguments.php", $(this).serialize());
+  function () {
+    var _ref3 = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(res) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              if (!res) {
+                _context3.next = 6;
+                break;
+              }
 
-          case 3:
-            res = _context2.sent;
+              _context3.next = 3;
+              return Swal.fire("Success", "Done", "success");
 
-            if (!res) {
-              _context2.next = 10;
+            case 3:
+              location.reload(true);
+              _context3.next = 7;
               break;
-            }
 
-            _context2.next = 7;
-            return Swal.fire("Success", "Done", "success");
+            case 6:
+              Swal.fire("Error", "An error occured", "error");
 
-          case 7:
-            location.reload(true);
-            _context2.next = 11;
-            break;
-
-          case 10:
-            Swal.fire("Error", "An error occured", "error");
-
-          case 11:
-          case "end":
-            return _context2.stop();
+            case 7:
+            case "end":
+              return _context3.stop();
+          }
         }
-      }
-    }, _callee2, this);
-  }));
+      }, _callee3);
+    }));
 
-  return function (_x2) {
-    return _ref2.apply(this, arguments);
-  };
-}()); // Add new repair button click listener
+    return function (_x3) {
+      return _ref3.apply(this, arguments);
+    };
+  }());
+}); // Add new repair button click listener
 
 $("#add").click(function (e) {
   e.preventDefault();
@@ -59887,9 +60203,8 @@ $(".assess").click(function (e) {
     dept_id: $(this).data("dept_id"),
     hwcomponent_id: $(this).data("hwcomponent_id")
   }); // var action = 'statusAssessmentPending';
-
-  var itsrequest_id = $(this).attr("id");
-  var useraccount_id = $(this).attr("data-id");
+  // const itsrequest_id = $(this).attr("id");
+  // const useraccount_id = $(this).attr("data-id");
 });
 $(".assessment-created").click(function (e) {
   e.preventDefault();
@@ -59909,7 +60224,7 @@ $(".pre-post-inspect").click(function () {
   var itsrequest_id = $(this).attr("id");
   var useraccount_id = $(this).attr("data-id");
   var assessment_report_id = $(this).data("assessment-report-id");
-  $.redirect("../includes/forms/prepostinspectionreport-addingform.php", {
+  $.redirect("".concat(baseUrl, "app/admin/pre-post-insp.php"), {
     action: action,
     itsrequest_id: itsrequest_id,
     useraccount_id: useraccount_id,
@@ -59960,13 +60275,6 @@ $(".pre-post-inspect").click(function () {
 
    $.redirect(url, {itsrequest_id:itsrequest_id});
 });*/
-
-$(".close").click(function () {
-  location.reload(true);
-});
-$(".cancel").click(function () {
-  location.reload(true);
-});
 
 /***/ }),
 
@@ -60040,16 +60348,14 @@ $(".view-request").click(function (e) {
   e.preventDefault();
   var action = "getRequest";
   var itsrequest_id = $(this).attr("id");
-  $.ajax({
-    url: "../../config/processors/requestArguments.php",
-    type: "post",
-    data: {
-      action: action,
-      itsrequest_id: itsrequest_id
-    },
-    dataType: "JSON"
+  $.post("".concat(baseUrl, "config/processors/requestArguments.php"), {
+    action: action,
+    itsrequest_id: itsrequest_id
   }).done(function (request) {
+    request = JSON.parse(request);
     $("#modalView").modal("toggle");
+    $('#data').empty();
+    $('#other-labels').empty();
 
     if (request.status === "received") {
       $("#data").append('<label class="font-weight-bold text-info">' + request.status + "</label><br>");
@@ -60059,7 +60365,7 @@ $(".view-request").click(function (e) {
       $("#data").append('<label class="font-weight-bold text-secondary">' + request.status + "</label><br>");
     }
 
-    $("#data").append('<label class="font-weight-bold">' + moment(request.itsrequest_date.itsrequest_date).format("MMM d, Y") + "</label><br>");
+    $("#data").append('<label class="font-weight-bold">' + moment(request.itsrequest_date.itsrequest_date).format("MMM D, Y") + "</label><br>");
     $("#data").append('<label class="font-weight-bold">' + request.dept_code + "|" + request.emp_fname + " " + request.emp_lname + "</label><br>");
     $("#data").append('<label class="font-weight-bold text-truncate">' + request.concern + "</label><br>");
 
@@ -60137,7 +60443,7 @@ function () {
             return Swal.fire("Success", "Request Done", "success");
 
           case 7:
-            $.redirect("../../app/admin/incoming-repairs.php");
+            $.redirect("".concat(baseUrl, "app/admin/incoming-repairs.php"));
             _context.next = 11;
             break;
 
@@ -60205,12 +60511,6 @@ function () {
     return _ref2.apply(this, arguments);
   };
 }());
-$(".close").click(function () {
-  location.reload(true);
-});
-$(".cancel").click(function () {
-  location.reload(true);
-});
 
 /***/ }),
 
@@ -60218,8 +60518,18 @@ $(".cancel").click(function () {
 /*!**************************************************!*\
   !*** ./resources/js/components/sent_requests.js ***!
   \**************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 $("#search").on("keyup", function () {
   var search_text = $(this).val().toLowerCase();
@@ -60285,14 +60595,44 @@ $(".receive").click(function (e) {
       action: action,
       itsrequest_id: itsrequest_id
     }
-  }).done(function (res) {
-    if (res) {
-      alert("Hardware received");
-      location.reload(true);
-    } else {
-      alert("Please try again...");
-    }
-  });
+  }).done(
+  /*#__PURE__*/
+  function () {
+    var _ref = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(res) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              if (!res) {
+                _context.next = 6;
+                break;
+              }
+
+              _context.next = 3;
+              return Swal.fire("Success", "Hardware received", "success");
+
+            case 3:
+              location.reload(true);
+              _context.next = 7;
+              break;
+
+            case 6:
+              Swal.fire("Failure", "An error occured", "error");
+
+            case 7:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    return function (_x) {
+      return _ref.apply(this, arguments);
+    };
+  }());
 });
 
 /***/ }),
@@ -60329,24 +60669,7 @@ $("#addDeptAccount").click(function (e) {
 
 $("#personnelUserAccount-form").submit(function (e) {
   e.preventDefault();
-  $.ajax({
-    url: "../../../config/processors/settingsArguments.php",
-    type: "POST",
-    data: $(this).serialize()
-  }).done(function (res) {
-    if (res) {
-      alert("Personnel Account Data Saved");
-      location.reload(true);
-    } else {
-      alert("Error");
-    }
-  });
-}); //Add Department User Account Script
-
-$("#departmentUserAccount-form").submit(function (e) {
-  e.preventDefault();
-  var url = "../../../config/processors/settingsArguments.php";
-  $.post(url, $(this).serialize()).done(
+  $.post("".concat(baseUrl, "config/processors/settingsArguments.php"), $(this).serialize()).done(
   /*#__PURE__*/
   function () {
     var _ref = _asyncToGenerator(
@@ -60362,7 +60685,7 @@ $("#departmentUserAccount-form").submit(function (e) {
               }
 
               _context.next = 3;
-              return Swal.fire("Success", "Department Account Data Saved", "success");
+              return Swal.fire("Success", "Personnel Account Data Saved", "success");
 
             case 3:
               location.reload(true);
@@ -60370,7 +60693,7 @@ $("#departmentUserAccount-form").submit(function (e) {
               break;
 
             case 6:
-              Swal.fire("Failure", "Error", "error");
+              Swal.fire("Failure", "An error occured", "error");
 
             case 7:
             case "end":
@@ -60384,13 +60707,56 @@ $("#departmentUserAccount-form").submit(function (e) {
       return _ref.apply(this, arguments);
     };
   }());
+}); //Add Department User Account Script
+
+$("#departmentUserAccount-form").submit(function (e) {
+  e.preventDefault();
+  var url = "".concat(baseUrl, "config/processors/settingsArguments.php");
+  $.post(url, $(this).serialize()).done(
+  /*#__PURE__*/
+  function () {
+    var _ref2 = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(res) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              if (!res) {
+                _context2.next = 6;
+                break;
+              }
+
+              _context2.next = 3;
+              return Swal.fire("Success", "Department Account Data Saved", "success");
+
+            case 3:
+              location.reload(true);
+              _context2.next = 7;
+              break;
+
+            case 6:
+              Swal.fire("Failure", "Error", "error");
+
+            case 7:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }));
+
+    return function (_x2) {
+      return _ref2.apply(this, arguments);
+    };
+  }());
 }); //Edit User Accounts Script
 
 $(".edit-user").click(function (e) {
   e.preventDefault();
   var action = "editUserAccount";
   var useraccount_id = $(this).attr("id");
-  $.post("../../../config/processors/settingsArguments.php", {
+  $.post("".concat(baseUrl, "config/processors/settingsArguments.php"), {
     action: action,
     useraccount_id: useraccount_id
   }).done(function (user) {
@@ -60419,35 +60785,35 @@ $(".edit-user").click(function (e) {
 $(".disable").click(
 /*#__PURE__*/
 function () {
-  var _ref2 = _asyncToGenerator(
+  var _ref3 = _asyncToGenerator(
   /*#__PURE__*/
-  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(e) {
-    var _ref3, value, action, useraccount_id;
+  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(e) {
+    var _ref4, value, action, useraccount_id;
 
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
       while (1) {
-        switch (_context3.prev = _context3.next) {
+        switch (_context4.prev = _context4.next) {
           case 0:
             e.preventDefault();
-            _context3.next = 3;
+            _context4.next = 3;
             return Swal.fire("Confirm", "Are you sure you wanted to disable this account?", "question");
 
           case 3:
-            _ref3 = _context3.sent;
-            value = _ref3.value;
+            _ref4 = _context4.sent;
+            value = _ref4.value;
 
             if (value) {
-              _context3.next = 7;
+              _context4.next = 7;
               break;
             }
 
-            return _context3.abrupt("return");
+            return _context4.abrupt("return");
 
           case 7:
             action = "disableUserAccount";
             useraccount_id = $(this).attr("id");
             $.ajax({
-              url: "../../../config/processors/settingsArguments.php",
+              url: "".concat(baseUrl, "config/processors/settingsArguments.php"),
               type: "post",
               data: {
                 action: action,
@@ -60456,95 +60822,93 @@ function () {
             }).done(
             /*#__PURE__*/
             function () {
-              var _ref4 = _asyncToGenerator(
+              var _ref5 = _asyncToGenerator(
               /*#__PURE__*/
-              _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(res) {
-                var _ref5, _value;
+              _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(res) {
+                var _ref6, value;
 
-                return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+                return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
                   while (1) {
-                    switch (_context2.prev = _context2.next) {
+                    switch (_context3.prev = _context3.next) {
                       case 0:
-                        if (!res) {
-                          _context2.next = 8;
+                        if (res) {
+                          _context3.next = 3;
                           break;
                         }
 
-                        _context2.next = 3;
-                        return Swal.fire("Success", "User Account Disabled", "success");
+                        Swal.fire("Failure", "Error", "error");
+                        return _context3.abrupt("return");
 
                       case 3:
-                        _ref5 = _context2.sent;
-                        _value = _ref5.value;
+                        _context3.next = 5;
+                        return Swal.fire("Success", "User Account Disabled", "success");
 
-                        if (_value) {
+                      case 5:
+                        _ref6 = _context3.sent;
+                        value = _ref6.value;
+
+                        if (value) {
                           location.reload();
                         }
 
-                        _context2.next = 9;
-                        break;
-
                       case 8:
-                        Swal.fire("Failure", "Error", "error");
-
-                      case 9:
                       case "end":
-                        return _context2.stop();
+                        return _context3.stop();
                     }
                   }
-                }, _callee2);
+                }, _callee3);
               }));
 
-              return function (_x3) {
-                return _ref4.apply(this, arguments);
+              return function (_x4) {
+                return _ref5.apply(this, arguments);
               };
             }());
 
           case 10:
           case "end":
-            return _context3.stop();
+            return _context4.stop();
         }
       }
-    }, _callee3, this);
+    }, _callee4, this);
   }));
 
-  return function (_x2) {
-    return _ref2.apply(this, arguments);
+  return function (_x3) {
+    return _ref3.apply(this, arguments);
   };
 }()); //Enable User Account Access Script
 
 $(".enable").click(
 /*#__PURE__*/
 function () {
-  var _ref6 = _asyncToGenerator(
+  var _ref7 = _asyncToGenerator(
   /*#__PURE__*/
-  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(e) {
-    var _ref7, value, action, useraccount_id;
+  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6(e) {
+    var _ref8, value, action, useraccount_id;
 
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
       while (1) {
-        switch (_context5.prev = _context5.next) {
+        switch (_context6.prev = _context6.next) {
           case 0:
             e.preventDefault();
-            _context5.next = 3;
+            _context6.next = 3;
             return Swal.fire("Confirm", "Are you sure?", "question");
 
           case 3:
-            _ref7 = _context5.sent;
-            value = _ref7.value;
+            _ref8 = _context6.sent;
+            value = _ref8.value;
 
             if (value) {
-              _context5.next = 7;
+              _context6.next = 7;
               break;
             }
 
-            return _context5.abrupt("return");
+            return _context6.abrupt("return");
 
           case 7:
             action = "enableUserAccount";
             useraccount_id = $(this).attr("id");
             $.ajax({
-              url: "../../../config/processors/settingsArguments.php",
+              url: "".concat(baseUrl, "config/processors/settingsArguments.php"),
               type: "post",
               data: {
                 action: action,
@@ -60553,68 +60917,60 @@ function () {
             }).done(
             /*#__PURE__*/
             function () {
-              var _ref8 = _asyncToGenerator(
+              var _ref9 = _asyncToGenerator(
               /*#__PURE__*/
-              _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(res) {
-                var _ref9, _value2;
+              _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(res) {
+                var _ref10, value;
 
-                return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+                return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
                   while (1) {
-                    switch (_context4.prev = _context4.next) {
+                    switch (_context5.prev = _context5.next) {
                       case 0:
-                        if (!res) {
-                          _context4.next = 8;
+                        if (res) {
+                          _context5.next = 3;
                           break;
                         }
 
-                        _context4.next = 3;
-                        return Swal.fire("Success", "User Account Enabled", "success");
+                        Swal.fire("Failure", "Error", "error");
+                        return _context5.abrupt("return");
 
                       case 3:
-                        _ref9 = _context4.sent;
-                        _value2 = _ref9.value;
+                        _context5.next = 5;
+                        return Swal.fire("Success", "User Account Enabled", "success");
 
-                        if (_value2) {
+                      case 5:
+                        _ref10 = _context5.sent;
+                        value = _ref10.value;
+
+                        if (value) {
                           location.reload();
                         }
 
-                        _context4.next = 9;
-                        break;
-
                       case 8:
-                        Swal.fire("Failure", "Error", "error");
-
-                      case 9:
                       case "end":
-                        return _context4.stop();
+                        return _context5.stop();
                     }
                   }
-                }, _callee4);
+                }, _callee5);
               }));
 
-              return function (_x5) {
-                return _ref8.apply(this, arguments);
+              return function (_x6) {
+                return _ref9.apply(this, arguments);
               };
             }());
 
           case 10:
           case "end":
-            return _context5.stop();
+            return _context6.stop();
         }
       }
-    }, _callee5, this);
+    }, _callee6, this);
   }));
 
-  return function (_x4) {
-    return _ref6.apply(this, arguments);
+  return function (_x5) {
+    return _ref7.apply(this, arguments);
   };
 }());
-$(".close").click(function () {
-  return location.reload(true);
-});
-$(".cancel").click(function () {
-  return location.reload(true);
-});
 
 /***/ }),
 

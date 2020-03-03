@@ -20,7 +20,7 @@
 		</div>
 
 		<div class="form-group " id="hwcomponent_select" style="display: none;">
-			<select class="form-control" id="hwcomponent_id" name="hwcomponent_id">
+			<select class="form-control" id="hwcomponent_id" name="hwcomponent_id" required>
 				<?php foreach ($hardwarecomponents as $component) : ?>
 					<option value="<?= $component->hwcomponent_id ?>"> <?= $component->hwcomponent_name ?> </option>
 				<?php endforeach; ?>

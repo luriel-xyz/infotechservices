@@ -3,9 +3,9 @@
 		<div class="container-fluid text-center">
 			<p class="h5 modal-title text-capitalize" id="exampleModalLabel">DEPARTMENT ACCOUNT ADDING FORM</p>
 		</div>
-		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		<a class="p-1" type="button" data-dismiss="modal" aria-label="Close" onclick="$('#modalDepartmentAccount').modal('hide')">
 			<span aria-hidden="true">&times;</span>
-		</button>
+		</a>
 	</div>
 
 	<div class="modal-body">
@@ -40,7 +40,7 @@
 	</div>
 
 	<div class="modal-footer text-dark mb-0">
-		<button type="button" class="btn btn-secondary cancel" data-dismiss="modal">Cancel</button>
+		<button type="reset" class="btn btn-secondary" data-dismiss="modal" onclick="$('#modalDepartmentAccount').modal('hide')">Cancel</button>
 		<button type="submit" name="submit" class="btn btn-primary useraccount_btn" id="useraccount_btn">Add User Account</button>
 	</div>
 </form>
