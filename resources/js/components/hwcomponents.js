@@ -32,6 +32,7 @@ $("#add-hardware").click(function(e) {
 $("#hwcomponent_type").change(function(e) {
   const hwcomponent_type = $("#hwcomponent_type").val();
   if (hwcomponent_type !== "sub") {
+    $('#hwcomponent_category').val(null);
     $(".sub_type").hide();
   } else {
     $(".sub_type").show();

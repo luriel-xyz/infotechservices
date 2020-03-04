@@ -12,13 +12,37 @@ $("#search").keyup(function() {
   });
 });
 
-$("#addPersonnelAccount").click(function(e) {
+$("#addPersonnelAccount").click(() => {
+  resetForm("personnel");
   $("#modalPersonnelAccount").modal("toggle");
 });
 
-$("#addDeptAccount").click(function(e) {
+$("#addDeptAccount").click(() => {
+  resetForm("department");
   $("#modalDepartmentAccount").modal("toggle");
 });
+
+function resetForm(accountType) {
+  $(".useraccount_id").html("");
+  $(".useraccount_btn").text("Add User Account");
+  $(".username").val("");
+  $(".password").val("");
+
+  switch (accountType) {
+    case "department":
+      $(".modal-title").text("DEPARTMENT ACCOUNT ADDING FORM");
+      $("#dept_id").val("");
+      $(".action").val("addDepartmentUserAccount");
+      $(".usertype").val("department");
+      break;
+    case "personnel":
+      $(".modal-title").text("PERSONNEL ACCOUNT ADDING FORM");
+      $("#emp_id").val("");
+      $(".action").val("addPersonnelUserAccount");
+      $(".usertype").val("");
+      break;
+  }
+}
 
 //Add Personnel User Account Script
 $("#personnelUserAccount-form").submit(function(e) {

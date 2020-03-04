@@ -10,7 +10,7 @@
 
 	<div class="modal-body">
 		<div class="form-group">
-			<input type="hidden" class="form-control" name="action" id="action" value="addHardwareComponent">
+			<input type="hidden" class="form-control" name="action" id="action" value="addHardwareComponent"> 
 		</div>
 
 		<div id="hwcomponent_id">

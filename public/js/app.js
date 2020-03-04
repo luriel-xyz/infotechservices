@@ -59533,6 +59533,7 @@ $("#hwcomponent_type").change(function (e) {
   var hwcomponent_type = $("#hwcomponent_type").val();
 
   if (hwcomponent_type !== "sub") {
+    $('#hwcomponent_category').val(null);
     $(".sub_type").hide();
   } else {
     $(".sub_type").show();
@@ -60660,12 +60661,38 @@ $("#search").keyup(function () {
     $(this).toggle($(this).text().toLowerCase().indexOf(search_text) > -1);
   });
 });
-$("#addPersonnelAccount").click(function (e) {
+$("#addPersonnelAccount").click(function () {
+  resetForm("personnel");
   $("#modalPersonnelAccount").modal("toggle");
 });
-$("#addDeptAccount").click(function (e) {
+$("#addDeptAccount").click(function () {
+  resetForm("department");
   $("#modalDepartmentAccount").modal("toggle");
-}); //Add Personnel User Account Script
+});
+
+function resetForm(accountType) {
+  $(".useraccount_id").html("");
+  $(".useraccount_btn").text("Add User Account");
+  $(".username").val("");
+  $(".password").val("");
+
+  switch (accountType) {
+    case "department":
+      $(".modal-title").text("DEPARTMENT ACCOUNT ADDING FORM");
+      $("#dept_id").val("");
+      $(".action").val("addDepartmentUserAccount");
+      $(".usertype").val("department");
+      break;
+
+    case "personnel":
+      $(".modal-title").text("PERSONNEL ACCOUNT ADDING FORM");
+      $("#emp_id").val("");
+      $(".action").val("addPersonnelUserAccount");
+      $(".usertype").val("");
+      break;
+  }
+} //Add Personnel User Account Script
+
 
 $("#personnelUserAccount-form").submit(function (e) {
   e.preventDefault();

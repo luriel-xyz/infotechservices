@@ -66,7 +66,7 @@
             <!-- Forms -->
             <!--  Add Modal  -->
             <div id="add-form">
-              <?php view('includes/forms/personnelUserAccount-addingform', compact('personnels')); ?> 
+              <?php view('includes/forms/personnelUserAccount-addingform', compact('personnels')); ?>
             </div>
             <!-- /#Add Modal -->
 

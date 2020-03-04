@@ -55,7 +55,7 @@ if (isset($_POST['action'])) {
 		$hwcomponent_name = $_POST['hwcomponent_name'];
 		$hwcomponent_type = $_POST['hwcomponent_type'];
 
-		$hwcomponent_category === 'main' ? NULL : $_POST['hwcomponent_category'];
+		$hwcomponent_category = $_POST['hwcomponent_category'];
 
 		$result = Hardware::addHardwareComponent($hwcomponent_name, $hwcomponent_type, $hwcomponent_category);
 		echo $result;

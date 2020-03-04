@@ -4,7 +4,7 @@
       <img src="<?= asset('img/beng_cap_logo.png') ?>" class="w-100" alt="BenguetCapitolLogo">
     </div>
   </div>
-  <div class="list-items border-top list-group list-group-flush">
+  <div class="list-items border-top list-group list-group-flush mt-2">
     <a href="<?= getPath('admin/incoming-requests.php') ?>" class="btn btn-link m-0 list-group-item list-group-item-action text-dark border-bottom">
       <i class="fas fa-fw fa-bell" aria-hidden="true"></i>
       <span class="text-capitalize">Incoming Requests</span>

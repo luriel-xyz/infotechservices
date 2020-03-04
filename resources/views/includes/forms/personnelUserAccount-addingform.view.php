@@ -1,7 +1,7 @@
 <form enctype="multipart/form-data" id="personnelUserAccount-form">
 	<div class="modal-header text-dark border-bottom pb-3">
 		<div class="container-fluid text-center">
-			<p class="h5 modal-title" id="exampleModalLabel">PERSONNEL ACCOUNT ADDING FORM</p>
+			<p class="h5 modal-title" id="exampleModalLabel">PERSONNEL ACCOUNT ADDING FORM</p> 
 		</div>
 		<a class="p-1" type="button" data-dismiss="modal" aria-label="Close" onclick="$('#modalPersonnelAccount').modal('hide')">
 			<span aria-hidden="true">&times;</span>
@@ -10,7 +10,7 @@
 
 	<div class="modal-body">
 		<div class="form-group">
-			<input type="hidden" class="form-control action" name="action" id="action" value="addPersonnelUserAccount">
+			<input type="hidden" class="form-control action" name="action" id="action" value="addPersonnelUserAccount"> 
 		</div>
 
 		<div id="useraccount_id" class="useraccount_id">
