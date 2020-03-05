@@ -6,6 +6,10 @@
     <div class="card-body">
         <!-- Login Form -->
         <form method="POST" id="login-form">
+            <!-- action -->
+            <input type="hidden" name="attemptLogin">
+            <!-- /# action -->
+
             <div class="form-group">
                 <!-- <label for="username" class="bmd-label-floating">Username</label> -->
                 <input type="text" id="username" class="form-control" name="username" placeholder="Username">
