@@ -12,13 +12,12 @@ require_once('../init.php');
 if (isset($_POST['action'])) {
 
 	/** AUTH */
-	if ($_POST['action'] === 'attemptLogin') { 
+	if ($_POST['action'] === 'attemptLogin') {
 		$username = $_POST['username'];
 		$password = $_POST['password'];
 
 		$user = Auth::login($username, $password);
-		// echo json_encode($user);
-		return true;
+		echo json_encode($user);
 	}
 
 	/**   GET REQUEST  **/
@@ -155,7 +154,7 @@ if (isset($_POST['action'])) {
 		echo $result;
 	}
 
-	if ($_POST['action'] === 'addAssessmentSubComponents') { 
+	if ($_POST['action'] === 'addAssessmentSubComponents') {
 		$assessmentReportId = $_POST['assessmentReportId'];
 		$subcomponents = $_POST['subcomponents'];
 
@@ -241,7 +240,7 @@ if (isset($_POST['action'])) {
 	/**   ADD REQUEST  **/
 
 
-	if ($_POST['action'] === 'addRequest') { 
+	if ($_POST['action'] === 'addRequest') {
 		$dept_id = $_POST['dept_id'];
 		$emp_id = $_POST['emp_id'];
 		$itsrequest_category = $_POST['itsrequest_category'];
