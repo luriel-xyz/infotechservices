@@ -229,7 +229,7 @@ if (isset($_POST['action'])) {
 	/**   ADD REQUEST  **/
 
 
-	if ($_POST['action'] === 'addRequest') {
+	if ($_POST['action'] === 'addRequest') { 
 		$dept_id = $_POST['dept_id'];
 		$emp_id = $_POST['emp_id'];
 		$itsrequest_category = $_POST['itsrequest_category'];

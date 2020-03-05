@@ -88,7 +88,7 @@ class Request
   /* Add Incoming Request */
   public static function addRequest($dept_id, $emp_id, $itsrequest_category, $hwcomponent_id, $concern, $req_date, $itshw_category)
   {
-    $sql = "INSERT INTO itservices_request_tbl
+    $sql = "INSERT INTO itservices_request_tbl 
 						(dept_id,emp_id,itsrequest_category,hwcomponent_id,concern,itsrequest_date,itshw_category) 
             VALUES (:dept_id,:emp_id,:itsrequest_category,:hwcomponent_id,:concern,:req_date,:itshw_category)";
 

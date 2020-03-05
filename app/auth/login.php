@@ -7,6 +7,7 @@ require_once('../../config/init.php');
 
 redirectIfLoggedIn();
 
+$user = null;
 $accountEnabled = false;
 if (isset($_POST['login'])) {
   $username = strip_tags($_POST['username']);
