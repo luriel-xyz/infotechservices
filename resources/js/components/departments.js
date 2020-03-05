@@ -1,3 +1,29 @@
+// Add validation rule for department
+$("#department-form").validate({
+  ...validatorOptions,
+
+  rules: {
+    dept_code: "required",
+    dept_name: "required"
+  },
+
+  messages: {
+    dept_code: "Department code is required.",
+    dept_name: "Department name is required."
+  },
+
+  submitHandler: form => {
+    $.post(settingsArgumentsPath, $(form).serialize()).done(async res => {
+      if (res) {
+        await Swal.fire("Success", "Department Data Saved", "success");
+        location.reload(true);
+      } else {
+        Swal.fire("Failure", "An error occured", "error");
+      }
+    });
+  }
+});
+
 $("#search").on("keyup", function() {
   const search_text = $(this)
     .val()
@@ -20,21 +46,21 @@ $("#add-department").click(function(e) {
 });
 
 //Add Department Script
-$("#department-form").submit(function(e) {
-  e.preventDefault();
+// $("#department-form").submit(function(e) {
+//   e.preventDefault();
 
-  $.post(
-    settingsArgumentsPath, 
-    $(this).serialize()
-  ).done(async res => {
-    if (res) {
-      await Swal.fire("Success", "Department Data Saved", "success");
-      location.reload(true);
-    } else {
-      Swal.fire("Failure", "An error occured", "error");
-    }
-  });
-});
+//   $.post(
+//     settingsArgumentsPath,
+//     $(this).serialize()
+//   ).done(async res => {
+//     if (res) {
+//       await Swal.fire("Success", "Department Data Saved", "success");
+//       location.reload(true);
+//     } else {
+//       Swal.fire("Failure", "An error occured", "error");
+//     }
+//   });
+// });
 
 //Edit Department Script
 $(".edit-department").click(function(e) {
