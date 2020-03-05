@@ -24,7 +24,7 @@ $("#department-form").submit(function(e) {
   e.preventDefault();
 
   $.post(
-    "../../../config/processors/settingsArguments.php",
+    settingsArgumentsPath, 
     $(this).serialize()
   ).done(async res => {
     if (res) {
@@ -42,7 +42,7 @@ $(".edit-department").click(function(e) {
   const action = "editDepartment";
   const dept_id = $(this).attr("id");
 
-  $.post("../../../config/processors/settingsArguments.php", {
+  $.post(settingsArgumentsPath, {
     action: action,
     dept_id: dept_id
   })

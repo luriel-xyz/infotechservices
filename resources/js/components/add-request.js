@@ -15,7 +15,7 @@ $("#itsrequest_category").change(function(e) {
 // 	var hwcomponent_id = $(this).val();
 
 // 	$.ajax({
-// 		url: "../../config/processors/requestArguments.php",
+// 		url: requestArgumentsPath,
 // 		type: "POST",
 // 		data: {
 // 			action: action,
@@ -31,18 +31,15 @@ $("#itsrequest_category").change(function(e) {
 // 	});
 // });
 
-$("#incomingrequest-form").submit(async function(e) {
+$("#incomingrequest-form").submit(function(e) {
   e.preventDefault();
 
-  const res = await axios.post(
-    "../../config/processors/requestArguments.php", 
-    $(this).serialize()
-  );
- 
-  if (res) {
-    await Swal.fire("Success", "Request Sent!", "success");
-    $.redirect("../../app/client/index.php");
-  } else {
-    Swal.fire("Failure", "An error occured", "error");
-  }
+  $.post(requestArgumentsPath, $(this).serialize()).done(async res => {
+    if (res) {
+      await Swal.fire("Success", "Request Sent!", "success");
+      $.redirect(`${baseUrl}app/client/index.php`);
+    } else {
+      Swal.fire("Failure", "An error occured", "error");
+    }
+  });
 });

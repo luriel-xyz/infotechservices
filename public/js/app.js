@@ -58860,6 +58860,8 @@ window.moment = moment__WEBPACK_IMPORTED_MODULE_2___default.a;
 window.Swal = sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a;
 window.appName = "infotechservices";
 window.baseUrl = "".concat(window.location.origin, "/").concat(appName, "/");
+window.requestArgumentsPath = "".concat(baseUrl, "/config/processors/requestArguments.php");
+window.settingsArgumentsPath = "".concat(baseUrl, "/config/processors/settingsArguments.php");
 window.validatorOptions = _validator_options__WEBPACK_IMPORTED_MODULE_3__["default"];
 $(function () {
   __webpack_require__(/*! ./components/add-repair */ "./resources/js/components/add-repair.js");
@@ -58925,8 +58927,18 @@ try {
 /*!***********************************************!*\
   !*** ./resources/js/components/add-repair.js ***!
   \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 $("#request_category").show();
 $("#hw_category").show();
@@ -58935,7 +58947,7 @@ $("#dept_id").change(function () {
   var action = "getEmployeesByDepartment";
   var dept_id = $(this).val();
   $.ajax({
-    url: "../../config/processors/requestArguments.php",
+    url: requestArgumentsPath,
     type: "POST",
     data: {
       action: action,
@@ -58954,7 +58966,7 @@ $("#hwcomponent_id").change(function () {
   var action = "getHardwareComponentsBySubCategory";
   var hwcomponent_id = $(this).val();
   $.ajax({
-    url: "../../config/processors/requestArguments.php",
+    url: requestArgumentsPath,
     type: "POST",
     data: {
       action: action,
@@ -58972,17 +58984,47 @@ $("#hwcomponent_id").change(function () {
 $("#incomingrepair-form").submit(function (e) {
   e.preventDefault();
   $.ajax({
-    url: "../../config/processors/requestArguments.php",
+    url: requestArgumentsPath,
     type: "POST",
     data: $(this).serialize()
-  }).done(function (res) {
-    if (res) {
-      Swal.fire('Success', 'Repair Added!', 'success');
-      $.redirect('../../app/admin/incoming-repairs.php');
-    } else {
-      Swal.fire('Failure', 'Error!', 'error');
-    }
-  });
+  }).done(
+  /*#__PURE__*/
+  function () {
+    var _ref = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(res) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              if (!res) {
+                _context.next = 6;
+                break;
+              }
+
+              _context.next = 3;
+              return Swal.fire('Success', 'Repair Added!', 'success');
+
+            case 3:
+              $.redirect('../../app/admin/incoming-repairs.php');
+              _context.next = 7;
+              break;
+
+            case 6:
+              Swal.fire('Failure', 'Error!', 'error');
+
+            case 7:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    return function (_x) {
+      return _ref.apply(this, arguments);
+    };
+  }());
 });
 
 /***/ }),
@@ -59018,7 +59060,7 @@ $("#itsrequest_category").change(function (e) {
 // 	var action = 'getHardwareComponentsBySubCategory';
 // 	var hwcomponent_id = $(this).val();
 // 	$.ajax({
-// 		url: "../../config/processors/requestArguments.php",
+// 		url: requestArgumentsPath,
 // 		type: "POST",
 // 		data: {
 // 			action: action,
@@ -59034,52 +59076,47 @@ $("#itsrequest_category").change(function (e) {
 // 	});
 // });
 
-$("#incomingrequest-form").submit(
-/*#__PURE__*/
-function () {
-  var _ref = _asyncToGenerator(
+$("#incomingrequest-form").submit(function (e) {
+  e.preventDefault();
+  $.post(requestArgumentsPath, $(this).serialize()).done(
   /*#__PURE__*/
-  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(e) {
-    var res;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            e.preventDefault();
-            _context.next = 3;
-            return axios.post("../../config/processors/requestArguments.php", $(this).serialize());
+  function () {
+    var _ref = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(res) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              if (!res) {
+                _context.next = 6;
+                break;
+              }
 
-          case 3:
-            res = _context.sent;
+              _context.next = 3;
+              return Swal.fire("Success", "Request Sent!", "success");
 
-            if (!res) {
-              _context.next = 10;
+            case 3:
+              $.redirect("".concat(baseUrl, "app/client/index.php"));
+              _context.next = 7;
               break;
-            }
 
-            _context.next = 7;
-            return Swal.fire("Success", "Request Sent!", "success");
+            case 6:
+              Swal.fire("Failure", "An error occured", "error");
 
-          case 7:
-            $.redirect("../../app/client/index.php");
-            _context.next = 11;
-            break;
-
-          case 10:
-            Swal.fire("Failure", "An error occured", "error");
-
-          case 11:
-          case "end":
-            return _context.stop();
+            case 7:
+            case "end":
+              return _context.stop();
+          }
         }
-      }
-    }, _callee, this);
-  }));
+      }, _callee);
+    }));
 
-  return function (_x) {
-    return _ref.apply(this, arguments);
-  };
-}());
+    return function (_x) {
+      return _ref.apply(this, arguments);
+    };
+  }());
+});
 
 /***/ }),
 
@@ -59103,7 +59140,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var dept_id = $("#dept_id").val();
 
 if (dept_id) {
-  $.post("../../config/processors/requestArguments.php", {
+  $.post(requestArgumentsPath, {
     action: "getEmployeesByDepartment",
     dept_id: dept_id
   }).done(function (employees) {
@@ -59119,7 +59156,7 @@ if (dept_id) {
 
 var itsrequest_id = $("#itsrequest_id").val();
 $.ajax({
-  url: "../../config/processors/requestArguments.php",
+  url: requestArgumentsPath,
   type: "post",
   data: {
     action: "getRepair",
@@ -59134,7 +59171,7 @@ $.ajax({
 
 var action = "getHardwareComponentsBySubCategory";
 var hwcomponent_id = $("#hwcomponent_id").val();
-$.post("../../config/processors/requestArguments.php", {
+$.post(requestArgumentsPath, {
   action: action,
   hwcomponent_id: hwcomponent_id
 }).done(function (components) {
@@ -59175,7 +59212,7 @@ $("#dept_id").change(function (e) {
   var action = "getEmployeesByDepartment";
   var dept_id = $(this).val();
   $.ajax({
-    url: "../../config/processors/requestArguments.php",
+    url: requestArgumentsPath,
     type: "POST",
     data: {
       action: action,
@@ -59243,7 +59280,7 @@ $("#repassessmentreport-form").submit(function (e) {
     property_num: property_num
   }; // Insert assessment report data to db
 
-  $.post("".concat(baseUrl, "config/processors/requestArguments.php"), assessmentReportData).done(function (res) {
+  $.post(requestArgumentsPath, assessmentReportData).done(function (res) {
     var subComponentAssessmentData = {
       action: "addAssessmentSubComponents",
       assessmentReportId: res,
@@ -59255,7 +59292,7 @@ $("#repassessmentreport-form").submit(function (e) {
 });
 
 function insertSubComponentAssessments(assessmentReportId, subComponentAssessmentData) {
-  var url = "".concat(baseUrl, "config/processors/requestArguments.php");
+  var url = requestArgumentsPath;
   $.post(url, subComponentAssessmentData).done(
   /*#__PURE__*/
   function () {
@@ -59336,7 +59373,7 @@ $("#add-department").click(function (e) {
 
 $("#department-form").submit(function (e) {
   e.preventDefault();
-  $.post("../../../config/processors/settingsArguments.php", $(this).serialize()).done(
+  $.post(settingsArgumentsPath, $(this).serialize()).done(
   /*#__PURE__*/
   function () {
     var _ref = _asyncToGenerator(
@@ -59380,7 +59417,7 @@ $(".edit-department").click(function (e) {
   e.preventDefault();
   var action = "editDepartment";
   var dept_id = $(this).attr("id");
-  $.post("../../../config/processors/settingsArguments.php", {
+  $.post(settingsArgumentsPath, {
     action: action,
     dept_id: dept_id
   }).done(function (department) {
@@ -59428,7 +59465,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 // Add validation rule for employee id number field
 var isUnique;
 $.validator.addMethod("unique", function (value, element) {
-  $.post("".concat(baseUrl, "config/processors/settingsArguments.php"), {
+  $.post(settingsArgumentsPath, {
     action: "isIdNumberTaken",
     emp_idnum: function emp_idnum() {
       return $("#emp_idnum").val();
@@ -59463,8 +59500,7 @@ $("#employee-form").validate(_objectSpread({}, validatorOptions, {
     position: "Position is required."
   },
   submitHandler: function submitHandler(form) {
-    var url = "".concat(baseUrl, "config/processors/settingsArguments.php");
-    $.post(url, $(form).serialize()).done(
+    $.post(settingsArgumentsPath, $(form).serialize()).done(
     /*#__PURE__*/
     function () {
       var _ref = _asyncToGenerator(
@@ -59598,7 +59634,7 @@ $("#add-employee").click(function (e) {
 }); //Add Employee Script
 // $("#employee-form").submit(function(e) {
 //   e.preventDefault();
-//   const url = `${baseUrl}config/processors/settingsArguments.php`;
+//   const url = settingsArgumentsPath;
 //   $.post(url, $(this).serialize()).done(async res => {
 //     if (res) {
 //       const { value } = await Swal.fire(
@@ -59622,7 +59658,7 @@ $(".edit-employee").click(function (e) {
   var action = "editEmployee";
   var emp_id = $(this).attr("id");
   $.ajax({
-    url: "".concat(baseUrl, "config/processors/settingsArguments.php"),
+    url: settingsArgumentsPath,
     type: "post",
     data: {
       action: action,
@@ -59653,8 +59689,18 @@ $(".edit-employee").click(function (e) {
 /*!*************************************************!*\
   !*** ./resources/js/components/hwcomponents.js ***!
   \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 $("#search").on("keyup", function () {
   var search_text = $(this).val().toLowerCase();
@@ -59680,7 +59726,7 @@ $("#hwcomponent_type").change(function (e) {
   var hwcomponent_type = $("#hwcomponent_type").val();
 
   if (hwcomponent_type !== "sub") {
-    $('#hwcomponent_category').val(null);
+    $("#hwcomponent_category").val(null);
     $(".sub_type").hide();
   } else {
     $(".sub_type").show();
@@ -59689,22 +59735,51 @@ $("#hwcomponent_type").change(function (e) {
 
 $("#hardwareComponent-form").submit(function (e) {
   e.preventDefault();
-  $.post("".concat(baseUrl, "config/processors/settingsArguments.php"), $(this).serialize()).done(function (res) {
-    if (res) {
-      Swal.fire("Success", "Hardware Component Data Saved!", "success").then(function () {
-        return location.reload(true);
-      });
-    } else {
-      Swal.fire("Failure", "Error", "error");
-    }
-  });
+  $.post(settingsArgumentsPath, $(this).serialize()).done(
+  /*#__PURE__*/
+  function () {
+    var _ref = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(res) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              if (!res) {
+                _context.next = 6;
+                break;
+              }
+
+              _context.next = 3;
+              return Swal.fire("Success", "Hardware Component Data Saved!", "success");
+
+            case 3:
+              location.reload(true);
+              _context.next = 7;
+              break;
+
+            case 6:
+              Swal.fire("Failure", "Error", "error");
+
+            case 7:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    return function (_x) {
+      return _ref.apply(this, arguments);
+    };
+  }());
 }); //Edit Hardware Component Script
 
 $(".edit-hardware").click(function (e) {
   e.preventDefault();
   var action = "editHardwareComponent";
   var hwcomponent_id = $(this).attr("id");
-  $.post("".concat(baseUrl, "config/processors/settingsArguments.php"), {
+  $.post(settingsArgumentsPath, {
     action: action,
     hwcomponent_id: hwcomponent_id
   }).done(function (component) {
@@ -59745,14 +59820,30 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+// Add validation rule for user account
+var user;
+$.validator.addMethod("checkAccount", function (value, element) {
+  var data = $("#login-form").serialize();
+  $.post(requestArgumentsPath, data).done(function (res) {
+    return user = res;
+  });
+  console.log(data);
+  return user ? true : false;
+}, "Incorrect username or password");
 $("#login-form").validate(_objectSpread({}, validatorOptions, {
   rules: {
     username: "required",
-    password: "required"
+    password: {
+      required: true,
+      checkAccount: true
+    }
   },
   messages: {
     username: "Username is required",
-    password: "Password is required"
+    password: {
+      required: "Password is required",
+      checkAccount: "Incorrect username or password"
+    }
   },
   submitHandle: function submitHandle(form) {}
 }));
@@ -59987,7 +60078,7 @@ $("#stock-supplies").change(function () {
 $("#pre-post-repair-form").submit(function (e) {
   e.preventDefault(); // Set request status to pre-post-repair inspected
 
-  $.post("".concat(baseUrl, "config/processors/requestArguments.php"), {
+  $.post(requestArgumentsPath, {
     action: $("#action").val(),
     itsrequest_id: $("#itsrequest_id").val(),
     useraccount_id: $("#statusupdate_useraccount_id").val()
@@ -60061,7 +60152,7 @@ function _saveInspectionReport() {
           case 0:
             _context4.prev = 0;
             _context4.next = 3;
-            return axios.post("".concat(baseUrl, "config/processors"), reportData);
+            return axios.post(requestArgumentsPath, reportData);
 
           case 3:
             _ref4 = _context4.sent;
@@ -60119,7 +60210,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 function setAssessmentDone(itsrequest_id, useraccount_id) {
   var action = "statusAssessed";
-  $.post("../../config/processors/requestArguments.php", {
+  $.post(requestArgumentsPath, {
     action: action,
     itsrequest_id: itsrequest_id,
     useraccount_id: useraccount_id
@@ -60161,7 +60252,7 @@ function setAssessmentDone(itsrequest_id, useraccount_id) {
       return _ref.apply(this, arguments);
     };
   }()); // $.ajax({
-  //   url: "../../config/processors/requestArguments.php",
+  //   url: requestArgumentsPath,
   //   type: "POST",
   //   data: {
   //     action: action,
@@ -60225,7 +60316,7 @@ $(".view-repair").click(function (e) {
   var action = "getRequest";
   var itsrequest_id = $(this).attr("id");
   $.post({
-    url: "".concat(baseUrl, "config/processors/requestArguments.php"),
+    url: requestArgumentsPath,
     type: "post",
     data: {
       action: action,
@@ -60242,7 +60333,7 @@ $(".view-repair").click(function (e) {
       $("#data").append('<label class="font-weight-bold text-warning">' + request.status + "</label><br>");
     } else if (request.status === "deployed" || request.status === "assessed" || request.status === "done") {
       $("#data").append('<label class="font-weight-bold text-success">' + request.status + "</label><br>");
-    } else if (request.status === "pre-repair inspected" || request.status === "post-repair inspected" || request.status === 'pre-post-repair inspected') {
+    } else if (request.status === "pre-repair inspected" || request.status === "post-repair inspected" || request.status === "pre-post-repair inspected") {
       $("#data").append('<label class="font-weight-bold text-secondary">' + request.status + "</label><br>");
     }
 
@@ -60264,7 +60355,7 @@ $(".pending").click(function (e) {
   var itsrequest_id = $(this).attr("id");
   var statusupdate_useraccount_id = $(this).attr("data-id");
   $.ajax({
-    url: "../../config/processors/requestArguments.php",
+    url: requestArgumentsPath,
     type: "post",
     data: {
       action: action,
@@ -60324,7 +60415,7 @@ $(".done-repair").click(function (e) {
 });
 $("#pullout_done-form").submit(function (e) {
   e.preventDefault();
-  var url = "".concat(baseUrl, "config/processors/requestArguments.php");
+  var url = requestArgumentsPath;
   $.post(url, $(this).serialize()).done(
   /*#__PURE__*/
   function () {
@@ -60411,7 +60502,7 @@ $(".pre-post-inspect").click(function () {
 //   var itsrequest_id = $(this).attr('id');
 //   var useraccount_id = $(this).attr('data-id');
 //   $.ajax({
-//     url: "../../config/processors/requestArguments.php",
+//     url: requestArgumentsPath,
 //     type: "POST",
 //     data: {
 //       action: action,
@@ -60429,7 +60520,7 @@ $(".pre-post-inspect").click(function () {
 //   var itsrequest_id = $(this).attr('id');
 //   var useraccount_id = $(this).attr('data-id');
 //   $.ajax({
-//     url: "../../config/processors/requestArguments.php",
+//     url: requestArgumentsPath,
 //     type: "POST",
 //     data: {
 //       action: action,
@@ -60504,11 +60595,11 @@ $("#printSorting-requests-form").submit(function (e) {
   var url = "";
 
   if (sort === "all") {
-    url = "../../app/admin/download/excel-all.php";
+    url = "".concat(baseUrl, "app/admin/download/excel-all.php");
   } else if (sort === "department") {
-    url = "../../app/admin/download/excel-dept.php";
+    url = "".concat(baseUrl, "app/admin/download/excel-dept.php");
   } else if (sort === "day") {
-    url = "../../app/admin/download/excel-date.php";
+    url = "".concat(baseUrl, "app/admin/download/excel-date.php");
   }
 
   $.redirect(url, {
@@ -60523,14 +60614,14 @@ $(".view-request").click(function (e) {
   e.preventDefault();
   var action = "getRequest";
   var itsrequest_id = $(this).attr("id");
-  $.post("".concat(baseUrl, "config/processors/requestArguments.php"), {
+  $.post(requestArgumentsPath, {
     action: action,
     itsrequest_id: itsrequest_id
   }).done(function (request) {
     request = JSON.parse(request);
     $("#modalView").modal("toggle");
-    $('#data').empty();
-    $('#other-labels').empty();
+    $("#data").empty();
+    $("#other-labels").empty();
 
     if (request.status === "received") {
       $("#data").append('<label class="font-weight-bold text-info">' + request.status + "</label><br>");
@@ -60591,101 +60682,95 @@ $(".pullout").click(function (e) {
     keyboard: false
   });
 });
-$("#pullout_done-form").submit(
-/*#__PURE__*/
-function () {
-  var _ref = _asyncToGenerator(
+$("#pullout_done-form").submit(function (e) {
+  e.preventDefault();
+  $.post(requestArgumentsPath, $(this).serialize()).done(
   /*#__PURE__*/
-  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(e) {
-    var res;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            e.preventDefault();
-            _context.next = 3;
-            return axios.post("../../config/processors/requestArguments.php", $(this).serialize());
+  function () {
+    var _ref = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(res) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              if (!res) {
+                _context.next = 6;
+                break;
+              }
 
-          case 3:
-            res = _context.sent;
+              _context.next = 3;
+              return Swal.fire("Success", "Request Done", "success");
 
-            if (!res) {
-              _context.next = 10;
+            case 3:
+              $.redirect("".concat(baseUrl, "app/admin/incoming-repairs.php"));
+              _context.next = 7;
               break;
-            }
 
-            _context.next = 7;
-            return Swal.fire("Success", "Request Done", "success");
+            case 6:
+              Swal.fire("Error", "An error occured", "error");
 
-          case 7:
-            $.redirect("".concat(baseUrl, "app/admin/incoming-repairs.php"));
-            _context.next = 11;
-            break;
-
-          case 10:
-            Swal.fire("Error", "An error occured", "error");
-
-          case 11:
-          case "end":
-            return _context.stop();
+            case 7:
+            case "end":
+              return _context.stop();
+          }
         }
-      }
-    }, _callee, this);
-  }));
+      }, _callee);
+    }));
 
-  return function (_x) {
-    return _ref.apply(this, arguments);
-  };
-}());
-$(".pending").click(
-/*#__PURE__*/
-function () {
-  var _ref2 = _asyncToGenerator(
+    return function (_x) {
+      return _ref.apply(this, arguments);
+    };
+  }());
+});
+$(".pending").click(function (e) {
+  e.preventDefault();
+  var action = "statusPending";
+  var itsrequest_id = $(this).attr("id");
+  var statusupdate_useraccount_id = $(this).attr("data-id");
+  $.post(requestArgumentsPath, {
+    action: action,
+    itsrequest_id: itsrequest_id,
+    statusupdate_useraccount_id: statusupdate_useraccount_id
+  }).done(
   /*#__PURE__*/
-  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(e) {
-    var action, itsrequest_id, statusupdate_useraccount_id, res;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-      while (1) {
-        switch (_context2.prev = _context2.next) {
-          case 0:
-            e.preventDefault();
-            action = "statusPending";
-            itsrequest_id = $(this).attr("id");
-            statusupdate_useraccount_id = $(this).attr("data-id");
-            res = axios.post("../../config/processors/requestArguments.php", {
-              action: action,
-              itsrequest_id: itsrequest_id,
-              statusupdate_useraccount_id: statusupdate_useraccount_id
-            });
+  function () {
+    var _ref2 = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(res) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              if (!res) {
+                _context2.next = 6;
+                break;
+              }
 
-            if (!res) {
-              _context2.next = 11;
+              _context2.next = 3;
+              return Swal.fire("Success", "Request Set to Pending", "success");
+
+            case 3:
+              location.reload(true);
+              _context2.next = 7;
               break;
-            }
 
-            _context2.next = 8;
-            return Swal.fire("Success", "Request Set to Pending", "success");
+            case 6:
+              Swal.fire("Error", "An error occured", "error");
 
-          case 8:
-            location.reload(true);
-            _context2.next = 12;
-            break;
-
-          case 11:
-            Swal.fire("Error", "An error occured", "error");
-
-          case 12:
-          case "end":
-            return _context2.stop();
+            case 7:
+            case "end":
+              return _context2.stop();
+          }
         }
-      }
-    }, _callee2, this);
-  }));
+      }, _callee2);
+    }));
 
-  return function (_x2) {
-    return _ref2.apply(this, arguments);
-  };
-}());
+    return function (_x2) {
+      return _ref2.apply(this, arguments);
+    };
+  }());
+});
 
 /***/ }),
 
@@ -60718,7 +60803,7 @@ $(".view-sent-request").click(function (e) {
   var action = "getRequest";
   var itsrequest_id = $(this).attr("id");
   $.ajax({
-    url: "../../config/processors/requestArguments.php",
+    url: requestArgumentsPath,
     type: "post",
     data: {
       action: action,
@@ -60764,7 +60849,7 @@ $(".receive").click(function (e) {
   var action = "statusDeployed";
   var itsrequest_id = $(this).attr("id");
   $.ajax({
-    url: "../../config/processors/requestArguments.php",
+    url: requestArgumentsPath,
     type: "post",
     data: {
       action: action,
@@ -60870,7 +60955,7 @@ function resetForm(accountType) {
 
 $("#personnelUserAccount-form").submit(function (e) {
   e.preventDefault();
-  $.post("".concat(baseUrl, "config/processors/settingsArguments.php"), $(this).serialize()).done(
+  $.post(settingsArgumentsPath, $(this).serialize()).done(
   /*#__PURE__*/
   function () {
     var _ref = _asyncToGenerator(
@@ -60912,8 +60997,7 @@ $("#personnelUserAccount-form").submit(function (e) {
 
 $("#departmentUserAccount-form").submit(function (e) {
   e.preventDefault();
-  var url = "".concat(baseUrl, "config/processors/settingsArguments.php");
-  $.post(url, $(this).serialize()).done(
+  $.post(settingsArgumentsPath, $(this).serialize()).done(
   /*#__PURE__*/
   function () {
     var _ref2 = _asyncToGenerator(
@@ -60957,7 +61041,7 @@ $(".edit-user").click(function (e) {
   e.preventDefault();
   var action = "editUserAccount";
   var useraccount_id = $(this).attr("id");
-  $.post("".concat(baseUrl, "config/processors/settingsArguments.php"), {
+  $.post(settingsArgumentsPath, {
     action: action,
     useraccount_id: useraccount_id
   }).done(function (user) {
@@ -61014,7 +61098,7 @@ function () {
             action = "disableUserAccount";
             useraccount_id = $(this).attr("id");
             $.ajax({
-              url: "".concat(baseUrl, "config/processors/settingsArguments.php"),
+              url: settingsArgumentsPath,
               type: "post",
               data: {
                 action: action,
@@ -61109,7 +61193,7 @@ function () {
             action = "enableUserAccount";
             useraccount_id = $(this).attr("id");
             $.ajax({
-              url: "".concat(baseUrl, "config/processors/settingsArguments.php"),
+              url: settingsArgumentsPath,
               type: "post",
               data: {
                 action: action,
@@ -61121,8 +61205,6 @@ function () {
               var _ref9 = _asyncToGenerator(
               /*#__PURE__*/
               _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(res) {
-                var _ref10, value;
-
                 return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
                   while (1) {
                     switch (_context5.prev = _context5.next) {
@@ -61140,14 +61222,9 @@ function () {
                         return Swal.fire("Success", "User Account Enabled", "success");
 
                       case 5:
-                        _ref10 = _context5.sent;
-                        value = _ref10.value;
+                        location.reload();
 
-                        if (value) {
-                          location.reload();
-                        }
-
-                      case 8:
+                      case 6:
                       case "end":
                         return _context5.stop();
                     }

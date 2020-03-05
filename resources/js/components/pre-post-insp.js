@@ -72,7 +72,7 @@ $("#pre-post-repair-form").submit(function(e) {
   e.preventDefault();
 
   // Set request status to pre-post-repair inspected
-  $.post(`${baseUrl}config/processors/requestArguments.php`, {
+  $.post(requestArgumentsPath, {
     action: $("#action").val(),
     itsrequest_id: $("#itsrequest_id").val(),
     useraccount_id: $("#statusupdate_useraccount_id").val()
@@ -99,10 +99,10 @@ $("#pre-post-repair-form").submit(function(e) {
   //   });
 });
 
-async function saveInspectionReport(reportData) { 
+async function saveInspectionReport(reportData) {
   try {
     const { data } = await axios.post(
-      `${baseUrl}config/processors`,
+      requestArgumentsPath,
       reportData
     );
     console.log("data here: ", data);

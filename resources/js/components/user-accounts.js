@@ -48,10 +48,7 @@ function resetForm(accountType) {
 $("#personnelUserAccount-form").submit(function(e) {
   e.preventDefault();
 
-  $.post(
-    `${baseUrl}config/processors/settingsArguments.php`,
-    $(this).serialize()
-  ).done(async res => {
+  $.post(settingsArgumentsPath, $(this).serialize()).done(async res => {
     if (res) {
       await Swal.fire("Success", "Personnel Account Data Saved", "success");
       location.reload(true);
@@ -65,8 +62,7 @@ $("#personnelUserAccount-form").submit(function(e) {
 $("#departmentUserAccount-form").submit(function(e) {
   e.preventDefault();
 
-  const url = `${baseUrl}config/processors/settingsArguments.php`;
-  $.post(url, $(this).serialize()).done(async res => {
+  $.post(settingsArgumentsPath, $(this).serialize()).done(async res => {
     if (res) {
       await Swal.fire("Success", "Department Account Data Saved", "success");
       location.reload(true);
@@ -82,7 +78,7 @@ $(".edit-user").click(function(e) {
 
   const action = "editUserAccount";
   const useraccount_id = $(this).attr("id");
-  $.post(`${baseUrl}config/processors/settingsArguments.php`, {
+  $.post(settingsArgumentsPath, {
     action: action,
     useraccount_id: useraccount_id
   }).done(user => {
@@ -124,7 +120,7 @@ $(".disable").click(async function(e) {
   const useraccount_id = $(this).attr("id");
 
   $.ajax({
-    url: `${baseUrl}config/processors/settingsArguments.php`,
+    url: settingsArgumentsPath,
     type: "post",
     data: {
       action: action,
@@ -157,7 +153,7 @@ $(".enable").click(async function(e) {
   const useraccount_id = $(this).attr("id");
 
   $.ajax({
-    url: `${baseUrl}config/processors/settingsArguments.php`,
+    url: settingsArgumentsPath,
     type: "post",
     data: {
       action: action,
@@ -169,13 +165,7 @@ $(".enable").click(async function(e) {
       return;
     }
 
-    const { value } = await Swal.fire(
-      "Success",
-      "User Account Enabled",
-      "success"
-    );
-    if (value) {
-      location.reload();
-    }
+    await Swal.fire("Success", "User Account Enabled", "success");
+    location.reload();
   });
 });

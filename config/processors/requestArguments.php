@@ -1,5 +1,6 @@
 <?php
 
+use App\Auth;
 use App\Request;
 use App\Repair;
 use App\Employee;
@@ -9,6 +10,16 @@ use App\Assessment;
 require_once('../init.php');
 
 if (isset($_POST['action'])) {
+	/** AUTH */
+	if ($_POST['action'] === 'attemptLogin') { 
+		$username = $_POST['username'];
+		$password = $_POST['password'];
+
+		$user = Auth::login($username, $password);
+		// echo json_encode($user);
+		return true;
+	}
+
 	/**   GET REQUEST  **/
 	if ($_POST['action'] === 'getRequest') {
 		$itsrequest_id = $_POST['itsrequest_id'];

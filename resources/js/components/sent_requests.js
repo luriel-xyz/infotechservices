@@ -19,7 +19,7 @@ $(".view-sent-request").click(function(e) {
   const itsrequest_id = $(this).attr("id");
 
   $.ajax({
-    url: "../../config/processors/requestArguments.php",
+    url: requestArgumentsPath,
     type: "post",
     data: {
       action: action,
@@ -109,7 +109,7 @@ $(".receive").click(function(e) {
   var itsrequest_id = $(this).attr("id");
 
   $.ajax({
-    url: "../../config/processors/requestArguments.php",
+    url: requestArgumentsPath,
     type: "post",
     data: {
       action: action,

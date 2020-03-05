@@ -3,7 +3,7 @@ let isUnique;
 $.validator.addMethod(
   "unique",
   (value, element) => {
-    $.post(`${baseUrl}config/processors/settingsArguments.php`, {
+    $.post(settingsArgumentsPath, {
       action: "isIdNumberTaken",
       emp_idnum: () => $("#emp_idnum").val()
     }).done(res => (isUnique = !res));
@@ -41,8 +41,7 @@ $("#employee-form").validate({
   },
 
   submitHandler: form => {
-    const url = `${baseUrl}config/processors/settingsArguments.php`;
-    $.post(url, $(form).serialize()).done(async res => {
+    $.post(settingsArgumentsPath, $(form).serialize()).done(async res => {
       if (res) {
         const { value } = await Swal.fire(
           "Success",
@@ -110,7 +109,7 @@ $("#add-employee").click(function(e) {
 // $("#employee-form").submit(function(e) {
 //   e.preventDefault();
 
-//   const url = `${baseUrl}config/processors/settingsArguments.php`;
+//   const url = settingsArgumentsPath;
 //   $.post(url, $(this).serialize()).done(async res => {
 //     if (res) {
 //       const { value } = await Swal.fire(
@@ -135,7 +134,7 @@ $(".edit-employee").click(function(e) {
   const action = "editEmployee";
   const emp_id = $(this).attr("id");
   $.ajax({
-    url: `${baseUrl}config/processors/settingsArguments.php`,
+    url: settingsArgumentsPath,
     type: "post",
     data: {
       action: action,

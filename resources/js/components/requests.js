@@ -47,11 +47,11 @@ $("#printSorting-requests-form").submit(function(e) {
   let url = "";
 
   if (sort === "all") {
-    url = "../../app/admin/download/excel-all.php";
+    url = `${baseUrl}app/admin/download/excel-all.php`;
   } else if (sort === "department") {
-    url = "../../app/admin/download/excel-dept.php";
+    url = `${baseUrl}app/admin/download/excel-dept.php`;
   } else if (sort === "day") {
-    url = "../../app/admin/download/excel-date.php";
+    url = `${baseUrl}app/admin/download/excel-date.php`;
   }
 
   $.redirect(url, {
@@ -68,14 +68,14 @@ $(".view-request").click(function(e) {
   const action = "getRequest";
   const itsrequest_id = $(this).attr("id");
 
-  $.post(`${baseUrl}config/processors/requestArguments.php`, {
+  $.post(requestArgumentsPath, {
     action: action,
     itsrequest_id: itsrequest_id
   }).done(request => {
     request = JSON.parse(request);
     $("#modalView").modal("toggle");
-    $('#data').empty();
-    $('#other-labels').empty();
+    $("#data").empty();
+    $("#other-labels").empty();
     if (request.status === "received") {
       $("#data").append(
         '<label class="font-weight-bold text-info">' +
@@ -206,39 +206,36 @@ $(".pullout").click(function(e) {
   });
 });
 
-$("#pullout_done-form").submit(async function(e) {
+$("#pullout_done-form").submit(function(e) {
   e.preventDefault();
 
-  const res = await axios.post(
-    "../../config/processors/requestArguments.php",
-    $(this).serialize()
-  );
-
-  if (res) {
-    await Swal.fire("Success", "Request Done", "success");
-    $.redirect(`${baseUrl}app/admin/incoming-repairs.php`);
-  } else {
-    Swal.fire("Error", "An error occured", "error");
-  }
+  $.post(requestArgumentsPath, $(this).serialize()).done(async res => {
+    if (res) {
+      await Swal.fire("Success", "Request Done", "success");
+      $.redirect(`${baseUrl}app/admin/incoming-repairs.php`);
+    } else {
+      Swal.fire("Error", "An error occured", "error");
+    }
+  });
 });
 
-$(".pending").click(async function(e) {
+$(".pending").click(function(e) {
   e.preventDefault();
   const action = "statusPending";
   const itsrequest_id = $(this).attr("id");
   const statusupdate_useraccount_id = $(this).attr("data-id");
 
-  const res = axios.post("../../config/processors/requestArguments.php", {
+  $.post(requestArgumentsPath, {
     action: action,
     itsrequest_id: itsrequest_id,
     statusupdate_useraccount_id: statusupdate_useraccount_id
+  }).done(async res => {
+    if (res) {
+      await Swal.fire("Success", "Request Set to Pending", "success");
+      location.reload(true);
+    } else {
+      Swal.fire("Error", "An error occured", "error");
+    }
   });
-
-  if (res) {
-    await Swal.fire("Success", "Request Set to Pending", "success");
-    location.reload(true);
-  } else {
-    Swal.fire("Error", "An error occured", "error");
-  }
+  
 });
-

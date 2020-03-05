@@ -32,7 +32,7 @@ $("#add-hardware").click(function(e) {
 $("#hwcomponent_type").change(function(e) {
   const hwcomponent_type = $("#hwcomponent_type").val();
   if (hwcomponent_type !== "sub") {
-    $('#hwcomponent_category').val(null);
+    $("#hwcomponent_category").val(null);
     $(".sub_type").hide();
   } else {
     $(".sub_type").show();
@@ -43,16 +43,10 @@ $("#hwcomponent_type").change(function(e) {
 $("#hardwareComponent-form").submit(function(e) {
   e.preventDefault();
 
-  $.post(
-    `${baseUrl}config/processors/settingsArguments.php`,
-    $(this).serialize()
-  ).done(function(res) {
+  $.post(settingsArgumentsPath, $(this).serialize()).done(async function(res) {
     if (res) {
-      Swal.fire(
-        "Success",
-        "Hardware Component Data Saved!",
-        "success"
-      ).then(() => location.reload(true));
+      await Swal.fire("Success", "Hardware Component Data Saved!", "success");
+      location.reload(true);
     } else {
       Swal.fire("Failure", "Error", "error");
     }
@@ -66,7 +60,7 @@ $(".edit-hardware").click(function(e) {
   const action = "editHardwareComponent";
   const hwcomponent_id = $(this).attr("id");
 
-  $.post(`${baseUrl}config/processors/settingsArguments.php`, {
+  $.post(settingsArgumentsPath, {
     action: action,
     hwcomponent_id: hwcomponent_id
   }).done(component => {

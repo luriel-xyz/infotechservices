@@ -6,7 +6,7 @@ $("#dept_id").change(function() {
   const action = "getEmployeesByDepartment";
   const dept_id = $(this).val();
   $.ajax({
-    url: "../../config/processors/requestArguments.php",
+    url: requestArgumentsPath,
     type: "POST",
     data: {
       action: action,
@@ -37,7 +37,7 @@ $("#hwcomponent_id").change(function() {
   var hwcomponent_id = $(this).val();
 
   $.ajax({
-    url: "../../config/processors/requestArguments.php",
+    url: requestArgumentsPath,
     type: "POST",
     data: {
       action: action,
@@ -67,12 +67,12 @@ $("#incomingrepair-form").submit(function(e) {
   e.preventDefault();
 
   $.ajax({
-    url: "../../config/processors/requestArguments.php",
+    url: requestArgumentsPath,
     type: "POST",
     data: $(this).serialize()
-  }).done(function(res) {
+  }).done(async function(res) {
     if (res) {
-      Swal.fire('Success', 'Repair Added!', 'success');
+      await Swal.fire('Success', 'Repair Added!', 'success');
       $.redirect('../../app/admin/incoming-repairs.php');
     } else {
       Swal.fire('Failure', 'Error!', 'error');

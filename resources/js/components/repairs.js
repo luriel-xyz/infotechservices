@@ -1,7 +1,7 @@
 function setAssessmentDone(itsrequest_id, useraccount_id) {
   const action = "statusAssessed";
 
-  $.post("../../config/processors/requestArguments.php", {
+  $.post(requestArgumentsPath, {
     action: action,
     itsrequest_id: itsrequest_id,
     useraccount_id: useraccount_id
@@ -15,7 +15,7 @@ function setAssessmentDone(itsrequest_id, useraccount_id) {
   });
 
   // $.ajax({
-  //   url: "../../config/processors/requestArguments.php",
+  //   url: requestArgumentsPath,
   //   type: "POST",
   //   data: {
   //     action: action,
@@ -92,7 +92,7 @@ $(".view-repair").click(function(e) {
   const itsrequest_id = $(this).attr("id");
 
   $.post({
-    url: `${baseUrl}config/processors/requestArguments.php`, 
+    url: requestArgumentsPath,
     type: "post",
     data: {
       action: action,
@@ -130,7 +130,7 @@ $(".view-repair").click(function(e) {
     } else if (
       request.status === "pre-repair inspected" ||
       request.status === "post-repair inspected" ||
-      request.status === 'pre-post-repair inspected'
+      request.status === "pre-post-repair inspected"
     ) {
       $("#data").append(
         '<label class="font-weight-bold text-secondary">' +
@@ -181,10 +181,10 @@ $(".pending").click(function(e) {
   e.preventDefault();
   const action = "statusPending";
   const itsrequest_id = $(this).attr("id");
-  const statusupdate_useraccount_id = $(this).attr("data-id"); 
+  const statusupdate_useraccount_id = $(this).attr("data-id");
 
   $.ajax({
-    url: "../../config/processors/requestArguments.php",
+    url: requestArgumentsPath,
     type: "post",
     data: {
       action: action,
@@ -229,7 +229,7 @@ $(".done-repair").click(function(e) {
 $("#pullout_done-form").submit(function(e) {
   e.preventDefault();
 
-  const url = `${baseUrl}config/processors/requestArguments.php`;
+  const url = requestArgumentsPath;
   $.post(url, $(this).serialize()).done(async res => {
     if (res) {
       await Swal.fire("Success", "Done", "success");
@@ -282,7 +282,7 @@ $(".pre-post-inspect").click(function() {
   const itsrequest_id = $(this).attr("id");
   const useraccount_id = $(this).attr("data-id");
   const assessment_report_id = $(this).data("assessment-report-id");
-  $.redirect(`${baseUrl}app/admin/pre-post-insp.php`, { 
+  $.redirect(`${baseUrl}app/admin/pre-post-insp.php`, {
     action: action,
     itsrequest_id: itsrequest_id,
     useraccount_id: useraccount_id,
@@ -298,7 +298,7 @@ $(".pre-post-inspect").click(function() {
 //   var useraccount_id = $(this).attr('data-id');
 
 //   $.ajax({
-//     url: "../../config/processors/requestArguments.php",
+//     url: requestArgumentsPath,
 //     type: "POST",
 //     data: {
 //       action: action,
@@ -319,7 +319,7 @@ $(".pre-post-inspect").click(function() {
 //   var useraccount_id = $(this).attr('data-id');
 
 //   $.ajax({
-//     url: "../../config/processors/requestArguments.php",
+//     url: requestArgumentsPath,
 //     type: "POST",
 //     data: {
 //       action: action,
