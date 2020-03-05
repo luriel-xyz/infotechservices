@@ -4,9 +4,11 @@ $.validator.addMethod(
   "checkAccount",
   (value, element) => {
     const data = $("#login-form").serialize();
-    $.post(requestArgumentsPath, data).done(res => (user = res));
-    console.log(data);
-    return user ? true : false; 
+    $.post(requestArgumentsPath, data).done(res => { 
+      user = JSON.parse(res);
+      console.log("user: ", user);
+    });
+    return user ? true : false;
   },
   "Incorrect username or password"
 );
@@ -18,7 +20,7 @@ $("#login-form").validate({
     username: "required",
     password: {
       required: true,
-      checkAccount: true 
+      checkAccount: true
     }
   },
 
@@ -29,6 +31,4 @@ $("#login-form").validate({
       checkAccount: "Incorrect username or password"
     }
   },
-
-  submitHandle: form => {}
 });
