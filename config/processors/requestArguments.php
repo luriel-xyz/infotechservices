@@ -11,7 +11,7 @@ require_once('../init.php');
 
 if (isset($_POST['action'])) {
 	/** AUTH */
-	if ($_POST['action'] === 'attemptLogin') { 
+	if ($_POST['action'] === 'attemptLogin') {
 		$username = $_POST['username'];
 		$password = $_POST['password'];
 
