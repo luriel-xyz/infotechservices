@@ -3,7 +3,7 @@ let user;
 $.validator.addMethod(
   "checkAccount",
   (value, element) => {
-    const data = $("#login-form").serialize(); 
+    const data = $("#login-form").serialize();
     $.post(requestArgumentsPath, data).done(res => (user = res));
     console.log(data);
     return user ? true : false; 

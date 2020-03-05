@@ -59171,42 +59171,46 @@ $.ajax({
 
 var action = "getHardwareComponentsBySubCategory";
 var hwcomponent_id = $("#hwcomponent_id").val();
-$.post(requestArgumentsPath, {
-  action: action,
-  hwcomponent_id: hwcomponent_id
-}).done(function (components) {
-  components = JSON.parse(components); // parse JSON string
 
-  $("#checkbox_container").empty(); // clear checkbox container
-  // Loop through subcomponents
+if (hwcomponent_id) {
+  $.post(requestArgumentsPath, {
+    action: action,
+    hwcomponent_id: hwcomponent_id
+  }).done(function (components) {
+    components = JSON.parse(components); // parse JSON string
 
-  components.forEach(function (component) {
-    // Create subcomponent field
-    var subcomponent = "\n      <label for=\"checkbox-".concat(component.hwcomponent_id, "\" id=\"hw_component\" class=\"hw_component label-").concat(component.hwcomponent_id, " checkbox-inline d-block mb-0 d-flex justify-content-between align-items-center\">\n        <div class=\"checkbox-container\">\n          <input type=\"checkbox\" class=\"cb_hwcomponent mr-1\" name=\"cb_hwcomponent[]\" id=\"checkbox-").concat(component.hwcomponent_id, "\" data-sub_component_id=\"").concat(component.hwcomponent_id, "\"> ").concat(component.hwcomponent_name, "\n        </div>\n        <div class=\"remark-container w-75\" style=\"display: none\">\n          <input id=\"sub-component-remark-").concat(component.hwcomponent_id, "\" type=\"text\" class=\"w-100 mt-2 form-control\" placeholder=\"Remark\">\n        </div>\n      </label>\n    \t\t"); // const subcomponent = "<p>subcomponent</p>";
-    // Append subcomponent field to checkbox container
+    $("#checkbox_container").empty(); // clear checkbox container
+    // Loop through subcomponents
 
-    $("#checkbox_container").append(subcomponent); // Listen to checkbox click event
+    components.forEach(function (component) {
+      // Create subcomponent field
+      var subcomponent = "\n        <label for=\"checkbox-".concat(component.hwcomponent_id, "\" id=\"hw_component\" class=\"hw_component label-").concat(component.hwcomponent_id, " checkbox-inline d-block mb-0 d-flex justify-content-between align-items-center\">\n          <div class=\"checkbox-container\">\n            <input type=\"checkbox\" class=\"cb_hwcomponent mr-1\" name=\"cb_hwcomponent[]\" id=\"checkbox-").concat(component.hwcomponent_id, "\" data-sub_component_id=\"").concat(component.hwcomponent_id, "\"> ").concat(component.hwcomponent_name, "\n          </div>\n          <div class=\"remark-container w-75\" style=\"display: none\">\n            <input id=\"sub-component-remark-").concat(component.hwcomponent_id, "\" type=\"text\" class=\"w-100 mt-2 form-control\" placeholder=\"Remark\">\n          </div>\n        </label>\n          "); // const subcomponent = "<p>subcomponent</p>";
+      // Append subcomponent field to checkbox container
 
-    $("#checkbox-".concat(component.hwcomponent_id)).click(function () {
-      // Toggle remark container
-      $(".label-".concat(component.hwcomponent_id, " > .remark-container")).toggle("slow");
-    });
-  }); // const others =
-  // 	`<label for="checkbox-others" id="hw_component" class="hw_component label-others d-block mb-0 d-flex justify-content-between align-items-center">
-  // 			<div class="checkbox-container">
-  // 				<input type="checkbox" class="cb_hwcomponent mr-1" name="cb_hwcomponent[]" id="checkbox-others"> Others
-  // 			</div>
-  // 			<div class="remark-container w-75" style="display: none">
-  // 				<input type="text" class="w-100 mt-2 others-recommendation" placeholder="Recommendation">
-  // 			</div>
-  // 		</label>`;
-  // $('#checkbox_container').append(others);
-  // // Listen to checkbox click event
-  // $(`#checkbox-others`).click(() => {
-  // 	// Toggle remark container
-  // 	$(`.label-others > .remark-container`).toggle('slow');
-  // });
-});
+      $("#checkbox_container").append(subcomponent); // Listen to checkbox click event
+
+      $("#checkbox-".concat(component.hwcomponent_id)).click(function () {
+        // Toggle remark container
+        $(".label-".concat(component.hwcomponent_id, " > .remark-container")).toggle("slow");
+      });
+    }); // const others =
+    // 	`<label for="checkbox-others" id="hw_component" class="hw_component label-others d-block mb-0 d-flex justify-content-between align-items-center">
+    // 			<div class="checkbox-container">
+    // 				<input type="checkbox" class="cb_hwcomponent mr-1" name="cb_hwcomponent[]" id="checkbox-others"> Others
+    // 			</div>
+    // 			<div class="remark-container w-75" style="display: none">
+    // 				<input type="text" class="w-100 mt-2 others-recommendation" placeholder="Recommendation">
+    // 			</div>
+    // 		</label>`;
+    // $('#checkbox_container').append(others);
+    // // Listen to checkbox click event
+    // $(`#checkbox-others`).click(() => {
+    // 	// Toggle remark container
+    // 	$(`.label-others > .remark-container`).toggle('slow');
+    // });
+  });
+}
+
 $("#dept_id").change(function (e) {
   e.preventDefault();
   var action = "getEmployeesByDepartment";
