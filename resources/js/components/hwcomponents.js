@@ -1,3 +1,32 @@
+$("#hardwareComponent-form").validate({
+  ...validatorOptions,
+
+  rules: {
+    hwcomponent_name: "required",
+    hwcomponent_type: "required",
+    hwcomponent_category: {
+      depends: element => $("#hwcomponent_type").val() == "sub"
+    }
+  },
+
+  messages: {
+    hwcomponent_name: "Hardware component name is required.",
+    hwcomponent_type: "Hardware component type is required.",
+    hwcomponent_category: "Please indicate component category."
+  },
+
+  submitHandler: form => {
+    $.post(settingsArgumentsPath, $(form).serialize()).done(async res => {
+      if (res) {
+        await Swal.fire("Success", "Hardware Component Data Saved!", "success");
+        location.reload(true);
+      } else {
+        Swal.fire("Failure", "Error", "error");
+      }
+    });
+  }
+});
+
 $("#search").on("keyup", function() {
   const search_text = $(this)
     .val()
@@ -40,18 +69,18 @@ $("#hwcomponent_type").change(function(e) {
 });
 
 //Add Hardware Component Script
-$("#hardwareComponent-form").submit(function(e) {
-  e.preventDefault();
+// $("#hardwareComponent-form").submit(function(e) {
+//   e.preventDefault();
 
-  $.post(settingsArgumentsPath, $(this).serialize()).done(async function(res) {
-    if (res) {
-      await Swal.fire("Success", "Hardware Component Data Saved!", "success");
-      location.reload(true);
-    } else {
-      Swal.fire("Failure", "Error", "error");
-    }
-  });
-});
+//   $.post(settingsArgumentsPath, $(this).serialize()).done(async function(res) {
+//     if (res) {
+//       await Swal.fire("Success", "Hardware Component Data Saved!", "success");
+//       location.reload(true);
+//     } else {
+//       Swal.fire("Failure", "Error", "error");
+//     }
+//   });
+// });
 
 //Edit Hardware Component Script
 $(".edit-hardware").click(function(e) {
