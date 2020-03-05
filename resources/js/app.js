@@ -8,6 +8,8 @@ window.moment = moment;
 window.Swal = Swal;
 window.appName = "infotechservices";
 window.baseUrl = `${window.location.origin}/${appName}/`;
+window.requestArgumentsPath = `${baseUrl}/config/processors/requestArguments.php`;
+window.settingsArgumentsPath = `${baseUrl}/config/processors/settingsArguments.php`;
 window.validatorOptions = options;
 
 $(() => {
