@@ -6,6 +6,16 @@ use App\DB;
 
 class Employee
 {
+  public static function isIdNumberTaken($idNumber)
+  {
+    $sql = 'SELECT count(*) AS frequency 
+            FROM employee_tbl 
+            WHERE emp_idnum = ?';
+
+    $isTaken = DB::single($sql, [$idNumber])->frequency ? true : false; 
+    return $isTaken;
+  }
+
   public static function getEmployee($emp_id = null)
   {
     if ($emp_id == null) {

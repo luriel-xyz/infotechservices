@@ -3,7 +3,7 @@
 use App\User;
 use App\Employee;
 use App\Hardware;
-use App\Department; 
+use App\Department;
 
 require_once('../init.php');
 
@@ -73,7 +73,7 @@ if (isset($_POST['action'])) {
 
 	if ($_POST['action'] === 'editHardwareComponent') {
 		$hwcomponent_id = $_POST['hwcomponent_id'];
-		$result = Hardware::getHardwareComponents($hwcomponent_id); 
+		$result = Hardware::getHardwareComponents($hwcomponent_id);
 		echo json_encode($result);
 	}
 
@@ -81,6 +81,12 @@ if (isset($_POST['action'])) {
 		$emp_id = $_POST['emp_id'];
 		$result = Employee::getEmployee($emp_id);
 		echo json_encode($result);
+	}
+
+	if ($_POST['action'] === 'isIdNumberTaken') {
+		$emp_idnum = $_POST['emp_idnum'];
+		$result = Employee::isIdNumberTaken($emp_idnum);
+		echo $result;
 	}
 
 	if ($_POST['action'] === 'editUserAccount') {
