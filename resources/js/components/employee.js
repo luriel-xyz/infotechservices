@@ -1,5 +1,81 @@
+// Add validation rule for employee id number field
+let isUnique;
+$.validator.addMethod(
+  "unique",
+  (value, element) => {
+    $.post(`${baseUrl}config/processors/settingsArguments.php`, {
+      action: "isIdNumberTaken",
+      emp_idnum: () => $("#emp_idnum").val()
+    }).done(res => (isUnique = !res));
+
+    return isUnique;
+  },
+  "This id number is already taken."
+);
+
+$("#employee-form").validate({
+  ...validatorOptions,
+  rules: {
+    dept_id: {
+      required: true,
+      min: 1
+    },
+    emp_idnum: {
+      required: true,
+      unique: true
+    },
+    fname: "required",
+    lname: "required",
+    position: "required"
+  },
+
+  messages: {
+    dept_id: "Please select a department.",
+    emp_idnum: {
+      required: "Please indicate employee id number.",
+      unique: "This id number is already taken."
+    },
+    fname: "First name is required.",
+    lname: "Last name is required.",
+    position: "Position is required."
+  },
+
+  submitHandler: form => {
+    const url = `${baseUrl}config/processors/settingsArguments.php`;
+    $.post(url, $(form).serialize()).done(async res => {
+      if (res) {
+        const { value } = await Swal.fire(
+          "Success",
+          "Employee Data Saved!",
+          "success"
+        );
+        if (value) {
+          location.reload(true);
+        }
+      } else {
+        Swal.fire("Failure", "Error!", "error");
+      }
+    });
+  }
+});
+
+async function isIdNumberTaken(emp_idnum) {
+  const url = ``;
+  const post = async (url, data) => {
+    let success = false;
+
+    return success;
+  };
+
+  return $.post(url, data)
+    .done(res => (success = res))
+    .fail(() => (success = false));
+
+  return await post(url, {});
+}
+
 $("#search").on("keyup", function() {
-  var search_text = $(this)
+  const search_text = $(this)
     .val()
     .toLowerCase();
   $("#table_body tr").filter(function() {
@@ -14,13 +90,13 @@ $("#search").on("keyup", function() {
 
 $("#add-employee").click(function(e) {
   $(".modal-title").text("EMPLOYEE ADDING FORM");
-  $('#emp_btn').text('Add Employee');
-  $("#emp_id").html('');
-  $("#dept_id").val('');
-  $("#emp_idnum").val('');
-  $("#fname").val('');
-  $("#lname").val('');
-  $("#emp-position").val('');
+  $("#emp_btn").text("Add Employee");
+  $("#emp_id").html("");
+  $("#dept_id").val("");
+  $("#emp_idnum").val("");
+  $("#fname").val("");
+  $("#lname").val("");
+  $("#emp-position").val("");
   $("#emp_btn").text("Save Changes");
   $("#action").val("addEmployee");
 
@@ -31,25 +107,25 @@ $("#add-employee").click(function(e) {
 });
 
 //Add Employee Script
-$("#employee-form").submit(function(e) {
-  e.preventDefault();
+// $("#employee-form").submit(function(e) {
+//   e.preventDefault();
 
-  const url = `${baseUrl}config/processors/settingsArguments.php`;
-  $.post(url, $(this).serialize()).done(async res => {
-    if (res) {
-      const { value } = await Swal.fire(
-        "Success",
-        "Employee Data Saved!",
-        "success"
-      );
-      if (value) {
-        location.reload(true);
-      }
-    } else {
-      Swal.fire("Failure", "Error!", "error");
-    }
-  });
-});
+//   const url = `${baseUrl}config/processors/settingsArguments.php`;
+//   $.post(url, $(this).serialize()).done(async res => {
+//     if (res) {
+//       const { value } = await Swal.fire(
+//         "Success",
+//         "Employee Data Saved!",
+//         "success"
+//       );
+//       if (value) {
+//         location.reload(true);
+//       }
+//     } else {
+//       Swal.fire("Failure", "Error!", "error");
+//     }
+//   });
+// });
 
 //Edit Employee Script
 $(".edit-employee").click(function(e) {
