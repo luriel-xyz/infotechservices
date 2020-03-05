@@ -29,7 +29,7 @@
 		</div>
 
 		<div class="form-group sub_type" id="sub_type" style="display: none">
-			<select name="hwcomponent_category" id="hwcomponent_category" class="form-control">
+			<select name="hwcomponent_category" id="hwcomponent_category" class="form-control" required>
 				<option selected disabled> -- Select Main Component -- </option>
 				<?php foreach ($main_hwcomponents as $component) : ?>
 					<option value="<?= $component->hwcomponent_id ?>"> <?= $component->hwcomponent_name ?> </option>

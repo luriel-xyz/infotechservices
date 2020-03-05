@@ -7,7 +7,7 @@
         <!-- Login Form -->
         <form method="POST" id="login-form">
             <!-- action -->
-            <input type="hidden" name="attemptLogin">
+            <input type="hidden" name="action" value="attemptLogin">
             <!-- /# action -->
 
             <div class="form-group">

@@ -59736,6 +59736,68 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+$("#hardwareComponent-form").validate(_objectSpread({}, validatorOptions, {
+  rules: {
+    hwcomponent_name: "required",
+    hwcomponent_type: "required",
+    hwcomponent_category: {
+      depends: function depends(element) {
+        return $("#hwcomponent_type").val() == "sub";
+      }
+    }
+  },
+  messages: {
+    hwcomponent_name: "Hardware component name is required.",
+    hwcomponent_type: "Hardware component type is required.",
+    hwcomponent_category: "Please indicate component category."
+  },
+  submitHandler: function submitHandler(form) {
+    $.post(settingsArgumentsPath, $(form).serialize()).done(
+    /*#__PURE__*/
+    function () {
+      var _ref = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(res) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (!res) {
+                  _context.next = 6;
+                  break;
+                }
+
+                _context.next = 3;
+                return Swal.fire("Success", "Hardware Component Data Saved!", "success");
+
+              case 3:
+                location.reload(true);
+                _context.next = 7;
+                break;
+
+              case 6:
+                Swal.fire("Failure", "Error", "error");
+
+              case 7:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+
+      return function (_x) {
+        return _ref.apply(this, arguments);
+      };
+    }());
+  }
+}));
 $("#search").on("keyup", function () {
   var search_text = $(this).val().toLowerCase();
   $("#table_body tr").filter(function () {
@@ -59766,48 +59828,18 @@ $("#hwcomponent_type").change(function (e) {
     $(".sub_type").show();
   }
 }); //Add Hardware Component Script
-
-$("#hardwareComponent-form").submit(function (e) {
-  e.preventDefault();
-  $.post(settingsArgumentsPath, $(this).serialize()).done(
-  /*#__PURE__*/
-  function () {
-    var _ref = _asyncToGenerator(
-    /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(res) {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              if (!res) {
-                _context.next = 6;
-                break;
-              }
-
-              _context.next = 3;
-              return Swal.fire("Success", "Hardware Component Data Saved!", "success");
-
-            case 3:
-              location.reload(true);
-              _context.next = 7;
-              break;
-
-            case 6:
-              Swal.fire("Failure", "Error", "error");
-
-            case 7:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee);
-    }));
-
-    return function (_x) {
-      return _ref.apply(this, arguments);
-    };
-  }());
-}); //Edit Hardware Component Script
+// $("#hardwareComponent-form").submit(function(e) {
+//   e.preventDefault();
+//   $.post(settingsArgumentsPath, $(this).serialize()).done(async function(res) {
+//     if (res) {
+//       await Swal.fire("Success", "Hardware Component Data Saved!", "success");
+//       location.reload(true);
+//     } else {
+//       Swal.fire("Failure", "Error", "error");
+//     }
+//   });
+// });
+//Edit Hardware Component Script
 
 $(".edit-hardware").click(function (e) {
   e.preventDefault();
