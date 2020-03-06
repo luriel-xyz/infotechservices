@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 03, 2020 at 04:27 AM
--- Server version: 10.1.29-MariaDB
--- PHP Version: 7.2.0
+-- Generation Time: Mar 06, 2020 at 03:39 AM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -31,7 +31,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `assessment_sub_components` (
   `id` int(11) NOT NULL,
   `sub_component_id` int(11) NOT NULL,
-  `remark` text,
+  `remark` text DEFAULT NULL,
   `repassessreport_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -89,7 +89,8 @@ INSERT INTO `employee_tbl` (`emp_id`, `dept_id`, `emp_idnum`, `emp_fname`, `emp_
 (1, 8, 1, 'opag employee fname', 'opag employee lname', 'opag employee position'),
 (2, 1, 2, 'pgo it employee fname', 'pgo it employee lname', 'pgo it employee position'),
 (3, 13, 54321, 'Edited', 'Edited', 'Main Position'),
-(4, 10, 1928, 'First Name', 'Last Name', 'Position in Main');
+(4, 10, 1928, 'First Name', 'Last Name', 'Position in Main'),
+(5, NULL, 0, '', '', '');
 
 -- --------------------------------------------------------
 
@@ -196,14 +197,14 @@ CREATE TABLE `repassessreport_tbl` (
   `itsrequest_id` int(11) NOT NULL,
   `assessmenttechrep_useraccount_id` int(11) NOT NULL,
   `hwcomponent_id` int(11) NOT NULL,
-  `assessment_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `assessment_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `hwcomponent_dateAcquired` timestamp NULL DEFAULT NULL,
-  `hwcomponent_description` text,
+  `hwcomponent_description` text DEFAULT NULL,
   `hwcomponent_acquisitioncost` float DEFAULT NULL,
   `serial_number` varchar(255) NOT NULL,
   `findings_category` enum('repaired','partly damaged','beyond repair','for replacement','others') NOT NULL,
-  `findings_description` text,
-  `notes` text
+  `findings_description` text DEFAULT NULL,
+  `notes` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -422,19 +423,19 @@ ALTER TABLE `assessment_sub_components`
 -- AUTO_INCREMENT for table `department_tbl`
 --
 ALTER TABLE `department_tbl`
-  MODIFY `dept_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `dept_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `employee_tbl`
 --
 ALTER TABLE `employee_tbl`
-  MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `hardwarecomponent_tbl`
 --
 ALTER TABLE `hardwarecomponent_tbl`
-  MODIFY `hwcomponent_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `hwcomponent_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT for table `itservices_request_tbl`
