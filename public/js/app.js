@@ -58863,6 +58863,14 @@ window.baseUrl = "".concat(window.location.origin, "/");
 window.requestArgumentsPath = "".concat(baseUrl, "/config/processors/requestArguments.php");
 window.settingsArgumentsPath = "".concat(baseUrl, "/config/processors/settingsArguments.php");
 window.validatorOptions = _validator_options__WEBPACK_IMPORTED_MODULE_3__["default"];
+
+window.truncateString = function (string) {
+  var maxLength = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 40;
+  if (!string) return null;
+  if (string.length <= maxLength) return string;
+  return "".concat(string.substring(0, maxLength), "...");
+};
+
 $(function () {
   __webpack_require__(/*! ./components/add-repair */ "./resources/js/components/add-repair.js");
 
@@ -60457,7 +60465,7 @@ $(".view-repair").click(function (e) {
     $("#data").append('<label class="font-weight-bold">' + request.dept_code + "|" + request.emp_fname + " " + request.emp_lname + "</label><br>");
     $("#data").append('<label class="font-weight-bold">' + request.hwcomponent_name + "</label><br>");
     $("#data").append('<label class="font-weight-bold">' + request.property_num + "</label><br>");
-    $("#data").append('<label class="font-weight-bold">' + request.concern + "</label><br>");
+    $("#data").append('<label class="font-weight-bold">' + truncateString(request.concern) + "</label><br>");
     $("#data").append('<label class="font-weight-bold">' + request.itshw_category + "</label><br>");
   });
   $("#modalView").modal({
@@ -60685,13 +60693,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 // 		.fail(() => alert('Error'))
 // 		.done(table => $('#incoming-requests').html(table));
 // }
-var truncateString = function truncateString(string) {
-  var maxLength = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 30;
-  if (!string) return null;
-  if (string.length <= maxLength) return string;
-  return "".concat(string.substring(0, maxLength), "...");
-};
-
 $("#search").keyup(function () {
   var search_text = $(this).val().toLowerCase();
   $("#table_body tr").filter(function () {
@@ -60756,7 +60757,7 @@ $(".view-request").click(function (e) {
 
     $("#data").append('<label class="font-weight-bold">' + moment(request.itsrequest_date.itsrequest_date).format("MMM D, Y") + "</label><br>");
     $("#data").append('<label class="font-weight-bold">' + request.dept_code + "|" + request.emp_fname + " " + request.emp_lname + "</label><br>");
-    $("#data").append('<label class="font-weight-bold">' + truncateString(request.concern) + " <a href=\"#\" class='btn-view-concern' data-id=\"".concat(request.itsrequest_id, "\">view</a></label><br>"));
+    $("#data").append("<label class=\"font-weight-bold\">\n        ".concat(truncateString(request.concern), "\n        </label><br>"));
 
     if (request.itsrequest_category == "hw") {
       $("#other-labels").append("<label> Repair Location: </label> <br>");
@@ -60895,42 +60896,14 @@ $(".pending").click(function (e) {
   }());
 }); // View concern click
 
-$(".btn-view-concern").click(
-/*#__PURE__*/
-function () {
-  var _ref3 = _asyncToGenerator(
-  /*#__PURE__*/
-  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(e) {
-    var res;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
-      while (1) {
-        switch (_context3.prev = _context3.next) {
-          case 0:
-            e.preventDefault();
-            console.log('clicked');
-            _context3.next = 4;
-            return $.post(requestArgumentsPath, {
-              action: "fetchRequestConcern",
-              requestId: $(this).data("id")
-            }).promise();
+$(".btn-view-concern").click(function (e) {
+  e.preventDefault();
+  viewConcern($(this).data("id"));
+});
 
-          case 4:
-            res = _context3.sent;
-            $("#modalViewConcern .concern").text(res);
-            $("#modalViewConcern").modal("show");
-
-          case 7:
-          case "end":
-            return _context3.stop();
-        }
-      }
-    }, _callee3, this);
-  }));
-
-  return function (_x3) {
-    return _ref3.apply(this, arguments);
-  };
-}()); // $(".btn-view-concern").click(async function(e) {
+function viewConcern(_x3) {
+  return _viewConcern.apply(this, arguments);
+} // $(".btn-view-concern").click(async function(e) {
 //   e.preventDefault();
 //   const res = await $.post(requestArgumentsPath, {
 //     action: "fetchRequestConcern",
@@ -60939,6 +60912,37 @@ function () {
 //   $("#modalViewConcern .concern").text(res);
 //   $("#modalViewConcern").modal("show");
 // });
+
+
+function _viewConcern() {
+  _viewConcern = _asyncToGenerator(
+  /*#__PURE__*/
+  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(requestId) {
+    var res;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            _context3.next = 2;
+            return $.post(requestArgumentsPath, {
+              action: "fetchRequestConcern",
+              requestId: requestId
+            }).promise();
+
+          case 2:
+            res = _context3.sent;
+            $("#modalViewConcern .concern").text(res);
+            $("#modalViewConcern").modal("show");
+
+          case 5:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _callee3);
+  }));
+  return _viewConcern.apply(this, arguments);
+}
 
 /***/ }),
 
@@ -60991,7 +60995,7 @@ $(".view-sent-request").click(function (e) {
 
     $("#data").append('<label class="font-weight-bold">' + moment(request.itsrequest_date).format("MMM d, Y h:mm a") + "</label><br>");
     $("#data").append('<label class="font-weight-bold">' + request.dept_code + "|" + request.emp_fname + " " + request.emp_lname + "</label><br>");
-    $("#data").append('<label class="font-weight-bold">' + request.concern + "</label><br>");
+    $("#data").append('<label class="font-weight-bold">' + truncateString(request.concern) + "</label><br>");
 
     if (request.itsrequest_category == "hw") {
       $("#other-labels").append("<label> Repair Location: </label> <br>");
