@@ -6,12 +6,16 @@
   </div>
   <div class="list-items border-top list-group list-group-flush mt-2">
     <a href="<?= getPath('admin/incoming-requests.php') ?>" class="btn btn-link m-0 list-group-item list-group-item-action text-dark border-bottom">
-      <i class="fas fa-fw fa-bell" aria-hidden="true"></i>
-      <span class="text-capitalize">Incoming Requests</span>
+      <span <?php if (currentPage() == 'incoming-requests') : ?> class="font-weight-bold text-secondary" <?php endif; ?>>
+        <i class="fas fa-fw fa-bell" aria-hidden="true"></i>
+        <span class="text-capitalize">Incoming Requests</span>
+      </span>
     </a>
     <a href="<?= getPath('admin/incoming-repairs.php') ?>" class="btn btn-link m-0 list-group-item list-group-item-action text-dark border-bottom">
-      <i class="fas fa-fw fa-wrench" aria-hidden="true"></i>
-      <span class="text-capitalize">Incoming Repairs</span>
+      <span <?php if (currentPage() == 'incoming-repairs') : ?> class="font-weight-bold text-secondary" <?php endif; ?>>
+        <i class="fas fa-fw fa-wrench" aria-hidden="true"></i>
+        <span class="text-capitalize">Incoming Repairs</span>
+      </span>
     </a>
 
     <!-- The links that can only be accessed by the admin and programmer.  -->
@@ -23,20 +27,28 @@
         </div>
       </div>
       <a href="<?= getPath('admin/settings/user-accounts.php') ?>" class="btn btn-link m-0 list-group-item list-group-item-action text-dark border-bottom">
-        <i class="fas fa-fw fa-user" aria-hidden="true"></i>
-        <span class="text-capitalize">User Accounts</span>
+        <span <?php if (currentPage() == 'user-accounts') : ?> class="font-weight-bold text-secondary" <?php endif; ?>>
+          <i class="fas fa-fw fa-user" aria-hidden="true"></i>
+          <span class="text-capitalize">User Accounts</span>
+        </span>
       </a>
       <a href="<?= getPath('admin/settings/employees.php') ?>" class="btn btn-link m-0 list-group-item list-group-item-action text-dark border-bottom">
-        <i class="fas fa-fw fa-users" aria-hidden="true"></i>
-        <span class="text-capitalize">Employees</span>
+        <span <?php if (currentPage() == 'employees') : ?> class="font-weight-bold text-secondary" <?php endif; ?>>
+          <i class="fas fa-fw fa-users" aria-hidden="true"></i>
+          <span class="text-capitalize">Employees</span>
+        </span>
       </a>
       <a href="<?= getPath('admin/settings/departments.php') ?>" class="btn btn-link m-0 list-group-item list-group-item-action text-dark border-bottom">
-        <i class="fas fa-fw fa-building" aria-hidden="true"></i>
-        <span class="text-capitalize">Departments</span>
+        <span <?php if (currentPage() == 'departments') : ?> class="font-weight-bold text-secondary" <?php endif; ?>>
+          <i class="fas fa-fw fa-building" aria-hidden="true"></i>
+          <span class="text-capitalize">Departments</span>
+        </span>
       </a>
       <a href="<?= getPath('admin/settings/hardware-components.php') ?>" class="btn btn-link m-0 list-group-item list-group-item-action text-dark border-bottom">
-        <i class="fas fa-fw fa-desktop" aria-hidden="true"></i>
-        <span class="text-capitalize">Hardware Components</span>
+        <span <?php if (currentPage() == 'hardware-components') : ?> class="font-weight-bold text-secondary" <?php endif; ?>>
+          <i class="fas fa-fw fa-desktop" aria-hidden="true"></i>
+          <span class="text-capitalize">Hardware Components</span>
+        </span>
       </a>
     <?php endif; ?>
 
