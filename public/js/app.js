@@ -61034,6 +61034,154 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+// Add validation rule for department duplicates
+// One department should only have one account.
+var departmentExists;
+$.validator.addMethod("checkDepartment", function () {
+  $.post(settingsArgumentsPath, {
+    action: "departmentAccountExists",
+    dept_id: $("#dept_id").val()
+  }).promise().then(function (res) {
+    return departmentExists = JSON.parse(res);
+  });
+  return !departmentExists;
+}, "This department already has an account."); // Validation for Personnel User Account Form
+
+$("#personnelUserAccount-form").validate(_objectSpread({}, validatorOptions, {
+  rules: {
+    usertype: "required",
+    emp_id: "required",
+    username: "required",
+    password: "required"
+  },
+  messages: {
+    usertype: "Please indicate the type of the user.",
+    emp_id: "Please select an employee name.",
+    username: "The username is required.",
+    password: "The password is required."
+  },
+  submitHandler: function () {
+    var _submitHandler = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(form) {
+      var _ref, data;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return axios.post(settingsArgumentsPath, $(form).serialize());
+
+            case 2:
+              _ref = _context.sent;
+              data = _ref.data;
+
+              if (!data) {
+                _context.next = 10;
+                break;
+              }
+
+              _context.next = 7;
+              return Swal.fire("Success", "Personnel Account Data Saved", "success");
+
+            case 7:
+              location.reload(true);
+              _context.next = 11;
+              break;
+
+            case 10:
+              Swal.fire("Failure", "An error occured", "error");
+
+            case 11:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    function submitHandler(_x) {
+      return _submitHandler.apply(this, arguments);
+    }
+
+    return submitHandler;
+  }()
+})); // Validation for Department User Account Form
+
+$("#departmentUserAccount-form").validate(_objectSpread({}, validatorOptions, {
+  rules: {
+    usertype: "required",
+    dept_id: {
+      required: true,
+      checkDepartment: true
+    },
+    username: "required",
+    password: "required"
+  },
+  messages: {
+    usertype: "Please indicate the type of the user.",
+    dept_id: {
+      required: "Please select a deparment name.",
+      checkDepartment: "This department already has an account."
+    },
+    username: "The username is required.",
+    password: "The password is required."
+  },
+  submitHandler: function () {
+    var _submitHandler2 = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(form) {
+      var _ref2, data;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return axios.post(settingsArgumentsPath, $(form).serialize());
+
+            case 2:
+              _ref2 = _context2.sent;
+              data = _ref2.data;
+
+              if (!data) {
+                _context2.next = 10;
+                break;
+              }
+
+              _context2.next = 7;
+              return Swal.fire("Success", "Department Account Data Saved", "success");
+
+            case 7:
+              location.reload(true);
+              _context2.next = 11;
+              break;
+
+            case 10:
+              Swal.fire("Failure", "An error occured", "error");
+
+            case 11:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }));
+
+    function submitHandler(_x2) {
+      return _submitHandler2.apply(this, arguments);
+    }
+
+    return submitHandler;
+  }()
+}));
 $("#search").keyup(function () {
   var search_text = $(this).val().toLowerCase();
   $("#table_body tr").filter(function () {
@@ -61075,86 +61223,10 @@ function resetForm(accountType) {
 
 $("#personnelUserAccount-form").submit(function (e) {
   e.preventDefault();
-  $.post(settingsArgumentsPath, $(this).serialize()).done(
-  /*#__PURE__*/
-  function () {
-    var _ref = _asyncToGenerator(
-    /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(res) {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              if (!res) {
-                _context.next = 6;
-                break;
-              }
-
-              _context.next = 3;
-              return Swal.fire("Success", "Personnel Account Data Saved", "success");
-
-            case 3:
-              location.reload(true);
-              _context.next = 7;
-              break;
-
-            case 6:
-              Swal.fire("Failure", "An error occured", "error");
-
-            case 7:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee);
-    }));
-
-    return function (_x) {
-      return _ref.apply(this, arguments);
-    };
-  }());
 }); //Add Department User Account Script
 
 $("#departmentUserAccount-form").submit(function (e) {
   e.preventDefault();
-  $.post(settingsArgumentsPath, $(this).serialize()).done(
-  /*#__PURE__*/
-  function () {
-    var _ref2 = _asyncToGenerator(
-    /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(res) {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-        while (1) {
-          switch (_context2.prev = _context2.next) {
-            case 0:
-              if (!res) {
-                _context2.next = 6;
-                break;
-              }
-
-              _context2.next = 3;
-              return Swal.fire("Success", "Department Account Data Saved", "success");
-
-            case 3:
-              location.reload(true);
-              _context2.next = 7;
-              break;
-
-            case 6:
-              Swal.fire("Failure", "Error", "error");
-
-            case 7:
-            case "end":
-              return _context2.stop();
-          }
-        }
-      }, _callee2);
-    }));
-
-    return function (_x2) {
-      return _ref2.apply(this, arguments);
-    };
-  }());
 }); //Edit User Accounts Script
 
 $(".edit-user").click(function (e) {

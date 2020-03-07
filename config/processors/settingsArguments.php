@@ -9,6 +9,15 @@ require_once('../init.php');
 
 if (isset($_POST['action'])) {
 
+
+	if ($_POST['action'] === 'departmentAccountExists') {
+		$dept_id = $_POST['dept_id'];
+
+		$result = User::departmentAccountExists($dept_id);
+		echo json_encode($result);
+	}
+
+
 	/**   ADD SETTINGS  **/
 	if ($_POST['action'] === 'addDepartmentUserAccount') {
 
