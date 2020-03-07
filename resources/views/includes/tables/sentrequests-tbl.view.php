@@ -36,9 +36,17 @@ else :
           <td> <?= $request->emp_fname ?> <?= $request->emp_lname ?> </td>
           <td style="width: 20%">
             <?php if ($request->itsrequest_category == 'hw') : ?>
-              <?= $request->hwcomponent_name . ' -' ?>
+              <span class="font-weight-bold"><?= $request->hwcomponent_name ?></span>
             <?php endif; ?>
-            <?= $request->concern ?>
+
+            <!-- Show view concern button if concern length exceeds 20 -->
+            <?php if (strlen($request->concern) >= 20) : ?>
+              <!-- View concern button -->
+              <small><a href="#" class="btn-view-concern btn-link underlined d-block" data-id="<?= $request->itsrequest_id ?>">View concern</a></small>
+              <!-- /# View concern button -->
+            <?php else : ?>
+              - <?= $request->concern ?>
+            <?php endif; ?>
           </td>
           <td>
             <?php if ($request->status == 'received') : ?>

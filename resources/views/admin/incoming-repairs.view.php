@@ -117,7 +117,25 @@
         </div>
       </div>
     </div>
-    <!-- /# Modal  -->
+    <!-- /# Modal Print -->
+
+    <!-- Modal View Repair Concern -->
+    <div class="modal fade" id="modalViewConcern" tabindex="-1" role="dialog" aria-labelledby="modalViewConcern" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <p class="h5 modal-title text-uppercase mx-auto">VIEW CONCERN</p>
+          </div>
+          <div class="modal-body">
+            <div class="concern card-text"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal" onclick="$('#modalViewConcern').modal('hide')">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /# Modal View Repair Concern -->
 
     <!-- Table Container -->
     <div class="container-fluid mt-2">

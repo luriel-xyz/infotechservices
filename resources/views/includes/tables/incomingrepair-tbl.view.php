@@ -40,7 +40,14 @@ else :
             <!-- </?php if ($component) : ?>
               (</?= $component->hwcomponent_name ?>)
             </?php endif; ?> -->
-            <small><a href="#" class="btn-view-concern btn-link underlined d-block" data-id="<?= $repair->itsrequest_id ?>">View problem</a></small>
+            <!-- Show view concern button if concern length exceeds 20 -->
+            <?php if (strlen($repair->concern) >= 20) : ?>
+              <!-- View concern button -->
+              <small><a href="#" class="btn-view-concern btn-link underlined d-block" data-id="<?= $repair->itsrequest_id ?>">View concern</a></small>
+              <!-- /# View concern button -->
+            <?php else : ?>
+              - <?= $repair->concern ?>
+            <?php endif; ?>
           </td>
           <td>
             <?php if ($repair->status === 'assessment pending') : ?>

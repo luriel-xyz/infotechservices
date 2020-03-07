@@ -12,7 +12,10 @@
 
     <?php if ($requestCount) : ?>
       <p class="h4 mx-auto text-center">
-        <small>Sent Requests <strong><?= $requestCount ?></strong></small>
+        <small>
+          Sent Requests
+          <span class="badge badge-info"><?= $requestCount ?></span>
+        </small>
       </p>
     <?php endif; ?>
     <!-- <div class="row">
@@ -33,7 +36,7 @@
   </div>
   <!--/# Container -->
 
-  <!-- Modal View -->
+  <!-- Modal View Request Details -->
   <div class="modal fade" id="modalView" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" data-backdrop="static" data-keyboard="false" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
@@ -76,7 +79,25 @@
       </div>
     </div>
   </div>
-  <!-- /# Modal  -->
+  <!-- /# Modal View Request Details -->
+
+  <!-- Modal View Repair Concern -->
+  <div class="modal fade" id="modalViewConcern" tabindex="-1" role="dialog" aria-labelledby="modalViewConcern" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <p class="h5 modal-title text-uppercase mx-auto">VIEW CONCERN</p>
+          </div>
+          <div class="modal-body">
+            <div class="concern card-text"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal" onclick="$('#modalViewConcern').modal('hide')">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /# Modal View Repair Concern -->
 </div>
 <!-- /# Page Content -->
 

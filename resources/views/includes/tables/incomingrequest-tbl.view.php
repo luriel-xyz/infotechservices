@@ -40,9 +40,14 @@ else :
             <!-- /# Hardware component name -->
 
             <!-- </?= $request->concern ?> -->
-            <!-- View concern button -->
-            <small><a href="#" class="btn-view-concern btn-link underlined d-block" data-id="<?= $request->itsrequest_id ?>">View concern</a></small>
-            <!-- /# View concern button -->
+            <!-- Show view concern button if concern length exceeds 20 -->
+            <?php if (strlen($request->concern) >= 20) : ?>
+              <!-- View concern button -->
+              <small><a href="#" class="btn-view-concern btn-link underlined d-block" data-id="<?= $request->itsrequest_id ?>">View concern</a></small>
+              <!-- /# View concern button -->
+            <?php else : ?>
+              - <?= $request->concern ?>
+            <?php endif; ?>
           </td>
           <td>
             <span class="badge badge-default"><?= $request->status ?></span>

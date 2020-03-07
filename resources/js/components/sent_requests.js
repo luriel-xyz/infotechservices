@@ -63,7 +63,7 @@ $(".view-sent-request").click(function(e) {
         "</label><br>"
     );
     $("#data").append(
-      '<label class="font-weight-bold">' + request.concern + "</label><br>"
+      '<label class="font-weight-bold">' + truncateString(request.concern) + "</label><br>"
     );
 
     if (request.itsrequest_category == "hw") {
