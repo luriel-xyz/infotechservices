@@ -1,3 +1,92 @@
+// Add validation rule for department duplicates
+// One department should only have one account.
+let departmentExists;
+$.validator.addMethod(
+  "checkDepartment",
+  () => {
+    $.post(settingsArgumentsPath, {
+      action: "departmentAccountExists",
+      dept_id: $("#dept_id").val()
+    })
+      .promise()
+      .then(res => (departmentExists = JSON.parse(res)));
+
+    return !departmentExists;
+  },
+  "This department already has an account."
+);
+
+// Validation for Personnel User Account Form
+$("#personnelUserAccount-form").validate({
+  ...validatorOptions,
+
+  rules: {
+    usertype: "required",
+    emp_id: "required",
+    username: "required",
+    password: "required"
+  },
+
+  messages: {
+    usertype: "Please indicate the type of the user.",
+    emp_id: "Please select an employee name.",
+    username: "The username is required.",
+    password: "The password is required."
+  },
+
+  submitHandler: async form => {
+    const { data } = await axios.post(
+      settingsArgumentsPath,
+      $(form).serialize()
+    );
+    if (data) {
+      await Swal.fire("Success", "Personnel Account Data Saved", "success");
+      location.reload(true);
+    } else {
+      Swal.fire("Failure", "An error occured", "error");
+    }
+  }
+});
+
+// Validation for Department User Account Form
+$("#departmentUserAccount-form").validate({
+  ...validatorOptions,
+
+  rules: {
+    usertype: "required",
+    dept_id: {
+      required: true,
+      checkDepartment: true
+    },
+    username: "required",
+    password: "required"
+  },
+
+  messages: {
+    usertype: "Please indicate the type of the user.",
+    dept_id: {
+      required: "Please select a deparment name.",
+      checkDepartment: "This department already has an account."
+    },
+    username: "The username is required.",
+    password: "The password is required."
+  },
+
+  submitHandler: async form => {
+    const { data } = await axios.post(
+      settingsArgumentsPath,
+      $(form).serialize()
+    );
+
+    if (data) {
+      await Swal.fire("Success", "Department Account Data Saved", "success");
+      location.reload(true);
+    } else {
+      Swal.fire("Failure", "An error occured", "error");
+    }
+  }
+});
+
 $("#search").keyup(function() {
   const search_text = $(this)
     .val()
@@ -47,29 +136,11 @@ function resetForm(accountType) {
 //Add Personnel User Account Script
 $("#personnelUserAccount-form").submit(function(e) {
   e.preventDefault();
-
-  $.post(settingsArgumentsPath, $(this).serialize()).done(async res => {
-    if (res) {
-      await Swal.fire("Success", "Personnel Account Data Saved", "success");
-      location.reload(true);
-    } else {
-      Swal.fire("Failure", "An error occured", "error");
-    }
-  });
 });
 
 //Add Department User Account Script
 $("#departmentUserAccount-form").submit(function(e) {
   e.preventDefault();
-
-  $.post(settingsArgumentsPath, $(this).serialize()).done(async res => {
-    if (res) {
-      await Swal.fire("Success", "Department Account Data Saved", "success");
-      location.reload(true);
-    } else {
-      Swal.fire("Failure", "Error", "error");
-    }
-  });
 });
 
 //Edit User Accounts Script
