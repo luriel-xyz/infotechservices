@@ -8,7 +8,7 @@ $("#department-form").validate({
   },
 
   messages: {
-    dept_code: "Department code is required.",
+    dept_code: "Department code is required.", 
     dept_name: "Department name is required."
   },
 
