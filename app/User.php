@@ -19,6 +19,14 @@ class User
     ]);
   }
 
+  public static function departmentAccountExists($dept_id)
+  {
+    $sql = "SELECT count(*) dep 
+            FROM useraccount_tbl
+            WHERE dept_id = ?
+            LIMIT 1";
+    return DB::single($sql, [$dept_id])->dep > 0;
+  }
 
   public static function getUserAccount($useraccount_id = null)
   {
@@ -44,7 +52,6 @@ class User
   /* Add Department User Account */
   public static function addDepartmentUserAccount($usertype, $dept_id, $username, $password)
   {
-
     $status = 1;
     $enc_password = password_hash($password, PASSWORD_DEFAULT);
 
