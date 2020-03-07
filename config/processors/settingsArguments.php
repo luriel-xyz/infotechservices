@@ -27,7 +27,6 @@ if (isset($_POST['action'])) {
 
 	/**   ADD SETTINGS  **/
 	if ($_POST['action'] === 'addDepartmentUserAccount') {
-
 		$usertype = $_POST['usertype'];
 		$dept_id = $_POST['dept_id'];
 		$username = $_POST['username'];
@@ -38,7 +37,6 @@ if (isset($_POST['action'])) {
 	}
 
 	if ($_POST['action'] === 'addPersonnelUserAccount') {
-
 		$usertype = $_POST['usertype'];
 		$emp_id = $_POST['emp_id'];
 		$username = $_POST['username'];
