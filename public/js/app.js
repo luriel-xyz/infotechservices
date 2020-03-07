@@ -59289,7 +59289,7 @@ if (hwcomponent_id) {
 
     components.forEach(function (component) {
       // Create subcomponent field
-      var subcomponent = "\n        <label for=\"checkbox-".concat(component.hwcomponent_id, "\" id=\"hw_component\" class=\"hw_component label-").concat(component.hwcomponent_id, " checkbox-inline d-block mb-0 d-flex justify-content-between align-items-center\">\n          <div class=\"checkbox-container\">\n            <input type=\"checkbox\" class=\"cb_hwcomponent mr-1\" name=\"cb_hwcomponent[]\" id=\"checkbox-").concat(component.hwcomponent_id, "\" data-sub_component_id=\"").concat(component.hwcomponent_id, "\"> ").concat(component.hwcomponent_name, "\n          </div>\n          <div class=\"remark-container w-75\" style=\"display: none\">\n            <input id=\"sub-component-remark-").concat(component.hwcomponent_id, "\" type=\"text\" class=\"w-100 mt-2 form-control\" placeholder=\"Remark\">\n          </div>\n        </label>\n          "); // const subcomponent = "<p>subcomponent</p>";
+      var subcomponent = "\n        <label for=\"checkbox-".concat(component.hwcomponent_id, "\" id=\"hw_component\" class=\"hw_component form-check-label label-").concat(component.hwcomponent_id, " checkbox-inline d-block mb-0 d-flex justify-content-between align-items-center\">\n          <div class=\"checkbox-container\">\n            <input type=\"checkbox\" class=\"cb_hwcomponent mr-1\" name=\"cb_hwcomponent[]\" id=\"checkbox-").concat(component.hwcomponent_id, "\" data-sub_component_id=\"").concat(component.hwcomponent_id, "\"> ").concat(component.hwcomponent_name, "\n          </div>\n          <div class=\"remark-container w-75\" style=\"display: none\">\n            <input id=\"sub-component-remark-").concat(component.hwcomponent_id, "\" type=\"text\" class=\"w-100 mt-2 form-control\" placeholder=\"Remark\">\n          </div>\n        </label>\n          "); // const subcomponent = "<p>subcomponent</p>";
       // Append subcomponent field to checkbox container
 
       $("#checkbox_container").append(subcomponent); // Listen to checkbox click event
@@ -60086,6 +60086,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -60223,83 +60229,10 @@ function () {
   };
 }();
 
-$("#stock-supplies").change(function () {
-  var stockContainer = $(".stock-container");
-
-  if (this.checked) {
-    stockContainer.removeClass("d-none");
-    stockContainer.show("fast");
-  } else {
-    $("#ics-number").val("");
-    $("#inventory-item-number").val("");
-    $("#stock-serial-number").val("");
-    stockContainer.hide("fast");
-  }
-});
-$("#pre-post-repair-form").submit(function (e) {
-  e.preventDefault(); // Set request status to pre-post-repair inspected
-
-  $.post(requestArgumentsPath, {
-    action: $("#action").val(),
-    itsrequest_id: $("#itsrequest_id").val(),
-    useraccount_id: $("#statusupdate_useraccount_id").val()
-  }).fail(function () {
-    Swal.fire("Failure", "An error occured", "error");
-  }).done(
-  /*#__PURE__*/
-  function () {
-    var _ref3 = _asyncToGenerator(
-    /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(res) {
-      var data;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
-        while (1) {
-          switch (_context3.prev = _context3.next) {
-            case 0:
-              if (!res) {
-                _context3.next = 9;
-                break;
-              }
-
-              _context3.next = 3;
-              return Swal.fire("Success", "Request Inspected", "success");
-
-            case 3:
-              _context3.next = 5;
-              return getFormData();
-
-            case 5:
-              data = _context3.sent;
-              saveInspectionReport(data);
-              _context3.next = 10;
-              break;
-
-            case 9:
-              Swal.fire("Failure", "An error occured", "error");
-
-            case 10:
-            case "end":
-              return _context3.stop();
-          }
-        }
-      }, _callee3);
-    }));
-
-    return function (_x) {
-      return _ref3.apply(this, arguments);
-    };
-  }()); // $.post('../config/processors/requestArguments.php', $(this).serialize())
-  //   .fail(function() {
-  //     alert('Error')
-  //   })
-  //   .done(function(res) {
-  //     alert(res)
-  //   });
-});
-
-function saveInspectionReport(_x2) {
+function saveInspectionReport(_x) {
   return _saveInspectionReport.apply(this, arguments);
-}
+} // Validate Pre and Post Repair Form
+
 
 function _saveInspectionReport() {
   _saveInspectionReport = _asyncToGenerator(
@@ -60349,6 +60282,152 @@ function _saveInspectionReport() {
   }));
   return _saveInspectionReport.apply(this, arguments);
 }
+
+$("#pre-post-repair-form").validate(_objectSpread({}, validatorOptions, {
+  rules: {
+    to: "required",
+    control_number: "required",
+    date: "required",
+    type: "required",
+    model: "required",
+    property_number: "required",
+    serial_number: "required",
+    acquisition_date: "required",
+    acquisition_cost: "required",
+    issued_to: "required",
+    requested_by: "required",
+    pre_repair_findings: "required",
+    job_order: "required",
+    additional_sheet: "required",
+    pre_inspected_by: "required",
+    pre_recommending_approval: "required",
+    pre_approved: "required",
+    pre_inspected_date: "required",
+    post_repair_findings: "required",
+    ics_number: {
+      depends: function depends() {
+        return $("#stock-supplies").is(":checked");
+      }
+    },
+    inventory_item_number: {
+      depends: function depends() {
+        return $("#stock-supplies").is(":checked");
+      }
+    },
+    stock_serial_number: {
+      depends: function depends() {
+        return $("#stock-supplies").is(":checked");
+      }
+    },
+    post_inspected_by: "required",
+    post_recommending_approval: "required",
+    post_approved: "required",
+    post_inspected_date: "required"
+  },
+  messages: {
+    to: "To is required",
+    control_number: "Control number is required",
+    date: "Date is required",
+    type: "Type is required",
+    model: "Model is required",
+    property_number: "Property number is required",
+    serial_number: "Serial number is required",
+    acquisition_date: "Acquisition date is required",
+    acquisition_cost: "Acquisition cost is required",
+    issued_to: "Issued to is required",
+    requested_by: "Requested by is required",
+    pre_repair_findings: "Pre repair findings or recommendations is required",
+    job_order: "Job order is required",
+    pre_inspected_by: "Pre inspected by is required",
+    pre_recommending_approval: "Pre recommending approval is required",
+    pre_approved: "Pre approved is required",
+    pre_inspected_date: "Inspection date is required",
+    post_repair_findings: "Post repair findings is required",
+    stock_supplies: "Stock supplies is required",
+    ics_number: "ICS number is required",
+    inventory_item_number: "Inventory item number is required",
+    stock_serial_number: "Stock serial number is required",
+    post_inspected_by: "Inspected by is required",
+    post_recommending_approval: "Recommending approval is required",
+    post_approved: "Approved is required",
+    post_inspected_date: "Inspection date is required"
+  },
+  submitHandler: function submitHandler(form) {
+    // Set request status to pre-post-repair inspected
+    $.post(requestArgumentsPath, {
+      action: $("#action").val(),
+      itsrequest_id: $("#itsrequest_id").val(),
+      useraccount_id: $("#statusupdate_useraccount_id").val()
+    }).fail(function () {
+      Swal.fire("Failure", "An error occured", "error");
+    }).done(
+    /*#__PURE__*/
+    function () {
+      var _ref3 = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(res) {
+        var data;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                if (!res) {
+                  _context3.next = 9;
+                  break;
+                }
+
+                _context3.next = 3;
+                return Swal.fire("Success", "Request Inspected", "success");
+
+              case 3:
+                _context3.next = 5;
+                return getFormData();
+
+              case 5:
+                data = _context3.sent;
+                saveInspectionReport(data);
+                _context3.next = 10;
+                break;
+
+              case 9:
+                Swal.fire("Failure", "An error occured", "error");
+
+              case 10:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }));
+
+      return function (_x2) {
+        return _ref3.apply(this, arguments);
+      };
+    }()); // $.post('../config/processors/requestArguments.php', $(this).serialize())
+    //   .fail(function() {
+    //     alert('Error')
+    //   })
+    //   .done(function(res) {
+    //     alert(res)
+    //   });
+  }
+}));
+$("#stock-supplies").change(function () {
+  var stockContainer = $(".stock-container");
+
+  if (this.checked) {
+    stockContainer.removeClass("d-none");
+    stockContainer.show("fast");
+  } else {
+    $("#ics-number").val("");
+    $("#inventory-item-number").val("");
+    $("#stock-serial-number").val("");
+    stockContainer.hide("fast");
+  }
+});
+$("#pre-post-repair-form").submit(function (e) {
+  e.preventDefault();
+});
 
 /***/ }),
 

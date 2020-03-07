@@ -55,56 +55,9 @@ const getFormData = async () => ({
   post_inspected_date: $("#post-inspected-date").val() || "n/a"
 });
 
-$("#stock-supplies").change(function() {
-  const stockContainer = $(".stock-container");
-  if (this.checked) {
-    stockContainer.removeClass("d-none");
-    stockContainer.show("fast");
-  } else {
-    $("#ics-number").val("");
-    $("#inventory-item-number").val("");
-    $("#stock-serial-number").val("");
-    stockContainer.hide("fast");
-  }
-});
-
-$("#pre-post-repair-form").submit(function(e) {
-  e.preventDefault();
-
-  // Set request status to pre-post-repair inspected
-  $.post(requestArgumentsPath, {
-    action: $("#action").val(),
-    itsrequest_id: $("#itsrequest_id").val(),
-    useraccount_id: $("#statusupdate_useraccount_id").val()
-  })
-    .fail(function() {
-      Swal.fire("Failure", "An error occured", "error");
-    })
-    .done(async res => {
-      if (res) {
-        await Swal.fire("Success", "Request Inspected", "success");
-        const data = await getFormData();
-        saveInspectionReport(data);
-      } else {
-        Swal.fire("Failure", "An error occured", "error");
-      }
-    });
-
-  // $.post('../config/processors/requestArguments.php', $(this).serialize())
-  //   .fail(function() {
-  //     alert('Error')
-  //   })
-  //   .done(function(res) {
-  //     alert(res)
-  //   });
-});
-
 async function saveInspectionReport(reportData) {
   try {
-    const { data } = await axios.post(
-      requestArgumentsPath,
-      reportData
-    );
+    const { data } = await axios.post(requestArgumentsPath, reportData);
     console.log("data here: ", data);
     const { value } = await Swal.fire({
       icon: "question",
@@ -123,3 +76,120 @@ async function saveInspectionReport(reportData) {
   //   data: JSON.stringify()
   // });
 }
+
+// Validate Pre and Post Repair Form
+$("#pre-post-repair-form").validate({
+  ...validatorOptions,
+
+  rules: {
+    to: "required",
+    control_number: "required",
+    date: "required",
+    type: "required",
+    model: "required",
+    property_number: "required",
+    serial_number: "required",
+    acquisition_date: "required",
+    acquisition_cost: "required",
+    issued_to: "required",
+    requested_by: "required",
+    pre_repair_findings: "required",
+    job_order: "required",
+    additional_sheet: "required",
+    pre_inspected_by: "required",
+    pre_recommending_approval: "required",
+    pre_approved: "required",
+    pre_inspected_date: "required",
+    post_repair_findings: "required",
+    ics_number: {
+      depends: () => $("#stock-supplies").is(":checked")
+    },
+    inventory_item_number: {
+      depends: () => $("#stock-supplies").is(":checked")
+    },
+    stock_serial_number: {
+      depends: () => $("#stock-supplies").is(":checked")
+    },
+    post_inspected_by: "required",
+    post_recommending_approval: "required",
+    post_approved: "required",
+    post_inspected_date: "required"
+  },
+
+  messages: {
+    to: "To is required",
+    control_number: "Control number is required",
+    date: "Date is required",
+    type: "Type is required",
+    model: "Model is required",
+    property_number: "Property number is required",
+    serial_number: "Serial number is required",
+    acquisition_date: "Acquisition date is required",
+    acquisition_cost: "Acquisition cost is required",
+    issued_to: "Issued to is required",
+    requested_by: "Requested by is required",
+    pre_repair_findings: "Pre repair findings or recommendations is required",
+    job_order: "Job order is required",
+    pre_inspected_by: "Pre inspected by is required",
+    pre_recommending_approval: "Pre recommending approval is required",
+    pre_approved: "Pre approved is required",
+    pre_inspected_date: "Inspection date is required",
+    post_repair_findings: "Post repair findings is required",
+    stock_supplies: "Stock supplies is required",
+    ics_number: "ICS number is required",
+    inventory_item_number: "Inventory item number is required",
+    stock_serial_number: "Stock serial number is required",
+    post_inspected_by: "Inspected by is required",
+    post_recommending_approval: "Recommending approval is required",
+    post_approved: "Approved is required",
+    post_inspected_date: "Inspection date is required"
+  },
+
+  submitHandler: form => {
+    // Set request status to pre-post-repair inspected
+    $.post(requestArgumentsPath, {
+      action: $("#action").val(),
+      itsrequest_id: $("#itsrequest_id").val(),
+      useraccount_id: $("#statusupdate_useraccount_id").val()
+    })
+      .fail(function() {
+        Swal.fire("Failure", "An error occured", "error");
+      })
+      .done(async res => {
+        if (res) {
+          await Swal.fire("Success", "Request Inspected", "success");
+          const data = await getFormData();
+          saveInspectionReport(data);
+        } else {
+          Swal.fire("Failure", "An error occured", "error");
+        }
+      });
+
+    // $.post('../config/processors/requestArguments.php', $(this).serialize())
+    //   .fail(function() {
+    //     alert('Error')
+    //   })
+    //   .done(function(res) {
+    //     alert(res)
+    //   });
+  }
+});
+
+$("#stock-supplies").change(function() {
+  const stockContainer = $(".stock-container");
+  if (this.checked) {
+    stockContainer.removeClass("d-none");
+    stockContainer.show("fast");
+  } else {
+    $("#ics-number").val("");
+    $("#inventory-item-number").val("");
+    $("#stock-serial-number").val("");
+    stockContainer.hide("fast");
+  }
+});
+
+$("#pre-post-repair-form").submit(function(e) {
+  e.preventDefault();
+});
+
+
