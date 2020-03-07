@@ -35,11 +35,13 @@ else :
           <td> <small><?= date('M d, Y h:i a', strtotime($repair->itsrequest_date)) ?></small></td>
           <td> <?= $repair->dept_code ?> </td>
           <td> <?= $repair->emp_fname ?> <?= $repair->emp_lname ?> </td>
-          <td> <?= $repair->hwcomponent_name ?>
+          <td>
+            <span class="font-weight-bold"><?= $repair->hwcomponent_name ?></span>
             <!-- </?php if ($component) : ?>
               (</?= $component->hwcomponent_name ?>)
             </?php endif; ?> -->
-            - <?= $repair->concern ?> </td>
+            <small><a href="#" class="btn-view-concern btn-link underlined d-block" data-id="<?= $repair->itsrequest_id ?>">View problem</a></small>
+          </td>
           <td>
             <?php if ($repair->status === 'assessment pending') : ?>
               <span class="badge p-1 badge-warning"><?= $repair->status ?></span>

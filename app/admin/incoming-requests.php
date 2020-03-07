@@ -5,6 +5,7 @@
 use App\Hardware;
 use App\Request;
 use App\Department;
+use JasonGrimes\Paginator;
 
 require_once('../../config/init.php');
 
@@ -23,6 +24,13 @@ $depts = Department::getDepartment();
 
 $type = 'requests';
 
-$data = compact('hardwarecomponents', 'requests', 'depts', 'type');
+$totalItems = count($requests);
+$itemsPerPage = 50;
+$currentPage = 1;
+$urlPattern = '?page/(:num)';
+
+$paginator = new Paginator($totalItems, $itemsPerPage, $currentPage, $urlPattern);
+
+$data = compact('hardwarecomponents', 'requests', 'depts', 'type', 'paginator');
 view('admin/incoming-requests', $data); 
 ?>

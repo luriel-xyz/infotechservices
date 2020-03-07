@@ -40,7 +40,9 @@ else :
             <!-- /# Hardware component name -->
 
             <!-- </?= $request->concern ?> -->
-            <a href="#" class="btn-view-concern btn-link underlined d-block" data-id="<?= $request->itsrequest_id ?>">View concern</a>
+            <!-- View concern button -->
+            <small><a href="#" class="btn-view-concern btn-link underlined d-block" data-id="<?= $request->itsrequest_id ?>">View concern</a></small>
+            <!-- /# View concern button -->
           </td>
           <td>
             <span class="badge badge-default"><?= $request->status ?></span>
