@@ -86,7 +86,7 @@ function getPath($path)
   return $result;
 }
 
-function base($path = '')
+function base($path = ''): string
 {
   return ROOT . ($path ? "/{$path}" : '/');
 }
