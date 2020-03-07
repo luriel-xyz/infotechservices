@@ -9,6 +9,12 @@
 // 		.done(table => $('#incoming-requests').html(table));
 // }
 
+const truncateString = (string, maxLength = 30) => {
+  if (!string) return null;
+  if (string.length <= maxLength) return string;
+  return `${string.substring(0, maxLength)}...`;
+};
+
 $("#search").keyup(function() {
   const search_text = $(this)
     .val()
@@ -111,9 +117,7 @@ $(".view-request").click(function(e) {
         "</label><br>"
     );
     $("#data").append(
-      '<label class="font-weight-bold text-truncate">' +
-        request.concern +
-        "</label><br>"
+      '<label class="font-weight-bold">' + truncateString(request.concern) + ` <a href="#" class='btn-view-concern' data-id="${request.itsrequest_id}">view</a></label><br>`
     );
 
     if (request.itsrequest_category == "hw") {
@@ -237,5 +241,31 @@ $(".pending").click(function(e) {
       Swal.fire("Error", "An error occured", "error");
     }
   });
-  
 });
+
+// View concern click
+$(".btn-view-concern").click(async function(e) {
+  e.preventDefault();
+
+  console.log('clicked')
+
+  const res = await $.post(requestArgumentsPath, {
+    action: "fetchRequestConcern",
+    requestId: $(this).data("id")
+  }).promise();
+
+  $("#modalViewConcern .concern").text(res);
+  $("#modalViewConcern").modal("show");
+});
+
+// $(".btn-view-concern").click(async function(e) {
+//   e.preventDefault();
+
+//   const res = await $.post(requestArgumentsPath, {
+//     action: "fetchRequestConcern",
+//     requestId: $(this).data("id")
+//   }).promise();
+
+//   $("#modalViewConcern .concern").text(res);
+//   $("#modalViewConcern").modal("show");
+// });
