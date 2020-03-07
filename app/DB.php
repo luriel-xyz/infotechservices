@@ -9,7 +9,7 @@ class DB
    * Establish database connection
    * @return PDO 
    */
-  public static function connection()
+  public static function connection() : \PDO
   {
     $dsn = "mysql:host=" . HOST . ";dbname=" . DB_NAME;
     $options = [
@@ -34,7 +34,7 @@ class DB
    * @param $params
    * @return 
    */
-  public static function single(string $sql, $params = [])
+  public static function single(string $sql, array $params = [])
   {
     $stmt = self::prepare($sql);
     $stmt->execute($params);
@@ -47,7 +47,7 @@ class DB
    * @param $params
    * @return 
    */
-  public static function all(string $sql, $params = [])
+  public static function all(string $sql, array $params = [])
   {
     $stmt = self::prepare($sql);
     $stmt->execute($params);
@@ -60,7 +60,7 @@ class DB
    * @param $params
    * @return 
    */
-  public static function insert(string $sql, $params = [])
+  public static function insert(string $sql, array $params = [])
   {
     $pdo = self::connection();
     $stmt = $pdo->prepare($sql);
