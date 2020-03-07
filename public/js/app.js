@@ -58859,7 +58859,7 @@ __webpack_require__.r(__webpack_exports__);
 window.moment = moment__WEBPACK_IMPORTED_MODULE_2___default.a;
 window.Swal = sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a;
 window.appName = "infotechservices";
-window.baseUrl = "".concat(window.location.origin, "/").concat(appName, "/");
+window.baseUrl = "".concat(window.location.origin, "/");
 window.requestArgumentsPath = "".concat(baseUrl, "/config/processors/requestArguments.php");
 window.settingsArgumentsPath = "".concat(baseUrl, "/config/processors/settingsArguments.php");
 window.validatorOptions = _validator_options__WEBPACK_IMPORTED_MODULE_3__["default"];
@@ -59877,8 +59877,18 @@ $(".edit-hardware").click(function (e) {
 /*!******************************************!*\
   !*** ./resources/js/components/login.js ***!
   \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -59887,14 +59897,14 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 // Add validation rule for user account
-var user;
-$.validator.addMethod("checkAccount", function (value, element) {
-  var data = $("#login-form").serialize();
-  $.post(requestArgumentsPath, data).done(function (res) {
-    user = JSON.parse(res);
-    console.log("user: ", user);
+var accountExists;
+$.validator.addMethod("checkAccount", function () {
+  var formData = $("#login-form").serialize();
+  axios.post(requestArgumentsPath, formData).then(function (_ref) {
+    var data = _ref.data;
+    accountExists = !!data;
   });
-  return user ? true : false;
+  return accountExists;
 }, "Incorrect username or password");
 $("#login-form").validate(_objectSpread({}, validatorOptions, {
   rules: {
@@ -59910,7 +59920,52 @@ $("#login-form").validate(_objectSpread({}, validatorOptions, {
       required: "Password is required",
       checkAccount: "Incorrect username or password"
     }
-  }
+  },
+  submitHandler: function () {
+    var _submitHandler = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(form) {
+      var _ref2, data, isClient, location;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return axios.post(requestArgumentsPath, $(form).serialize());
+
+            case 2:
+              _ref2 = _context.sent;
+              data = _ref2.data;
+
+              if (data) {
+                _context.next = 6;
+                break;
+              }
+
+              return _context.abrupt("return");
+
+            case 6:
+              isClient = data.usertype === "department";
+              location = isClient ? "".concat(baseUrl, "app/client/index.php") : "".concat(baseUrl, "app/admin/incoming-requests.php");
+              $.redirect(location, {
+                user: data
+              });
+
+            case 9:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    function submitHandler(_x) {
+      return _submitHandler.apply(this, arguments);
+    }
+
+    return submitHandler;
+  }()
 }));
 
 /***/ }),
@@ -61332,7 +61387,7 @@ __webpack_require__.r(__webpack_exports__);
   successElement: "small",
   errorElement: "small",
   success: function success(label) {
-    label.text("OK").addClass("text-success");
+    label.addClass("text-success");
   }
 });
 

@@ -1,6 +1,6 @@
 <?php view('includes/header'); ?>
 <div class="container py-4">
-  <div class="floating-buttons"> 
+  <div class="floating-buttons">
     <!-- Don't Print Button -->
     <a href="<?= getPath('app/admin/incoming-repairs.php') ?>" class="btn btn-sm btn-do-not-print btn-secondary" role="button">
       <i class="fa fa-arrow-left fa-fw"></i>
@@ -68,7 +68,7 @@
             <div id="department-or-office" class="value"><?= $departmentCode ?></div>
             <div id="property-number" class="value"><?= $propertyNumber ?></div>
             <div id="issued-to" class="value"><?= $issuedTo ?></div>
-            <div id="acquisition-price" class="value"><span class="text-capitalize">Php</span> <?= $acquisitionCost ?></div>
+            <div id="acquisition-price" class="value"><?= $acquisitionCost ?></div>
           </div>
           <!-- /# Values -->
         </div>

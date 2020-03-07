@@ -106,7 +106,7 @@ function pageTitle()
 function session($key, $val = null)
 {
   if ($val != null) {
-    $_SESSION[$key] = $val;
+    return $_SESSION[$key] = $val;
   } else {
     return $_SESSION[$key];
   }

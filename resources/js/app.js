@@ -7,7 +7,7 @@ import options from "./validator-options";
 window.moment = moment;
 window.Swal = Swal;
 window.appName = "infotechservices";
-window.baseUrl = `${window.location.origin}/${appName}/`;
+window.baseUrl = `${window.location.origin}/`;
 window.requestArgumentsPath = `${baseUrl}/config/processors/requestArguments.php`;
 window.settingsArgumentsPath = `${baseUrl}/config/processors/settingsArguments.php`;
 window.validatorOptions = options;

@@ -1,17 +1,18 @@
 // Add validation rule for user account
-let user;
+let accountExists;
 $.validator.addMethod(
   "checkAccount",
-  (value, element) => {
-    const data = $("#login-form").serialize();
-    $.post(requestArgumentsPath, data).done(res => { 
-      user = JSON.parse(res);
-      console.log("user: ", user);
+  () => {
+    const formData = $("#login-form").serialize();
+    axios.post(requestArgumentsPath, formData).then(({ data }) => {
+      accountExists = !!data;
     });
-    return user ? true : false;
+
+    return accountExists;
   },
   "Incorrect username or password"
 );
+
 
 $("#login-form").validate({
   ...validatorOptions,
@@ -31,4 +32,20 @@ $("#login-form").validate({
       checkAccount: "Incorrect username or password"
     }
   },
+
+  submitHandler: async form => {
+    const { data } = await axios.post(
+      requestArgumentsPath,
+      $(form).serialize()
+    );
+
+    if (!data) return;
+    const isClient = data.usertype === "department";
+    const location = isClient
+      ? `${baseUrl}app/client/index.php`
+      : `${baseUrl}app/admin/incoming-requests.php`;
+    $.redirect(location, {
+      user: data
+    });
+  }
 });

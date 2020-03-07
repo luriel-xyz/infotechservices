@@ -24,5 +24,5 @@ $depts = Department::getDepartment();
 $type = 'requests';
 
 $data = compact('hardwarecomponents', 'requests', 'depts', 'type');
-view('admin/incoming-requests', $data);
+view('admin/incoming-requests', $data); 
 ?>
