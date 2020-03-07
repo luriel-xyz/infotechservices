@@ -96,10 +96,9 @@ function user()
   return $_SESSION['user'] ?? null;
 }
 
-function pageTitle()
+function pageTitle(): string
 {
-  $str = basename($_SERVER['PHP_SELF'], '.php');
-  return str_replace('-', ' ', $str);
+  return str_replace('-', ' ', currentPage());
 }
 
 function session($key, $val = null)
@@ -111,8 +110,13 @@ function session($key, $val = null)
   }
 }
 
+function currentPage(): string
+{
+  return basename($_SERVER['PHP_SELF'], '.php');
+}
+
 // var_dump then die
-function dd($any)
+function dd($any): void
 {
   echo "<pre style='background-color:#111;color:#fff';padding:0;margin:0;padding:2px 0;>";
   var_dump($any);
