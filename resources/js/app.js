@@ -11,6 +11,11 @@ window.baseUrl = `${window.location.origin}/`;
 window.requestArgumentsPath = `${baseUrl}/config/processors/requestArguments.php`;
 window.settingsArgumentsPath = `${baseUrl}/config/processors/settingsArguments.php`;
 window.validatorOptions = options;
+window.truncateString = () => (string, maxLength = 40) => {
+  if (!string) return null;
+  if (string.length <= maxLength) return string;
+  return `${string.substring(0, maxLength)}...`;
+};
 
 $(() => {
   require("./components/add-repair");
