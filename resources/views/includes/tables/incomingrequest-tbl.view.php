@@ -34,15 +34,13 @@ else :
           <td> <?= $request->emp_fname ?> <?= $request->emp_lname ?> </td>
           <td style="width:20%">
             <!-- Hardware component name -->
-            <?php
-            if ($request->hwcomponent_name) {
-              echo $request->hwcomponent_name . ' -';
-            }
-            ?>
+            <?php if ($request->hwcomponent_name) : ?>
+              <span class="font-weight-bold"><?= $request->hwcomponent_name ?></span>
+            <?php endif; ?>
             <!-- /# Hardware component name -->
 
-            <?= $request->concern ?>
-
+            <!-- </?= $request->concern ?> -->
+            <a href="#" class="btn-view-concern btn-link underlined d-block" data-id="<?= $request->itsrequest_id ?>">View concern</a>
           </td>
           <td>
             <span class="badge badge-default"><?= $request->status ?></span>

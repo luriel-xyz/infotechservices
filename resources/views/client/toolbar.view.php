@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-sm navbar-dark bg-success">
   <!-- Back Button -->
   <!-- Show when we're not at index.php -->
-  <?php if (basename($_SERVER['PHP_SELF'], '.php') != 'index') : ?>
+  <?php if (currentPage() != 'index') : ?>
     <div class="ml-4 p-0">
       <a href="<?= getPath('client/index.php') ?>" class="btn btn-sm p-0 btn-link text-white" style="font-size: 1em;" role="button">
         <i class="fas fa-arrow-left"></i>

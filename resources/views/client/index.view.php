@@ -7,7 +7,7 @@
   <div class="container-fluid h-100 mt-4">
 
     <div class="container">
-      <h1 class="h3 mx-auto"> Welcome to Information Technology Services Request Page, <?= user()->username ?>.</h1>
+      <h1 class="h3 text-center"> Welcome to Information Technology Services Request Page, <?= user()->username ?>.</h1>
     </div>
 
     <hr class="border border-bottom border-success">

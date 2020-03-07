@@ -108,7 +108,20 @@
         </div>
       </div>
     </div>
-    <!-- /# Modal  -->
+    <!-- /# Modal Print -->
+
+    <!-- Modal View Concern -->
+    <div class="modal fade" id="modalViewConcern" tabindex="-1" role="dialog" aria-labelledby="modalViewConcern" aria-hidden="true">
+      <div class="modal-dialog" role="document"> 
+        <div class="modal-content">
+          <div class="modal-header">Concern</div>
+          <div class="modal-body">
+            <div class="concern card-text"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /# Modal View Concern -->
 
     <!-- Table Container -->
     <div id="incoming-requests" class="container-fluid mt-2">

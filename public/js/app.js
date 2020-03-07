@@ -60685,6 +60685,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 // 		.fail(() => alert('Error'))
 // 		.done(table => $('#incoming-requests').html(table));
 // }
+var truncateString = function truncateString(string) {
+  var maxLength = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 30;
+  if (!string) return null;
+  if (string.length <= maxLength) return string;
+  return "".concat(string.substring(0, maxLength), "...");
+};
+
 $("#search").keyup(function () {
   var search_text = $(this).val().toLowerCase();
   $("#table_body tr").filter(function () {
@@ -60749,7 +60756,7 @@ $(".view-request").click(function (e) {
 
     $("#data").append('<label class="font-weight-bold">' + moment(request.itsrequest_date.itsrequest_date).format("MMM D, Y") + "</label><br>");
     $("#data").append('<label class="font-weight-bold">' + request.dept_code + "|" + request.emp_fname + " " + request.emp_lname + "</label><br>");
-    $("#data").append('<label class="font-weight-bold text-truncate">' + request.concern + "</label><br>");
+    $("#data").append('<label class="font-weight-bold">' + truncateString(request.concern) + " <a href=\"#\" class='btn-view-concern' data-id=\"".concat(request.itsrequest_id, "\">view</a></label><br>"));
 
     if (request.itsrequest_category == "hw") {
       $("#other-labels").append("<label> Repair Location: </label> <br>");
@@ -60886,7 +60893,52 @@ $(".pending").click(function (e) {
       return _ref2.apply(this, arguments);
     };
   }());
-});
+}); // View concern click
+
+$(".btn-view-concern").click(
+/*#__PURE__*/
+function () {
+  var _ref3 = _asyncToGenerator(
+  /*#__PURE__*/
+  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(e) {
+    var res;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            e.preventDefault();
+            console.log('clicked');
+            _context3.next = 4;
+            return $.post(requestArgumentsPath, {
+              action: "fetchRequestConcern",
+              requestId: $(this).data("id")
+            }).promise();
+
+          case 4:
+            res = _context3.sent;
+            $("#modalViewConcern .concern").text(res);
+            $("#modalViewConcern").modal("show");
+
+          case 7:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _callee3, this);
+  }));
+
+  return function (_x3) {
+    return _ref3.apply(this, arguments);
+  };
+}()); // $(".btn-view-concern").click(async function(e) {
+//   e.preventDefault();
+//   const res = await $.post(requestArgumentsPath, {
+//     action: "fetchRequestConcern",
+//     requestId: $(this).data("id")
+//   }).promise();
+//   $("#modalViewConcern .concern").text(res);
+//   $("#modalViewConcern").modal("show");
+// });
 
 /***/ }),
 

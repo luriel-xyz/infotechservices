@@ -23,7 +23,7 @@
       <hr>
       <div class="border-bottom pl-2 pb-2">
         <div class="ml-4">
-          <span class="font-weight-bold text-gray">Settings</span>
+          <span class="font-weight-bold">Settings</span>
         </div>
       </div>
       <a href="<?= getPath('admin/settings/user-accounts.php') ?>" class="btn btn-link m-0 list-group-item list-group-item-action text-dark border-bottom">

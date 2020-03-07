@@ -408,6 +408,10 @@ body {
   color: #fa9b42 !important;
 }
 
+.card-text {
+  word-wrap: break-word;
+}
+
 .floating-buttons {
   position: fixed;
 }
