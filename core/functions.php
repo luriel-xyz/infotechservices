@@ -115,6 +115,15 @@ function currentPage(): string
   return basename($_SERVER['PHP_SELF'], '.php');
 }
 
+function truncate($str, $length): string
+{
+  if (strlen($str) <= $length) {
+    return $str;
+  } else {
+    return substr($str, 0, $length) . '...';
+  }
+}
+
 // var_dump then die
 function dd($any): void
 {
