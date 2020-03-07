@@ -17,14 +17,9 @@
 				</div>
 			</div>
 
-			<div class="form-group">
-				<input type="hidden" class="form-control" name="action" id="action" value="addRepAssessReport">
-				<input type="hidden" class="form-control" name="itsrequest_id" id="itsrequest_id" value="<?= $itsrequest_id ?>"> 
-			</div>
-
-			<div class="form-group">
-				<input type="hidden" class="form-control" name="assessmenttechrep_useraccount_id" id="assessmenttechrep_useraccount_id" value="<?= user()->useraccount_id ?>" required>
-			</div>
+			<input type="hidden" class="form-control" name="action" id="action" value="addRepAssessReport">
+			<input type="hidden" class="form-control" name="itsrequest_id" id="itsrequest_id" value="<?= $itsrequest_id ?>">
+			<input type="hidden" class="form-control" name="assessmenttechrep_useraccount_id" id="assessmenttechrep_useraccount_id" value="<?= user()->useraccount_id ?>" required>
 
 			<div class="col-md-12 row">
 				<div class="col-md-2 ml-3">
@@ -93,6 +88,7 @@
 				<div class="col-md-3 form-group">
 					<!-- Department Field -->
 					<select class="form-control" name="dept_id" id="dept_id" required>
+						<option selected disabled>-- Select Department --</option>
 						<?php foreach ($departments as $department) : ?>
 							<option value="<?= $department->dept_id ?>" <?php if ($dept_id == $department->dept_id) : ?> selected='selected' <?php endif; ?>>
 								<?= $department->dept_code ?>
