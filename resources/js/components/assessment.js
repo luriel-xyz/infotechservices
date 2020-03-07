@@ -1,3 +1,105 @@
+// Validate assessment form
+$("#repassessmentreport-form").validate({
+  ...validatorOptions,
+
+  rules: {
+    hwcomponent_id: "required",
+    hwcomponent_description: "required",
+    hwcomponent_dateAcquired: "required",
+    hwcomponent_acquisitioncost: "required",
+    dept_id: "required",
+    property_num: "required",
+    emp_id: "required",
+    serial_number: "required",
+    findings_category: "required",
+    findings_description: "required",
+    notes: "required"
+  },
+
+  messages: {
+    hwcomponent_id: "Name of item is required",
+    hwcomponent_description: "Description is required",
+    hwcomponent_dateAcquired: "Date is required",
+    hwcomponent_acquisitioncost: "Acquisition cost is required",
+    dept_id: "Please select a department.",
+    property_num: "Property number is required",
+    emp_id: "Please select an employee",
+    serial_number: "Serial number is required",
+    findings_category: "Findings category is required",
+    findings_description: "Findings description is required",
+    notes: "Notes is required"
+  },
+
+  submitHandler: form => {
+    const action = $("#action").val();
+    const itsrequest_id = $("#itsrequest_id").val();
+    const hwSubComponentsAssessments = [];
+    // Loop through all checked checkboxes except 'others checkbox'
+    $(".cb_hwcomponent:checked").each(function(i, val) {
+      const subComponentId = $(this).data("sub_component_id");
+      const subComponentLabelId = $(this)
+        .parent()
+        .parent()
+        .attr("id"); // We need this so that we can access the remark field
+      const subComponentRecommendation = $(
+        `#${subComponentLabelId} > .remark-container > #sub-component-remark-${subComponentId}`
+      ).val();
+      hwSubComponentsAssessments.push({
+        sub_component_id: subComponentId,
+        remark: subComponentRecommendation
+      });
+    });
+    // Determine if "others checkbox" is checked
+    // const othersCheckboxIsChecked = $('#checkbox-others').prop('checked');
+    // if (othersCheckboxIsChecked) {
+    // 	const othersComponentRecommendation = $('.others-recommendation').val();
+    // 	};
+    // }
+    const assessmenttechrep_useraccount_id = $(
+      "#assessmenttechrep_useraccount_id"
+    ).val();
+    const assessment_date = $("#assessment_date").val();
+    const hwcomponent_id = $("#hwcomponent_id").val();
+    const hwcomponent_description = $("#hwcomponent_description").val();
+    const hwcomponent_dateAcquired = $("#hwcomponent_dateAcquired").val();
+    const hwcomponent_acquisitioncost = $("#hwcomponent_acquisitioncost").val();
+    const dept_id = $("#dept_id").val();
+    const emp_id = $("#emp_id").val();
+    const findings_category = $("#findings_category").val();
+    const findings_description = $("#findings_description").val();
+    const notes = $("#notes").val();
+    const serial_number = $("#serial_number").val();
+    const property_num = $("#property_num").val();
+    const assessmentReportData = {
+      action: action,
+      assessmenttechrep_useraccount_id: assessmenttechrep_useraccount_id,
+      assessment_date: assessment_date,
+      hwcomponent_id: hwcomponent_id,
+      hwcomponent_description: hwcomponent_description,
+      hwcomponent_dateAcquired: hwcomponent_dateAcquired,
+      hwcomponent_acquisitioncost: hwcomponent_acquisitioncost,
+      dept_id: dept_id,
+      emp_id: emp_id,
+      findings_category: findings_category,
+      findings_description: findings_description,
+      notes: notes,
+      itsrequest_id: itsrequest_id,
+      serial_number: serial_number,
+      property_num: property_num
+    };
+    // Insert assessment report data to db
+    $.post(requestArgumentsPath, assessmentReportData).done(res => {
+      const subComponentAssessmentData = {
+        action: "addAssessmentSubComponents",
+        assessmentReportId: res,
+        subcomponents: hwSubComponentsAssessments
+      };
+      // Insert sub-component hardwares assessment data
+      insertSubComponentAssessments(res, subComponentAssessmentData);
+    });
+  }
+});
+
 const dept_id = $("#dept_id").val();
 if (dept_id) {
   $.post(requestArgumentsPath, {
@@ -135,78 +237,6 @@ $("#dept_id").change(function(e) {
 
 $("#repassessmentreport-form").submit(function(e) {
   e.preventDefault();
-
-  const action = $("#action").val();
-  const itsrequest_id = $("#itsrequest_id").val();
-  const hwSubComponentsAssessments = [];
-  // Loop through all checked checkboxes except 'others checkbox'
-  $(".cb_hwcomponent:checked").each(function(i, val) {
-    const subComponentId = $(this).data("sub_component_id");
-    const subComponentLabelId = $(this)
-      .parent()
-      .parent()
-      .attr("id"); // We need this so that we can access the remark field
-    const subComponentRecommendation = $(
-      `#${subComponentLabelId} > .remark-container > #sub-component-remark-${subComponentId}`
-    ).val();
-    hwSubComponentsAssessments.push({
-      sub_component_id: subComponentId,
-      remark: subComponentRecommendation
-    });
-  });
-
-  // Determine if "others checkbox" is checked
-  // const othersCheckboxIsChecked = $('#checkbox-others').prop('checked');
-  // if (othersCheckboxIsChecked) {
-  // 	const othersComponentRecommendation = $('.others-recommendation').val();
-  // 	};
-  // }
-
-  const assessmenttechrep_useraccount_id = $(
-    "#assessmenttechrep_useraccount_id"
-  ).val();
-  const assessment_date = $("#assessment_date").val();
-  const hwcomponent_id = $("#hwcomponent_id").val();
-  const hwcomponent_description = $("#hwcomponent_description").val();
-  const hwcomponent_dateAcquired = $("#hwcomponent_dateAcquired").val();
-  const hwcomponent_acquisitioncost = $("#hwcomponent_acquisitioncost").val();
-  const dept_id = $("#dept_id").val();
-  const emp_id = $("#emp_id").val();
-  const findings_category = $("#findings_category").val();
-  const findings_description = $("#findings_description").val();
-  const notes = $("#notes").val();
-  const serial_number = $("#serial_number").val();
-  const property_num = $("#property_num").val();
-
-  const assessmentReportData = {
-    action: action,
-    assessmenttechrep_useraccount_id: assessmenttechrep_useraccount_id,
-    assessment_date: assessment_date,
-    hwcomponent_id: hwcomponent_id,
-    hwcomponent_description: hwcomponent_description,
-    hwcomponent_dateAcquired: hwcomponent_dateAcquired,
-    hwcomponent_acquisitioncost: hwcomponent_acquisitioncost,
-    dept_id: dept_id,
-    emp_id: emp_id,
-    findings_category: findings_category,
-    findings_description: findings_description,
-    notes: notes,
-    itsrequest_id: itsrequest_id,
-    serial_number: serial_number,
-    property_num: property_num
-  };
-
-  // Insert assessment report data to db
-  $.post(requestArgumentsPath, assessmentReportData).done(res => {
-    const subComponentAssessmentData = {
-      action: "addAssessmentSubComponents",
-      assessmentReportId: res,
-      subcomponents: hwSubComponentsAssessments
-    };
-
-    // Insert sub-component hardwares assessment data
-    insertSubComponentAssessments(res, subComponentAssessmentData);
-  });
 });
 
 function insertSubComponentAssessments(
