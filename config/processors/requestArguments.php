@@ -38,6 +38,11 @@ if (isset($_POST['action'])) {
 		echo json_encode($result);
 	}
 
+	if ($_POST['action'] == 'fetchRequestConcern') {
+		$requestId = $_POST['requestId'];
+		$request = Request::getRequest($requestId)->concern;
+		echo json_encode($request);
+	}
 
 
 	/**   GET REPAIR  **/
