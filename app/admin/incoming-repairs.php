@@ -5,7 +5,6 @@
 use App\Repair;
 use App\Department;
 use App\Hardware;
-use DawPhpPagination\Pagination;
 
 require_once('../../config/init.php');
 
@@ -21,13 +20,6 @@ $repairs = Repair::getRepair();
 $depts = Department::getDepartment();
 
 $hardwareComponents = Hardware::getHardwareComponentsByCategory('main');
-
-// $pagination = new Pagination();
-
-// $pagination->paginate(count($repairs));
-
-// $limit = $pagination->getLimit();
-// $offset = $pagination->getOffset();
 
 $type = 'repairs';
 
