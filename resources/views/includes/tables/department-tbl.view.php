@@ -23,7 +23,7 @@ else :
       ?>
         <tr>
           <td> <?= $id ?> </td>
-          <td> <?= $department->dept_code ?> </td>
+          <td class="font-weight-bold"> <?= $department->dept_code ?> </td>
           <td> <?= $department->dept_name ?> </td>
           <td>
             <button type="button" class="btn btn-sm waves-effect btn-primary edit-department" id="<?= $department->dept_id ?>" data-toggle="tooltip" title="Edit"><i class="fa fa-pen-square" aria-hidden="true"></i></button>

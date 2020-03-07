@@ -25,7 +25,7 @@ else :
       ?>
         <tr>
           <td> <?= $id ?> </td>
-          <td> <?= $employee->dept_code ?> </td>
+          <td class="font-weight-bold"> <?= $employee->dept_code ?> </td>
           <td> <?= $employee->emp_idnum ?> </td>
           <td> <?= $employee->emp_fname ?> <?= $employee->emp_lname ?> </td>
           <td> <?= $employee->emp_position ?> </td>

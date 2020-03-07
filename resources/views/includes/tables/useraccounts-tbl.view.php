@@ -13,7 +13,8 @@ else :
     <thead>
       <th>#</th>
       <th>Username</th>
-      <th>Employee/Department Name</th>
+      <th>Employee</th>
+      <th>Department Name</th>
       <th>User Type</th>
       <th style="width: 15%">Action</th>
     </thead>
@@ -24,8 +25,9 @@ else :
       ?>
         <tr>
           <td> <?= $id ?> </td>
-          <td> <?= $user->username ?> </td>
-          <td> <?= $user->emp_fname ?> <?= $user->emp_lname ?> <?= $user->dept_name ?> </td>
+          <td class="font-weight-bold"> <?= $user->username ?> </td>
+          <td> <?= $user->emp_fname ?> <?= $user->emp_lname ?></td>
+          <td><?= $user->dept_name ?? 'n/a' ?></td>
           <td> <?= $user->usertype ?> </td>
           <td>
             <button type="button" class="btn btn-sm btn-primary edit-user" id="<?= $user->useraccount_id ?>" data-toggle="tooltip" title="Edit"><i class="fas fa-pen-square" aria-hidden="true"></i></button>

@@ -1,14 +1,14 @@
 // Add validation rule for employee id number field
-let isUnique;
+let isUniqueIdNumber;
 $.validator.addMethod(
-  "unique",
+  "uniqueIdNumber",
   (value, element) => {
     $.post(settingsArgumentsPath, {
       action: "isIdNumberTaken",
       emp_idnum: () => $("#emp_idnum").val()
-    }).done(res => (isUnique = !res));
+    }).done(res => (isUniqueIdNumber = !res));
 
-    return isUnique;
+    return isUniqueIdNumber;
   },
   "This id number is already taken."
 );
@@ -22,7 +22,7 @@ $("#employee-form").validate({
     },
     emp_idnum: {
       required: true,
-      unique: true
+      uniqueIdNumber: true
     },
     fname: "required",
     lname: "required",
@@ -33,7 +33,7 @@ $("#employee-form").validate({
     dept_id: "Please select a department.",
     emp_idnum: {
       required: "Please indicate employee id number.",
-      unique: "This id number is already taken."
+      uniqueIdNumber: "This id number is already taken."
     },
     fname: "First name is required.",
     lname: "Last name is required.",

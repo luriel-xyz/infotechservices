@@ -30,7 +30,7 @@
 		</div>
 
 		<div class="form-group">
-			<input type="text" class="form-control username" name="username" id="username" placeholder="Username" required>
+			<input type="text" class="form-control department-username" name="username" id="username" placeholder="Username" required>
 		</div>
 
 		<div class="form-group">

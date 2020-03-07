@@ -19,13 +19,23 @@ class User
     ]);
   }
 
+  public static function userNameExists($username)
+  {
+    $sql = "SELECT count(*) 
+            AS frequency 
+            FROM useraccount_tbl
+            WHERE username = ?";
+    return DB::single($sql, [$username])->frequency > 0;
+  }
+
   public static function departmentAccountExists($dept_id)
   {
-    $sql = "SELECT count(*) dep 
+    $sql = "SELECT count(*) 
+            AS frequency 
             FROM useraccount_tbl
             WHERE dept_id = ?
             LIMIT 1";
-    return DB::single($sql, [$dept_id])->dep > 0;
+    return DB::single($sql, [$dept_id])->frequency > 0;
   }
 
   public static function getUserAccount($useraccount_id = null)

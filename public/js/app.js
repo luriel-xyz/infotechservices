@@ -59368,7 +59368,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-// Add validation rule for department
+// Validate department form
 $("#department-form").validate(_objectSpread({}, validatorOptions, {
   rules: {
     dept_code: "required",
@@ -59378,46 +59378,53 @@ $("#department-form").validate(_objectSpread({}, validatorOptions, {
     dept_code: "Department code is required.",
     dept_name: "Department name is required."
   },
-  submitHandler: function submitHandler(form) {
-    $.post(settingsArgumentsPath, $(form).serialize()).done(
+  submitHandler: function () {
+    var _submitHandler = _asyncToGenerator(
     /*#__PURE__*/
-    function () {
-      var _ref = _asyncToGenerator(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(res) {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                if (!res) {
-                  _context.next = 6;
-                  break;
-                }
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(form) {
+      var _ref, data;
 
-                _context.next = 3;
-                return Swal.fire("Success", "Department Data Saved", "success");
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return axios.post(settingsArgumentsPath, $(form).serialize());
 
-              case 3:
-                location.reload(true);
-                _context.next = 7;
+            case 2:
+              _ref = _context.sent;
+              data = _ref.data;
+
+              if (!data) {
+                _context.next = 10;
                 break;
+              }
 
-              case 6:
-                Swal.fire("Failure", "An error occured", "error");
+              _context.next = 7;
+              return Swal.fire("Success", "Department Data Saved", "success");
 
-              case 7:
-              case "end":
-                return _context.stop();
-            }
+            case 7:
+              location.reload(true);
+              _context.next = 11;
+              break;
+
+            case 10:
+              Swal.fire("Failure", "An error occured", "error");
+
+            case 11:
+            case "end":
+              return _context.stop();
           }
-        }, _callee);
-      }));
+        }
+      }, _callee);
+    }));
 
-      return function (_x) {
-        return _ref.apply(this, arguments);
-      };
-    }());
-  }
+    function submitHandler(_x) {
+      return _submitHandler.apply(this, arguments);
+    }
+
+    return submitHandler;
+  }()
 }));
 $("#search").on("keyup", function () {
   var search_text = $(this).val().toLowerCase();
@@ -59431,21 +59438,10 @@ $("#add-department").click(function (e) {
     keyboard: false
   });
 }); //Add Department Script
-// $("#department-form").submit(function(e) {
-//   e.preventDefault();
-//   $.post(
-//     settingsArgumentsPath,
-//     $(this).serialize()
-//   ).done(async res => {
-//     if (res) {
-//       await Swal.fire("Success", "Department Data Saved", "success");
-//       location.reload(true);
-//     } else {
-//       Swal.fire("Failure", "An error occured", "error");
-//     }
-//   });
-// });
-//Edit Department Script
+
+$("#department-form").submit(function (e) {
+  e.preventDefault();
+}); //Edit Department Script
 
 $(".edit-department").click(function (e) {
   e.preventDefault();
@@ -59497,17 +59493,17 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 // Add validation rule for employee id number field
-var isUnique;
-$.validator.addMethod("unique", function (value, element) {
+var isUniqueIdNumber;
+$.validator.addMethod("uniqueIdNumber", function (value, element) {
   $.post(settingsArgumentsPath, {
     action: "isIdNumberTaken",
     emp_idnum: function emp_idnum() {
       return $("#emp_idnum").val();
     }
   }).done(function (res) {
-    return isUnique = !res;
+    return isUniqueIdNumber = !res;
   });
-  return isUnique;
+  return isUniqueIdNumber;
 }, "This id number is already taken.");
 $("#employee-form").validate(_objectSpread({}, validatorOptions, {
   rules: {
@@ -59517,7 +59513,7 @@ $("#employee-form").validate(_objectSpread({}, validatorOptions, {
     },
     emp_idnum: {
       required: true,
-      unique: true
+      uniqueIdNumber: true
     },
     fname: "required",
     lname: "required",
@@ -59527,7 +59523,7 @@ $("#employee-form").validate(_objectSpread({}, validatorOptions, {
     dept_id: "Please select a department.",
     emp_idnum: {
       required: "Please indicate employee id number.",
-      unique: "This id number is already taken."
+      uniqueIdNumber: "This id number is already taken."
     },
     fname: "First name is required.",
     lname: "Last name is required.",
@@ -61040,9 +61036,11 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-// Add validation rule for department duplicates
+var depUsernameExists;
+var perUsernameExists;
+var departmentExists; // Add validation rule for department duplicates
 // One department should only have one account.
-var departmentExists;
+
 $.validator.addMethod("checkDepartment", function () {
   $.post(settingsArgumentsPath, {
     action: "departmentAccountExists",
@@ -61051,19 +61049,45 @@ $.validator.addMethod("checkDepartment", function () {
     return departmentExists = JSON.parse(res);
   });
   return !departmentExists;
-}, "This department already has an account."); // Validation for Personnel User Account Form
+}, "This department already has an account."); // Validation rule for deparment username
+
+$.validator.addMethod("uniqueDepUsername", function () {
+  $.post(settingsArgumentsPath, {
+    action: "userNameExists",
+    username: $(".department-username").val()
+  }).done(function (res) {
+    return depUsernameExists = JSON.parse(res);
+  });
+  return !depUsernameExists;
+}, "This username is already taken."); // Validation rule for personnel username
+
+$.validator.addMethod("uniquePerUsername", function () {
+  $.post(settingsArgumentsPath, {
+    action: "userNameExists",
+    username: $(".personnel-username").val()
+  }).done(function (res) {
+    return perUsernameExists = JSON.parse(res);
+  });
+  return !perUsernameExists;
+}, "This username is already taken."); // Validation for Personnel User Account Form
 
 $("#personnelUserAccount-form").validate(_objectSpread({}, validatorOptions, {
   rules: {
     usertype: "required",
     emp_id: "required",
-    username: "required",
+    username: {
+      required: true,
+      uniquePerUsername: true
+    },
     password: "required"
   },
   messages: {
     usertype: "Please indicate the type of the user.",
     emp_id: "Please select an employee name.",
-    username: "The username is required.",
+    username: {
+      required: "The username is required.",
+      uniquePerUsername: "This username is already taken."
+    },
     password: "The password is required."
   },
   submitHandler: function () {
@@ -61122,7 +61146,10 @@ $("#departmentUserAccount-form").validate(_objectSpread({}, validatorOptions, {
       required: true,
       checkDepartment: true
     },
-    username: "required",
+    username: {
+      required: true,
+      uniqueDepUsername: true
+    },
     password: "required"
   },
   messages: {
@@ -61131,7 +61158,10 @@ $("#departmentUserAccount-form").validate(_objectSpread({}, validatorOptions, {
       required: "Please select a deparment name.",
       checkDepartment: "This department already has an account."
     },
-    username: "The username is required.",
+    username: {
+      required: "The username is required.",
+      uniqueDepUsername: "This username is already taken."
+    },
     password: "The password is required."
   },
   submitHandler: function () {
@@ -61200,7 +61230,6 @@ $("#addDeptAccount").click(function () {
 function resetForm(accountType) {
   $(".useraccount_id").html("");
   $(".useraccount_btn").text("Add User Account");
-  $(".username").val("");
   $(".password").val("");
 
   switch (accountType) {
@@ -61209,6 +61238,7 @@ function resetForm(accountType) {
       $("#dept_id").val("");
       $(".action").val("addDepartmentUserAccount");
       $(".usertype").val("department");
+      $(".department-username").val("");
       break;
 
     case "personnel":
@@ -61216,6 +61246,7 @@ function resetForm(accountType) {
       $("#emp_id").val("");
       $(".action").val("addPersonnelUserAccount");
       $(".usertype").val("");
+      $(".personnel-username").val("");
       break;
   }
 } //Add Personnel User Account Script
@@ -61242,16 +61273,17 @@ $(".edit-user").click(function (e) {
     if (user.usertype === "personnel" || user.usertype === "admin") {
       $("#modalPersonnelAccount").modal("show");
       $(".modal-title").text("PERSONNEL ACCOUNT UPDATING FORM");
+      $(".personnel-username").val(user.username);
     } else {
       $("#modalDepartmentAccount").modal("show");
       $(".modal-title").text("DEPARTMENT ACCOUNT UPDATING FORM");
+      $(".department-username").val(user.username);
     }
 
     $(".useraccount_id").append('<input type="hidden" name="useraccount_id" id="useraccount_id" class="useraccount_id" value=' + user.useraccount_id + ">");
     $(".usertype").val(user.usertype);
     $("#emp_id").val(user.emp_id);
     $("#dept_id").val(user.dept_id);
-    $(".username").val(user.username);
     $(".password").val(user.password);
     $(".password").hide();
     $(".useraccount_btn").text("Save Changes");

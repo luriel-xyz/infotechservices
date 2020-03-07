@@ -1,6 +1,8 @@
+let depUsernameExists;
+let perUsernameExists;
+let departmentExists;
 // Add validation rule for department duplicates
 // One department should only have one account.
-let departmentExists;
 $.validator.addMethod(
   "checkDepartment",
   () => {
@@ -16,6 +18,34 @@ $.validator.addMethod(
   "This department already has an account."
 );
 
+// Validation rule for deparment username
+$.validator.addMethod(
+  "uniqueDepUsername",
+  () => {
+    $.post(settingsArgumentsPath, {
+      action: "userNameExists",
+      username: $(".department-username").val()
+    }).done(res => (depUsernameExists = JSON.parse(res)));
+
+    return !depUsernameExists;
+  },
+  "This username is already taken."
+);
+
+// Validation rule for personnel username
+$.validator.addMethod(
+  "uniquePerUsername",
+  () => {
+    $.post(settingsArgumentsPath, {
+      action: "userNameExists",
+      username: $(".personnel-username").val()
+    }).done(res => (perUsernameExists = JSON.parse(res)));
+
+    return !perUsernameExists;
+  },
+  "This username is already taken."
+);
+
 // Validation for Personnel User Account Form
 $("#personnelUserAccount-form").validate({
   ...validatorOptions,
@@ -23,14 +53,20 @@ $("#personnelUserAccount-form").validate({
   rules: {
     usertype: "required",
     emp_id: "required",
-    username: "required",
+    username: {
+      required: true,
+      uniquePerUsername: true
+    },
     password: "required"
   },
 
   messages: {
     usertype: "Please indicate the type of the user.",
     emp_id: "Please select an employee name.",
-    username: "The username is required.",
+    username: {
+      required: "The username is required.",
+      uniquePerUsername: "This username is already taken."
+    },
     password: "The password is required."
   },
 
@@ -58,7 +94,10 @@ $("#departmentUserAccount-form").validate({
       required: true,
       checkDepartment: true
     },
-    username: "required",
+    username: {
+      required: true,
+      uniqueDepUsername: true
+    },
     password: "required"
   },
 
@@ -68,7 +107,10 @@ $("#departmentUserAccount-form").validate({
       required: "Please select a deparment name.",
       checkDepartment: "This department already has an account."
     },
-    username: "The username is required.",
+    username: {
+      required: "The username is required.",
+      uniqueDepUsername: "This username is already taken."
+    },
     password: "The password is required."
   },
 
@@ -114,7 +156,6 @@ $("#addDeptAccount").click(() => {
 function resetForm(accountType) {
   $(".useraccount_id").html("");
   $(".useraccount_btn").text("Add User Account");
-  $(".username").val("");
   $(".password").val("");
 
   switch (accountType) {
@@ -123,12 +164,14 @@ function resetForm(accountType) {
       $("#dept_id").val("");
       $(".action").val("addDepartmentUserAccount");
       $(".usertype").val("department");
+      $(".department-username").val("");
       break;
     case "personnel":
       $(".modal-title").text("PERSONNEL ACCOUNT ADDING FORM");
       $("#emp_id").val("");
       $(".action").val("addPersonnelUserAccount");
       $(".usertype").val("");
+      $(".personnel-username").val("");
       break;
   }
 }
@@ -157,9 +200,11 @@ $(".edit-user").click(function(e) {
     if (user.usertype === "personnel" || user.usertype === "admin") {
       $("#modalPersonnelAccount").modal("show");
       $(".modal-title").text("PERSONNEL ACCOUNT UPDATING FORM");
+      $(".personnel-username").val(user.username);
     } else {
       $("#modalDepartmentAccount").modal("show");
       $(".modal-title").text("DEPARTMENT ACCOUNT UPDATING FORM");
+      $(".department-username").val(user.username);
     }
     $(".useraccount_id").append(
       '<input type="hidden" name="useraccount_id" id="useraccount_id" class="useraccount_id" value=' +
@@ -169,7 +214,6 @@ $(".edit-user").click(function(e) {
     $(".usertype").val(user.usertype);
     $("#emp_id").val(user.emp_id);
     $("#dept_id").val(user.dept_id);
-    $(".username").val(user.username);
     $(".password").val(user.password);
     $(".password").hide();
     $(".useraccount_btn").text("Save Changes");

@@ -1,4 +1,4 @@
-// Add validation rule for department
+// Validate department form
 $("#department-form").validate({
   ...validatorOptions,
 
@@ -12,15 +12,17 @@ $("#department-form").validate({
     dept_name: "Department name is required."
   },
 
-  submitHandler: form => {
-    $.post(settingsArgumentsPath, $(form).serialize()).done(async res => {
-      if (res) {
-        await Swal.fire("Success", "Department Data Saved", "success");
-        location.reload(true);
-      } else {
-        Swal.fire("Failure", "An error occured", "error");
-      }
-    });
+  submitHandler: async form => {
+    const { data } = await axios.post(
+      settingsArgumentsPath,
+      $(form).serialize()
+    );
+    if (data) {
+      await Swal.fire("Success", "Department Data Saved", "success");
+      location.reload(true);
+    } else {
+      Swal.fire("Failure", "An error occured", "error");
+    }
   }
 });
 
@@ -46,21 +48,9 @@ $("#add-department").click(function(e) {
 });
 
 //Add Department Script
-// $("#department-form").submit(function(e) {
-//   e.preventDefault();
-
-//   $.post(
-//     settingsArgumentsPath,
-//     $(this).serialize()
-//   ).done(async res => {
-//     if (res) {
-//       await Swal.fire("Success", "Department Data Saved", "success");
-//       location.reload(true);
-//     } else {
-//       Swal.fire("Failure", "An error occured", "error");
-//     }
-//   });
-// });
+$("#department-form").submit(function(e) {
+  e.preventDefault();
+});
 
 //Edit Department Script
 $(".edit-department").click(function(e) {

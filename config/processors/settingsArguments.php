@@ -9,6 +9,13 @@ require_once('../init.php');
 
 if (isset($_POST['action'])) {
 
+	if ($_POST['action'] === 'userNameExists') {
+		$username = $_POST['username'];
+
+		$result = User::userNameExists($username);
+		echo json_encode($result);
+	}
+
 
 	if ($_POST['action'] === 'departmentAccountExists') {
 		$dept_id = $_POST['dept_id'];

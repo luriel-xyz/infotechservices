@@ -23,7 +23,7 @@
       ?>
         <tr>
           <td> <?= $id ?> </td>
-          <td> <?= $component->hwcomponent_name ?> </td>
+          <td class="font-weight-bold"> <?= $component->hwcomponent_name ?> </td>
           <td> <?= $component->hwcomponent_type ?> </td>
           <td>
             <?php if ($component->hwcomponent_type === 'sub' && $hwcomponent) : ?>
