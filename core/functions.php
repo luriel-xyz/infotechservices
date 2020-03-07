@@ -57,7 +57,6 @@ function view($path, $data = [])
 function asset($path)
 {
   // $path = str_replace('assets', '', $path);
-  // amazing
 
   $assetsDir = getPath("public/{$path}");
 
