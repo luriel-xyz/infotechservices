@@ -120,7 +120,7 @@
             <!-- Second Column -->
             <div class="col-md-6">
               <div class="form-group">
-                <label for="acquisition-date" class="font-size-small mb-0">Acquisition Date:</label>
+                <label for="other-acquisition-date" class="font-size-small mb-0">Acquisition Date:</label>
                 <input type="date" class="form-control" name="other_acquisition_date" id="other-acquisition-date" placeholder="Acquisition Date" value="<?= $assessmentReport->hwcomponent_dateAcquired ?>" required>
               </div>
               <div class="form-group mb-0">
@@ -136,7 +136,7 @@
                 </select>
               </div>
               <div class="form-group">
-                <label for="issued-to" class="font-size-small mb-0">Requested By:</label>
+                <label for="requested-by" class="font-size-small mb-0">Requested By:</label>
                 <select name="requested_by" id="requested-by" class="form-control" required>
                   <option selected disabled>-- Select Employee --</option>
                   <?php foreach ($employees as $employee) : ?>
