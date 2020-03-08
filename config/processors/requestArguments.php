@@ -9,6 +9,8 @@ use App\Assessment;
 use App\InspectionReport;
 use App\MotorVehicle;
 use App\OtherPropPlantEquip;
+use App\PostInspectionReport;
+use App\PreInspectionHardware;
 use App\PreInspectionReport;
 
 require_once('../init.php');
@@ -264,6 +266,54 @@ if (isset($_POST['action'])) {
 			$inspected_by,
 			$recommending_approval,
 			$approved,
+			$date_inspected
+		);
+
+		echo json_encode($result);
+	}
+
+	if ($_POST['action'] === 'addPreInspectionHardware') {
+		$pre_inspection_id = $_POST['pre_inspection_id'];
+		$qty = $_POST['qty'];
+		$unit = $_POST['unit'];
+		$description = $_POST['description'];
+		$amount = $_POST['amount'];
+
+		$result = PreInspectionHardware::create(
+			$pre_inspection_id,
+			$qty,
+			$unit,
+			$description,
+			$amount
+		);
+
+		echo json_encode($result);
+	}
+
+	if ($_POST['action'] === 'addPostInspectionReport') {
+		$inspection_report_id = $_POST['inspection_report_id'];
+		$inspected_by = $_POST['inspected_by'];
+		$recommending_approval = $_POST['recommending_approval'];
+		$approved = $_POST['approved'];
+		$repair_inspection = $_POST['repair_inspection'];
+		$stock = $_POST['stock'];
+		$with_wm_prs = $_POST['with_wm_prs'];
+		$ics_no = $_POST['ics_no'];
+		$inventory_item_no = $_POST['inventory_item_no'];
+		$serial_no = $_POST['serial_no'];
+		$date_inspected = $_POST['date_inspected'];
+
+		$result = PostInspectionReport::create(
+			$inspection_report_id,
+			$inspected_by,
+			$recommending_approval,
+			$approved,
+			$repair_inspection,
+			$stock,
+			$with_wm_prs,
+			$ics_no,
+			$inventory_item_no,
+			$serial_no,
 			$date_inspected
 		);
 
