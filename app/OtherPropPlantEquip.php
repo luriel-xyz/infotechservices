@@ -12,28 +12,28 @@ class OtherPropPlantEquip
    */
   public static function create(
     $inspection_report_id,
-    $other_type,
+    $type,
     $model,
-    $other_property_number,
-    $serial_number,
-    $other_acquisition_date,
-    $other_acquisition_cost,
+    $property_no,
+    $serial_no,
+    $acquisition_date,
+    $acquisition_cost,
     $issued_to,
     $requested_by
   ) {
     $sql = 'INSERT INTO others 
-            (inspection_report_id, other_type, model, other_property_number, serial_number, other_acquisition_date, other_acquisition_cost, issued_to, requested_by)
+            (inspection_report_id, type, model, property_no, serial_no, acquisition_date, acquisition_cost, issued_to, requested_by)
             VALUES 
-            (:inspection_report_id, :other_type, :model, :other_property_number, :serial_number, :other_acquisition_date, :other_acquisition_cost, :issued_to, :requested_by)';
+            (:inspection_report_id, :type, :model, :property_no, :serial_no, :acquisition_date, :acquisition_cost, :issued_to, :requested_by)';
 
     return DB::insert($sql, [
       ':inspection_report_id' => $inspection_report_id,
-      ':other_type' => $other_type,
+      ':type' => $type,
       ':model' => $model,
-      ':other_property_number' => $other_property_number,
-      ':serial_number' => $serial_number,
-      ':other_acquisition_date' => $other_acquisition_date,
-      ':other_acquisition_cost' => $other_acquisition_cost,
+      ':property_no' => $property_no,
+      ':serial_no' => $serial_no,
+      ':acquisition_date' => $acquisition_date,
+      ':acquisition_cost' => $acquisition_cost,
       ':issued_to' => $issued_to,
       ':requested_by' => $requested_by
     ]);

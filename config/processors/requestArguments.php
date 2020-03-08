@@ -8,6 +8,7 @@ use App\Hardware;
 use App\Assessment;
 use App\InspectionReport;
 use App\MotorVehicle;
+use App\OtherPropPlantEquip;
 
 require_once('../init.php');
 
@@ -213,6 +214,32 @@ if (isset($_POST['action'])) {
 			$repair_date,
 			$nature_of_last_repair,
 			$defects_complaints,
+		);
+
+		echo json_encode($result);
+	}
+
+	if ($_POST['action'] === 'addOtherPropPlantEquip') {
+		$inspection_report_id = $_POST['inspection_report_id'];
+		$type = $_POST['other_type'];
+		$model = $_POST['model'];
+		$property_number = $_POST['other_property_number'];
+		$serial_number = $_POST['serial_number'];
+		$acquisition_date = $_POST['other_acquisition_date'];
+		$acquisition_cost = $_POST['other_acquisition_cost'];
+		$issued_to = $_POST['issued_to'];
+		$requested_by = $_POST['requested_by'];
+
+		$result = OtherPropPlantEquip::create(
+			$inspection_report_id,
+			$type,
+			$model,
+			$property_number,
+			$serial_number,
+			$acquisition_date,
+			$acquisition_cost,
+			$issued_to,
+			$requested_by
 		);
 
 		echo json_encode($result);
