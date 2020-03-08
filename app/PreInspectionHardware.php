@@ -6,6 +6,11 @@ use App\DB;
 
 class PreInspectionHardware
 {
+
+  /**
+   * Create a pre inspection hardware.
+   * @return int lastInsertId()
+   */
   public function create($pre_inspection_id, $qty, $unit, $description, $amount)
   {
     $sql = 'INSERT INTO pre_inspection_parts 
