@@ -68,7 +68,7 @@ else :
                 } else if ($request->status == 'pending') {
                 ?>
                   <button type="button" class="btn btn-sm btn-danger pullout" data-toggle="tooltip" title="Pullout" id="<?= $request->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>" hw-id="<?= $request->hwcomponent_id ?>"><i class="fa fa-hand-rock" aria-hidden="true"></i></button>
-                  <button type="button" class="btn btn-sm btn-success done-request" data-toggle="tooltip" title="Done" id="<?= $request->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>"><i class="fas fa-check-circle" aria-hidden="true"></i></button>
+                  <button type="button" class="btn btn-sm btn-success done-request" data-toggle="tooltip" title="Done" id="<?= $request->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>"><i class="fas fa-check" aria-hidden="true"></i></button>
                 <?php
                 }
               }
@@ -79,7 +79,7 @@ else :
               <?php
               } else if ($request->status == 'pending') {
               ?>
-                <button type="button" class="btn btn-sm btn-success done-request" data-toggle="tooltip" title="Done" id="<?= $request->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>"><i class="fas fa-check-circle-o" aria-hidden="true"></i></button>
+                <button type="button" class="btn btn-sm btn-success done-request" data-toggle="tooltip" title="Done" id="<?= $request->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>"><i class="fas fa-check" aria-hidden="true"></i></button>
             <?php
               }
             }

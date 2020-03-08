@@ -85,7 +85,7 @@ else :
             <?php
             // show assesment form 
             elseif ($repair->status === 'assessment pending') : ?>
-              <button type="button" class="btn btn-sm btn-danger assessment-created" data-toggle="tooltip" title="Assessment Created" id="<?= $repair->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>"><i class="fa fa-check-circle-o" aria-hidden="true"></i></button>
+              <button type="button" class="btn btn-sm btn-danger assessment-created" data-toggle="tooltip" title="Assessment Created" id="<?= $repair->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>"><i class="fas fa-check" aria-hidden="true"></i></button>
             <?php elseif ($repair->status === 'assessed') : ?>
               <input type="hidden" name="" value="<?= $repair->itsrequest_id ?>">
               <button type="button" class="btn btn-sm btn-warning pre-post-inspect" data-toggle="tooltip" title="Pre And Post Repair Inspect" id="<?= $repair->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>" data-assessment-report-id="<?= $assessmentReport->repassessreport_id ?>"><i class="fas fa-file" aria-hidden="true"></i></button>

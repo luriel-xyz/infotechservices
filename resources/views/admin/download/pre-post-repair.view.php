@@ -30,7 +30,7 @@
       <!-- /# -->
       <div class="col-md-3 offset-md-8 text-right">
         <div class="pgo-it-file font-weight-bold red--text">PGO - IT FILE</div>
-        <div class="to">TO: <span class="underlined"><?= $data->to ?></span></div>
+        <div class="to">TO: <span class="underlined"><?= $inspectionReport->to_whom ?></span></div>
       </div>
     </div>
     <!-- Form Title -->
@@ -39,19 +39,19 @@
     <!--  -->
     <div class="d-flex justify-content-end">
       <div class="d-flex flex-column mr-2">
-        <span class="font-size-small">Control No.: <span class="underlined"><?= $data->control_number ?></span></span>
-        <span class="font-size-small">Date: <span class="font-weight-bold"><?= date('M d, Y', strtotime($data->date)) ?></span></span>
+        <span class="font-size-small">Control No.: <span class="underlined"><?= $inspectionReport->control_no ?></span></span>
+        <span class="font-size-small">Date: <span class="font-weight-bold"><?= date('M d, Y', strtotime($inspectionReport->date)) ?></span></span>
       </div>
     </div>
     <!-- /# -->
     <h2 class="subtitle-1 text-uppercase">Propery Plant And Equipment</h2>
     <div class="mt-2 w-50">
-      <div class="text-uppercase font-size-small d-flex justify-content-between">type: <span class="font-weight-bold underlined"><?= $data->type ?></span></div>
-      <div class="text-uppercase font-size-small d-flex justify-content-between">model: <span class="font-weight-bold underlined"><?= $data->model ?></span></div>
-      <div class="text-uppercase font-size-small d-flex justify-content-between">propery number: <span class="font-weight-bold underlined"><?= $data->property_number ?></span></div>
-      <div class="text-uppercase font-size-small d-flex justify-content-between">serial number: <span class="font-weight-bold underlined"><?= $data->serial_number ?></span></div>
-      <div class="text-uppercase font-size-small d-flex justify-content-between">acquisition date: <span class="font-weight-bold underlined"><?= $data->acquisition_date ?></span></div>
-      <div class="text-uppercase font-size-small d-flex justify-content-between">acquisition cost: <span class="font-weight-bold underlined"><?= $data->acquisition_cost ?></span></div>
+      <div class="text-uppercase font-size-small d-flex justify-content-between">type: <span class="font-weight-bold underlined"><?= $other->type ?></span></div>
+      <div class="text-uppercase font-size-small d-flex justify-content-between">model: <span class="font-weight-bold underlined"><?= $other->model ?></span></div>
+      <div class="text-uppercase font-size-small d-flex justify-content-between">propery number: <span class="font-weight-bold underlined"><?= $other->property_no ?></span></div>
+      <div class="text-uppercase font-size-small d-flex justify-content-between">serial number: <span class="font-weight-bold underlined"><?= $other->serial_no ?></span></div>
+      <div class="text-uppercase font-size-small d-flex justify-content-between">acquisition date: <span class="font-weight-bold underlined"><?= $other->acquisition_date ?></span></div>
+      <div class="text-uppercase font-size-small d-flex justify-content-between">acquisition cost: <span class="font-weight-bold underlined"><?= $other->acquisition_cost ?></span></div>
       <div class="text-uppercase font-size-small d-flex justify-content-between">issued to: <span class="font-weight-bold underlined"><?= "{$issuedTo->emp_fname} {$issuedTo->emp_lname}" ?></span></div>
     </div>
     <!-- Requested by -->
@@ -80,7 +80,7 @@
         <div class="container-fluid row">
           <!-- Parts Table -->
           <div class="col-6">
-            <?php if (count($data->parts)) : ?>
+            <?php if (count($preInspectionParts)) : ?>
               <table class="assessment-table table table-bordered mt-3 parts-to-replace">
                 <thead>
                   <tr>
@@ -91,11 +91,11 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <?php foreach ($data->parts as $part) : ?>
+                  <?php foreach ($preInspectionParts as $part) : ?>
                     <tr class="text-center">
                       <td><?= $part->qty ?></td>
                       <td><?= $part->unit ?></td>
-                      <td><?= $part->particularsDescriptions ?></td>
+                      <td><?= $part->description ?></td>
                       <td><?= $part->amount ?></td>
                     </tr>
                   <?php endforeach;   ?>
@@ -110,7 +110,7 @@
         <!-- Additional Sheet Attached Checkbox -->
         <div class="d-flex align-items-center ml-4">
           <div class="checkbox d-flex align-items-center justify-content-center text-center">
-            <?php if ($data->additional_sheet_attached) : ?>
+            <?php if ($preInspectionReport->additional_sheet) : ?>
               <i class="fas fa-circle font-size-x-small"></i>
             <?php endif; ?>
           </div>
@@ -161,7 +161,7 @@
     <div class="p-1 px-3 d-flex flex-wrap bg-grey mx-4">
       <div class="d-flex align-items-center">
         <div class="checkbox d-flex align-items-center justify-content-center text-center">
-          <?php if ($data->stock_supplies) : ?>
+          <?php if ($postRepairInspectionReport->stock) : ?>
             <i class="fas fa-circle font-size-x-small"></i>
           <?php endif; ?>
         </div>
@@ -169,30 +169,30 @@
       </div>
       <div class="d-flex ml-2 align-items-center">
         <div class="checkbox d-flex align-items-center justify-content-center text-center">
-          <?php if ($data->ics_number) : ?>
+          <?php if ($postRepairInspectionReport->ics_no) : ?>
             <i class="fas fa-circle font-size-x-small"></i>
           <?php endif; ?>
         </div>
         <span class="checkbox-label font-weight-bold mr-2">ICS Number: </span>
-        <span class="caption"><?= $data->ics_number ?></span>
+        <span class="caption"><?= $postRepairInspectionReport->ics_no ?></span>
       </div>
       <div class="d-flex ml-2 align-items-center mt-1">
         <div class="checkbox d-flex align-items-center justify-content-center text-center">
-          <?php if ($data->inventory_item_number) : ?>
+          <?php if ($postRepairInspectionReport->inventory_item_no) : ?>
             <i class="fas fa-circle font-size-x-small"></i>
           <?php endif; ?>
         </div>
         <span class="checkbox-label font-weight-bold mr-2">Inventory Item No:</span>
-        <span class="caption"><?= $data->inventory_item_number ?></span>
+        <span class="caption"><?= $postRepairInspectionReport->inventory_item_no ?></span>
       </div>
       <div class="d-flex ml-2 align-items-center mt-1">
         <div class="checkbox d-flex align-items-center justify-content-center text-center">
-          <?php if ($data->serial_number) : ?>
+          <?php if ($postRepairInspectionReport->serial_no) : ?>
             <i class="fas fa-circle font-size-x-small"></i>
           <?php endif; ?>
         </div>
         <span class="checkbox-label font-weight-bold mr-2">S/N:</span>
-        <span class="caption"><?= $data->serial_number ?></span>
+        <span class="caption"><?= $postRepairInspectionReport->serial_no ?></span>
       </div>
     </div>
     <!--  -->
@@ -200,7 +200,7 @@
       <div class="col-md-6">
         <div class="d-flex align-items-center">
           <div class="checkbox d-flex align-items-center justify-content-center text-center">
-            <?php if ($data->with) : ?>
+            <?php if ($postRepairInspectionReport->with_wm_prs) : ?>
               <i class="fas fa-circle font-size-x-small"></i>
             <?php endif; ?>
           </div>
@@ -210,7 +210,7 @@
       <div class="col-md-6">
         <div class="d-flex align-items-center">
           <div class="checkbox d-flex align-items-center justify-content-center text-center">
-            <?php if (!$data->with) : ?>
+            <?php if (!$postRepairInspectionReport->with_wm_prs) : ?>
               <i class="fas fa-circle font-size-x-small"></i>
             <?php endif; ?>
           </div>

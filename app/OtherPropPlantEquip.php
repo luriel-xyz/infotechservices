@@ -38,4 +38,12 @@ class OtherPropPlantEquip
       ':requested_by' => $requested_by
     ]);
   }
+
+  public static function byInspectionReportId($id) {
+    $sql = 'SELECT * FROM others
+            WHERE inspection_report_id = ?
+            LIMIT 1';
+
+    return DB::single($sql, [$id]);
+  }
 }

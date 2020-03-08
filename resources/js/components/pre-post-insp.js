@@ -105,6 +105,7 @@ const otherRules = {
   post_approved: "required",
   post_inspected_date: "required"
 };
+// Validate the pre and post repair form
 $("#pre-post-repair-form").validate({
   ...validatorOptions,
 
@@ -120,7 +121,7 @@ $("#pre-post-repair-form").validate({
     const inspectionReportId = JSON.parse(
       await $.post(requestArgumentsPath, {
         action: "addInspectionReport",
-        assessment_report_id: $('#assessment_report_id').val(),
+        assessment_report_id: $("#assessment-report-id").val(),
         to_whom: $("#to").val(),
         control_no: $("#control-number").val(),
         date: $("#date").val()
@@ -212,7 +213,9 @@ $("#pre-post-repair-form").validate({
 
     if (res) {
       await Swal.fire("Success", "Request Inspected", "success");
-      $.redirect(`${baseUrl}app/admin/download/incoming-repairs.php`);
+      $.redirect(`${baseUrl}app/admin/download/pre-post-repair-form.php`, {
+        assessment_report_id: $("#assessment-report-id").val()
+      });
     } else {
       Swal.fire("Failure", "An error occured", "error");
     }

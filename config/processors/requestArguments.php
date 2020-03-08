@@ -89,7 +89,7 @@ if (isset($_POST['action'])) {
 		$itsrequest_id = $_POST['itsrequest_id'];
 		$solution = $_POST['solution'];
 		$statusupdate_useraccount_id = $_POST['statusupdate_useraccount_id'];
-		$deployment_date = date('M d, Y');
+		$deployment_date = date('Y-m-d H:i:s');
 		$result = Request::statusDoneRequest($itsrequest_id, $solution, $statusupdate_useraccount_id, $deployment_date);
 		echo $result;
 	}
@@ -182,11 +182,12 @@ if (isset($_POST['action'])) {
 	/** INSPECTION REPORT */
 
 	if ($_POST['action'] === 'addInspectionReport') {
+		$assessment_report_id = $_POST['assessment_report_id'];
 		$to_whom = $_POST['to_whom'];
 		$control_no = $_POST['control_no'];
 		$date = $_POST['date'];
 
-		$result = InspectionReport::create($to_whom, $control_no, $date);
+		$result = InspectionReport::create($assessment_report_id, $to_whom, $control_no, $date);
 		echo json_encode($result);
 	}
 

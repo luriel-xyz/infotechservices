@@ -1,6 +1,12 @@
 <?php
 
+use App\Assessment;
 use App\Employee;
+use App\InspectionReport;
+use App\OtherPropPlantEquip;
+use App\PostInspectionReport;
+use App\PreInspectionHardware;
+use App\PreInspectionReport;
 
 require_once('../../../config/init.php');
 
@@ -10,13 +16,30 @@ if (!isUserLoggedIn()) {
 	return;
 }
 
-if (!isset($_POST['data'])) {
+if (!isset($_POST['assessment_report_id'])) {
 	redirect(getPath('app/admin/incoming-repairs.php'));
 	return;
 }
 
-dd ('print now');
+$assessmentReport = Assessment::getAssessmentReport($_POST['assessment_report_id']);
+$inspectionReport = InspectionReport::byAssessmentReportId($assessmentReport->repassessreport_id);
+$other = OtherPropPlantEquip::byInspectionReportId($inspectionReport->id);
+$issuedTo = Employee::getEmployee($other->issued_to);
+$requestedBy = Employee::getEmployee($other->requested_by);
+$preInspectionReport = PreInspectionReport::byInspectionReportId($inspectionReport->id);
+$preRepairFindings = $preInspectionReport->repair_inspection;
+$preInspectionParts = PreInspectionHardware::allByPreInspectionReportId($preInspectionReport->id);
+$preInspectedBy = Employee::getEmployee($preInspectionReport->inspected_by);
+$preInspectedDate = $preInspectionReport->date_inspected;
+$preRecommendingApproval = Employee::getEmployee($preInspectionReport->recommending_approval);
+$preApproved = Employee::getEmployee($preInspectionReport->approved);
 
+$postRepairInspectionReport = PostInspectionReport::byInspectionReportId($inspectionReport->id);
+$postRepairFindings = $postRepairInspectionReport->repair_inspection;
+$postInspectedBy = Employee::getEmployee($postRepairInspectionReport->inspected_by);
+$postInspectedDate = $postRepairInspectionReport->date_inspected;
+$postRecommendingApproval = Employee::getEmployee($postRepairInspectionReport->recommending_approval);
+$postApproved = Employee::getEmployee($postRepairInspectionReport->approved);
 // $data = json_decode($_POST['data']);
 // $issuedTo = Employee::getEmployee($data->issued_to);
 // $requestedBy = Employee::getEmployee($data->requested_by);
@@ -32,20 +55,24 @@ dd ('print now');
 // $postRecommendingApproval = Employee::getEmployee($data->post_recommending_approval);
 // $postApproved = Employee::getEmployee($data->post_approved);
 
-// $viewData = compact(
-// 	'data',
-// 	'issuedTo',
-// 	'requestedBy',
-// 	'preRepairFindings',
-// 	'preInspectedBy',
-// 	'preInspectedDate',
-// 	'preRecommendingApproval',
-// 	'preApproved',
-// 	'postRepairFindings',
-// 	'postInspectedBy',
-// 	'postInspectedDate',
-// 	'postRecommendingApproval',
-// 	'postApproved'
-// );
+$viewData = compact(
+	'inspectionReport',
+	'other',
+	'issuedTo',
+	'requestedBy',
+	'preRepairFindings',
+	'preInspectionReport',
+	'preInspectionParts',
+	'preInspectedBy',
+	'preInspectedDate',
+	'preRecommendingApproval',
+	'preApproved',
+	'postRepairInspectionReport',
+	'postRepairFindings',
+	'postInspectedBy',
+	'postInspectedDate',
+	'postRecommendingApproval',
+	'postApproved'
+);
 
-// view('admin/download/pre-post-repair', $viewData);
+view('admin/download/pre-post-repair', $viewData);

@@ -26,4 +26,12 @@ class PreInspectionHardware
       ':amount' => $amount
     ]);
   }
+
+  public static function allByPreInspectionReportId($id) {
+    $sql = 'SELECT * FROM pre_inspection_parts
+            WHERE pre_inspection_id = ?
+            LIMIT 1';
+
+    return DB::all($sql, [$id]);
+  }
 }

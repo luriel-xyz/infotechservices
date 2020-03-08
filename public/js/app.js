@@ -60258,7 +60258,8 @@ var otherRules = {
   post_recommending_approval: "required",
   post_approved: "required",
   post_inspected_date: "required"
-};
+}; // Validate the pre and post repair form
+
 $("#pre-post-repair-form").validate(_objectSpread({}, validatorOptions, {
   rules: _objectSpread({}, inspectionReportRules, {}, motorVehicleRules, {}, otherPPAERules, {}, otherRules),
   submitHandler: function () {
@@ -60275,7 +60276,7 @@ $("#pre-post-repair-form").validate(_objectSpread({}, validatorOptions, {
               _context2.next = 3;
               return $.post(requestArgumentsPath, {
                 action: "addInspectionReport",
-                assessment_report_id: $('#assessment_report_id').val(),
+                assessment_report_id: $("#assessment-report-id").val(),
                 to_whom: $("#to").val(),
                 control_no: $("#control-number").val(),
                 date: $("#date").val()
@@ -60447,7 +60448,9 @@ $("#pre-post-repair-form").validate(_objectSpread({}, validatorOptions, {
               return Swal.fire("Success", "Request Inspected", "success");
 
             case 60:
-              $.redirect("".concat(baseUrl, "app/admin/download/incoming-repairs.php"));
+              $.redirect("".concat(baseUrl, "app/admin/download/pre-post-repair-form.php"), {
+                assessment_report_id: $("#assessment-report-id").val()
+              });
               _context2.next = 64;
               break;
 

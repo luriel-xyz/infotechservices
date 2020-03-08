@@ -37,4 +37,12 @@ class PreInspectionReport
       ':date_inspected' => $date_inspected
     ]);
   }
+
+  public static function byInspectionReportId($id) {
+    $sql = 'SELECT * FROM pre_inspections
+            WHERE inspection_report_id = ?
+            LIMIT 1';
+
+    return DB::single($sql, [$id]);
+  }
 }
