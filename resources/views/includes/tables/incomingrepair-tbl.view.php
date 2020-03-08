@@ -104,7 +104,7 @@ else :
               // } else if ($repair['status'] === 'post-repair inspected') {
               // 
               ?>
-              <!-- <button type="button" class="btn btn-sm btn-success done-repair" data-toggle="tooltip" title="Done" id="</?= $repair['itsrequest_id'] ?>" data-id="<?= $_SESSION['useraccount_id'] ?>"><i class="fa fa-check" aria-hidden="true"></i></button> -->
+              <!-- <button type="button" class="btn btn-sm btn-success done-repair" data-toggle="tooltip" title="Done" id="</?= $repair['itsrequest_id'] ?>" data-id="</?= $_SESSION['useraccount_id'] ?>"><i class="fa fa-check" aria-hidden="true"></i></button> -->
               <?php
               // }
               // 
