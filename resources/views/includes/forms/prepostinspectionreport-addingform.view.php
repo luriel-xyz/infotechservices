@@ -46,49 +46,108 @@
       <hr class="border border-light">
       <div class="container-fluid row">
         <!-- Property Plant and Equipment Section -->
-        <div class="col-md-6">
-          <h5 class="text-uppercase">DESCRIPTION OF PROPERTY, PLANT AND EQUIPMENT</h5>
-          <h5>Property, Plant and Equipment</h5>
-          <div class="form-group">
-            <input type="text" class="form-control" name="type" id="type" placeholder="Type" required>
+        <h5 class="col-md-12 text-uppercase">DESCRIPTION OF PROPERTY, PLANT AND EQUIPMENT</h5>
+        <div class="col-md-12">
+          <!-- Motor Vehicles -->
+          <h5>Motor Vehicles</h5>
+          <div class="row">
+            <!-- First column -->
+            <div class="col-md-6">
+              <div class="form-group">
+                <input type="text" class="form-control" name="vehicle_type" id="vehicle-type" placeholder="Type">
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" name="plate_no" id="plate-no" placeholder="Plate Number">
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" name="vehicle_property_no" id="vehicle-property-no" placeholder="Property Number">
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" name="engine_no" id="engine-no" placeholder="Engine Number">
+              </div>
+              <div class="form-group mb-1">
+                <input type="text" class="form-control" name="chassis_no" id="chassis-no" placeholder="Chassis Number">
+              </div>
+              <div class="form-group">
+                <label for="vehicle-acquisition-date" class="font-size-small my-0 py-0">Acquisition Date:</label>
+                <input type="date" class="form-control" name="vehicle_acquisition_date" id="vehicle-acquisition-date" placeholder="Acquisition Date">
+              </div>
+            </div>
+            <!-- /# First column -->
+            <!-- Second column -->
+            <div class="col-md-6">
+              <div class="form-group">
+                <input type="number" class="form-control" name="vehicle_acquisition_cost" id="vehicle-acquisition-cost" min="0" step=".01" placeholder="Acquisition Cost">
+              </div>
+              <div class="form-group mb-0">
+                <input type="text" class="form-control" name="repair_history" id="repair-history" placeholder="Repair History">
+              </div>
+              <div class="form-group">
+                <label for="repair-date" class="font-size-small my-0 py-0">Repair Date:</label>
+                <input type="date" class="form-control" name="repair_date" id="repair-date" placeholder="Repair Date">
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" name="nature_of_last_repair" id="nature-of-last-repair" placeholder="Nature of Last Repair & Maintenance">
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" name="defects_complaints" id="defects-complaints" placeholder="Defects / Complaints">
+              </div>
+            </div>
+            <!-- /# Second column -->
           </div>
-
-          <div class="form-group">
-            <input type="text" class="form-control" name="model" id="model" placeholder="Model" required>
-          </div>
-          <div class="form-group">
-            <input type="text" class="form-control" name="property_number" id="property-number" placeholder="Property Number" value="<?= $request->property_num ?>" required>
-          </div>
-          <div class="form-group">
-            <input type="text" class="form-control" name="serial_number" id="serial-number" placeholder="Serial Number" value="<?= $assessmentReport->serial_number ?>" required>
-          </div>
+          <!-- /# Motor Vehicles -->
         </div>
-        <div class="col-md-6">
-          <div class="form-group mt-4 pt-2">
-            <label for="acquisition-date" class="font-size-small">Acquisition Date:</label>
-            <input type="date" class="form-control" name="acquisition_date" id="acquisition-date" placeholder="Acquisition Date" value="<?= $assessmentReport->hwcomponent_dateAcquired ?>" required>
+        <div class="col-md-12">
+          <!-- Other Property Plant and Equipment -->
+          <h5>Other Property, Plant and Equipment</h5>
+          <div class="row">
+            <!-- First Column -->
+            <div class="col-md-6">
+              <div class="form-group">
+                <input type="text" class="form-control" name="other_type" id="other-type" placeholder="Type" required>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" name="model" id="model" placeholder="Model" required>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" name="other_property_number" id="other-property-number" placeholder="Property Number" value="<?= $request->property_num ?>" required>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" name="serial_number" id="serial-number" placeholder="Serial Number" value="<?= $assessmentReport->serial_number ?>" required>
+              </div>
+            </div>
+            <!-- /# First Column -->
+            <!-- Second Column -->
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="acquisition-date" class="font-size-small mb-0">Acquisition Date:</label>
+                <input type="date" class="form-control" name="other_acquisition_date" id="other-acquisition-date" placeholder="Acquisition Date" value="<?= $assessmentReport->hwcomponent_dateAcquired ?>" required>
+              </div>
+              <div class="form-group mb-0">
+                <input type="number" min="0" step=".01" class="form-control" name="other_acquisition_cost" id="other-acquisition-cost" placeholder="Acquisition Cost" value="<?= $assessmentReport->hwcomponent_acquisitioncost ?>" required>
+              </div>
+              <div class="form-group mb-0">
+                <label for="issued-to" class="font-size-small mb-0">Issued To:</label>
+                <select name="issued_to" id="issued-to" class="form-control" required>
+                  <option selected disabled>-- Select Employee --</option>
+                  <?php foreach ($employees as $employee) : ?>
+                    <option value="<?= $employee->emp_id ?>"><?= "{$employee->emp_fname} {$employee->emp_lname}" ?></option>
+                  <?php endforeach; ?>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="issued-to" class="font-size-small mb-0">Requested By:</label>
+                <select name="requested_by" id="requested-by" class="form-control" required>
+                  <option selected disabled>-- Select Employee --</option>
+                  <?php foreach ($employees as $employee) : ?>
+                    <option value="<?= $employee->emp_id ?>"><?= "{$employee->emp_fname} {$employee->emp_lname}" ?></option>
+                  <?php endforeach; ?>
+                </select>
+              </div>
+            </div>
+            <!-- /# Second Column -->
           </div>
-          <div class="form-group">
-            <input type="number" min="0" step=".01" class="form-control" name="acquisition_cost" id="acquisition-cost" placeholder="Acquisition Cost" value="<?= $assessmentReport->hwcomponent_acquisitioncost ?>" required>
-          </div>
-          <div class="form-group">
-            <label for="issued-to" class="font-size-small">Issued To:</label>
-            <select name="issued_to" id="issued-to" class="form-control" required>
-              <option selected disabled>-- Select Employee --</option>
-              <?php foreach ($employees as $employee) : ?>
-                <option value="<?= $employee->emp_id ?>"><?= "{$employee->emp_fname} {$employee->emp_lname}" ?></option>
-              <?php endforeach; ?>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="issued-to" class="font-size-small">Requested By:</label>
-            <select name="requested_by" id="requested-by" class="form-control" required>
-              <option selected disabled>-- Select Employee --</option>
-              <?php foreach ($employees as $employee) : ?>
-                <option value="<?= $employee->emp_id ?>"><?= "{$employee->emp_fname} {$employee->emp_lname}" ?></option>
-              <?php endforeach; ?>
-            </select>
-          </div>
+          <!-- /# Other Property Plant and Equipment -->
         </div>
         <!-- /# Property Plant and Equipment Section -->
       </div>
@@ -112,7 +171,7 @@
           <table>
             <thead class="text-center">
               <tr>
-                <th style="width: 8%">Qty</th>
+                <th style="width: 10%">Qty</th>
                 <th style="width: 15%">Unit</th>
                 <th>Particulars / Description</th>
                 <th style="width: 20%">Amount</th>
