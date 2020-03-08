@@ -13,8 +13,6 @@
 			<input type="hidden" class="form-control" name="action" id="action" value="addEmployee">
 		</div>
 
-		<div id="emp_id">
-		</div>
 
 		<div class="form-group">
 			<select name="dept_id" id="dept_id" class="form-control" required>
@@ -25,6 +23,10 @@
 					</option>
 				<?php endforeach;	?>
 			</select>
+		</div>
+
+		<div class="form-group">
+			<select name="emp_id" class="form-control" id="emp_id" style="display: none;"></select>
 		</div>
 
 		<div class="form-group form-row">

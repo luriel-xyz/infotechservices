@@ -1,5 +1,6 @@
 // Add validation rule for employee id number field
 let isUniqueIdNumber;
+let isEditEmployee = false;
 $.validator.addMethod(
   "uniqueIdNumber",
   (value, element) => {
@@ -22,7 +23,9 @@ $("#employee-form").validate({
     },
     emp_idnum: {
       required: true,
-      uniqueIdNumber: true
+      uniqueIdNumber: {
+        depends: () => !isEditEmployee
+      }
     },
     fname: "required",
     lname: "required",
@@ -58,21 +61,6 @@ $("#employee-form").validate({
   }
 });
 
-async function isIdNumberTaken(emp_idnum) {
-  const url = ``;
-  const post = async (url, data) => {
-    let success = false;
-
-    return success;
-  };
-
-  return $.post(url, data)
-    .done(res => (success = res))
-    .fail(() => (success = false));
-
-  return await post(url, {});
-}
-
 $("#search").on("keyup", function() {
   const search_text = $(this)
     .val()
@@ -88,6 +76,7 @@ $("#search").on("keyup", function() {
 });
 
 $("#add-employee").click(function(e) {
+  isEditEmployee = false;
   $(".modal-title").text("EMPLOYEE ADDING FORM");
   $("#emp_btn").text("Add Employee");
   $("#emp_id").html("");
@@ -130,6 +119,7 @@ $("#add-employee").click(function(e) {
 $(".edit-employee").click(function(e) {
   e.preventDefault();
 
+  isEditEmployee = true;
   // Fetch Employee Data
   const action = "editEmployee";
   const emp_id = $(this).attr("id");

@@ -58964,6 +58964,7 @@ $("#dept_id").change(function () {
   }).done(function (employees) {
     employees = JSON.parse(employees);
     $("#emp_id").empty();
+    $('#emp_id').show();
     $("#emp_id").append("<option selected disabled>" + "-- Select Employee --" + "</option>");
     employees.forEach(function (employee) {
       $("#emp_id").append("<option value = " + employee.emp_id + ">" + employee.emp_fname + " " + employee.emp_lname + "</option>");
@@ -59539,6 +59540,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 // Add validation rule for employee id number field
 var isUniqueIdNumber;
+var isEditEmployee = false;
 $.validator.addMethod("uniqueIdNumber", function (value, element) {
   $.post(settingsArgumentsPath, {
     action: "isIdNumberTaken",
@@ -59558,7 +59560,11 @@ $("#employee-form").validate(_objectSpread({}, validatorOptions, {
     },
     emp_idnum: {
       required: true,
-      uniqueIdNumber: true
+      uniqueIdNumber: {
+        depends: function depends() {
+          return !isEditEmployee;
+        }
+      }
     },
     fname: "required",
     lname: "required",
@@ -59623,68 +59629,6 @@ $("#employee-form").validate(_objectSpread({}, validatorOptions, {
     }());
   }
 }));
-
-function isIdNumberTaken(_x2) {
-  return _isIdNumberTaken.apply(this, arguments);
-}
-
-function _isIdNumberTaken() {
-  _isIdNumberTaken = _asyncToGenerator(
-  /*#__PURE__*/
-  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(emp_idnum) {
-    var url, post;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
-      while (1) {
-        switch (_context3.prev = _context3.next) {
-          case 0:
-            url = "";
-
-            post =
-            /*#__PURE__*/
-            function () {
-              var _ref3 = _asyncToGenerator(
-              /*#__PURE__*/
-              _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(url, data) {
-                var success;
-                return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-                  while (1) {
-                    switch (_context2.prev = _context2.next) {
-                      case 0:
-                        success = false;
-                        return _context2.abrupt("return", success);
-
-                      case 2:
-                      case "end":
-                        return _context2.stop();
-                    }
-                  }
-                }, _callee2);
-              }));
-
-              return function post(_x3, _x4) {
-                return _ref3.apply(this, arguments);
-              };
-            }();
-
-            return _context3.abrupt("return", $.post(url, data).done(function (res) {
-              return success = res;
-            }).fail(function () {
-              return success = false;
-            }));
-
-          case 5:
-            return _context3.abrupt("return", _context3.sent);
-
-          case 6:
-          case "end":
-            return _context3.stop();
-        }
-      }
-    }, _callee3);
-  }));
-  return _isIdNumberTaken.apply(this, arguments);
-}
-
 $("#search").on("keyup", function () {
   var search_text = $(this).val().toLowerCase();
   $("#table_body tr").filter(function () {
@@ -59692,6 +59636,7 @@ $("#search").on("keyup", function () {
   });
 });
 $("#add-employee").click(function (e) {
+  isEditEmployee = false;
   $(".modal-title").text("EMPLOYEE ADDING FORM");
   $("#emp_btn").text("Add Employee");
   $("#emp_id").html("");
@@ -59728,7 +59673,8 @@ $("#add-employee").click(function (e) {
 //Edit Employee Script
 
 $(".edit-employee").click(function (e) {
-  e.preventDefault(); // Fetch Employee Data
+  e.preventDefault();
+  isEditEmployee = true; // Fetch Employee Data
 
   var action = "editEmployee";
   var emp_id = $(this).attr("id");

@@ -15,6 +15,7 @@ $("#dept_id").change(function() {
   }).done(function(employees) {
     employees = JSON.parse(employees);
     $("#emp_id").empty();
+    $('#emp_id').show();
     $("#emp_id").append(
       "<option selected disabled>" + "-- Select Employee --" + "</option>"
     );
