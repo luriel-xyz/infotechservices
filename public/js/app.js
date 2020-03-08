@@ -60251,8 +60251,7 @@ function _saveInspectionReport() {
           case 3:
             _ref4 = _context4.sent;
             data = _ref4.data;
-            console.log("data here: ", data);
-            _context4.next = 8;
+            _context4.next = 7;
             return Swal.fire({
               icon: "question",
               title: "Confirm",
@@ -60260,25 +60259,25 @@ function _saveInspectionReport() {
               showCancelButton: true
             });
 
-          case 8:
+          case 7:
             _ref5 = _context4.sent;
             value = _ref5.value;
             url = value ? "".concat(baseUrl, "app/admin/download/pre-post-repair-form.php") : "".concat(baseUrl, "app/admin/incoming-repairs.php");
             window.location.replace(url);
-            _context4.next = 17;
+            _context4.next = 16;
             break;
 
-          case 14:
-            _context4.prev = 14;
+          case 13:
+            _context4.prev = 13;
             _context4.t0 = _context4["catch"](0);
             Swal.fire("Failure", "An error occured, try again.", "error");
 
-          case 17:
+          case 16:
           case "end":
             return _context4.stop();
         }
       }
-    }, _callee4, null, [[0, 14]]);
+    }, _callee4, null, [[0, 13]]);
   }));
   return _saveInspectionReport.apply(this, arguments);
 }
@@ -60305,18 +60304,24 @@ $("#pre-post-repair-form").validate(_objectSpread({}, validatorOptions, {
     pre_inspected_date: "required",
     post_repair_findings: "required",
     ics_number: {
-      depends: function depends() {
-        return $("#stock-supplies").is(":checked");
+      required: {
+        depends: function depends() {
+          return $("#stock-supplies").is(":checked");
+        }
       }
     },
     inventory_item_number: {
-      depends: function depends() {
-        return $("#stock-supplies").is(":checked");
+      required: {
+        depends: function depends() {
+          return $("#stock-supplies").is(":checked");
+        }
       }
     },
     stock_serial_number: {
-      depends: function depends() {
-        return $("#stock-supplies").is(":checked");
+      required: {
+        depends: function depends() {
+          return $("#stock-supplies").is(":checked");
+        }
       }
     },
     post_inspected_by: "required",
