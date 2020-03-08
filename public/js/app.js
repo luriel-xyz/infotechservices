@@ -60136,98 +60136,40 @@ function () {
   return function getPartsToReplaceProcure() {
     return _ref.apply(this, arguments);
   };
-}();
-
-var getFormData =
-/*#__PURE__*/
-function () {
-  var _ref2 = _asyncToGenerator(
-  /*#__PURE__*/
-  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-      while (1) {
-        switch (_context2.prev = _context2.next) {
-          case 0:
-            _context2.t0 = $("#to").val() || "n/a";
-            _context2.t1 = $("#control-number").val() || "n/a";
-            _context2.t2 = $("#date").val() || "n/a";
-            _context2.t3 = $("#type").val() || "n/a";
-            _context2.t4 = $("#model").val() || "n/a";
-            _context2.t5 = $("#property-number").val() || "n/a";
-            _context2.t6 = $("#serial-number").val() || "n/a";
-            _context2.t7 = $("#acquisition-date").val() || "n/a";
-            _context2.t8 = $("#acquisition-cost").val() || "n/a";
-            _context2.t9 = $("#issued-to").val() || "n/a";
-            _context2.t10 = $("#requested-by").val() || "n/a";
-            _context2.t11 = $("#pre-repair-findings").val() || "n/a";
-            _context2.t12 = $("#job-order").val() || "n/a";
-            _context2.next = 15;
-            return getPartsToReplaceProcure();
-
-          case 15:
-            _context2.t13 = _context2.sent;
-            _context2.t14 = $("#additional-sheet").val() || "n/a";
-            _context2.t15 = $("#pre-inspected-by").val() || "n/a";
-            _context2.t16 = $("#pre-recommending-approval").val() || "n/a";
-            _context2.t17 = $("#pre-approved").val() || "n/a";
-            _context2.t18 = $("#pre-inspected-date").val() || "n/a";
-            _context2.t19 = $("#post-repair-findings").val() || "n/a";
-            _context2.t20 = $("#stock-supplies").is(":checked");
-            _context2.t21 = $("#with-waste-material").is(":checked");
-            _context2.t22 = $("#additional-sheet-attached").is(":checked");
-            _context2.t23 = $("#ics-number").val() || "n/a";
-            _context2.t24 = $("#inventory-item-number").val() || "n/a";
-            _context2.t25 = $("#stock-serial-number").val() || "n/a";
-            _context2.t26 = $("#post-inspected-by").val() || "n/a";
-            _context2.t27 = $("#post-recommending-approval").val() || "n/a";
-            _context2.t28 = $("#post-approved").val() || "n/a";
-            _context2.t29 = $("#post-inspected-date").val() || "n/a";
-            return _context2.abrupt("return", {
-              action: "addInspectionReport",
-              to: _context2.t0,
-              control_number: _context2.t1,
-              date: _context2.t2,
-              type: _context2.t3,
-              model: _context2.t4,
-              property_number: _context2.t5,
-              serial_number: _context2.t6,
-              acquisition_date: _context2.t7,
-              acquisition_cost: _context2.t8,
-              issued_to: _context2.t9,
-              requested_by: _context2.t10,
-              pre_repair_findings: _context2.t11,
-              job_order: _context2.t12,
-              parts: _context2.t13,
-              additional_sheet: _context2.t14,
-              pre_inspected_by: _context2.t15,
-              pre_recommending_approval: _context2.t16,
-              pre_approved: _context2.t17,
-              pre_inspected_date: _context2.t18,
-              post_repair_findings: _context2.t19,
-              stock_supplies: _context2.t20,
-              "with": _context2.t21,
-              additional_sheet_attached: _context2.t22,
-              ics_number: _context2.t23,
-              inventory_item_number: _context2.t24,
-              stock_serial_number: _context2.t25,
-              post_inspected_by: _context2.t26,
-              post_recommending_approval: _context2.t27,
-              post_approved: _context2.t28,
-              post_inspected_date: _context2.t29
-            });
-
-          case 33:
-          case "end":
-            return _context2.stop();
-        }
-      }
-    }, _callee2);
-  }));
-
-  return function getFormData() {
-    return _ref2.apply(this, arguments);
-  };
-}(); // Validate Pre and Post Repair Form
+}(); // const getFormData = async () => ({
+//   action: "addInspectionReport",
+//   to: $("#to").val() || "n/a",
+//   control_number: $("#control-number").val() || "n/a",
+//   date: $("#date").val() || "n/a",
+//   type: $("#type").val() || "n/a",
+//   model: $("#model").val() || "n/a",
+//   property_number: $("#property-number").val() || "n/a",
+//   serial_number: $("#serial-number").val() || "n/a",
+//   acquisition_date: $("#acquisition-date").val() || "n/a",
+//   acquisition_cost: $("#acquisition-cost").val() || "n/a",
+//   issued_to: $("#issued-to").val() || "n/a",
+//   requested_by: $("#requested-by").val() || "n/a",
+//   pre_repair_findings: $("#pre-repair-findings").val() || "n/a",
+//   job_order: $("#job-order").val() || "n/a",
+//   parts: await getPartsToReplaceProcure(),
+//   additional_sheet: $("#additional-sheet").val() || "n/a",
+//   pre_inspected_by: $("#pre-inspected-by").val() || "n/a",
+//   pre_recommending_approval: $("#pre-recommending-approval").val() || "n/a",
+//   pre_approved: $("#pre-approved").val() || "n/a",
+//   pre_inspected_date: $("#pre-inspected-date").val() || "n/a",
+//   post_repair_findings: $("#post-repair-findings").val() || "n/a",
+//   stock_supplies: $("#stock-supplies").is(":checked"),
+//   with: $("#with-waste-material").is(":checked"),
+//   additional_sheet_attached: $("#additional-sheet-attached").is(":checked"),
+//   ics_number: $("#ics-number").val() || "n/a",
+//   inventory_item_number: $("#inventory-item-number").val() || "n/a",
+//   stock_serial_number: $("#stock-serial-number").val() || "n/a",
+//   post_inspected_by: $("#post-inspected-by").val() || "n/a",
+//   post_recommending_approval: $("#post-recommending-approval").val() || "n/a",
+//   post_approved: $("#post-approved").val() || "n/a",
+//   post_inspected_date: $("#post-inspected-date").val() || "n/a"
+// });
+// Validate Pre and Post Repair Form
 
 
 var inspectionReportRules = {
@@ -60322,27 +60264,28 @@ $("#pre-post-repair-form").validate(_objectSpread({}, validatorOptions, {
   submitHandler: function () {
     var _submitHandler = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(form) {
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(form) {
       var inspectionReportId, motorVehicleId, otherId, preInspectionReportId, parts, _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, part, postInspectionReportId, res;
 
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
         while (1) {
-          switch (_context3.prev = _context3.next) {
+          switch (_context2.prev = _context2.next) {
             case 0:
-              _context3.t0 = JSON;
-              _context3.next = 3;
+              _context2.t0 = JSON;
+              _context2.next = 3;
               return $.post(requestArgumentsPath, {
                 action: "addInspectionReport",
+                assessment_report_id: $('#assessment_report_id').val(),
                 to_whom: $("#to").val(),
                 control_no: $("#control-number").val(),
                 date: $("#date").val()
               }).promise();
 
             case 3:
-              _context3.t1 = _context3.sent;
-              inspectionReportId = _context3.t0.parse.call(_context3.t0, _context3.t1);
-              _context3.t2 = JSON;
-              _context3.next = 8;
+              _context2.t1 = _context2.sent;
+              inspectionReportId = _context2.t0.parse.call(_context2.t0, _context2.t1);
+              _context2.t2 = JSON;
+              _context2.next = 8;
               return $.post(requestArgumentsPath, {
                 action: "addMotorVehicle",
                 inspection_report_id: inspectionReportId,
@@ -60360,10 +60303,10 @@ $("#pre-post-repair-form").validate(_objectSpread({}, validatorOptions, {
               }).promise();
 
             case 8:
-              _context3.t3 = _context3.sent;
-              motorVehicleId = _context3.t2.parse.call(_context3.t2, _context3.t3);
-              _context3.t4 = JSON;
-              _context3.next = 13;
+              _context2.t3 = _context2.sent;
+              motorVehicleId = _context2.t2.parse.call(_context2.t2, _context2.t3);
+              _context2.t4 = JSON;
+              _context2.next = 13;
               return $.post(requestArgumentsPath, {
                 action: "addOtherPropPlantEquip",
                 inspection_report_id: inspectionReportId,
@@ -60378,10 +60321,10 @@ $("#pre-post-repair-form").validate(_objectSpread({}, validatorOptions, {
               }).promise();
 
             case 13:
-              _context3.t5 = _context3.sent;
-              otherId = _context3.t4.parse.call(_context3.t4, _context3.t5);
-              _context3.t6 = JSON;
-              _context3.next = 18;
+              _context2.t5 = _context2.sent;
+              otherId = _context2.t4.parse.call(_context2.t4, _context2.t5);
+              _context2.t6 = JSON;
+              _context2.next = 18;
               return $.post(requestArgumentsPath, {
                 action: "addPreInspectionReport",
                 inspection_report_id: inspectionReportId,
@@ -60395,27 +60338,27 @@ $("#pre-post-repair-form").validate(_objectSpread({}, validatorOptions, {
               }).promise();
 
             case 18:
-              _context3.t7 = _context3.sent;
-              preInspectionReportId = _context3.t6.parse.call(_context3.t6, _context3.t7);
-              _context3.next = 22;
+              _context2.t7 = _context2.sent;
+              preInspectionReportId = _context2.t6.parse.call(_context2.t6, _context2.t7);
+              _context2.next = 22;
               return getPartsToReplaceProcure();
 
             case 22:
-              parts = _context3.sent;
+              parts = _context2.sent;
               _iteratorNormalCompletion = true;
               _didIteratorError = false;
               _iteratorError = undefined;
-              _context3.prev = 26;
+              _context2.prev = 26;
               _iterator = parts[Symbol.iterator]();
 
             case 28:
               if (_iteratorNormalCompletion = (_step = _iterator.next()).done) {
-                _context3.next = 35;
+                _context2.next = 35;
                 break;
               }
 
               part = _step.value;
-              _context3.next = 32;
+              _context2.next = 32;
               return $.post(requestArgumentsPath, {
                 action: "addPreInspectionHardware",
                 pre_inspection_id: preInspectionReportId,
@@ -60427,46 +60370,46 @@ $("#pre-post-repair-form").validate(_objectSpread({}, validatorOptions, {
 
             case 32:
               _iteratorNormalCompletion = true;
-              _context3.next = 28;
+              _context2.next = 28;
               break;
 
             case 35:
-              _context3.next = 41;
+              _context2.next = 41;
               break;
 
             case 37:
-              _context3.prev = 37;
-              _context3.t8 = _context3["catch"](26);
+              _context2.prev = 37;
+              _context2.t8 = _context2["catch"](26);
               _didIteratorError = true;
-              _iteratorError = _context3.t8;
+              _iteratorError = _context2.t8;
 
             case 41:
-              _context3.prev = 41;
-              _context3.prev = 42;
+              _context2.prev = 41;
+              _context2.prev = 42;
 
               if (!_iteratorNormalCompletion && _iterator["return"] != null) {
                 _iterator["return"]();
               }
 
             case 44:
-              _context3.prev = 44;
+              _context2.prev = 44;
 
               if (!_didIteratorError) {
-                _context3.next = 47;
+                _context2.next = 47;
                 break;
               }
 
               throw _iteratorError;
 
             case 47:
-              return _context3.finish(44);
+              return _context2.finish(44);
 
             case 48:
-              return _context3.finish(41);
+              return _context2.finish(41);
 
             case 49:
-              _context3.t9 = JSON;
-              _context3.next = 52;
+              _context2.t9 = JSON;
+              _context2.next = 52;
               return $.post(requestArgumentsPath, {
                 action: "addPostInspectionReport",
                 inspection_report_id: inspectionReportId,
@@ -60483,9 +60426,9 @@ $("#pre-post-repair-form").validate(_objectSpread({}, validatorOptions, {
               }).promise();
 
             case 52:
-              _context3.t10 = _context3.sent;
-              postInspectionReportId = _context3.t9.parse.call(_context3.t9, _context3.t10);
-              _context3.next = 56;
+              _context2.t10 = _context2.sent;
+              postInspectionReportId = _context2.t9.parse.call(_context2.t9, _context2.t10);
+              _context2.next = 56;
               return $.post(requestArgumentsPath, {
                 action: $("#action").val(),
                 itsrequest_id: $("#itsrequest_id").val(),
@@ -60493,29 +60436,30 @@ $("#pre-post-repair-form").validate(_objectSpread({}, validatorOptions, {
               });
 
             case 56:
-              res = _context3.sent;
+              res = _context2.sent;
 
               if (!res) {
-                _context3.next = 62;
+                _context2.next = 63;
                 break;
               }
 
-              _context3.next = 60;
+              _context2.next = 60;
               return Swal.fire("Success", "Request Inspected", "success");
 
             case 60:
-              _context3.next = 63;
+              $.redirect("".concat(baseUrl, "app/admin/download/incoming-repairs.php"));
+              _context2.next = 64;
               break;
 
-            case 62:
+            case 63:
               Swal.fire("Failure", "An error occured", "error");
 
-            case 63:
+            case 64:
             case "end":
-              return _context3.stop();
+              return _context2.stop();
           }
         }
-      }, _callee3, null, [[26, 37, 41, 49], [42,, 44, 48]]);
+      }, _callee2, null, [[26, 37, 41, 49], [42,, 44, 48]]);
     }));
 
     function submitHandler(_x) {
@@ -60834,8 +60778,13 @@ $(".assessment-created").click(function (e) {
   setAssessmentDone(itsrequest_id, useraccount_id);
 });
 $(".btn-print-assessment").click(function () {
-  $.redirect("../../app/admin/download/print-repassessmentreport-form.php", {
+  $.redirect("".concat(baseUrl, "app/admin/download/print-repassessmentreport-form.php"), {
     assessment_report_id: $(this).data("assessment-report-id")
+  });
+});
+$(".btn-print-inspection-report").click(function () {
+  $.redirect("".concat(baseUrl, "app/admin/download/pre-post-repair-form.php"), {
+    data: $(this).data("assessment-report-id")
   });
 }); // Pre and Post Inspect Button
 

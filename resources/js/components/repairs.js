@@ -277,7 +277,7 @@ $(".btn-print-assessment").click(function() {
 
 $(".btn-print-inspection-report").click(function() {
   $.redirect(`${baseUrl}app/admin/download/pre-post-repair-form.php`, {
-    assessment_report_id: $(this).data("assessment-report-id")
+    data: $(this).data("assessment-report-id")
   });
 });
 

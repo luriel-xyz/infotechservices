@@ -74,8 +74,7 @@ else :
             <button type="button" class="btn btn-sm btn-info view-repair" data-toggle="tooltip" title="View Details" id="<?= $repair->itsrequest_id ?>"><i class="fa fa-eye" aria-hidden="true"></i></button>
             <?php
             // If request is received from incoming repairs
-            if ($repair->status === 'received') :
-            ?>
+            if ($repair->status === 'received') : ?>
               <!-- Show repair button -->
               <button type="button" class="btn btn-sm btn-warning pending" data-toggle="tooltip" title="Start Repair" id="<?= $repair->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>"><i class="fas fa-arrow-circle-right" aria-hidden="true"></i></button>
             <?php
@@ -85,12 +84,9 @@ else :
               <button type="button" class="btn btn-sm btn-success done-repair" data-toggle="tooltip" title="Done" id="<?= $repair->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>"><i class="fa fa-check" aria-hidden="true"></i></button>
             <?php
             // show assesment form 
-            elseif ($repair->status === 'assessment pending') :
-            ?>
+            elseif ($repair->status === 'assessment pending') : ?>
               <button type="button" class="btn btn-sm btn-danger assessment-created" data-toggle="tooltip" title="Assessment Created" id="<?= $repair->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>"><i class="fa fa-check-circle-o" aria-hidden="true"></i></button>
-            <?php
-            elseif ($repair->status === 'assessed') :
-            ?>
+            <?php elseif ($repair->status === 'assessed') : ?>
               <input type="hidden" name="" value="<?= $repair->itsrequest_id ?>">
               <button type="button" class="btn btn-sm btn-warning pre-post-inspect" data-toggle="tooltip" title="Pre And Post Repair Inspect" id="<?= $repair->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>" data-assessment-report-id="<?= $assessmentReport->repassessreport_id ?>"><i class="fas fa-file" aria-hidden="true"></i></button>
               <button type="button" class="btn btn-sm btn-secondary btn-print-assessment" data-toggle="tooltip" title="Print Assessment Form" data-assessment-report-id="<?= $assessmentReport->repassessreport_id ?>"><i class="fa fa-print" aria-hidden="true"></i></button>
@@ -111,6 +107,7 @@ else :
               ?>
             <?php elseif ($repair->status === 'pre-post-repair inspected') : ?>
               <button type="button" class="btn btn-sm btn-success done-repair" data-toggle="tooltip" title="Done" id="<?= $repair->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>"><i class="fa fa-check" aria-hidden="true"></i></button>
+              <button type="button" class="btn btn-sm btn-info btn-print-inspection-report" data-toggle="tooltip" title="Print Inspection Report" id="<?= $repair->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>"><i class="fas fa-print" aria-hidden="true"></i></button>
             <?php endif; ?>
           </td>
         </tr>

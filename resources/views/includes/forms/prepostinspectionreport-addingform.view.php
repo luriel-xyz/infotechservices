@@ -12,6 +12,7 @@
       <input type="hidden" class="form-control" name="action" id="action" value="<?= $action ?>">
       <input type="hidden" class="form-control" name="statusupdate_useraccount_id" id="statusupdate_useraccount_id" value="<?= $useraccount_id ?>">
       <input type="hidden" class="form-control" name="itsrequest_id" id="itsrequest_id" value="<?= $itsrequest_id ?>">
+      <input type="hidden" class="form-control" name="assessment_report_id" id="assessment_report_id" value="<?= $assessment_report_id ?>">
       <p class="h3 text-center">
         <i class="fa fa-wrench fa-fw" aria-hidden="true"></i>
         Pre and Post Repair Inspection Report

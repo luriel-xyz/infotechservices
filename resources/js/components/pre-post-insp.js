@@ -19,39 +19,39 @@ const getPartsToReplaceProcure = async () => {
   return partsToReplaceProcure;
 };
 
-const getFormData = async () => ({
-  action: "addInspectionReport",
-  to: $("#to").val() || "n/a",
-  control_number: $("#control-number").val() || "n/a",
-  date: $("#date").val() || "n/a",
-  type: $("#type").val() || "n/a",
-  model: $("#model").val() || "n/a",
-  property_number: $("#property-number").val() || "n/a",
-  serial_number: $("#serial-number").val() || "n/a",
-  acquisition_date: $("#acquisition-date").val() || "n/a",
-  acquisition_cost: $("#acquisition-cost").val() || "n/a",
-  issued_to: $("#issued-to").val() || "n/a",
-  requested_by: $("#requested-by").val() || "n/a",
-  pre_repair_findings: $("#pre-repair-findings").val() || "n/a",
-  job_order: $("#job-order").val() || "n/a",
-  parts: await getPartsToReplaceProcure(),
-  additional_sheet: $("#additional-sheet").val() || "n/a",
-  pre_inspected_by: $("#pre-inspected-by").val() || "n/a",
-  pre_recommending_approval: $("#pre-recommending-approval").val() || "n/a",
-  pre_approved: $("#pre-approved").val() || "n/a",
-  pre_inspected_date: $("#pre-inspected-date").val() || "n/a",
-  post_repair_findings: $("#post-repair-findings").val() || "n/a",
-  stock_supplies: $("#stock-supplies").is(":checked"),
-  with: $("#with-waste-material").is(":checked"),
-  additional_sheet_attached: $("#additional-sheet-attached").is(":checked"),
-  ics_number: $("#ics-number").val() || "n/a",
-  inventory_item_number: $("#inventory-item-number").val() || "n/a",
-  stock_serial_number: $("#stock-serial-number").val() || "n/a",
-  post_inspected_by: $("#post-inspected-by").val() || "n/a",
-  post_recommending_approval: $("#post-recommending-approval").val() || "n/a",
-  post_approved: $("#post-approved").val() || "n/a",
-  post_inspected_date: $("#post-inspected-date").val() || "n/a"
-});
+// const getFormData = async () => ({
+//   action: "addInspectionReport",
+//   to: $("#to").val() || "n/a",
+//   control_number: $("#control-number").val() || "n/a",
+//   date: $("#date").val() || "n/a",
+//   type: $("#type").val() || "n/a",
+//   model: $("#model").val() || "n/a",
+//   property_number: $("#property-number").val() || "n/a",
+//   serial_number: $("#serial-number").val() || "n/a",
+//   acquisition_date: $("#acquisition-date").val() || "n/a",
+//   acquisition_cost: $("#acquisition-cost").val() || "n/a",
+//   issued_to: $("#issued-to").val() || "n/a",
+//   requested_by: $("#requested-by").val() || "n/a",
+//   pre_repair_findings: $("#pre-repair-findings").val() || "n/a",
+//   job_order: $("#job-order").val() || "n/a",
+//   parts: await getPartsToReplaceProcure(),
+//   additional_sheet: $("#additional-sheet").val() || "n/a",
+//   pre_inspected_by: $("#pre-inspected-by").val() || "n/a",
+//   pre_recommending_approval: $("#pre-recommending-approval").val() || "n/a",
+//   pre_approved: $("#pre-approved").val() || "n/a",
+//   pre_inspected_date: $("#pre-inspected-date").val() || "n/a",
+//   post_repair_findings: $("#post-repair-findings").val() || "n/a",
+//   stock_supplies: $("#stock-supplies").is(":checked"),
+//   with: $("#with-waste-material").is(":checked"),
+//   additional_sheet_attached: $("#additional-sheet-attached").is(":checked"),
+//   ics_number: $("#ics-number").val() || "n/a",
+//   inventory_item_number: $("#inventory-item-number").val() || "n/a",
+//   stock_serial_number: $("#stock-serial-number").val() || "n/a",
+//   post_inspected_by: $("#post-inspected-by").val() || "n/a",
+//   post_recommending_approval: $("#post-recommending-approval").val() || "n/a",
+//   post_approved: $("#post-approved").val() || "n/a",
+//   post_inspected_date: $("#post-inspected-date").val() || "n/a"
+// });
 
 // Validate Pre and Post Repair Form
 const inspectionReportRules = {
@@ -120,6 +120,7 @@ $("#pre-post-repair-form").validate({
     const inspectionReportId = JSON.parse(
       await $.post(requestArgumentsPath, {
         action: "addInspectionReport",
+        assessment_report_id: $('#assessment_report_id').val(),
         to_whom: $("#to").val(),
         control_no: $("#control-number").val(),
         date: $("#date").val()
@@ -211,6 +212,7 @@ $("#pre-post-repair-form").validate({
 
     if (res) {
       await Swal.fire("Success", "Request Inspected", "success");
+      $.redirect(`${baseUrl}app/admin/download/incoming-repairs.php`);
     } else {
       Swal.fire("Failure", "An error occured", "error");
     }
