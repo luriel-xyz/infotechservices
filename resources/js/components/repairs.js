@@ -270,7 +270,13 @@ $(".assessment-created").click(function(e) {
 });
 
 $(".btn-print-assessment").click(function() {
-  $.redirect("../../app/admin/download/print-repassessmentreport-form.php", {
+  $.redirect(`${baseUrl}app/admin/download/print-repassessmentreport-form.php`, {
+    assessment_report_id: $(this).data("assessment-report-id")
+  });
+});
+
+$(".btn-print-inspection-report").click(function() {
+  $.redirect(`${baseUrl}app/admin/download/pre-post-repair-form.php`, {
     assessment_report_id: $(this).data("assessment-report-id")
   });
 });
