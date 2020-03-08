@@ -37,7 +37,7 @@
             <!-- Date -->
             <div class="form-group">
               <label for="date" class="font-size-small mb-1">Date</label>
-              <input type="date" class="form-control" name="date" id="date" placeholder="Date" value="<?=date('Y-m-d')?>" required>
+              <input type="date" class="form-control" name="date" id="date" placeholder="Date" value="<?= date('Y-m-d') ?>" required>
             </div>
             <!-- /# Date -->
           </div>
@@ -217,13 +217,21 @@
         <!-- /# Checkboxes -->
       </div>
 
+      <!-- Stock Information -->
       <div class="stock-container d-none form-group w-75">
         <div class="d-flex">
-          <input type="text" name="ics_number" class="form-control" id="ics-number" placeholder="ICS Number">
-          <input type="text" name="inventory_item_number" class="form-control ml-4" id="inventory-item-number" placeholder="Inventory Item No">
-          <input type="text" name="serial_number" class="form-control ml-4" id="stock-serial-number" placeholder="S/N">
+          <div class="form-group">
+            <input type="text" name="ics_number" class="form-control" id="ics-number" placeholder="ICS Number">
+          </div>
+          <div class="form-group  ml-4">
+            <input type="text" name="inventory_item_number" class="form-control" id="inventory-item-number" placeholder="Inventory Item No">
+          </div>
+          <div class="form-group ml-4">
+            <input type="text" name="stock_serial_number" class="form-control" id="stock-serial-number" placeholder="S/N">
+          </div>
         </div>
       </div>
+      <!-- /# Stock Information -->
 
       <!-- Post Inspection Select Fields -->
       <div class="form-group d-flex mb-0">
