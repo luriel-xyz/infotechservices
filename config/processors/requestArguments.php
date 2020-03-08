@@ -6,6 +6,8 @@ use App\Repair;
 use App\Employee;
 use App\Hardware;
 use App\Assessment;
+use App\InspectionReport;
+use App\MotorVehicle;
 
 require_once('../init.php');
 
@@ -121,6 +123,8 @@ if (isset($_POST['action'])) {
 		echo $result;
 	}
 
+	/** ASSESSMENT REPORT */
+
 	if ($_POST['action'] === 'addRepAssessReport') {
 		$itsrequest_id = $_POST['itsrequest_id'];
 		$hwcomponent_id = $_POST['hwcomponent_id'];
@@ -171,8 +175,47 @@ if (isset($_POST['action'])) {
 		echo $result;
 	}
 
+	/** INSPECTION REPORT */
+
 	if ($_POST['action'] === 'addInspectionReport') {
-		return json_encode('testingn lang');
+		$to_whom = $_POST['to_whom'];
+		$control_no = $_POST['control_no'];
+		$date = $_POST['date'];
+
+		$result = InspectionReport::create($to_whom, $control_no, $date);
+		echo json_encode($result);
+	}
+
+	if ($_POST['action'] === 'addMotorVehicle') {
+		$inspection_report_id = $_POST['inspection_report_id'];
+		$type = $_POST['type'];
+		$plate_no = $_POST['plate_no'];
+		$property_no = $_POST['property_no'];
+		$engine_no = $_POST['engine_no'];
+		$chassis_no = $_POST['chassis_no'];
+		$acquisition_date = $_POST['acquisition_date'];
+		$acquisition_cost = $_POST['acquisition_cost'];
+		$repair_history = $_POST['repair_history'];
+		$repair_date = $_POST['repair_date'];
+		$nature_of_last_repair = $_POST['nature_of_last_repair'];
+		$defects_complaints = $_POST['defects_complaints'];
+
+		$result = MotorVehicle::create(
+			$inspection_report_id,
+			$type,
+			$plate_no,
+			$property_no,
+			$engine_no,
+			$chassis_no,
+			$acquisition_date,
+			$acquisition_cost,
+			$repair_history,
+			$repair_date,
+			$nature_of_last_repair,
+			$defects_complaints,
+		);
+
+		echo json_encode($result);
 	}
 
 	if ($_POST['action'] === 'statusPreInspected') {
