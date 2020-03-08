@@ -152,19 +152,17 @@
         <!-- /# Property Plant and Equipment Section -->
       </div>
 
-      <hr style="border-color: white">
+      <hr class="border-white">
       <!-- Pre-repair Inspection -->
       <div class="col-md-8">
         <h5 class="text-uppercase pb-2">Pre-repair Inspection</h5>
         <div class="form-group">
           <textarea name="pre_repair_findings" id="pre-repair-findings" class="form-control" cols="30" rows="3" placeholder="Findings/Recommendations" required></textarea>
         </div>
-
         <div class="form-group">
           <input type="text" class="form-control" name="job_order" id="job-order" placeholder="Job Order" required>
         </div>
       </div>
-      <!-- /# Pre-repair Inspection -->
       <div class="h5 ml-3 text-center mt-4 pb-2">Parts to be Replaced and/or Procured:</div>
       <div class="form-row">
         <div class="col-8 offset-2">
@@ -246,6 +244,8 @@
       <!-- /# Date Pre Inspected -->
 
       <!-- /# Pre Inspection Select Fields -->
+
+      <!-- /# Pre-repair Inspection -->
 
       <hr class="border-grey">
 
