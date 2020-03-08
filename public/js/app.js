@@ -60787,7 +60787,7 @@ $(".btn-print-assessment").click(function () {
 });
 $(".btn-print-inspection-report").click(function () {
   $.redirect("".concat(baseUrl, "app/admin/download/pre-post-repair-form.php"), {
-    data: $(this).data("assessment-report-id")
+    assessment_report_id: $(this).data("assessment-report-id")
   });
 }); // Pre and Post Inspect Button
 
