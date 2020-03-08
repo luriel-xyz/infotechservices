@@ -1,6 +1,6 @@
 export default {
-  validClass: "text-success",
-  errorClass: "text-danger",
+  validClass: "is-valid",
+  errorClass: "text-danger is-invalid",
   successElement: "small",
   errorElement: "small",
   success: label => {
