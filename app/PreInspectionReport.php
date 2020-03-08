@@ -19,12 +19,12 @@ class PreInspectionReport
     $inspected_by,
     $recommending_approval,
     $approved,
-    $inspected_date
+    $date_inspected
   ) {
     $sql = 'INSERT INTO pre_inspections
-            (inspection_report_id, repair_inspection, job_order, additional_sheet, inspected_by, recommending_approval, approved, inspected_date)
+            (inspection_report_id, repair_inspection, job_order, additional_sheet, inspected_by, recommending_approval, approved, date_inspected)
             VALUES 
-            (:inspection_report_id, :repair_inspection, :job_order, :additional_sheet, :inspected_by, :recommending_approval, :approved, :inspected_date)';
+            (:inspection_report_id, :repair_inspection, :job_order, :additional_sheet, :inspected_by, :recommending_approval, :approved, :date_inspected)';
     
     return DB::insert($sql, [
       ':inspection_report_id' => $inspection_report_id,
@@ -34,7 +34,7 @@ class PreInspectionReport
       ':inspected_by' => $inspected_by,
       ':recommending_approval' => $recommending_approval,
       ':approved' => $approved,
-      ':inspected_date' => $inspected_date
+      ':date_inspected' => $date_inspected
     ]);
   }
 }
