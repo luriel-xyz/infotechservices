@@ -9,6 +9,7 @@ use App\Assessment;
 use App\InspectionReport;
 use App\MotorVehicle;
 use App\OtherPropPlantEquip;
+use App\PreInspectionReport;
 
 require_once('../init.php');
 
@@ -240,6 +241,30 @@ if (isset($_POST['action'])) {
 			$acquisition_cost,
 			$issued_to,
 			$requested_by
+		);
+
+		echo json_encode($result);
+	}
+
+	if ($_POST['action'] === 'addPreInspectionReport') {
+		$inspection_report_id = $_POST['inspection_report_id'];
+		$repair_inspection = $_POST['repair_inspection'];
+		$job_order = $_POST['job_order'];
+		$additional_sheet = $_POST['additional_sheet'];
+		$inspected_by = $_POST['inspected_by'];
+		$recommending_approval = $_POST['recommending_approval'];
+		$approved = $_POST['approved'];
+		$date_inspected = $_POST['date_inspected'];
+
+		$result = PreInspectionReport::create(
+			$inspection_report_id,
+			$repair_inspection,
+			$job_order,
+			$additional_sheet,
+			$inspected_by,
+			$recommending_approval,
+			$approved,
+			$date_inspected
 		);
 
 		echo json_encode($result);
