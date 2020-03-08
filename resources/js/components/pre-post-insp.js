@@ -53,7 +53,6 @@ const getFormData = async () => ({
   post_inspected_date: $("#post-inspected-date").val() || "n/a"
 });
 
-
 // Validate Pre and Post Repair Form
 const inspectionReportRules = {
   to: { required: false },
