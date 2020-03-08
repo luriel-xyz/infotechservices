@@ -60111,14 +60111,14 @@ function () {
             $(".row-part").each(function (i, val) {
               // Row column datum
               var qty = $(".row-part-".concat(i, " .qty")).val();
-              var particularsDescriptions = $(".row-part-".concat(i, " .particulars_descriptions")).val();
+              var description = $(".row-part-".concat(i, " .particulars_descriptions")).val();
               var unit = $(".row-part-".concat(i, " .unit")).val();
               var amount = $(".row-part-".concat(i, " .amount")).val(); // Check if some of the fields have values
 
-              if (!qty || !particularsDescriptions || !unit || !amount) return;
+              if (!qty || !description || !unit || !amount) return;
               partsToReplaceProcure.push({
                 qty: qty,
-                particularsDescriptions: particularsDescriptions,
+                description: description,
                 unit: unit,
                 amount: amount
               });
@@ -60227,196 +60227,305 @@ function () {
   return function getFormData() {
     return _ref2.apply(this, arguments);
   };
-}();
-
-function saveInspectionReport(_x) {
-  return _saveInspectionReport.apply(this, arguments);
-} // Validate Pre and Post Repair Form
+}(); // Validate Pre and Post Repair Form
 
 
-function _saveInspectionReport() {
-  _saveInspectionReport = _asyncToGenerator(
-  /*#__PURE__*/
-  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(reportData) {
-    var _ref4, data, _ref5, value, url;
-
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
-      while (1) {
-        switch (_context4.prev = _context4.next) {
-          case 0:
-            _context4.prev = 0;
-            _context4.next = 3;
-            return axios.post(requestArgumentsPath, reportData);
-
-          case 3:
-            _ref4 = _context4.sent;
-            data = _ref4.data;
-            _context4.next = 7;
-            return Swal.fire({
-              icon: "question",
-              title: "Confirm",
-              text: "Do you want to print the inspection report now?",
-              showCancelButton: true
-            });
-
-          case 7:
-            _ref5 = _context4.sent;
-            value = _ref5.value;
-            url = value ? "".concat(baseUrl, "app/admin/download/pre-post-repair-form.php") : "".concat(baseUrl, "app/admin/incoming-repairs.php");
-            window.location.replace(url);
-            _context4.next = 16;
-            break;
-
-          case 13:
-            _context4.prev = 13;
-            _context4.t0 = _context4["catch"](0);
-            Swal.fire("Failure", "An error occured, try again.", "error");
-
-          case 16:
-          case "end":
-            return _context4.stop();
-        }
-      }
-    }, _callee4, null, [[0, 13]]);
-  }));
-  return _saveInspectionReport.apply(this, arguments);
-}
-
-$("#pre-post-repair-form").validate(_objectSpread({}, validatorOptions, {
-  rules: {
-    to: "required",
-    control_number: "required",
-    date: "required",
-    type: "required",
-    model: "required",
-    property_number: "required",
-    serial_number: "required",
-    acquisition_date: "required",
-    acquisition_cost: "required",
-    issued_to: "required",
-    requested_by: "required",
-    pre_repair_findings: "required",
-    job_order: "required",
-    additional_sheet: "required",
-    pre_inspected_by: "required",
-    pre_recommending_approval: "required",
-    pre_approved: "required",
-    pre_inspected_date: "required",
-    post_repair_findings: "required",
-    ics_number: {
-      required: {
-        depends: function depends() {
-          return $("#stock-supplies").is(":checked");
-        }
-      }
-    },
-    inventory_item_number: {
-      required: {
-        depends: function depends() {
-          return $("#stock-supplies").is(":checked");
-        }
-      }
-    },
-    stock_serial_number: {
-      required: {
-        depends: function depends() {
-          return $("#stock-supplies").is(":checked");
-        }
-      }
-    },
-    post_inspected_by: "required",
-    post_recommending_approval: "required",
-    post_approved: "required",
-    post_inspected_date: "required"
+var inspectionReportRules = {
+  to: {
+    required: false
   },
-  messages: {
-    to: "To is required",
-    control_number: "Control number is required",
-    date: "Date is required",
-    type: "Type is required",
-    model: "Model is required",
-    property_number: "Property number is required",
-    serial_number: "Serial number is required",
-    acquisition_date: "Acquisition date is required",
-    acquisition_cost: "Acquisition cost is required",
-    issued_to: "Issued to is required",
-    requested_by: "Requested by is required",
-    pre_repair_findings: "Pre repair findings or recommendations is required",
-    job_order: "Job order is required",
-    pre_inspected_by: "Pre inspected by is required",
-    pre_recommending_approval: "Pre recommending approval is required",
-    pre_approved: "Pre approved is required",
-    pre_inspected_date: "Inspection date is required",
-    post_repair_findings: "Post repair findings is required",
-    stock_supplies: "Stock supplies is required",
-    ics_number: "ICS number is required",
-    inventory_item_number: "Inventory item number is required",
-    stock_serial_number: "Stock serial number is required",
-    post_inspected_by: "Inspected by is required",
-    post_recommending_approval: "Recommending approval is required",
-    post_approved: "Approved is required",
-    post_inspected_date: "Inspection date is required"
+  control_number: "required",
+  date: "required"
+};
+var motorVehicleRules = {
+  vehicle_type: {
+    required: false
   },
-  submitHandler: function submitHandler(form) {
-    // Set request status to pre-post-repair inspected
-    $.post(requestArgumentsPath, {
-      action: $("#action").val(),
-      itsrequest_id: $("#itsrequest_id").val(),
-      useraccount_id: $("#statusupdate_useraccount_id").val()
-    }).fail(function () {
-      Swal.fire("Failure", "An error occured", "error");
-    }).done(
-    /*#__PURE__*/
-    function () {
-      var _ref3 = _asyncToGenerator(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(res) {
-        var data;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                if (!res) {
-                  _context3.next = 9;
-                  break;
-                }
-
-                _context3.next = 3;
-                return Swal.fire("Success", "Request Inspected", "success");
-
-              case 3:
-                _context3.next = 5;
-                return getFormData();
-
-              case 5:
-                data = _context3.sent;
-                saveInspectionReport(data);
-                _context3.next = 10;
-                break;
-
-              case 9:
-                Swal.fire("Failure", "An error occured", "error");
-
-              case 10:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3);
-      }));
-
-      return function (_x2) {
-        return _ref3.apply(this, arguments);
-      };
-    }()); // $.post('../config/processors/requestArguments.php', $(this).serialize())
-    //   .fail(function() {
-    //     alert('Error')
-    //   })
-    //   .done(function(res) {
-    //     alert(res)
-    //   });
+  plate_no: {
+    required: false
+  },
+  vehicle_property_no: {
+    required: false
+  },
+  engine_no: {
+    required: false
+  },
+  chassis_no: {
+    required: false
+  },
+  vehicle_acquisition_date: {
+    required: false
+  },
+  vehicle_acquisition_cost: {
+    required: false
+  },
+  repair_history: {
+    required: false
+  },
+  repair_date: {
+    required: false
+  },
+  nature_of_last_repair: {
+    required: false
+  },
+  defects_complaints: {
+    required: false
   }
-}));
+};
+var otherPPAERules = {
+  other_type: "required",
+  model: "required",
+  other_property_number: "required",
+  serial_number: "required",
+  other_acquisition_date: "required",
+  other_acquisition_cost: "required",
+  issued_to: "required",
+  requested_by: "required"
+};
+var otherRules = {
+  pre_repair_findings: "required",
+  job_order: "required",
+  additional_sheet: "required",
+  pre_inspected_by: "required",
+  pre_recommending_approval: "required",
+  pre_approved: "required",
+  pre_inspected_date: "required",
+  post_repair_findings: "required",
+  ics_number: {
+    required: {
+      depends: function depends() {
+        return $("#stock-supplies").is(":checked");
+      }
+    }
+  },
+  inventory_item_number: {
+    required: {
+      depends: function depends() {
+        return $("#stock-supplies").is(":checked");
+      }
+    }
+  },
+  stock_serial_number: {
+    required: {
+      depends: function depends() {
+        return $("#stock-supplies").is(":checked");
+      }
+    }
+  },
+  post_inspected_by: "required",
+  post_recommending_approval: "required",
+  post_approved: "required",
+  post_inspected_date: "required"
+};
+$("#pre-post-repair-form").validate(_objectSpread({}, validatorOptions, {
+  rules: _objectSpread({}, inspectionReportRules, {}, motorVehicleRules, {}, otherPPAERules, {}, otherRules),
+  submitHandler: function () {
+    var _submitHandler = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(form) {
+      var inspectionReportId, motorVehicleId, otherId, preInspectionReportId, parts, _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, part, postInspectionReportId, res;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.t0 = JSON;
+              _context3.next = 3;
+              return $.post(requestArgumentsPath, {
+                action: "addInspectionReport",
+                to_whom: $("#to").val(),
+                control_no: $("#control-number").val(),
+                date: $("#date").val()
+              }).promise();
+
+            case 3:
+              _context3.t1 = _context3.sent;
+              inspectionReportId = _context3.t0.parse.call(_context3.t0, _context3.t1);
+              _context3.t2 = JSON;
+              _context3.next = 8;
+              return $.post(requestArgumentsPath, {
+                action: "addMotorVehicle",
+                inspection_report_id: inspectionReportId,
+                type: $("#vehicle-type").val(),
+                plate_no: $("#plate-no").val(),
+                property_no: $("#vehicle-property-no").val(),
+                engine_no: $("#engine-no").val(),
+                chassis_no: $("#chassis-no").val(),
+                acquisition_date: $("#vehicle-acquisition-date").val(),
+                acquisition_cost: $("#vehicle-acquisition-cost").val(),
+                repair_history: $("#repair-history").val(),
+                repair_date: $("#repair-date").val(),
+                nature_of_last_repair: $("#nature-of-last-repair").val(),
+                defects_complaints: $("#defects-complaints").val()
+              }).promise();
+
+            case 8:
+              _context3.t3 = _context3.sent;
+              motorVehicleId = _context3.t2.parse.call(_context3.t2, _context3.t3);
+              _context3.t4 = JSON;
+              _context3.next = 13;
+              return $.post(requestArgumentsPath, {
+                action: "addOtherPropPlantEquip",
+                inspection_report_id: inspectionReportId,
+                other_type: $("#other-type").val(),
+                model: $("#model").val(),
+                other_property_number: $("#other-property-number").val(),
+                serial_number: $("#serial-number").val(),
+                other_acquisition_date: $("#other-acquisition-date").val(),
+                other_acquisition_cost: $("#other-acquisition-cost").val(),
+                issued_to: $("#issued-to").val(),
+                requested_by: $("#requested-by").val()
+              }).promise();
+
+            case 13:
+              _context3.t5 = _context3.sent;
+              otherId = _context3.t4.parse.call(_context3.t4, _context3.t5);
+              _context3.t6 = JSON;
+              _context3.next = 18;
+              return $.post(requestArgumentsPath, {
+                action: "addPreInspectionReport",
+                inspection_report_id: inspectionReportId,
+                repair_inspection: $("#pre-repair-findings").val(),
+                job_order: $("#job-order").val(),
+                additional_sheet: $("#additional-sheet-attached").val(),
+                inspected_by: $("#pre-inspected-by").val(),
+                recommending_approval: $("#pre-recommending-approval").val(),
+                approved: $("#pre-approved").val(),
+                date_inspected: $("#pre-inspected-date").val()
+              }).promise();
+
+            case 18:
+              _context3.t7 = _context3.sent;
+              preInspectionReportId = _context3.t6.parse.call(_context3.t6, _context3.t7);
+              _context3.next = 22;
+              return getPartsToReplaceProcure();
+
+            case 22:
+              parts = _context3.sent;
+              _iteratorNormalCompletion = true;
+              _didIteratorError = false;
+              _iteratorError = undefined;
+              _context3.prev = 26;
+              _iterator = parts[Symbol.iterator]();
+
+            case 28:
+              if (_iteratorNormalCompletion = (_step = _iterator.next()).done) {
+                _context3.next = 35;
+                break;
+              }
+
+              part = _step.value;
+              _context3.next = 32;
+              return $.post(requestArgumentsPath, {
+                action: "addPreInspectionHardware",
+                pre_inspection_id: preInspectionReportId,
+                qty: part.qty,
+                unit: part.unit,
+                description: part.description,
+                amount: part.amount
+              }).promise();
+
+            case 32:
+              _iteratorNormalCompletion = true;
+              _context3.next = 28;
+              break;
+
+            case 35:
+              _context3.next = 41;
+              break;
+
+            case 37:
+              _context3.prev = 37;
+              _context3.t8 = _context3["catch"](26);
+              _didIteratorError = true;
+              _iteratorError = _context3.t8;
+
+            case 41:
+              _context3.prev = 41;
+              _context3.prev = 42;
+
+              if (!_iteratorNormalCompletion && _iterator["return"] != null) {
+                _iterator["return"]();
+              }
+
+            case 44:
+              _context3.prev = 44;
+
+              if (!_didIteratorError) {
+                _context3.next = 47;
+                break;
+              }
+
+              throw _iteratorError;
+
+            case 47:
+              return _context3.finish(44);
+
+            case 48:
+              return _context3.finish(41);
+
+            case 49:
+              _context3.t9 = JSON;
+              _context3.next = 52;
+              return $.post(requestArgumentsPath, {
+                action: "addPostInspectionReport",
+                inspection_report_id: inspectionReportId,
+                inspected_by: $("#post-inspected-by").val(),
+                recommending_approval: $("#post-recommending-approval").val(),
+                approved: $("#post-approved").val(),
+                repair_inspection: $("#post-repair-findings").val(),
+                stock: $("#stock-supplies").val(),
+                with_wm_prs: $("#with-waste-material").val(),
+                ics_no: $("#ics-number").val(),
+                inventory_item_no: $("#inventory-item-number").val(),
+                serial_no: $("#stock-serial-number").val(),
+                date_inspected: $("#post-inspected-date").val()
+              }).promise();
+
+            case 52:
+              _context3.t10 = _context3.sent;
+              postInspectionReportId = _context3.t9.parse.call(_context3.t9, _context3.t10);
+              _context3.next = 56;
+              return $.post(requestArgumentsPath, {
+                action: $("#action").val(),
+                itsrequest_id: $("#itsrequest_id").val(),
+                useraccount_id: $("#statusupdate_useraccount_id").val()
+              });
+
+            case 56:
+              res = _context3.sent;
+
+              if (!res) {
+                _context3.next = 62;
+                break;
+              }
+
+              _context3.next = 60;
+              return Swal.fire("Success", "Request Inspected", "success");
+
+            case 60:
+              _context3.next = 63;
+              break;
+
+            case 62:
+              Swal.fire("Failure", "An error occured", "error");
+
+            case 63:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, null, [[26, 37, 41, 49], [42,, 44, 48]]);
+    }));
+
+    function submitHandler(_x) {
+      return _submitHandler.apply(this, arguments);
+    }
+
+    return submitHandler;
+  }()
+})); // Show stock text fields when stock-supplies checkbox is checked
+
 $("#stock-supplies").change(function () {
   var stockContainer = $(".stock-container");
 
@@ -60424,6 +60533,7 @@ $("#stock-supplies").change(function () {
     stockContainer.removeClass("d-none");
     stockContainer.show("fast");
   } else {
+    s;
     $("#ics-number").val("");
     $("#inventory-item-number").val("");
     $("#stock-serial-number").val("");
@@ -61663,8 +61773,8 @@ function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  validClass: "text-success",
-  errorClass: "text-danger",
+  validClass: "is-valid",
+  errorClass: "text-danger is-invalid",
   successElement: "small",
   errorElement: "small",
   success: function success(label) {
