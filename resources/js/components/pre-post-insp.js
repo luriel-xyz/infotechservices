@@ -58,7 +58,6 @@ const getFormData = async () => ({
 async function saveInspectionReport(reportData) {
   try {
     const { data } = await axios.post(requestArgumentsPath, reportData);
-    console.log("data here: ", data);
     const { value } = await Swal.fire({
       icon: "question",
       title: "Confirm",
@@ -102,13 +101,13 @@ $("#pre-post-repair-form").validate({
     pre_inspected_date: "required",
     post_repair_findings: "required",
     ics_number: {
-      depends: () => $("#stock-supplies").is(":checked")
+      required: { depends: () => $("#stock-supplies").is(":checked") }
     },
     inventory_item_number: {
-      depends: () => $("#stock-supplies").is(":checked")
+      required: { depends: () => $("#stock-supplies").is(":checked") }
     },
     stock_serial_number: {
-      depends: () => $("#stock-supplies").is(":checked")
+      required: { depends: () => $("#stock-supplies").is(":checked") } 
     },
     post_inspected_by: "required",
     post_recommending_approval: "required",
@@ -191,5 +190,3 @@ $("#stock-supplies").change(function() {
 $("#pre-post-repair-form").submit(function(e) {
   e.preventDefault();
 });
-
-
