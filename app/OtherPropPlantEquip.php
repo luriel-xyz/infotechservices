@@ -12,36 +12,30 @@ class OtherPropPlantEquip
    */
   public static function create(
     $inspection_report_id,
-    $type,
-    $plate_no,
-    $property_no,
-    $engine_no,
-    $chassis_no,
-    $acquisition_date,
-    $acquisition_cost,
-    $repair_history,
-    $repair_date,
-    $nature_of_last_repair,
-    $defects_complaints
+    $other_type,
+    $model,
+    $other_property_number,
+    $serial_number,
+    $other_acquisition_date,
+    $other_acquisition_cost,
+    $issued_to,
+    $requested_by
   ) {
-    $sql = 'INSERT INTO motor_vehicles 
-            (inspection_report_id, type, plate_no, property_no, engine_no, chassis_no, acquisition_date, acquisition_cost, repair_history, repair_date, nature_of_last_repair, defects_complaints)
+    $sql = 'INSERT INTO others 
+            (inspection_report_id, other_type, model, other_property_number, serial_number, other_acquisition_date, other_acquisition_cost, issued_to, requested_by)
             VALUES 
-            (:inspection_report_id, :type, :plate_no, :property_no, :engine_no, :chassis_no, :acquisition_date, :acquisition_cost, :repair_history, :repair_date, :nature_of_last_repair, :defects_complaints)';
+            (:inspection_report_id, :other_type, :model, :other_property_number, :serial_number, :other_acquisition_date, :other_acquisition_cost, :issued_to, :requested_by)';
 
     return DB::insert($sql, [
       ':inspection_report_id' => $inspection_report_id,
-      ':type' => $type,
-      ':plate_no' => $plate_no,
-      ':property_no' => $property_no,
-      ':engine_no' => $engine_no,
-      ':chassis_no' => $chassis_no,
-      ':acquisition_date' => $acquisition_date,
-      ':acquisition_cost' => $acquisition_cost,
-      ':repair_history' => $repair_history,
-      ':repair_date' => $repair_date,
-      ':nature_of_last_repair' => $nature_of_last_repair,
-      ':defects_complaints' => $defects_complaints
+      ':other_type' => $other_type,
+      ':model' => $model,
+      ':other_property_number' => $other_property_number,
+      ':serial_number' => $serial_number,
+      ':other_acquisition_date' => $other_acquisition_date,
+      ':other_acquisition_cost' => $other_acquisition_cost,
+      ':issued_to' => $issued_to,
+      ':requested_by' => $requested_by
     ]);
   }
 }
