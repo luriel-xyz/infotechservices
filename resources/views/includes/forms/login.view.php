@@ -14,7 +14,7 @@
             <div class="form-group">
                 <!-- <label for="username" class="bmd-label-floating">Username</label> -->
                 <div class="md-form">
-                    <i class="fas fa-user fa-fw prefix"></i>
+                    <i class="fas fa-user fa-fw prefix grey-text"></i>
                     <input type="text" id="username" class="form-control" name="username" placeholder="Username">
                 </div>
             </div>
@@ -22,7 +22,7 @@
             <div class="form-group">
                 <!-- <label for="password" class="bmd-label-floating">Password</label> -->
                 <div class="md-form">
-                    <i class="fas fa-lock prefix fa-fw"></i>
+                    <i class="fas fa-lock prefix fa-fw grey-text"></i>
                     <input type="password" id="password" class="form-control" name="password" placeholder="Password">
                 </div>
             </div>
