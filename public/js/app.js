@@ -58843,8 +58843,7 @@ module.exports = function(module) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 /* harmony import */ var _bootstrap__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_bootstrap__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _plugins_sweetalert2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./plugins/sweetalert2 */ "./resources/js/plugins/sweetalert2.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _validator_options__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./validator-options */ "./resources/js/validator-options.js");
@@ -58852,8 +58851,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 window.moment = moment__WEBPACK_IMPORTED_MODULE_2___default.a;
-window.Swal = sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a;
+window.Swal = _plugins_sweetalert2__WEBPACK_IMPORTED_MODULE_1__["default"];
+window.customClass = _plugins_sweetalert2__WEBPACK_IMPORTED_MODULE_1__["customClass"];
 window.appName = "infotechservices";
 window.baseUrl = "".concat(window.location.origin, "/");
 window.requestArgumentsPath = "".concat(baseUrl, "/config/processors/requestArguments.php");
@@ -59617,14 +59618,12 @@ $("#employee-form").validate(_objectSpread({}, validatorOptions, {
       var _ref = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(res) {
-        var _ref2, value;
-
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 if (!res) {
-                  _context.next = 8;
+                  _context.next = 6;
                   break;
                 }
 
@@ -59632,20 +59631,14 @@ $("#employee-form").validate(_objectSpread({}, validatorOptions, {
                 return Swal.fire("Success", "Employee Data Saved!", "success");
 
               case 3:
-                _ref2 = _context.sent;
-                value = _ref2.value;
-
-                if (value) {
-                  location.reload(true);
-                }
-
-                _context.next = 9;
+                location.reload(true);
+                _context.next = 7;
                 break;
 
-              case 8:
+              case 6:
                 Swal.fire("Failure", "Error!", "error");
 
-              case 9:
+              case 7:
               case "end":
                 return _context.stop();
             }
@@ -60023,10 +60016,7 @@ function () {
               title: "Confirm",
               text: "Are you sure?",
               showCancelButton: true,
-              customClass: {
-                confirmButton: "btn btn-primary btn-sm text-capitalize",
-                cancelButton: "btn btn-secondary btn-sm text-capitalize"
-              }
+              customClass: customClass
             });
 
           case 3:
@@ -60600,11 +60590,11 @@ $("#printSorting-repairs-form").submit(function (e) {
   var url = "";
 
   if (sort === "all") {
-    url = "../../app/admin/download/excel-all.php";
+    url = "".concat(baseUrl, "app/admin/download/excel-all.php");
   } else if (sort === "department") {
-    url = "../../app/admin/download/excel-dept.php";
+    url = "".concat(baseUrl, "app/admin/download/excel-dept.php");
   } else if (sort === "day") {
-    url = "../../app/admin/download/excel-date.php";
+    url = "".concat(baseUrl, "app/admin/download/excel-date.php");
   }
 
   $.redirect(url, {
@@ -60762,12 +60752,12 @@ $("#pullout_done-form").submit(function (e) {
 
 $("#add").click(function (e) {
   e.preventDefault();
-  $.redirect("../admin/add-repair.php");
+  $.redirect("".concat(baseUrl, "app/admin/add-repair.php"));
 }); // Assessment Button CLick Listener
 
 $(".assess").click(function (e) {
   e.preventDefault();
-  $.redirect("../../app/admin/assessment-form.php", {
+  $.redirect("".concat(baseUrl, "app/admin/assessment-form.php"), {
     itsrequest_id: $(this).attr("id"),
     useraccount_id: $(this).data("useraccount_id"),
     dept_id: $(this).data("dept_id"),
@@ -61710,6 +61700,27 @@ function () {
     return _ref7.apply(this, arguments);
   };
 }());
+
+/***/ }),
+
+/***/ "./resources/js/plugins/sweetalert2.js":
+/*!*********************************************!*\
+  !*** ./resources/js/plugins/sweetalert2.js ***!
+  \*********************************************/
+/*! exports provided: customClass, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "customClass", function() { return customClass; });
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
+
+var customClass = {
+  confirmButton: "btn btn-primary btn-sm text-capitalize",
+  cancelButton: "btn btn-secondary btn-sm text-capitalize"
+};
+/* harmony default export */ __webpack_exports__["default"] = (sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a);
 
 /***/ }),
 

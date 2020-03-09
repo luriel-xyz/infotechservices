@@ -70,11 +70,11 @@ $("#printSorting-repairs-form").submit(function(e) {
   let url = "";
 
   if (sort === "all") {
-    url = "../../app/admin/download/excel-all.php";
+    url = `${baseUrl}app/admin/download/excel-all.php`;
   } else if (sort === "department") {
-    url = "../../app/admin/download/excel-dept.php";
+    url = `${baseUrl}app/admin/download/excel-dept.php`;
   } else if (sort === "day") {
-    url = "../../app/admin/download/excel-date.php";
+    url = `${baseUrl}app/admin/download/excel-date.php`;
   }
 
   $.redirect(url, {
@@ -162,7 +162,9 @@ $(".view-repair").click(function(e) {
       '<label class="font-weight-bold">' + request.property_num + "</label><br>"
     );
     $("#data").append(
-      '<label class="font-weight-bold">' + truncateString(request.concern) + "</label><br>"
+      '<label class="font-weight-bold">' +
+        truncateString(request.concern) +
+        "</label><br>"
     );
     $("#data").append(
       '<label class="font-weight-bold">' +
@@ -243,14 +245,14 @@ $("#pullout_done-form").submit(function(e) {
 // Add new repair button click listener
 $("#add").click(function(e) {
   e.preventDefault();
-  $.redirect("../admin/add-repair.php");
+  $.redirect(`${baseUrl}app/admin/add-repair.php`);
 });
 
 // Assessment Button CLick Listener
 $(".assess").click(function(e) {
   e.preventDefault();
 
-  $.redirect("../../app/admin/assessment-form.php", {
+  $.redirect(`${baseUrl}app/admin/assessment-form.php`, {
     itsrequest_id: $(this).attr("id"),
     useraccount_id: $(this).data("useraccount_id"),
     dept_id: $(this).data("dept_id"),
@@ -270,9 +272,12 @@ $(".assessment-created").click(function(e) {
 });
 
 $(".btn-print-assessment").click(function() {
-  $.redirect(`${baseUrl}app/admin/download/print-repassessmentreport-form.php`, {
-    assessment_report_id: $(this).data("assessment-report-id")
-  });
+  $.redirect(
+    `${baseUrl}app/admin/download/print-repassessmentreport-form.php`,
+    {
+      assessment_report_id: $(this).data("assessment-report-id")
+    }
+  );
 });
 
 $(".btn-print-inspection-report").click(function() {

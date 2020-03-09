@@ -6,10 +6,7 @@ $(".btn-logout").click(async e => {
     title: "Confirm",
     text: "Are you sure?",
     showCancelButton: true,
-    customClass: {
-      confirmButton: "btn btn-primary btn-sm text-capitalize",
-      cancelButton: "btn btn-secondary btn-sm text-capitalize"
-    }
+    customClass
   });
 
   if (value) {

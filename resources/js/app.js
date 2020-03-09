@@ -1,11 +1,13 @@
 import "./bootstrap";
 
-import Swal from "sweetalert2";
+import Swal from "./plugins/sweetalert2";
+import { customClass } from "./plugins/sweetalert2";
 import moment from "moment";
 import options from "./validator-options";
 
 window.moment = moment;
 window.Swal = Swal;
+window.customClass = customClass;
 window.appName = "infotechservices";
 window.baseUrl = `${window.location.origin}/`;
 window.requestArgumentsPath = `${baseUrl}/config/processors/requestArguments.php`;

@@ -46,14 +46,8 @@ $("#employee-form").validate({
   submitHandler: form => {
     $.post(settingsArgumentsPath, $(form).serialize()).done(async res => {
       if (res) {
-        const { value } = await Swal.fire(
-          "Success",
-          "Employee Data Saved!",
-          "success"
-        );
-        if (value) {
-          location.reload(true);
-        }
+        await Swal.fire("Success", "Employee Data Saved!", "success");
+        location.reload(true);
       } else {
         Swal.fire("Failure", "Error!", "error");
       }
