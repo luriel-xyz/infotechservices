@@ -10,15 +10,15 @@
   <div class="h-100 w-100">
 
     <!-- Page Title -->
-    <?php view('includes/page-title'); ?>
+    <?php view('includes/navbar'); ?>
     <!-- /# Page Title -->
 
     <div class="container-fluid h-100">
-      <div class="row">
+      <div class="row align-items-center">
         <!-- Search Field -->
         <div class="col-md-5">
           <div class="md-form">
-            <i class="fas fa-search prefix"></i>
+            <i class="fas fa-search prefix grey-text"></i>
             <input type="text" class="form-control " id="search" placeholder="Search">
           </div>
         </div>
@@ -28,7 +28,7 @@
         <?php if (count($requests)) : ?>
           <div class="mr-3 ml-auto">
             <button type="button" class="btn btn-sm btn-primary" data-toggle="tooltip" title="Download Request Summary" id="printSummary">
-              <i class="fa fa-download" aria-hidden="true"></i>
+              <i class="fas fa-download" aria-hidden="true"></i>
             </button>
           </div>
         <?php endif; ?>
