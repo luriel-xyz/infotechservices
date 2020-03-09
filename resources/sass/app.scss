@@ -96,7 +96,8 @@
 }
 
 .font-size-small,
-.signed-by {
+.signed-by,
+.pre-inspection-body-text {
   font-size: small !important;
 }
 
@@ -168,6 +169,15 @@
   position: fixed;
 }
 
+.btn-toggle {
+  background: none !important;
+  color: #4285f4 !important;
+  padding: 2px;
+  box-shadow: none !important;
+  margin-right: 10px;
+  margin-bottom: 0;
+}
+
 .btn-request {
   width: 300px !important;
   height: 300px !important;
@@ -185,6 +195,12 @@
   border: 1px solid #000;
   font-size: small;
   padding: 0;
+}
+
+.pre-inspection-body-text {
+  text-transform: uppercase;
+  display: flex;
+  justify-content: space-between;
 }
 
 /* @media (min-width: 769px) {
