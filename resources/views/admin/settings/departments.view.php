@@ -7,7 +7,7 @@
   <div class="h-100 w-100">
 
     <!-- Page Title -->
-    <?php view('includes/page-title'); ?>
+    <?php view('includes/navbar'); ?>
     <!-- /# Page Title -->
 
     <div class="container-fluid h-100 mt-4">
@@ -15,7 +15,7 @@
         <div class="row">
           <!-- Search Text Field -->
           <div class="col-md-5">
-            <i class="fas fa-search prefix"></i>
+            <i class="fas fa-search prefix grey-text"></i>
             <input type="text" class="form-control " id="search" placeholder="Search">
           </div>
           <!-- /# Search Text Field -->
