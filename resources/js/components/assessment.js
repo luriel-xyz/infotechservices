@@ -18,7 +18,7 @@ $("#repassessmentreport-form").validate({
 
   messages: {
     hwcomponent_id: "Name of item is required",
-    hwcomponent_description: "Description is required",
+    hwcomponent_description: "Model/Description is required",
     hwcomponent_dateAcquired: "Date is required",
     hwcomponent_acquisitioncost: "Acquisition cost is required",
     dept_id: "Please select a department.",
@@ -156,7 +156,7 @@ if (hwcomponent_id) {
 
     $("#checkbox_container").empty(); // clear checkbox container
     // Loop through subcomponents
-    components.forEach(function(component) { 
+    components.forEach(function(component) {
       // Create subcomponent field
       const subcomponent = `
         <label for="checkbox-${component.hwcomponent_id}" id="hw_component" class="hw_component form-check-label label-${component.hwcomponent_id} checkbox-inline d-block mb-0 d-flex justify-content-between align-items-center">
