@@ -2,7 +2,7 @@
 <!-- Page Content -->
 <div class="h-100 w-100 row">
   <!--  Container -->
-  <div class="container-fluid col-lg-12 col-md-12 col-sm-12 col-xs-12 my-auto"> 
+  <div class="container-fluid col-lg-12 col-md-12 col-sm-12 col-xs-12 my-auto">
     <a href="<?= getPath('app/admin/incoming-repairs.php') ?>" class="btn btn-link text-capitalize" role="button">
       <i class="fas fa-arrow-left fa-fw"></i>
       Go back
