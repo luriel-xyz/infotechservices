@@ -3,6 +3,7 @@
 use App\Assessment;
 use App\Employee;
 use App\InspectionReport;
+use App\MotorVehicle;
 use App\OtherPropPlantEquip;
 use App\PostInspectionReport;
 use App\PreInspectionHardware;
@@ -23,6 +24,7 @@ if (!isset($_POST['assessment_report_id'])) {
 
 $assessmentReport = Assessment::getAssessmentReport($_POST['assessment_report_id']);
 $inspectionReport = InspectionReport::byAssessmentReportId($assessmentReport->repassessreport_id);
+$motorVehicle = MotorVehicle::byInspectionReportId($inspectionReport->id);
 $other = OtherPropPlantEquip::byInspectionReportId($inspectionReport->id);
 $issuedTo = Employee::getEmployee($other->issued_to);
 $requestedBy = Employee::getEmployee($other->requested_by);
@@ -57,6 +59,7 @@ $postApproved = Employee::getEmployee($postRepairInspectionReport->approved);
 
 $viewData = compact(
 	'inspectionReport',
+	'motorVehicle',
 	'other',
 	'issuedTo',
 	'requestedBy',
