@@ -59661,8 +59661,8 @@ $("#search").on("keyup", function () {
 $("#add-employee").click(function (e) {
   isEditEmployee = false;
   $(".modal-title").text("EMPLOYEE ADDING FORM");
-  $("#emp_btn").text("Add Employee");
-  $("#emp_id").html("");
+  $("#emp_btn").text("Add Employee"); // $("#emp_id").html("");
+
   $("#dept_id").val("");
   $("#emp_idnum").val("");
   $("#fname").val("");
