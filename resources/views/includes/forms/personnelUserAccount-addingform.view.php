@@ -44,7 +44,7 @@
 			</div>
 		</div>
 
-		<div class="form-group">
+		<div class="form-group password-field">
 			<div class="md-form">
 				<i class="fas fa-lock prefix grey-text"></i>
 				<input type="password" class="form-control password" name="password" id="password" placeholder="Password" required>
