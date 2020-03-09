@@ -32,6 +32,7 @@
   "homepage": "https://github.com/luriel-xyz/InfoTechServices#readme",
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.12.1",
+    "@sweetalert2/theme-material-ui": "^3.1.2",
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
     "bootstrap-material-design": "^4.1.2",
@@ -49,7 +50,7 @@
     "resolve-url-loader": "^3.1.0",
     "sass": "^1.26.1",
     "sass-loader": "^8.0.2",
-    "sweetalert2": "^9.8.2",
+    "sweetalert2": "^9.9.0",
     "vue-template-compiler": "^2.6.11"
   },
   "dependencies": {}
