@@ -10,7 +10,7 @@
   <div class="h-100 w-100">
 
     <!-- Page Title -->
-    <?php view('includes/page-title'); ?>
+    <?php view('includes/navbar'); ?>
     <!-- /# Page Title -->
 
     <div class="container-fluid h-100 mt-4">
@@ -19,11 +19,11 @@
         <div class="row">
           <!-- Search Field -->
           <div class="col-md-6">
-            <i class="fas fa-search prefix"></i> 
+            <i class="fas fa-search prefix grey-text"></i>
             <input type="text" class="form-control " id="search" placeholder="Search">
           </div>
           <!-- /# Search Field -->
-          <!-- Create Admin Account Button --> 
+          <!-- Create Admin Account Button -->
           <button type="button" class="btn btn-sm btn-primary text-capitalize" style="font-size: small" id="addPersonnelAccount" data-toggle="tooltip" title="Add Personnel Account">
             <i class="fas fa-user-plus fa-fw" aria-hidden="true"></i>
             Admin
