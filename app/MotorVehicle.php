@@ -44,4 +44,13 @@ class MotorVehicle
       ':defects_complaints' => $defects_complaints
     ]);
   }
+
+  public static function byInspectionReportId($id)
+  {
+    $sql = 'SELECT * FROM motor_vehicles
+            WHERE inspection_report_id = ?
+            LIMIT 1';
+
+    return DB::single($sql, [$id]);
+  }
 }
