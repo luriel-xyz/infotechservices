@@ -1,5 +1,6 @@
 <?php
 //if users is empty
+
 if (!$useraccounts) :
 ?>
   <div class="alert alert-info text-center">
