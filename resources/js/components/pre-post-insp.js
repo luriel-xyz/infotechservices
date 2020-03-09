@@ -19,6 +19,34 @@ const getPartsToReplaceProcure = async () => {
   return partsToReplaceProcure;
 };
 
+function motorVehicleExists() {
+  const type = $("#vehicle-type").val();
+  const plate_no = $("#plate-no").val();
+  const property_no = $("#vehicle-property-no").val();
+  const engine_no = $("#engine-no").val();
+  const chassis_no = $("#chassis-no").val();
+  const acquisition_date = $("#vehicle-acquisition-date").val();
+  const acquisition_cost = $("#vehicle-acquisition-cost").val();
+  const repair_history = $("#repair-history").val();
+  const repair_date = $("#repair-date").val();
+  const nature_of_last_repair = $("#nature-of-last-repair").val();
+  const defects_complaints = $("#defects-complaints").val();
+
+  return (
+    type ||
+    plate_no ||
+    property_no ||
+    engine_no ||
+    chassis_no ||
+    acquisition_date ||
+    acquisition_cost ||
+    repair_history ||
+    repair_date ||
+    nature_of_last_repair ||
+    defects_complaints
+  );
+}
+
 // const getFormData = async () => ({
 //   action: "addInspectionReport",
 //   to: $("#to").val() || "n/a",
@@ -41,9 +69,9 @@ const getPartsToReplaceProcure = async () => {
 //   pre_approved: $("#pre-approved").val() || "n/a",
 //   pre_inspected_date: $("#pre-inspected-date").val() || "n/a",
 //   post_repair_findings: $("#post-repair-findings").val() || "n/a",
-//   stock_supplies: $("#stock-supplies").is(":checked"),
-//   with: $("#with-waste-material").is(":checked"),
-//   additional_sheet_attached: $("#additional-sheet-attached").is(":checked"),
+//   stock_supplies: $("#stock-supplies").is(":checked") ? 1 : 0,
+//   with: $("#with-waste-material").is(":checked") ? 1 : 0,
+//   additional_sheet_attached: $("#additional-sheet-attached").is(":checked") ? 1 : 0,
 //   ics_number: $("#ics-number").val() || "n/a",
 //   inventory_item_number: $("#inventory-item-number").val() || "n/a",
 //   stock_serial_number: $("#stock-serial-number").val() || "n/a",
@@ -92,13 +120,13 @@ const otherRules = {
   pre_inspected_date: "required",
   post_repair_findings: "required",
   ics_number: {
-    required: { depends: () => $("#stock-supplies").is(":checked") }
+    required: { depends: () => ($("#stock-supplies").is(":checked") ? 1 : 0) }
   },
   inventory_item_number: {
-    required: { depends: () => $("#stock-supplies").is(":checked") }
+    required: { depends: () => ($("#stock-supplies").is(":checked") ? 1 : 0) }
   },
   stock_serial_number: {
-    required: { depends: () => $("#stock-supplies").is(":checked") }
+    required: { depends: () => ($("#stock-supplies").is(":checked") ? 1 : 0) }
   },
   post_inspected_by: "required",
   post_recommending_approval: "required",
@@ -128,23 +156,25 @@ $("#pre-post-repair-form").validate({
       }).promise()
     );
     // Insert motor vehicle data
-    const motorVehicleId = JSON.parse(
-      await $.post(requestArgumentsPath, {
-        action: "addMotorVehicle",
-        inspection_report_id: inspectionReportId,
-        type: $("#vehicle-type").val(),
-        plate_no: $("#plate-no").val(),
-        property_no: $("#vehicle-property-no").val(),
-        engine_no: $("#engine-no").val(),
-        chassis_no: $("#chassis-no").val(),
-        acquisition_date: $("#vehicle-acquisition-date").val(),
-        acquisition_cost: $("#vehicle-acquisition-cost").val(),
-        repair_history: $("#repair-history").val(),
-        repair_date: $("#repair-date").val(),
-        nature_of_last_repair: $("#nature-of-last-repair").val(),
-        defects_complaints: $("#defects-complaints").val()
-      }).promise()
-    );
+    if (motorVehicleExists()) {
+      const motorVehicleId = JSON.parse(
+        await $.post(requestArgumentsPath, {
+          action: "addMotorVehicle",
+          inspection_report_id: inspectionReportId,
+          type: $("#vehicle-type").val(),
+          plate_no: $("#plate-no").val(),
+          property_no: $("#vehicle-property-no").val(),
+          engine_no: $("#engine-no").val(),
+          chassis_no: $("#chassis-no").val(),
+          acquisition_date: $("#vehicle-acquisition-date").val(),
+          acquisition_cost: $("#vehicle-acquisition-cost").val(),
+          repair_history: $("#repair-history").val(),
+          repair_date: $("#repair-date").val(),
+          nature_of_last_repair: $("#nature-of-last-repair").val(),
+          defects_complaints: $("#defects-complaints").val()
+        }).promise()
+      );
+    }
     // Insert other property plant and equipment data
     const otherId = JSON.parse(
       await $.post(requestArgumentsPath, {
@@ -167,7 +197,9 @@ $("#pre-post-repair-form").validate({
         inspection_report_id: inspectionReportId,
         repair_inspection: $("#pre-repair-findings").val(),
         job_order: $("#job-order").val(),
-        additional_sheet: $("#additional-sheet-attached").val(),
+        additional_sheet: $("#additional-sheet-attached").is(":checked")
+          ? 1
+          : 0,
         inspected_by: $("#pre-inspected-by").val(),
         recommending_approval: $("#pre-recommending-approval").val(),
         approved: $("#pre-approved").val(),
@@ -195,8 +227,8 @@ $("#pre-post-repair-form").validate({
         recommending_approval: $("#post-recommending-approval").val(),
         approved: $("#post-approved").val(),
         repair_inspection: $("#post-repair-findings").val(),
-        stock: $("#stock-supplies").val(),
-        with_wm_prs: $("#with-waste-material").val(),
+        stock: $("#stock-supplies").is(":checked") ? 1 : 0,
+        with_wm_prs: $("#with-waste-material").is(":checked") ? 1 : 0,
         ics_no: $("#ics-number").val(),
         inventory_item_no: $("#inventory-item-number").val(),
         serial_no: $("#stock-serial-number").val(),
@@ -234,13 +266,12 @@ $("#stock-supplies").change(function() {
   const stockContainer = $(".stock-container");
   if (this.checked) {
     stockContainer.removeClass("d-none");
-    stockContainer.show("fast");
+    stockContainer.show();
   } else {
-    s;
     $("#ics-number").val("");
     $("#inventory-item-number").val("");
     $("#stock-serial-number").val("");
-    stockContainer.hide("fast");
+    stockContainer.hide();
   }
 });
 
