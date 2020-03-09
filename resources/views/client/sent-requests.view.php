@@ -24,7 +24,10 @@
     <hr class="border border-bottom border-success">
 
     <div class="col-lg-3">
-      <input type="text" class="form-control " id="search" placeholder="Search">
+      <div class="md-form">
+        <i class="fas fa-search prefix grey-text"></i>
+        <input type="text" class="form-control " id="search" placeholder="Search">
+      </div>
     </div>
 
     <!-- Table Container -->
@@ -83,21 +86,21 @@
 
   <!-- Modal View Repair Concern -->
   <div class="modal fade" id="modalViewConcern" tabindex="-1" role="dialog" aria-labelledby="modalViewConcern" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <p class="h5 modal-title text-uppercase mx-auto">VIEW CONCERN</p>
-          </div>
-          <div class="modal-body">
-            <div class="concern card-text"></div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal" onclick="$('#modalViewConcern').modal('hide')">Close</button>
-          </div>
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <p class="h5 modal-title text-uppercase mx-auto">VIEW CONCERN</p>
+        </div>
+        <div class="modal-body">
+          <div class="concern card-text"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal" onclick="$('#modalViewConcern').modal('hide')">Close</button>
         </div>
       </div>
     </div>
-    <!-- /# Modal View Repair Concern -->
+  </div>
+  <!-- /# Modal View Repair Concern -->
 </div>
 <!-- /# Page Content -->
 
