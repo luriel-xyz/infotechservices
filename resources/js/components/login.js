@@ -13,7 +13,6 @@ $.validator.addMethod(
   "Incorrect username or password"
 );
 
-
 $("#login-form").validate({
   ...validatorOptions,
 
