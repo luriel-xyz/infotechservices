@@ -107,7 +107,10 @@ else :
               ?>
             <?php elseif ($repair->status === 'pre-post-repair inspected') : ?>
               <button type="button" class="btn btn-sm btn-success done-repair" data-toggle="tooltip" title="Done" id="<?= $repair->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>"><i class="fa fa-check" aria-hidden="true"></i></button>
-              <button type="button" class="btn btn-sm btn-info btn-print-inspection-report" data-toggle="tooltip" title="Print Inspection Report" id="<?= $repair->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>" data-assessment-report-id="<?=$assessmentReport->repassessreport_id?>"><i class="fas fa-print" aria-hidden="true"></i></button>
+              <button type="button" class="btn btn-sm btn-info btn-print-inspection-report" data-toggle="tooltip" title="Print Inspection Report" id="<?= $repair->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>" data-assessment-report-id="<?= $assessmentReport->repassessreport_id ?>"><i class="fas fa-print" aria-hidden="true"></i></button>
+            <?php elseif ($repair->status === 'done') : ?>
+              <button type="button" class="btn btn-sm btn-secondary btn-print-assessment" data-toggle="tooltip" title="Print Assessment Form" data-assessment-report-id="<?= $assessmentReport->repassessreport_id ?>"><i class="fa fa-print" aria-hidden="true"></i></button>
+              <button type="button" class="btn btn-sm btn-info btn-print-inspection-report" data-toggle="tooltip" title="Print Inspection Report" id="<?= $repair->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>" data-assessment-report-id="<?= $assessmentReport->repassessreport_id ?>"><i class="fas fa-print" aria-hidden="true"></i></button>
             <?php endif; ?>
           </td>
         </tr>
