@@ -1,8 +1,7 @@
-let mix = require("laravel-mix");
+import { js, sass } from "laravel-mix";
 
-mix
-  .js("resources/js/app.js", "public/js/")
-  .sass("resources/sass/app.scss", "public/css/");
+js("resources/js/app.js", "public/js/");
+sass("resources/sass/app.scss", "public/css/");
 
 // Full API
 // mix.js(src, output);
