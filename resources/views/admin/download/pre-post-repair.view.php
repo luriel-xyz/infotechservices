@@ -44,15 +44,39 @@
       </div>
     </div>
     <!-- /# -->
-    <h2 class="subtitle-1 text-uppercase">Propery Plant And Equipment</h2>
-    <div class="mt-2 w-50">
-      <div class="text-uppercase font-size-small d-flex justify-content-between">type: <span class="font-weight-bold underlined"><?= $other->type ?></span></div>
-      <div class="text-uppercase font-size-small d-flex justify-content-between">model: <span class="font-weight-bold underlined"><?= $other->model ?></span></div>
-      <div class="text-uppercase font-size-small d-flex justify-content-between">propery number: <span class="font-weight-bold underlined"><?= $other->property_no ?></span></div>
-      <div class="text-uppercase font-size-small d-flex justify-content-between">serial number: <span class="font-weight-bold underlined"><?= $other->serial_no ?></span></div>
-      <div class="text-uppercase font-size-small d-flex justify-content-between">acquisition date: <span class="font-weight-bold underlined"><?= $other->acquisition_date ?></span></div>
-      <div class="text-uppercase font-size-small d-flex justify-content-between">acquisition cost: <span class="font-weight-bold underlined"><?= $other->acquisition_cost ?></span></div>
-      <div class="text-uppercase font-size-small d-flex justify-content-between">issued to: <span class="font-weight-bold underlined"><?= "{$issuedTo->emp_fname} {$issuedTo->emp_lname}" ?></span></div>
+    <div class="row mt-4">
+      <div class="col-md-6">
+        <!-- Motor Vehicles -->
+        <h2 class="subtitle-1 text-uppercase">A. Motor Vehicles</h2>
+        <div class="mt-2">
+          <div class="pre-inspection-body-text">type: <span class="font-weight-bold underlined"><?= isset($motorVehicle) ? $motorVehicle->type : '' ?></span></div>
+          <div class="pre-inspection-body-text">plate number: <span class="font-weight-bold underlined"><?= isset($motorVehicle) ? $motorVehicle->plate_no : '' ?></span></div>
+          <div class="pre-inspection-body-text">property number: <span class="font-weight-bold underlined"><?= isset($motorVehicle) ? $motorVehicle->property_no : '' ?></span></div>
+          <div class="pre-inspection-body-text">engine number: <span class="font-weight-bold underlined"><?= isset($motorVehicle) ? $motorVehicle->engine_no : '' ?></span></div>
+          <div class="pre-inspection-body-text">chassis number: <span class="font-weight-bold underlined"><?= isset($motorVehicle) ? $motorVehicle->chassis_no : '' ?></span></div>
+          <div class="pre-inspection-body-text">acquisition date: <span class="font-weight-bold underlined"><?= isset($motorVehicle) ? $motorVehicle->acquisition_date : '' ?></span></div>
+          <div class="pre-inspection-body-text">acquisition cost: <span class="font-weight-bold underlined"><?= isset($motorVehicle) ? $motorVehicle->acquisition_cost : '' ?></span></div>
+          <div class="pre-inspection-body-text">repair history: <span class="font-weight-bold underlined"><?= isset($motorVehicle) ? $motorVehicle->repair_history : '' ?></span></div>
+          <div class="pre-inspection-body-text">repair date: <span class="font-weight-bold underlined"><?= isset($motorVehicle) ? $motorVehicle->repair_date : '' ?></span></div>
+          <div class="pre-inspection-body-text">nature of last repair & maintenance: <span class="font-weight-bold underlined"><?= isset($motorVehicle) ? $motorVehicle->nature_of_last_repair : '' ?></span></div>
+          <div class="pre-inspection-body-text">defects / complaints: <span class="font-weight-bold underlined"><?= isset($motorVehicle) ? $motorVehicle->defects_complaints : '' ?></span></div>
+        </div>
+        <!-- /# Motor Vehicles -->
+      </div>
+      <div class="col-md-6">
+        <!-- property Plant and Equipment -->
+        <h2 class="subtitle-1 text-uppercase">B. property Plant And Equipment</h2>
+        <div class="mt-2">
+          <div class="pre-inspection-body-text">type: <span class="font-weight-bold underlined"><?= $other->type ?></span></div>
+          <div class="pre-inspection-body-text">model: <span class="font-weight-bold underlined"><?= $other->model ?></span></div>
+          <div class="pre-inspection-body-text">propery number: <span class="font-weight-bold underlined"><?= $other->property_no ?></span></div>
+          <div class="pre-inspection-body-text">serial number: <span class="font-weight-bold underlined"><?= $other->serial_no ?></span></div>
+          <div class="pre-inspection-body-text">acquisition date: <span class="font-weight-bold underlined"><?= $other->acquisition_date ?></span></div>
+          <div class="pre-inspection-body-text">acquisition cost: <span class="font-weight-bold underlined"><?= $other->acquisition_cost ?></span></div>
+          <div class="pre-inspection-body-text">issued to: <span class="font-weight-bold underlined"><?= "{$issuedTo->emp_fname} {$issuedTo->emp_lname}" ?></span></div>
+        </div>
+        <!-- /# property Plant and Equipment -->
+      </div>
     </div>
     <!-- Requested by -->
     <div class="d-flex justify-content-end mt-3">
@@ -204,7 +228,7 @@
               <i class="fas fa-circle font-size-x-small"></i>
             <?php endif; ?>
           </div>
-          <span class="checkbox-label-smaller">With Waste Material / Property Return Slip</span>
+          <span class="checkbox-label-smaller">With Waste Material / property Return Slip</span>
         </div>
       </div>
       <div class="col-md-6">
@@ -214,7 +238,7 @@
               <i class="fas fa-circle font-size-x-small"></i>
             <?php endif; ?>
           </div>
-          <span class="checkbox-label-smaller">Without Waste Material / Property Return Slip</span>
+          <span class="checkbox-label-smaller">Without Waste Material / property Return Slip</span>
         </div>
       </div>
     </div>
