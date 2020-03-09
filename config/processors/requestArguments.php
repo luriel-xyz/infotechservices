@@ -382,7 +382,7 @@ if (isset($_POST['action'])) {
 
 		$result = Repair::addRepair($dept_id, $emp_id, $itsrequest_category, $itshw_category, $hwcomponent_id, $hwcomponent_sub_id, $property_num, $concern, $statusupdate_useraccount_id, $itsrequest_date);
 
-		echo $result;
+		echo json_encode($result);
 	}
 
 
