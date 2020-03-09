@@ -19,6 +19,7 @@
 		<input type="hidden" class="form-control usertype" name="usertype" id="usertype" value="department">
 
 		<div class="form-group">
+			<label for="dept_id" class="font-size-small mb-0 pb-0">Department</label>
 			<select name="dept_id" id="dept_id" class="form-control" required>
 				<option selected disabled> -- Select Department -- </option>
 				<?php foreach ($departments as $department) : ?>
@@ -30,11 +31,17 @@
 		</div>
 
 		<div class="form-group">
-			<input type="text" class="form-control department-username" name="username" id="username" placeholder="Username" required>
+			<div class="md-form">
+				<i class="fas fa-user prefix grey-text"></i>
+				<input type="text" class="form-control department-username" name="username" id="username" placeholder="Username" required>
+			</div>
 		</div>
 
 		<div class="form-group">
-			<input type="password" class="form-control password" name="password" id="password" placeholder="Password" required>
+			<div class="md-form">
+				<i class="fas fa-lock prefix grey-text"></i>
+				<input type="password" class="form-control password" name="password" id="password" placeholder="Password" required>
+			</div>
 		</div>
 
 	</div>
