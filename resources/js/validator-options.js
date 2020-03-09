@@ -4,6 +4,6 @@ export default {
   successElement: "small",
   errorElement: "small",
   success: label => {
-    label.addClass("text-success");
+    // label.addClass("text-success");
   }
 };
