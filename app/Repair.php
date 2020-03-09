@@ -82,18 +82,18 @@ class Repair
 							:statusupdate_useraccount_id,
 							:itsrequest_date
             )";
-            
+
     return DB::insert($sql, [
-      'dept_id' => $dept_id,
-      'emp_id' => $emp_id,
-      'itsrequest_category' => $itsrequest_category,
-      'itshw_category' => $itshw_category,
-      'hwcomponent_id' => $hwcomponent_id,
-      'hwcomponent_sub_id' => $hwcomponent_sub_id,
-      'property_num' => $property_num,
-      'concern' => $concern,
-      'statusupdate_useraccount_id' => $statusupdate_useraccount_id,
-      'itsrequest_date' => $itsrequest_date
+      ':dept_id' => $dept_id,
+      ':emp_id' => $emp_id,
+      ':itsrequest_category' => $itsrequest_category,
+      ':itshw_category' => $itshw_category,
+      ':hwcomponent_id' => $hwcomponent_id,
+      ':hwcomponent_sub_id' => $hwcomponent_sub_id,
+      ':property_num' => $property_num,
+      ':concern' => $concern,
+      ':statusupdate_useraccount_id' => $statusupdate_useraccount_id,
+      ':itsrequest_date' => $itsrequest_date
     ]);
   }
 }
