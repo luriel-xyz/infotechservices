@@ -187,38 +187,40 @@ $("#departmentUserAccount-form").submit(function(e) {
 });
 
 //Edit User Accounts Script
-$(".edit-user").click(function(e) {
+$(".edit-user").click(async function(e) {
   e.preventDefault();
 
   const action = "editUserAccount";
   const useraccount_id = $(this).attr("id");
-  $.post(settingsArgumentsPath, {
-    action: action,
-    useraccount_id: useraccount_id
-  }).done(user => {
-    user = JSON.parse(user);
-    if (user.usertype === "personnel" || user.usertype === "admin") {
-      $("#modalPersonnelAccount").modal("show");
-      $(".modal-title").text("PERSONNEL ACCOUNT UPDATING FORM");
-      $(".personnel-username").val(user.username);
-    } else {
-      $("#modalDepartmentAccount").modal("show");
-      $(".modal-title").text("DEPARTMENT ACCOUNT UPDATING FORM");
-      $(".department-username").val(user.username);
-    }
-    $(".useraccount_id").append(
-      '<input type="hidden" name="useraccount_id" id="useraccount_id" class="useraccount_id" value=' +
-        user.useraccount_id +
-        ">"
-    );
-    $(".usertype").val(user.usertype);
-    $("#emp_id").val(user.emp_id);
-    $("#dept_id").val(user.dept_id);
-    $(".password").val(user.password);
-    $(".password").hide();
-    $(".useraccount_btn").text("Save Changes");
-    $(".action").val("updateUserAccount");
-  });
+
+  const user = JSON.parse(
+    await $.post(settingsArgumentsPath, {
+      action: action,
+      useraccount_id: useraccount_id
+    }).promise()
+  );
+
+  if (user.usertype === "personnel" || user.usertype === "admin") {
+    $("#modalPersonnelAccount").modal("show");
+    $(".modal-title").text("PERSONNEL ACCOUNT UPDATING FORM");
+    $(".personnel-username").val(user.username);
+  } else {
+    $("#modalDepartmentAccount").modal("show");
+    $(".modal-title").text("DEPARTMENT ACCOUNT UPDATING FORM");
+    $(".department-username").val(user.username);
+  }
+  $(".useraccount_id").append(
+    '<input type="hidden" name="useraccount_id" id="useraccount_id" class="useraccount_id" value=' +
+      user.useraccount_id +
+      ">"
+  );
+  $(".usertype").val(user.usertype);
+  $("#emp_id").val(user.emp_id);
+  $("#dept_id").val(user.dept_id);
+  $(".password").val(user.password);
+  $(".password-field").hide();
+  $(".useraccount_btn").text("Save Changes");
+  $(".action").val("updateUserAccount");
 });
 
 //Disable User Account Access Script
