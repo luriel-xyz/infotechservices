@@ -15,7 +15,7 @@ $("#dept_id").change(function() {
   }).done(function(employees) {
     employees = JSON.parse(employees);
     $("#emp_id").empty();
-    $('#emp_id').show();
+    $("#emp_id").show();
     $("#emp_id").append(
       "<option selected disabled>" + "-- Select Employee --" + "</option>"
     );
@@ -64,19 +64,47 @@ $("#hwcomponent_id").change(function() {
   });
 });
 
+// Validate Add repair form
+$("#incomingrepair-form").validate({
+  ...validatorOptions,
+
+  rules: {
+    dept_id: "required",
+    emp_id: "required",
+    itsrequest_category: "required",
+    hwcomponent_id: "required",
+    hwcomponent_subcategory: { required: false },
+    property_num: "required",
+    concern: "required"
+  },
+
+  submitHandler: async form => {
+    const res = await $.post(
+      requestArgumentsPath,
+      $(form).serialize()
+    ).promise();
+    if (res) {
+      await Swal.fire("Success", "Repair Added!", "success");
+      $.redirect(`${baseUrl}app/admin/incoming-repairs.php`);
+    } else {
+      Swal.fire("Failure", "Error!", "error");
+    }
+  }
+});
+
 $("#incomingrepair-form").submit(function(e) {
   e.preventDefault();
 
-  $.ajax({
-    url: requestArgumentsPath,
-    type: "POST",
-    data: $(this).serialize()
-  }).done(async function(res) {
-    if (res) {
-      await Swal.fire('Success', 'Repair Added!', 'success');
-      $.redirect('../../app/admin/incoming-repairs.php');
-    } else {
-      Swal.fire('Failure', 'Error!', 'error');
-    }
-  });
+  // $.ajax({
+  //   url: requestArgumentsPath,
+  //   type: "POST",
+  //   data: $(this).serialize()
+  // }).done(async function(res) {
+  //   if (res) {
+  //     await Swal.fire("Success", "Repair Added!", "success");
+  //     $.redirect(`${baseUrl}app/admin/incoming-repairs.php`);
+  //   } else {
+  //     Swal.fire("Failure", "Error!", "error");
+  //   }
+  // });
 });
