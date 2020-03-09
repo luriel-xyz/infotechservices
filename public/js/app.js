@@ -58948,6 +58948,12 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 $("#request_category").show();
 $("#hw_category").show();
 $("#itsrequest_category").val("hw");
@@ -58964,7 +58970,7 @@ $("#dept_id").change(function () {
   }).done(function (employees) {
     employees = JSON.parse(employees);
     $("#emp_id").empty();
-    $('#emp_id').show();
+    $("#emp_id").show();
     $("#emp_id").append("<option selected disabled>" + "-- Select Employee --" + "</option>");
     employees.forEach(function (employee) {
       $("#emp_id").append("<option value = " + employee.emp_id + ">" + employee.emp_fname + " " + employee.emp_lname + "</option>");
@@ -58989,40 +58995,52 @@ $("#hwcomponent_id").change(function () {
       $("#hwcomponent_subcategory").append("<option value = " + components.hwcomponent_id + ">" + components.hwcomponent_name + "</option>");
     });
   });
-});
-$("#incomingrepair-form").submit(function (e) {
-  e.preventDefault();
-  $.ajax({
-    url: requestArgumentsPath,
-    type: "POST",
-    data: $(this).serialize()
-  }).done(
-  /*#__PURE__*/
-  function () {
-    var _ref = _asyncToGenerator(
+}); // Validate Add repair form
+
+$("#incomingrepair-form").validate(_objectSpread({}, validatorOptions, {
+  rules: {
+    dept_id: "required",
+    emp_id: "required",
+    itsrequest_category: "required",
+    hwcomponent_id: "required",
+    hwcomponent_subcategory: {
+      required: false
+    },
+    property_num: "required",
+    concern: "required"
+  },
+  submitHandler: function () {
+    var _submitHandler = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(res) {
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(form) {
+      var res;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
+              _context.next = 2;
+              return $.post(requestArgumentsPath, $(form).serialize()).promise();
+
+            case 2:
+              res = _context.sent;
+
               if (!res) {
-                _context.next = 6;
+                _context.next = 9;
                 break;
               }
 
-              _context.next = 3;
-              return Swal.fire('Success', 'Repair Added!', 'success');
-
-            case 3:
-              $.redirect('../../app/admin/incoming-repairs.php');
-              _context.next = 7;
-              break;
+              _context.next = 6;
+              return Swal.fire("Success", "Repair Added!", "success");
 
             case 6:
-              Swal.fire('Failure', 'Error!', 'error');
+              $.redirect("".concat(baseUrl, "app/admin/incoming-repairs.php"));
+              _context.next = 10;
+              break;
 
-            case 7:
+            case 9:
+              Swal.fire("Failure", "Error!", "error");
+
+            case 10:
             case "end":
               return _context.stop();
           }
@@ -59030,10 +59048,26 @@ $("#incomingrepair-form").submit(function (e) {
       }, _callee);
     }));
 
-    return function (_x) {
-      return _ref.apply(this, arguments);
-    };
-  }());
+    function submitHandler(_x) {
+      return _submitHandler.apply(this, arguments);
+    }
+
+    return submitHandler;
+  }()
+}));
+$("#incomingrepair-form").submit(function (e) {
+  e.preventDefault(); // $.ajax({
+  //   url: requestArgumentsPath,
+  //   type: "POST",
+  //   data: $(this).serialize()
+  // }).done(async function(res) {
+  //   if (res) {
+  //     await Swal.fire("Success", "Repair Added!", "success");
+  //     $.redirect(`${baseUrl}app/admin/incoming-repairs.php`);
+  //   } else {
+  //     Swal.fire("Failure", "Error!", "error");
+  //   }
+  // });
 });
 
 /***/ }),
@@ -59169,7 +59203,7 @@ $("#repassessmentreport-form").validate(_objectSpread({}, validatorOptions, {
   },
   messages: {
     hwcomponent_id: "Name of item is required",
-    hwcomponent_description: "Description is required",
+    hwcomponent_description: "Model/Description is required",
     hwcomponent_dateAcquired: "Date is required",
     hwcomponent_acquisitioncost: "Acquisition cost is required",
     dept_id: "Please select a department.",
@@ -59992,7 +60026,11 @@ function () {
               icon: "question",
               title: "Confirm",
               text: "Are you sure?",
-              showCancelButton: true
+              showCancelButton: true,
+              customClass: {
+                confirmButton: "btn btn-primary btn-sm text-capitalize",
+                cancelButton: "btn btn-secondary btn-sm text-capitalize"
+              }
             });
 
           case 3:
@@ -60082,7 +60120,22 @@ function () {
   return function getPartsToReplaceProcure() {
     return _ref.apply(this, arguments);
   };
-}(); // const getFormData = async () => ({
+}();
+
+function motorVehicleExists() {
+  var type = $("#vehicle-type").val();
+  var plate_no = $("#plate-no").val();
+  var property_no = $("#vehicle-property-no").val();
+  var engine_no = $("#engine-no").val();
+  var chassis_no = $("#chassis-no").val();
+  var acquisition_date = $("#vehicle-acquisition-date").val();
+  var acquisition_cost = $("#vehicle-acquisition-cost").val();
+  var repair_history = $("#repair-history").val();
+  var repair_date = $("#repair-date").val();
+  var nature_of_last_repair = $("#nature-of-last-repair").val();
+  var defects_complaints = $("#defects-complaints").val();
+  return type || plate_no || property_no || engine_no || chassis_no || acquisition_date || acquisition_cost || repair_history || repair_date || nature_of_last_repair || defects_complaints;
+} // const getFormData = async () => ({
 //   action: "addInspectionReport",
 //   to: $("#to").val() || "n/a",
 //   control_number: $("#control-number").val() || "n/a",
@@ -60104,9 +60157,9 @@ function () {
 //   pre_approved: $("#pre-approved").val() || "n/a",
 //   pre_inspected_date: $("#pre-inspected-date").val() || "n/a",
 //   post_repair_findings: $("#post-repair-findings").val() || "n/a",
-//   stock_supplies: $("#stock-supplies").is(":checked"),
-//   with: $("#with-waste-material").is(":checked"),
-//   additional_sheet_attached: $("#additional-sheet-attached").is(":checked"),
+//   stock_supplies: $("#stock-supplies").is(":checked") ? 1 : 0,
+//   with: $("#with-waste-material").is(":checked") ? 1 : 0,
+//   additional_sheet_attached: $("#additional-sheet-attached").is(":checked") ? 1 : 0,
 //   ics_number: $("#ics-number").val() || "n/a",
 //   inventory_item_number: $("#inventory-item-number").val() || "n/a",
 //   stock_serial_number: $("#stock-serial-number").val() || "n/a",
@@ -60182,21 +60235,21 @@ var otherRules = {
   ics_number: {
     required: {
       depends: function depends() {
-        return $("#stock-supplies").is(":checked");
+        return $("#stock-supplies").is(":checked") ? 1 : 0;
       }
     }
   },
   inventory_item_number: {
     required: {
       depends: function depends() {
-        return $("#stock-supplies").is(":checked");
+        return $("#stock-supplies").is(":checked") ? 1 : 0;
       }
     }
   },
   stock_serial_number: {
     required: {
       depends: function depends() {
-        return $("#stock-supplies").is(":checked");
+        return $("#stock-supplies").is(":checked") ? 1 : 0;
       }
     }
   },
@@ -60231,8 +60284,14 @@ $("#pre-post-repair-form").validate(_objectSpread({}, validatorOptions, {
             case 3:
               _context2.t1 = _context2.sent;
               inspectionReportId = _context2.t0.parse.call(_context2.t0, _context2.t1);
+
+              if (!motorVehicleExists()) {
+                _context2.next = 11;
+                break;
+              }
+
               _context2.t2 = JSON;
-              _context2.next = 8;
+              _context2.next = 9;
               return $.post(requestArgumentsPath, {
                 action: "addMotorVehicle",
                 inspection_report_id: inspectionReportId,
@@ -60249,11 +60308,13 @@ $("#pre-post-repair-form").validate(_objectSpread({}, validatorOptions, {
                 defects_complaints: $("#defects-complaints").val()
               }).promise();
 
-            case 8:
+            case 9:
               _context2.t3 = _context2.sent;
               motorVehicleId = _context2.t2.parse.call(_context2.t2, _context2.t3);
+
+            case 11:
               _context2.t4 = JSON;
-              _context2.next = 13;
+              _context2.next = 14;
               return $.post(requestArgumentsPath, {
                 action: "addOtherPropPlantEquip",
                 inspection_report_id: inspectionReportId,
@@ -60267,45 +60328,45 @@ $("#pre-post-repair-form").validate(_objectSpread({}, validatorOptions, {
                 requested_by: $("#requested-by").val()
               }).promise();
 
-            case 13:
+            case 14:
               _context2.t5 = _context2.sent;
               otherId = _context2.t4.parse.call(_context2.t4, _context2.t5);
               _context2.t6 = JSON;
-              _context2.next = 18;
+              _context2.next = 19;
               return $.post(requestArgumentsPath, {
                 action: "addPreInspectionReport",
                 inspection_report_id: inspectionReportId,
                 repair_inspection: $("#pre-repair-findings").val(),
                 job_order: $("#job-order").val(),
-                additional_sheet: $("#additional-sheet-attached").val(),
+                additional_sheet: $("#additional-sheet-attached").is(":checked") ? 1 : 0,
                 inspected_by: $("#pre-inspected-by").val(),
                 recommending_approval: $("#pre-recommending-approval").val(),
                 approved: $("#pre-approved").val(),
                 date_inspected: $("#pre-inspected-date").val()
               }).promise();
 
-            case 18:
+            case 19:
               _context2.t7 = _context2.sent;
               preInspectionReportId = _context2.t6.parse.call(_context2.t6, _context2.t7);
-              _context2.next = 22;
+              _context2.next = 23;
               return getPartsToReplaceProcure();
 
-            case 22:
+            case 23:
               parts = _context2.sent;
               _iteratorNormalCompletion = true;
               _didIteratorError = false;
               _iteratorError = undefined;
-              _context2.prev = 26;
+              _context2.prev = 27;
               _iterator = parts[Symbol.iterator]();
 
-            case 28:
+            case 29:
               if (_iteratorNormalCompletion = (_step = _iterator.next()).done) {
-                _context2.next = 35;
+                _context2.next = 36;
                 break;
               }
 
               part = _step.value;
-              _context2.next = 32;
+              _context2.next = 33;
               return $.post(requestArgumentsPath, {
                 action: "addPreInspectionHardware",
                 pre_inspection_id: preInspectionReportId,
@@ -60315,48 +60376,48 @@ $("#pre-post-repair-form").validate(_objectSpread({}, validatorOptions, {
                 amount: part.amount
               }).promise();
 
-            case 32:
+            case 33:
               _iteratorNormalCompletion = true;
-              _context2.next = 28;
+              _context2.next = 29;
               break;
 
-            case 35:
-              _context2.next = 41;
+            case 36:
+              _context2.next = 42;
               break;
 
-            case 37:
-              _context2.prev = 37;
-              _context2.t8 = _context2["catch"](26);
+            case 38:
+              _context2.prev = 38;
+              _context2.t8 = _context2["catch"](27);
               _didIteratorError = true;
               _iteratorError = _context2.t8;
 
-            case 41:
-              _context2.prev = 41;
+            case 42:
               _context2.prev = 42;
+              _context2.prev = 43;
 
               if (!_iteratorNormalCompletion && _iterator["return"] != null) {
                 _iterator["return"]();
               }
 
-            case 44:
-              _context2.prev = 44;
+            case 45:
+              _context2.prev = 45;
 
               if (!_didIteratorError) {
-                _context2.next = 47;
+                _context2.next = 48;
                 break;
               }
 
               throw _iteratorError;
 
-            case 47:
-              return _context2.finish(44);
-
             case 48:
-              return _context2.finish(41);
+              return _context2.finish(45);
 
             case 49:
+              return _context2.finish(42);
+
+            case 50:
               _context2.t9 = JSON;
-              _context2.next = 52;
+              _context2.next = 53;
               return $.post(requestArgumentsPath, {
                 action: "addPostInspectionReport",
                 inspection_report_id: inspectionReportId,
@@ -60364,51 +60425,51 @@ $("#pre-post-repair-form").validate(_objectSpread({}, validatorOptions, {
                 recommending_approval: $("#post-recommending-approval").val(),
                 approved: $("#post-approved").val(),
                 repair_inspection: $("#post-repair-findings").val(),
-                stock: $("#stock-supplies").val(),
-                with_wm_prs: $("#with-waste-material").val(),
+                stock: $("#stock-supplies").is(":checked") ? 1 : 0,
+                with_wm_prs: $("#with-waste-material").is(":checked") ? 1 : 0,
                 ics_no: $("#ics-number").val(),
                 inventory_item_no: $("#inventory-item-number").val(),
                 serial_no: $("#stock-serial-number").val(),
                 date_inspected: $("#post-inspected-date").val()
               }).promise();
 
-            case 52:
+            case 53:
               _context2.t10 = _context2.sent;
               postInspectionReportId = _context2.t9.parse.call(_context2.t9, _context2.t10);
-              _context2.next = 56;
+              _context2.next = 57;
               return $.post(requestArgumentsPath, {
                 action: $("#action").val(),
                 itsrequest_id: $("#itsrequest_id").val(),
                 useraccount_id: $("#statusupdate_useraccount_id").val()
               });
 
-            case 56:
+            case 57:
               res = _context2.sent;
 
               if (!res) {
-                _context2.next = 63;
+                _context2.next = 64;
                 break;
               }
 
-              _context2.next = 60;
+              _context2.next = 61;
               return Swal.fire("Success", "Request Inspected", "success");
 
-            case 60:
+            case 61:
               $.redirect("".concat(baseUrl, "app/admin/download/pre-post-repair-form.php"), {
                 assessment_report_id: $("#assessment-report-id").val()
               });
-              _context2.next = 64;
+              _context2.next = 65;
               break;
 
-            case 63:
+            case 64:
               Swal.fire("Failure", "An error occured", "error");
 
-            case 64:
+            case 65:
             case "end":
               return _context2.stop();
           }
         }
-      }, _callee2, null, [[26, 37, 41, 49], [42,, 44, 48]]);
+      }, _callee2, null, [[27, 38, 42, 50], [43,, 45, 49]]);
     }));
 
     function submitHandler(_x) {
@@ -60424,13 +60485,12 @@ $("#stock-supplies").change(function () {
 
   if (this.checked) {
     stockContainer.removeClass("d-none");
-    stockContainer.show("fast");
+    stockContainer.show();
   } else {
-    s;
     $("#ics-number").val("");
     $("#inventory-item-number").val("");
     $("#stock-serial-number").val("");
-    stockContainer.hide("fast");
+    stockContainer.hide();
   }
 });
 $("#pre-post-repair-form").submit(function (e) {
@@ -61113,6 +61173,7 @@ $(".view-sent-request").click(function (e) {
     dataType: "JSON"
   }).done(function (request) {
     $("#modalView").modal("toggle");
+    $("#data").empty();
 
     if (request.status === "received") {
       $("#data").append('<label class="font-weight-bold text-info">' + request.status + "</label><br>");
@@ -61125,6 +61186,7 @@ $(".view-sent-request").click(function (e) {
     $("#data").append('<label class="font-weight-bold">' + moment(request.itsrequest_date).format("MMM d, Y h:mm a") + "</label><br>");
     $("#data").append('<label class="font-weight-bold">' + request.dept_code + "|" + request.emp_fname + " " + request.emp_lname + "</label><br>");
     $("#data").append('<label class="font-weight-bold">' + truncateString(request.concern) + "</label><br>");
+    $("#other-labels").empty();
 
     if (request.itsrequest_category == "hw") {
       $("#other-labels").append("<label> Repair Location: </label> <br>");
@@ -61138,12 +61200,6 @@ $(".view-sent-request").click(function (e) {
       }
     }
   });
-});
-$(".close").click(function () {
-  location.reload(true);
-});
-$(".cancel").click(function () {
-  location.reload(true);
 });
 $(".receive").click(function (e) {
   e.preventDefault();
@@ -61675,8 +61731,7 @@ __webpack_require__.r(__webpack_exports__);
   errorClass: "text-danger is-invalid",
   successElement: "small",
   errorElement: "small",
-  success: function success(label) {
-    label.addClass("text-success");
+  success: function success(label) {// label.addClass("text-success");
   }
 });
 
