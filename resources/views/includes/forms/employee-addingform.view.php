@@ -26,9 +26,9 @@
 			</select>
 		</div>
 
-		<div class="form-group">
+		<!-- <div class="form-group">
 			<select name="emp_id" class="form-control" id="emp_id" style="display: none;"></select>
-		</div>
+		</div> -->
 
 		<div class="form-group form-row">
 			<div class="col-6">
