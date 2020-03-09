@@ -28,6 +28,7 @@ $(".view-sent-request").click(function(e) {
     dataType: "JSON"
   }).done(function(request) {
     $("#modalView").modal("toggle");
+    $("#data").empty();
     if (request.status === "received") {
       $("#data").append(
         '<label class="font-weight-bold text-info">' +
@@ -63,9 +64,12 @@ $(".view-sent-request").click(function(e) {
         "</label><br>"
     );
     $("#data").append(
-      '<label class="font-weight-bold">' + truncateString(request.concern) + "</label><br>"
+      '<label class="font-weight-bold">' +
+        truncateString(request.concern) +
+        "</label><br>"
     );
 
+    $("#other-labels").empty();
     if (request.itsrequest_category == "hw") {
       $("#other-labels").append("<label> Repair Location: </label> <br>");
       $("#data").append(
@@ -93,14 +97,6 @@ $(".view-sent-request").click(function(e) {
       }
     }
   });
-});
-
-$(".close").click(function() {
-  location.reload(true);
-});
-
-$(".cancel").click(function() {
-  location.reload(true);
 });
 
 $(".receive").click(function(e) {
