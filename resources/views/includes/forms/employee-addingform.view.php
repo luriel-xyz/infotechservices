@@ -15,6 +15,7 @@
 
 
 		<div class="form-group">
+			<label for="dept_id" class="font-size-small mb-0 pb-0">Department</label>
 			<select name="dept_id" id="dept_id" class="form-control" required>
 				<option selected disabled> -- Select Department -- </option>
 				<?php foreach ($departments as $department) : ?>
