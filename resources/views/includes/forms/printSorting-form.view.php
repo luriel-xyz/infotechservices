@@ -44,8 +44,8 @@
 			</div>
 
 			<div class="modal-footer text-light mb-0">
-				<button type="button" class="btn btn-secondary cancel" data-dismiss="modal">Cancel</button>
-				<button type="submit" name="submit" class="btn btn-primary" id="print_btn">
+				<button type="reset" class="btn btn-secondary cancel" data-dismiss="modal">Cancel</button>
+				<button type="submit" name="submit" class="btn btn-primary" id="print_btn"> 
 					Download
 				</button>
 			</div>
