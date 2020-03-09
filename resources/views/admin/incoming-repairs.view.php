@@ -10,16 +10,16 @@
   <div class="h-100 w-100">
 
     <!-- Page Title -->
-    <?php view('includes/page-title'); ?>
+    <?php view('includes/navbar'); ?>
     <!-- /# Page Title -->
 
     <div class="container-fluid h-100 mt-4">
 
       <div class="md-form">
-        <div class="row">
+        <div class="row align-items-center">
           <!-- Search Field -->
           <div class="col-md-6">
-            <i class="fas fa-search prefix"></i>
+            <i class="fas fa-search prefix grey-text"></i>
             <input type="text" class="form-control " id="search" placeholder="Search">
           </div>
 
@@ -34,7 +34,9 @@
           <!-- Download Repair Summary Button -->
           <?php if (count($repairs)) : ?>
             <div class="col-md-3 d-flex justify-content-end">
-              <button type="button" class="btn btn-sm btn-primary" data-toggle="tooltip" title="Download Summary in MSword" id="printSummary"><i class="fa fa-download" aria-hidden="true"></i></button>
+              <button type="button" class="btn btn-sm btn-primary" data-toggle="tooltip" title="Download Summary in MSword" id="printSummary">
+                <i class="fas fa-download" aria-hidden="true"></i>
+              </button>
             </div>
           <?php endif; ?>
           <!-- /# Download Repair Summary Button -->
