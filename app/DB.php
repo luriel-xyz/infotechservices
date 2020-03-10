@@ -66,7 +66,7 @@ class DB
    * Insert or update record(s) to the database.
    * @param string $sql
    * @param $params
-   * @return 
+   * @return
    */
   public static function insert(string $sql, array $params = [])
   {

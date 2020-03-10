@@ -47,7 +47,6 @@ class Request
   /* Get Incoming Requests by Department */
   public static function getRequestsByDepartment($dept_id, $limit = '')
   {
-    // FIX THIS ...
     $sql = "SELECT * FROM itservices_request_tbl 
 							INNER JOIN employee_tbl 
 							ON itservices_request_tbl.emp_id=employee_tbl.emp_id 

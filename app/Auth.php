@@ -8,7 +8,7 @@ class Auth
 {
 
 	/*  Check Login Credentials  */
-	public function login($username, $password)
+	public static function login($username, $password)
 	{
 		$sql = "SELECT * FROM useraccount_tbl 
 						LEFT JOIN employee_tbl 
