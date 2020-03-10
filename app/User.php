@@ -41,25 +41,27 @@ class User
     return DB::single($sql, [$dept_id])->frequency > 0;
   }
 
-  public static function getUserAccount($useraccount_id = null)
+  public static function all($limit = '')
   {
-    if ($useraccount_id == null) {
-      $sql = "SELECT * FROM useraccount_tbl 
+    $sql = "SELECT * FROM useraccount_tbl 
 							LEFT JOIN employee_tbl 
 							ON useraccount_tbl.emp_id=employee_tbl.emp_id 
 							LEFT JOIN department_tbl 
-							ON useraccount_tbl.dept_id=department_tbl.dept_id";
-      return DB::all($sql);
-    } else {
-      $sql = "SELECT * FROM useraccount_tbl 
+              ON useraccount_tbl.dept_id=department_tbl.dept_id
+              {$limit}";
+    return DB::all($sql);
+  }
+
+  public static function find($id)
+  {
+    $sql = "SELECT * FROM useraccount_tbl 
 							LEFT JOIN employee_tbl 
 							ON useraccount_tbl.emp_id=employee_tbl.emp_id 
 							LEFT JOIN department_tbl 
 							ON useraccount_tbl.dept_id=department_tbl.dept_id 
               WHERE useraccount_tbl.useraccount_id = ?";
 
-      return DB::single($sql, [$useraccount_id]);
-    }
+    return DB::single($sql, [$id]);
   }
 
   /* Add Department User Account */
