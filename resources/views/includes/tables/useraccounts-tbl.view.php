@@ -10,9 +10,8 @@ if (!$useraccounts) :
 //if not empty
 else :
 ?>
-  <table class="table table-bordered table-hover text-center">
-    <thead>
-      <th>#</th>
+  <table class="table table-hover text-center">
+    <thead class="blue-grey lighten-4">
       <th>Username</th>
       <th>Employee</th>
       <th>Department Name</th>
@@ -20,12 +19,8 @@ else :
       <th style="width: 15%">Action</th>
     </thead>
     <tbody id="table_body">
-      <?php
-      $id = 1;
-      foreach ($useraccounts as $user) :
-      ?>
+      <?php foreach ($useraccounts as $user) : ?>
         <tr>
-          <td> <?= $id ?> </td>
           <td class="font-weight-bold"> <?= $user->username ?> </td>
           <td> <?= $user->emp_fname ?> <?= $user->emp_lname ?></td>
           <td><?= $user->dept_name ?? 'n/a' ?></td>
@@ -39,10 +34,7 @@ else :
             <?php endif; ?>
           </td>
         </tr>
-      <?php
-        $id += 1;
-      endforeach;
-      ?>
+      <?php endforeach; ?>
     </tbody>
   </table>
   </div>

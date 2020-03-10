@@ -9,9 +9,8 @@ if (!$repairs) :
 //if not empty
 else :
 ?>
-  <table class="table table-bordered text-center">
-    <thead>
-      <th>#</th>
+  <table class="table text-center">
+    <thead class="blue-grey lighten-4">
       <th>Date</th>
       <th>Department</th>
       <th>Employee Name</th>
@@ -21,9 +20,7 @@ else :
       <th>Action</th>
     </thead>
     <tbody id="table_body">
-      <?php
-      $id = 1;
-      foreach ($repairs as $repair) :
+      <?php foreach ($repairs as $repair) :
         $component = App\Hardware::find($repair->hwcomponent_sub_id);
         $assessmentReport = App\Assessment::getAssessmentReportByRequestId($repair->itsrequest_id);
         $techRecUser = App\User::find($repair->statusupdate_useraccount_id);
@@ -31,7 +28,6 @@ else :
         $dept_id = $techRecEmployee->dept_id;
       ?>
         <tr>
-          <td> <small><?= $id ?></small></td>
           <td> <small><?= date('M d, Y h:i a', strtotime($repair->itsrequest_date)) ?></small></td>
           <td> <?= $repair->dept_code ?> </td>
           <td> <?= $repair->emp_fname ?> <?= $repair->emp_lname ?> </td>
@@ -114,10 +110,7 @@ else :
             <?php endif; ?>
           </td>
         </tr>
-      <?php
-        $id += 1;
-      endforeach;
-      ?>
+      <?php endforeach; ?>
     </tbody>
   </table>
   </div>

@@ -9,9 +9,8 @@ if (!$employees) :
 //if not empty
 else :
 ?>
-  <table class="table table-bordered table-hover text-center">
-    <thead class="">
-      <th>#</th>
+  <table class="table table-hover text-center">
+    <thead class="blue-grey lighten-4">
       <th>Department Code</th>
       <th>Employee ID</th>
       <th>Employee Name</th>
@@ -19,12 +18,8 @@ else :
       <th>Action</th>
     </thead>
     <tbody id="table_body">
-      <?php
-      $id = 1;
-      foreach ($employees as $employee) :
-      ?>
+      <?php foreach ($employees as $employee) : ?>
         <tr>
-          <td> <?= $id ?> </td>
           <td class="font-weight-bold"> <?= $employee->dept_code ?> </td>
           <td> <?= $employee->emp_idnum ?> </td>
           <td> <?= $employee->emp_fname ?> <?= $employee->emp_lname ?> </td>
@@ -33,10 +28,7 @@ else :
             <button type="button" class="btn btn-sm btn-primary edit-employee" id="<?= $employee->emp_id ?>" data-toggle="tooltip" title="Edit"><i class="fa fa-pen-square" aria-hidden="true"></i></button>
           </td>
         </tr>
-      <?php
-        $id += 1;
-      endforeach;
-      ?>
+      <?php endforeach; ?>
     </tbody>
   </table>
   </div>

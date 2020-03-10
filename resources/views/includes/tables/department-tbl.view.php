@@ -10,29 +10,21 @@ if (!$departments) :
 else :
 ?>
   <table class="table table-bordered table-hover text-center">
-    <thead>
-      <th>#</th>
+    <thead class="blue-grey lighten-4">
       <th>Department Code</th>
       <th>Department Name</th>
       <th>Action</th>
     </thead>
     <tbody id="table_body">
-      <?php
-      $id = 1;
-      foreach ($departments as $department) :
-      ?>
+      <?php foreach ($departments as $department) : ?>
         <tr>
-          <td> <?= $id ?> </td>
           <td class="font-weight-bold"> <?= $department->dept_code ?> </td>
           <td> <?= $department->dept_name ?> </td>
           <td>
             <button type="button" class="btn btn-sm waves-effect btn-primary edit-department" id="<?= $department->dept_id ?>" data-toggle="tooltip" title="Edit"><i class="fa fa-pen-square" aria-hidden="true"></i></button>
           </td>
         </tr>
-      <?php
-        $id += 1;
-      endforeach;
-      ?>
+      <?php endforeach; ?>
     </tbody>
   </table>
   </div>

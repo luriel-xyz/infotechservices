@@ -9,9 +9,8 @@ if (!$requests) :
 //if not empty
 else :
 ?>
-  <table class="table table-bordered text-center">
-    <thead>
-      <th>#</th>
+  <table class="table text-center">
+    <thead class="blue-grey lighten-4">
       <th>Date</th>
       <th>Department</th>
       <th>Employee Name</th>
@@ -20,15 +19,12 @@ else :
       <th>Action</th>
     </thead>
     <tbody id="table_body">
-      <?php
-      $id = 1;
-      foreach ($requests as $request) :
+      <?php foreach ($requests as $request) :
         $component = App\Hardware::find($request->hwcomponent_sub_id);
         $userAccount = App\User::find($request->statusupdate_useraccount_id);
         // $techRepEmployee = App\Employee::getEmployee($userAccount->emp_id);
       ?>
         <tr>
-          <td> <small><?= $id ?></small></td>
           <td> <small><?= date_format(date_create($request->itsrequest_date), "M d, Y h:i a") ?></small></td>
           <td> <?= $request->dept_code ?> </td>
           <td> <?= $request->emp_fname ?> <?= $request->emp_lname ?> </td>
@@ -86,10 +82,7 @@ else :
             ?>
           </td>
         </tr>
-      <?php
-        $id += 1;
-      endforeach;
-      ?>
+      <?php endforeach; ?>
     </tbody>
   </table>
   </div>
