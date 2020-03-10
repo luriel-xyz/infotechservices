@@ -23,18 +23,18 @@ $assessmentReport = Assessment::getAssessmentReport($assessmentReportId);
 $date = $assessmentReport->assessment_date;
 
 $mainComponentId = $assessmentReport->hwcomponent_id;
-$nameOfItem = Hardware::getHardwareComponents($mainComponentId)->hwcomponent_name;
+$nameOfItem = Hardware::find($mainComponentId)->hwcomponent_name;
 $modelOrDescription = $assessmentReport->hwcomponent_description;
 $dateAcquired = $assessmentReport->hwcomponent_dateAcquired;
 $acquisitionCost = $assessmentReport->hwcomponent_acquisitioncost;
 $acquisitionCost = \Money\Money::PHP($acquisitionCost);
 $acquisitionCost = $acquisitionCost->getCurrency() . ' ' . $acquisitionCost->getAmount();
 
-$request = Request::getRequest($assessmentReport->itsrequest_id);
+$request = Request::find($assessmentReport->itsrequest_id);
 $departmentCode = $request->dept_code;
 $propertyNumber = $request->property_num;
 
-$issuedTo = Employee::getEmployee($request->emp_id);
+$issuedTo = Employee::find($request->emp_id);
 $issuedTo = $issuedTo->emp_fname . ' ' . $issuedTo->emp_lname;
 
 $subComponents = Assessment::getSubComponentsAssessmentByMainAssessmentId($assessmentReportId);
@@ -42,8 +42,8 @@ $findingsCategory = $assessmentReport->findings_category;
 $findingsDescription = $assessmentReport->findings_description;
 $notes = $assessmentReport->notes;
 
-$techRepresentativeEmpId = User::getUserAccount($assessmentReport->assessmenttechrep_useraccount_id)->emp_id;
-$techRepresentative = Employee::getEmployee($techRepresentativeEmpId);
+$techRepresentativeEmpId = User::find($assessmentReport->assessmenttechrep_useraccount_id)->emp_id;
+$techRepresentative = Employee::find($techRepresentativeEmpId);
 
 // Hardcoded parameter
 $cpuComponents = Hardware::getHardwareComponentsBySubCategory(23);
@@ -78,4 +78,4 @@ $data = compact(
   'othersComponents'
 );
 
-view('admin/download/assessment-report', $data); 
+view('admin/download/assessment-report', $data);
