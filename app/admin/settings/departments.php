@@ -10,7 +10,10 @@ if (!isUserLoggedIn()) {
   exit;
 }
 
-$departments = Department::getDepartment();
+// Paginator
+$pages = new Paginator('5', 'p');
+$pages->set_total(Department::count());
+$departments = Department::all($pages->get_limit());
+$links = $pages->page_links();
 
-view('admin/settings/departments', compact('departments'));
-?>
+view('admin/settings/departments', compact('departments', 'links'));
