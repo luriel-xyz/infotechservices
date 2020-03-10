@@ -74,12 +74,12 @@ class Employee
             WHERE emp_id = :emp_id";
 
     return DB::insert($sql, [
-      'dept_id' => $dept_id,
-      'emp_idnum' => $emp_idnum,
-      'emp_fname' => $emp_fname,
-      'emp_lname' => $emp_lname,
-      'emp_position' => $emp_position,
-      'emp_id' => $emp_id
+      ':dept_id' => $dept_id,
+      ':emp_idnum' => $emp_idnum,
+      ':emp_fname' => $emp_fname,
+      ':emp_lname' => $emp_lname,
+      ':emp_position' => $emp_position,
+      ':emp_id' => $emp_id
     ]);
   }
 
