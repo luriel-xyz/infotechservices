@@ -62,7 +62,7 @@ else :
           <td>
             <?php
             if ($request->statusupdate_useraccount_id) {
-              $techRepEmployee = App\User::getUserAccount($request->statusupdate_useraccount_id);
+              $techRepEmployee = App\User::find($request->statusupdate_useraccount_id);
               echo "{$techRepEmployee->emp_fname} {$techRepEmployee->emp_lname}";
             } else {
               echo 'n/a';

@@ -24,7 +24,7 @@ else :
       $id = 1;
       foreach ($requests as $request) :
         $component = App\Hardware::getHardwareComponents($request->hwcomponent_sub_id);
-        $userAccount = App\User::getUserAccount($request->statusupdate_useraccount_id);
+        $userAccount = App\User::find($request->statusupdate_useraccount_id);
         // $techRepEmployee = App\Employee::getEmployee($userAccount->emp_id);
       ?>
         <tr>

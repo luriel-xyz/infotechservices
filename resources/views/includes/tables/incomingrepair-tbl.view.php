@@ -26,7 +26,7 @@ else :
       foreach ($repairs as $repair) :
         $component = App\Hardware::getHardwareComponents($repair->hwcomponent_sub_id);
         $assessmentReport = App\Assessment::getAssessmentReportByRequestId($repair->itsrequest_id);
-        $techRecUser = App\User::getUserAccount($repair->statusupdate_useraccount_id);
+        $techRecUser = App\User::find($repair->statusupdate_useraccount_id);
         $techRecEmployee = App\Employee::getEmployee($techRecUser->emp_id);
         $dept_id = $techRecEmployee->dept_id;
       ?>
