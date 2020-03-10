@@ -101,6 +101,13 @@
     </div>
   </div>
   <!-- /# Modal View Repair Concern -->
+
+  <!-- Paginator -->
+  <div class="d-flex justify-content-center">
+    <?= $links ?>
+  </div>
+  <!-- /# Paginator -->
+
 </div>
 <!-- /# Page Content -->
 
