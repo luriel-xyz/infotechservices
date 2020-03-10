@@ -29,12 +29,12 @@ if (isset($_POST['action'])) {
 	/**   GET REQUEST  **/
 	if ($_POST['action'] === 'getRequest') {
 		$itsrequest_id = $_POST['itsrequest_id'];
-		$result = Request::getRequest($itsrequest_id);
+		$result = Request::find($itsrequest_id);
 		echo json_encode($result);
 	}
 
 	if ($_POST['action'] === 'getAllRequests') {
-		$requests = Request::getRequest();
+		$requests = Request::all();
 		echo json_encode($requests);
 	}
 
@@ -46,7 +46,7 @@ if (isset($_POST['action'])) {
 
 	if ($_POST['action'] == 'fetchRequestConcern') {
 		$requestId = $_POST['requestId'];
-		$request = Request::getRequest($requestId)->concern;
+		$request = Request::find($requestId)->concern;
 		echo json_encode($request);
 	}
 
@@ -56,7 +56,7 @@ if (isset($_POST['action'])) {
 
 	if ($_POST['action'] === 'getRepair') {
 		$itsrequest_id = $_POST['itsrequest_id'];
-		$result = Repair::getRepair($itsrequest_id);
+		$result = Repair::find($itsrequest_id);
 		echo json_encode($result);
 	}
 
@@ -143,7 +143,7 @@ if (isset($_POST['action'])) {
 		$notes = $_POST['notes'];
 
 		// Get request
-		$request = Request::getRequest($itsrequest_id);
+		$request = Request::find($itsrequest_id);
 		$dept_id = $request->dept_id;
 		$emp_id = $request->emp_id;
 		$property_num = $request->property_num;
