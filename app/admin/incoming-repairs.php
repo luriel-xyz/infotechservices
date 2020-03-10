@@ -15,7 +15,7 @@ if (!isUserLoggedIn()) {
   exit;
 }
 
-$depts = Department::getDepartment();
+$depts = Department::all();
 $hardwareComponents = Hardware::getHardwareComponentsByCategory('main');
 $type = 'repairs';
 

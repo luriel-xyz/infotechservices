@@ -15,8 +15,8 @@ if (!isUserLoggedIn()) {
 	exit;
 }
 
-$hardwarecomponents = Hardware::getHardwareComponents();
-$depts = Department::getDepartment();
+$hardwarecomponents = Hardware::all();
+$depts = Department::all();
 $type = 'requests';
 
 // Paginator

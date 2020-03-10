@@ -23,7 +23,7 @@ else :
       <?php
       $id = 1;
       foreach ($requests as $request) :
-        $component = App\Hardware::getHardwareComponents($request->hwcomponent_sub_id);
+        $component = App\Hardware::find($request->hwcomponent_sub_id);
         $userAccount = App\User::find($request->statusupdate_useraccount_id);
         // $techRepEmployee = App\Employee::getEmployee($userAccount->emp_id);
       ?>

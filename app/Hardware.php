@@ -15,11 +15,11 @@ class Hardware
     return DB::all($sql);
   }
 
-  public static function find($id): Object
+  public static function find($id)
   {
     $sql = "SELECT * FROM hardwarecomponent_tbl 
-							WHERE hwcomponent_id = ?
-							LIMIT 1";
+            WHERE hwcomponent_id = ?
+            LIMIT 1";
     return DB::single($sql, [$id]);
   }
 

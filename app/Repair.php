@@ -21,7 +21,7 @@ class Repair
     return DB::all($sql);
   }
 
-  public static function find($id): Object
+  public static function find($id)
   {
     $sql = "SELECT * FROM itservices_request_tbl 
 							INNER JOIN employee_tbl 

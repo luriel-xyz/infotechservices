@@ -11,7 +11,7 @@ if (!isUserLoggedIn()) {
   exit;
 }
 
-$departments = Department::getDepartment();
+$departments = Department::all();
 
 // Paginator
 $pages = new Paginator('5', 'p');

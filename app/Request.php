@@ -30,7 +30,7 @@ class Request
     return DB::all($sql);
   }
 
-  public static function find(int $id): Object
+  public static function find(int $id)
   {
     $sql = "SELECT * FROM itservices_request_tbl 
 							INNER JOIN employee_tbl 

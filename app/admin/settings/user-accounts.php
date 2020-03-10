@@ -12,7 +12,7 @@ if (!isUserLoggedIn()) {
   exit;
 }
 
-$departments = Department::getDepartment();
+$departments = Department::all();
 
 $personnels = Employee::getEmployeesByDepartment(1);
 
