@@ -82,6 +82,17 @@ class DB
     return $isInserted;
   }
 
+  /**
+   * Count number of rows from the database.
+   * @param string $tableName
+   * @return int
+   */
+  public static function count(string $tableName): int
+  {
+    $sql = "SELECT count(*) AS rowCount FROM {$tableName}";
+    return self::single($sql)->rowCount;
+  }
+
   private function prepare(string $sql)
   {
     $pdo = self::connection();
