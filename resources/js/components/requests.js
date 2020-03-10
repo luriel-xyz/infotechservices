@@ -197,7 +197,7 @@ $(".pullout").click(function(e) {
   $("#hwcomponent_select").show();
   $("#hwcomponent_id").val(hwcomponent_id);
   $("#input_field").append(
-    '<input type="text" class="form-control" name="property_num" id="property_num" placeholder="Property Number"/>'
+    '<input type="text" class="form-control" name="property_num" id="property_num" placeholder="Property Number" required>'
   );
   $("#submit_btn").text("Pullout");
   $("#modalPulloutDone").modal({
