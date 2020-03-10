@@ -5,7 +5,6 @@
 use App\Hardware;
 use App\Request;
 use App\Department;
-use JasonGrimes\Paginator;
 
 require_once('../../config/init.php');
 
@@ -17,20 +16,15 @@ if (!isUserLoggedIn()) {
 }
 
 $hardwarecomponents = Hardware::getHardwareComponents();
-
-$requests = Request::getRequest();
-
 $depts = Department::getDepartment();
-
 $type = 'requests';
 
-$totalItems = count($requests);
-$itemsPerPage = 50;
-$currentPage = 1;
-$urlPattern = '?page/(:num)';
+// Paginator
+$pages = new Paginator('5', 'p');
+$pages->set_total(Request::count());
+$requests = Request::all($pages->get_limit());
+$links = $pages->page_links();
 
-$paginator = new Paginator($totalItems, $itemsPerPage, $currentPage, $urlPattern);
-
-$data = compact('hardwarecomponents', 'requests', 'depts', 'type', 'paginator');
-view('admin/incoming-requests', $data); 
+$data = compact('hardwarecomponents', 'requests', 'depts', 'type', 'requests', 'links');
+view('admin/incoming-requests', $data);
 ?>

@@ -25,7 +25,7 @@
         <!-- /# Search Field -->
 
         <!-- Print Request Summary Button -->
-        <?php if (count($requests)) : ?>
+        <?php if (App\Request::count()) : ?>
           <div class="mr-3 ml-auto">
             <button type="button" class="btn btn-sm btn-primary" data-toggle="tooltip" title="Download Request Summary" id="printSummary">
               <i class="fas fa-download" aria-hidden="true"></i>
@@ -135,8 +135,8 @@
       <!-- /# Incoming Requests Table -->
     </div>
     <!--/#Table Container-->
-    <div class="container">
-      <?= $paginator ?>
+    <div class="d-flex justify-content-center">
+      <?= $links ?>
     </div>
   </div>
   <!-- /# Page Content -->

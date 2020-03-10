@@ -145,6 +145,11 @@
     </div>
     <!-- /#Table Container -->
 
+    <!-- Pagination -->
+    <div class="d-flex justify-content-center">
+      <?= $links ?>
+    </div>
+    <!-- /# Pagination -->
   </div>
   <!-- /# Page Content -->
 

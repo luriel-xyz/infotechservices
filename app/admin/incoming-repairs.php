@@ -15,13 +15,15 @@ if (!isUserLoggedIn()) {
   exit;
 }
 
-$repairs = Repair::getRepair();
-
 $depts = Department::getDepartment();
-
 $hardwareComponents = Hardware::getHardwareComponentsByCategory('main');
-
 $type = 'repairs';
 
-view('admin/incoming-repairs', compact('repairs', 'depts', 'hardwareComponents', 'type'));
+// Paginator
+$pages = new Paginator('5', 'p');
+$pages->set_total(Repair::count());
+$repairs = Repair::all($pages->get_limit());
+$links = $pages->page_links();
+
+view('admin/incoming-repairs', compact('repairs', 'links', 'depts', 'hardwareComponents', 'type'));
 ?>
