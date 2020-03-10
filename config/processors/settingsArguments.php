@@ -105,7 +105,7 @@ if (isset($_POST['action'])) {
 
 	if ($_POST['action'] === 'editUserAccount') {
 		$useraccount_id = $_POST['useraccount_id'];
-		$result = User::getUserAccount($useraccount_id);
+		$result = User::find($useraccount_id);
 		echo json_encode($result);
 	}
 
