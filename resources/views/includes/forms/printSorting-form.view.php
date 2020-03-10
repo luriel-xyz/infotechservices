@@ -46,7 +46,7 @@
 			<div class="modal-footer text-light mb-0">
 				<button type="reset" class="btn btn-sm btn-sm btn-secondary cancel" data-dismiss="modal">Cancel</button>
 				<button type="submit" name="submit" class="btn btn-sm btn-sm btn-primary" id="print_btn">
-					Download
+					<i class="fas fa-download fa-fw"></i> Download
 				</button>
 			</div>
 		</form>
