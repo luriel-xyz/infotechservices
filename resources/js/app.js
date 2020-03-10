@@ -20,6 +20,7 @@ window.truncateString = (string, maxLength = 40) => {
 };
 
 $(() => {
+  $(document).tooltip();
   require("./components/add-repair");
   require("./components/add-request");
   require("./components/departments");
