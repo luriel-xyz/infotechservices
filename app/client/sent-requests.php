@@ -12,8 +12,13 @@ if (!isUserLoggedIn()) {
   exit;
 }
 
-$requests = Request::getRequestsByDepartment(user()->dept_id);
 $requestCount = Request::getTotalRequestsByDepartment(user()->dept_id);
 
-view('client/sent-requests', compact('requests', 'requestCount'));
+// Paginator
+$pages = new Paginator('5', 'p');
+$pages->set_total($requestCount);
+$requests = Request::getRequestsByDepartment(user()->dept_id, $pages->get_limit());
+$links = $pages->page_links();
+
+view('client/sent-requests', compact('requests', 'requestCount', 'links'));
 ?>
