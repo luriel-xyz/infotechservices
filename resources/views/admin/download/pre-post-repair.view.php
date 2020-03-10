@@ -49,17 +49,17 @@
         <!-- Motor Vehicles -->
         <h2 class="subtitle-1 text-uppercase">A. Motor Vehicles</h2>
         <div class="mt-2">
-          <div class="pre-inspection-body-text">type: <span class="font-weight-bold underlined"><?= isset($motorVehicle) ? $motorVehicle->type : '' ?></span></div>
-          <div class="pre-inspection-body-text">plate number: <span class="font-weight-bold underlined"><?= isset($motorVehicle) ? $motorVehicle->plate_no : '' ?></span></div>
-          <div class="pre-inspection-body-text">property number: <span class="font-weight-bold underlined"><?= isset($motorVehicle) ? $motorVehicle->property_no : '' ?></span></div>
-          <div class="pre-inspection-body-text">engine number: <span class="font-weight-bold underlined"><?= isset($motorVehicle) ? $motorVehicle->engine_no : '' ?></span></div>
-          <div class="pre-inspection-body-text">chassis number: <span class="font-weight-bold underlined"><?= isset($motorVehicle) ? $motorVehicle->chassis_no : '' ?></span></div>
-          <div class="pre-inspection-body-text">acquisition date: <span class="font-weight-bold underlined"><?= isset($motorVehicle) ? $motorVehicle->acquisition_date : '' ?></span></div>
-          <div class="pre-inspection-body-text">acquisition cost: <span class="font-weight-bold underlined"><?= isset($motorVehicle) ? $motorVehicle->acquisition_cost : '' ?></span></div>
-          <div class="pre-inspection-body-text">repair history: <span class="font-weight-bold underlined"><?= isset($motorVehicle) ? $motorVehicle->repair_history : '' ?></span></div>
-          <div class="pre-inspection-body-text">repair date: <span class="font-weight-bold underlined"><?= isset($motorVehicle) ? $motorVehicle->repair_date : '' ?></span></div>
-          <div class="pre-inspection-body-text">nature of last repair & maintenance: <span class="font-weight-bold underlined"><?= isset($motorVehicle) ? $motorVehicle->nature_of_last_repair : '' ?></span></div>
-          <div class="pre-inspection-body-text">defects / complaints: <span class="font-weight-bold underlined"><?= isset($motorVehicle) ? $motorVehicle->defects_complaints : '' ?></span></div>
+          <div class="pre-inspection-body-text">type: <span class="font-weight-bold underlined"><?= isset($motorVehicle->type) ? $motorVehicle->type : '' ?></span></div>
+          <div class="pre-inspection-body-text">plate number: <span class="font-weight-bold underlined"><?= isset($motorVehicle->plate_no) ? $motorVehicle->plate_no : '' ?></span></div>
+          <div class="pre-inspection-body-text">property number: <span class="font-weight-bold underlined"><?= isset($motorVehicle->property_no) ? $motorVehicle->property_no : '' ?></span></div>
+          <div class="pre-inspection-body-text">engine number: <span class="font-weight-bold underlined"><?= isset($motorVehicle->engine_no) ? $motorVehicle->engine_no : '' ?></span></div>
+          <div class="pre-inspection-body-text">chassis number: <span class="font-weight-bold underlined"><?= isset($motorVehicle->chassis_no) ? $motorVehicle->chassis_no : '' ?></span></div>
+          <div class="pre-inspection-body-text">acquisition date: <span class="font-weight-bold underlined"><?= isset($motorVehicle->acquisition_date) ? $motorVehicle->acquisition_date : '' ?></span></div>
+          <div class="pre-inspection-body-text">acquisition cost: <span class="font-weight-bold underlined"><?= isset($motorVehicle->acquisition_cost) ? $motorVehicle->acquisition_cost : '' ?></span></div>
+          <div class="pre-inspection-body-text">repair history: <span class="font-weight-bold underlined"><?= isset($motorVehicle->repair_history) ? $motorVehicle->repair_history : '' ?></span></div>
+          <div class="pre-inspection-body-text">repair date: <span class="font-weight-bold underlined"><?= isset($motorVehicle->repair_date) ? $motorVehicle->repair_date : '' ?></span></div>
+          <div class="pre-inspection-body-text">nature of last repair & maintenance: <span class="font-weight-bold underlined"><?= isset($motorVehicle->nature_of_last_repair) ? $motorVehicle->nature_of_last_repair : '' ?></span></div>
+          <div class="pre-inspection-body-text">defects / complaints: <span class="font-weight-bold underlined"><?= isset($motorVehicle->defects_complaints) ? $motorVehicle->defects_complaints : '' ?></span></div>
         </div>
         <!-- /# Motor Vehicles -->
       </div>
