@@ -12,11 +12,9 @@ if (!isUserLoggedIn()) {
 }
 
 //get all departments
-$departments = Department::getDepartment();
+$departments = Department::all();
 
 //get all hardware component
 $hardwarecomponents = Hardware::getHardwareComponentsByCategory('main');
 
 view('includes/forms/add-repair', compact('departments', 'hardwarecomponents'));
-
-?>
