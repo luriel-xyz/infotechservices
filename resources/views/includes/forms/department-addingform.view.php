@@ -25,7 +25,7 @@
 	</div>
 
 	<div class="modal-footer text-dark">
-		<button type="reset" class="btn btn-secondary" data-dismiss="modal" onclick="$('#modal').modal('hide')">Cancel</button>
-		<button type="submit" name="submit" class="btn btn-primary" id="dept_btn">Add Department</button>
+		<button type="reset" class="btn btn-sm btn-secondary" data-dismiss="modal" onclick="$('#modal').modal('hide')">Cancel</button>
+		<button type="submit" name="submit" class="btn btn-sm btn-primary" id="dept_btn">Add Department</button>
 	</div>
 </form>

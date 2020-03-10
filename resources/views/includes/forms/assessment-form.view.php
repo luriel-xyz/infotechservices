@@ -166,7 +166,7 @@
 			<hr class="border border-light">
 			<div class="row">
 				<div class="col text-center">
-					<button type="submit" class="btn btn-primary" id="submit-btn">Create</button>
+					<button type="submit" class="btn btn-sm btn-primary" id="submit-btn">Create</button>
 				</div>
 			</div>
 		</form>

@@ -9,7 +9,7 @@
 	<div class="container-fluid col-lg-6 col-md-6 col-sm-12 col-xs-12 offset-lg-3 offset-md-3 my-auto text-success">
 		<form method="POST" class="p-3 border border-success rounded" id="incomingrequest-form">
 			<div class="form-group text-center">
-				<p class="h3">IT Service Request Form</p> 
+				<p class="h3">IT Service Request Form</p>
 			</div>
 
 			<input type="hidden" class="form-control" name="action" id="action" value="addRequest">
@@ -50,7 +50,7 @@
 
 			<div class="row">
 				<div class="col text-center">
-					<button type="submit" class="btn btn-success text-capitalize">Send Request</button>
+					<button type="submit" class="btn btn-sm btn-success text-capitalize">Send Request</button>
 				</div>
 			</div>
 

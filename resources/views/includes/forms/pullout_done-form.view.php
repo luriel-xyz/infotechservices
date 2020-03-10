@@ -10,7 +10,7 @@
 
 	<div class="modal-body">
 		<div class="form-group">
-			<input type="hidden" class="form-control" id="action" name="action" value="statusDone"> 
+			<input type="hidden" class="form-control" id="action" name="action" value="statusDone">
 		</div>
 
 		<div id="itsrequest_id">
@@ -33,7 +33,7 @@
 	</div>
 
 	<div class="modal-footer text-ligh mb-0">
-		<button type="button" class="btn btn-secondary cancel" data-dismiss="modal">Cancel</button>
-		<button type="submit" name="submit" class="btn btn-primary" id="submit_btn">Done</button>
+		<button type="button" class="btn btn-sm btn-secondary cancel" data-dismiss="modal">Cancel</button>
+		<button type="submit" name="submit" class="btn btn-sm btn-primary" id="submit_btn">Done</button>
 	</div>
 </form>

@@ -47,7 +47,7 @@
 	</div>
 
 	<div class="modal-footer text-dark mb-0">
-		<button type="reset" class="btn btn-secondary" data-dismiss="modal" onclick="$('#modalDepartmentAccount').modal('hide')">Cancel</button>
-		<button type="submit" name="submit" class="btn btn-primary useraccount_btn" id="useraccount_btn">Add User Account</button>
+		<button type="reset" class="btn btn-sm btn-secondary" data-dismiss="modal" onclick="$('#modalDepartmentAccount').modal('hide')">Cancel</button>
+		<button type="submit" name="submit" class="btn btn-sm btn-primary useraccount_btn" id="useraccount_btn">Add User Account</button>
 	</div>
 </form>

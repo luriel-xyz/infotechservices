@@ -5,7 +5,7 @@
 	<div class="card-body">
 		<!-- Login Form -->
 		<!-- $type -> [request, repair] -->
-		<form enctype="multipart/form-data" id="printSorting-<?=$type?>-form">
+		<form enctype="multipart/form-data" id="printSorting-<?= $type ?>-form">
 			<div class="modal-body">
 
 				<div class="form-group">
@@ -16,7 +16,7 @@
 						<!-- Department Radio Button -->
 						<div class="col-md-5">
 							<label>
-								<input type="radio" name="sort" value="department" class="mr-1">By Department</label><br> 
+								<input type="radio" name="sort" value="department" class="mr-1">By Department</label><br>
 						</div>
 						<!-- /# Department Radio Button -->
 						<!-- Select Department -->
@@ -44,8 +44,8 @@
 			</div>
 
 			<div class="modal-footer text-light mb-0">
-				<button type="reset" class="btn btn-secondary cancel" data-dismiss="modal">Cancel</button>
-				<button type="submit" name="submit" class="btn btn-primary" id="print_btn"> 
+				<button type="reset" class="btn btn-sm btn-sm btn-secondary cancel" data-dismiss="modal">Cancel</button>
+				<button type="submit" name="submit" class="btn btn-sm btn-sm btn-primary" id="print_btn">
 					Download
 				</button>
 			</div>

@@ -10,7 +10,7 @@
 
 	<div class="modal-body">
 		<div class="form-group">
-			<input type="hidden" class="form-control" name="action" id="action" value="addHardwareComponent"> 
+			<input type="hidden" class="form-control" name="action" id="action" value="addHardwareComponent">
 		</div>
 
 		<div id="hwcomponent_id">
@@ -40,8 +40,8 @@
 	</div>
 
 	<div class="modal-footer text-dark">
-		<button type="reset" class="btn btn-secondary" data-dismiss="modal" onclick="$('#modal').modal('hide')">Cancel</button>
-		<button type="submit" name="submit" class="btn btn-primary" id="hwcomponent_btn">Add Hardware Component</button>
+		<button type="reset" class="btn btn-sm btn-secondary" data-dismiss="modal" onclick="$('#modal').modal('hide')">Cancel</button>
+		<button type="submit" name="submit" class="btn btn-sm btn-primary" id="hwcomponent_btn">Add Hardware Component</button>
 	</div>
 
 </form>

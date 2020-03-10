@@ -342,7 +342,7 @@
       <!-- /# Post Inspection Select Fields -->
 
       <!-- Create Button -->
-      <button type="submit" class="btn btn-primary d-block mx-auto mt-4" id="submit-btn">Create</button>
+      <button type="submit" class="btn btn-sm btn-primary d-block mx-auto mt-4" id="submit-btn">Create</button>
       <!-- /# Create Button -->
     </form>
   </div>
