@@ -93,7 +93,7 @@ if (isset($_POST['action'])) {
 
 	if ($_POST['action'] === 'editEmployee') {
 		$emp_id = $_POST['emp_id'];
-		$result = Employee::getEmployee($emp_id);
+		$result = Employee::find($emp_id);
 		echo json_encode($result);
 	}
 
