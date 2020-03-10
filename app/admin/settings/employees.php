@@ -13,8 +13,10 @@ if (!isUserLoggedIn()) {
 
 $departments = Department::getDepartment();
 
-$employees = Employee::getEmployee();
+// Paginator
+$pages = new Paginator('5', 'p');
+$pages->set_total(Employee::count());
+$employees = Employee::all($pages->get_limit());
+$links = $pages->page_links();
 
-view('admin/settings/employees', compact('departments', 'employees'));
-?>
-
+view('admin/settings/employees', compact('departments', 'employees', 'links'));
