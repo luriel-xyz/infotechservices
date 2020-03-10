@@ -20,7 +20,7 @@ if (!isset($_POST['action'])) {
 $action = $_POST['action'];
 $dept_id = $_POST['dept_id'];
 
-$department = Department::getDepartment($dept_id);
+$department = Department::find($dept_id);
 $dept_code = $department->dept_code;
 
 if ($action === 'RepairSummaryReport') {
@@ -30,5 +30,3 @@ if ($action === 'RepairSummaryReport') {
 }
 
 view('admin/download/excel-dept', compact('action', 'dept_code', 'requests'));
-
-?>

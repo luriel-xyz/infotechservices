@@ -17,11 +17,9 @@ if (!isset($_POST['action'])) {
 
 $action = $_POST['action'];
 if ($action === 'RepairSummaryReport') {
-  $requests = Repair::getRepair();
+  $requests = Repair::all();
 } else if ($action === 'RequestSummaryReport') {
-  $requests = Request::getRequest();
+  $requests = Request::all();
 }
 
 view('admin/download/excel-all', compact('action', 'requests'));
-
-?>
