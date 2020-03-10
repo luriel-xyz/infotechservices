@@ -4,7 +4,7 @@ use App\Department;
 use App\Employee;
 use App\User;
 
-require_once('../../../config/init.php'); 
+require_once('../../../config/init.php');
 
 if (!isUserLoggedIn()) {
   //redirect to login page
@@ -12,12 +12,14 @@ if (!isUserLoggedIn()) {
   exit;
 }
 
-$departments = Department::getDepartment(); 
+$departments = Department::getDepartment();
 
-$personnels = Employee::getEmployeesByDepartment(1); 
+$personnels = Employee::getEmployeesByDepartment(1);
 
-$useraccounts = User::getUserAccount();
+// Paginator
+$pages = new Paginator('5', 'p');
+$pages->set_total(User::count());
+$useraccounts = User::all($pages->get_limit());
+$links = $pages->page_links();
 
-view('admin/settings/user-accounts', compact('departments', 'personnels', 'useraccounts'));
-?>
-
+view('admin/settings/user-accounts', compact('departments', 'personnels', 'useraccounts', 'links'));

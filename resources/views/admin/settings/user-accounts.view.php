@@ -83,6 +83,11 @@
       <!--/#Table Container-->
     </div>
     <!-- /# Page Content -->
+    <!-- Paginator -->
+    <div class="d-flex justify-content-center">
+      <?= $links ?>
+    </div>
+    <!-- /# Paginator -->
   </div>
   <!-- /# Wrapper -->
   <?php view('includes/footer'); ?>
