@@ -6,6 +6,9 @@ use App\DB;
 
 class Request
 {
+
+  const TABLE_NAME = 'itservices_request_tbl';
+
   public static function getRequest($itsrequest_id = null)
   {
     if ($itsrequest_id == null) {
@@ -243,5 +246,10 @@ class Request
       ':statusupdate_useraccount_id'   => $statusupdate_useraccount_id,
       ':itsrequest_id'   => $itsrequest_id
     ]);
+  }
+
+  public static function count(): int
+  {
+    return DB::count(self::TABLE_NAME);
   }
 }

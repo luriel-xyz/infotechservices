@@ -6,6 +6,9 @@ use App\DB;
 
 class Hardware
 {
+
+  const TABLE_NAME = 'hardwarecomponent_tbl';
+
   public static function getHardwareComponents($hwcomponent_id = null)
   {
     if ($hwcomponent_id == null) {
@@ -58,5 +61,10 @@ class Hardware
       ':hwcomponent_category' => $hwcomponent_category,
       ':hwcomponent_id' => $hwcomponent_id
     ]);
+  }
+
+  public static function count(): int
+  {
+    return DB::count(self::TABLE_NAME);
   }
 }

@@ -7,6 +7,8 @@ use App\DB;
 class Department
 {
 
+  const TABLE_NAME = 'department_tbl';
+
   public static function getDepartment($dept_id = null)
   {
     if ($dept_id == null) {
@@ -46,5 +48,10 @@ class Department
       ':dept_name'  => $dept_name,
       ':dept_id'    => $dept_id
     ]);
+  }
+
+  public static function count(): int
+  {
+    return DB::count(self::TABLE_NAME);
   }
 }

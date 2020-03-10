@@ -6,6 +6,9 @@ use App\DB;
 
 class OtherPropPlantEquip
 {
+
+  const TABLE_NAME = 'others';
+
   /**
    * Create an 'other property plant & equipment data'.
    * @return int lastInsertId()
@@ -39,11 +42,17 @@ class OtherPropPlantEquip
     ]);
   }
 
-  public static function byInspectionReportId($id) {
+  public static function byInspectionReportId($id)
+  {
     $sql = 'SELECT * FROM others
             WHERE inspection_report_id = ?
             LIMIT 1';
 
     return DB::single($sql, [$id]);
+  }
+
+  public static function count(): int
+  {
+    return DB::count(self::TABLE_NAME);
   }
 }

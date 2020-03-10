@@ -6,6 +6,9 @@ use App\DB;
 
 class User
 {
+
+  const TABLE_NAME = 'useraccount_tbl';
+
   public static function create($username, $password)
   {
     $sql = "INSERT INTO useraccount_tbl (username, password)
@@ -137,5 +140,10 @@ class User
 						SET status = 1 
 						WHERE useraccount_id = ?";
     return DB::insert($sql, [$useraccount_id]);
+  }
+
+  public static function count(): int
+  {
+    return DB::count(self::TABLE_NAME);
   }
 }

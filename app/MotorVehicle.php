@@ -6,6 +6,9 @@ use App\DB;
 
 class MotorVehicle
 {
+
+  const TABLE_NAME = 'motor_vehicles';
+
   /**
    * Create a motor vehicle.
    * @return int lastInsertId()
@@ -52,5 +55,10 @@ class MotorVehicle
             LIMIT 1';
 
     return DB::single($sql, [$id]);
+  }
+
+  public static function count(): int
+  {
+    return DB::count(self::TABLE_NAME);
   }
 }

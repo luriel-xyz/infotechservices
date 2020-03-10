@@ -6,13 +6,16 @@ use App\DB;
 
 class Employee
 {
+
+  const TABLE_NAME = 'employee_tbl';
+
   public static function isIdNumberTaken($idNumber)
   {
     $sql = 'SELECT count(*) AS frequency 
             FROM employee_tbl 
             WHERE emp_idnum = ?';
 
-    $isTaken = DB::single($sql, [$idNumber])->frequency ? true : false; 
+    $isTaken = DB::single($sql, [$idNumber])->frequency ? true : false;
     return $isTaken;
   }
 
@@ -75,5 +78,10 @@ class Employee
       'emp_position' => $emp_position,
       'emp_id' => $emp_id
     ]);
+  }
+
+  public static function count(): int
+  {
+    return DB::count(self::TABLE_NAME);
   }
 }

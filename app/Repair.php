@@ -6,6 +6,9 @@ use App\DB;
 
 class Repair
 {
+
+  const TABLE_NAME = 'itservices_request_tbl';
+
   public function getRepair($itsrequest_id = null)
   {
     if ($itsrequest_id == null) {
@@ -95,5 +98,10 @@ class Repair
       ':statusupdate_useraccount_id' => $statusupdate_useraccount_id,
       ':itsrequest_date' => $itsrequest_date
     ]);
+  }
+
+  public static function count(): int
+  {
+    return DB::count(self::TABLE_NAME);
   }
 }

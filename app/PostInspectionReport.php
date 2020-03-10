@@ -7,6 +7,8 @@ use App\DB;
 class PostInspectionReport
 {
 
+  const TABLE_NAME = 'post_inspections';
+
   /**
    * Create a post inspection report.
    * @return int lastInsertId()
@@ -64,11 +66,17 @@ class PostInspectionReport
     ]);
   }
 
-  public static function byInspectionReportId($id) {
+  public static function byInspectionReportId($id)
+  {
     $sql = 'SELECT * FROM post_inspections
             WHERE inspection_report_id = ?
             LIMIT 1';
 
     return DB::single($sql, [$id]);
+  }
+
+  public static function count(): int
+  {
+    return DB::count(self::TABLE_NAME);
   }
 }

@@ -7,6 +7,8 @@ use App\DB;
 class PreInspectionHardware
 {
 
+  const TABLE_NAME = 'pre_inspection_parts';
+
   /**
    * Create a pre inspection hardware.
    * @return int lastInsertId()
@@ -27,11 +29,17 @@ class PreInspectionHardware
     ]);
   }
 
-  public static function allByPreInspectionReportId($id) {
+  public static function allByPreInspectionReportId($id)
+  {
     $sql = 'SELECT * FROM pre_inspection_parts
             WHERE pre_inspection_id = ?
             LIMIT 1';
 
     return DB::all($sql, [$id]);
+  }
+
+  public static function count(): int
+  {
+    return DB::count(self::TABLE_NAME);
   }
 }

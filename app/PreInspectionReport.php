@@ -7,6 +7,8 @@ use App\DB;
 class PreInspectionReport
 {
 
+  const TABLE_NAME = 'pre_inspections';
+
   /**
    * Create a pre inspection report.
    * @return int lastInsertId()
@@ -25,7 +27,7 @@ class PreInspectionReport
             (inspection_report_id, repair_inspection, job_order, additional_sheet, inspected_by, recommending_approval, approved, date_inspected)
             VALUES 
             (:inspection_report_id, :repair_inspection, :job_order, :additional_sheet, :inspected_by, :recommending_approval, :approved, :date_inspected)';
-    
+
     return DB::insert($sql, [
       ':inspection_report_id' => $inspection_report_id,
       ':repair_inspection' => $repair_inspection,
@@ -38,11 +40,17 @@ class PreInspectionReport
     ]);
   }
 
-  public static function byInspectionReportId($id) {
+  public static function byInspectionReportId($id)
+  {
     $sql = 'SELECT * FROM pre_inspections
             WHERE inspection_report_id = ?
             LIMIT 1';
 
     return DB::single($sql, [$id]);
+  }
+
+  public static function count(): int
+  {
+    return DB::count(self::TABLE_NAME);
   }
 }

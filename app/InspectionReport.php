@@ -7,6 +7,8 @@ use App\DB;
 class InspectionReport
 {
 
+  const TABLE_NAME = 'inspection_reports';
+
   /**
    * Create an inspection report.
    * @param string $to_whom
@@ -34,5 +36,10 @@ class InspectionReport
             LIMIT 1';
 
     return DB::single($sql, [$id]);
+  }
+
+  public static function count(): int
+  {
+    return DB::count(self::TABLE_NAME);
   }
 }

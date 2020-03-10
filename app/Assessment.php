@@ -6,6 +6,8 @@ use App\DB;
 
 class Assessment
 {
+  const TABLE_NAME = 'repassessreport_tbl';
+
   public function addRepAssessReport(
     $itsrequest_id,
     $hwcomponent_id,
@@ -50,7 +52,7 @@ class Assessment
       ':itsrequest_id' => $itsrequest_id,
       ':hwcomponent_id' => $hwcomponent_id,
       ':assessmenttechrep_useraccount_id' => $assessmenttechrep_useraccount_id,
-      ':assessment_date' => $assessment_date, 
+      ':assessment_date' => $assessment_date,
       ':hwcomponent_dateAcquired' => $hwcomponent_dateAcquired,
       ':hwcomponent_description' => $hwcomponent_description,
       ':serial_number' => $serial_number,
@@ -135,5 +137,10 @@ class Assessment
     ]);
 
     return $isInserted;
+  }
+
+  public static function count(): int
+  {
+    return DB::count(self::TABLE_NAME);
   }
 }
