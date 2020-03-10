@@ -5,7 +5,7 @@
   </div>
   <!-- if not empty -->
 <?php else : ?>
-  <table class="table table-bordered table-hover text-center"> 
+  <table class="table table-bordered table-hover text-center">
     <thead>
       <th>#</th>
       <th>Hardware Component Name</th>
@@ -18,7 +18,7 @@
       $id = 1;
       foreach ($hardware_components as $component) :
         if ($component->hwcomponent_type === 'sub') {
-          $hwcomponent = App\Hardware::getHardwareComponents($component->hwcomponent_category);
+          $hwcomponent = App\Hardware::find($component->hwcomponent_category);
         }
       ?>
         <tr>
