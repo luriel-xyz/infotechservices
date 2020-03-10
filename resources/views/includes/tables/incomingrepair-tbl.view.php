@@ -81,7 +81,7 @@ else :
                 <?php
                 elseif ($repair->status == 'pending') :
                 ?>
-                  <button type="button" class="dropdown-item btn-assessment btn-danger assess" data-toggle="tooltip" id="<?= $repair->itsrequest_id ?>" data-useraccount_id="<?= user()->useraccount_id ?>" data-hwcomponent_id="<?= $repair->hwcomponent_id ?>" data-dept_id="<?= $repair->dept_id ?>">Create assesment form</button>
+                  <button type="button" class="dropdown-item btn-assessment assess" data-toggle="tooltip" id="<?= $repair->itsrequest_id ?>" data-useraccount_id="<?= user()->useraccount_id ?>" data-hwcomponent_id="<?= $repair->hwcomponent_id ?>" data-dept_id="<?= $repair->dept_id ?>">Create assessment form</button>
                   <button type="button" class="dropdown-item done-repair" data-toggle="tooltip" id="<?= $repair->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>">Done</button>
                 <?php
                 // show assesment form 
