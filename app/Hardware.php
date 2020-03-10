@@ -9,17 +9,18 @@ class Hardware
 
   const TABLE_NAME = 'hardwarecomponent_tbl';
 
-  public static function getHardwareComponents($hwcomponent_id = null)
+  public static function all($limit = '')
   {
-    if ($hwcomponent_id == null) {
-      $sql = "SELECT * FROM hardwarecomponent_tbl";
-      return DB::all($sql);
-    } else {
-      $sql = "SELECT * FROM hardwarecomponent_tbl 
+    $sql = "SELECT * FROM hardwarecomponent_tbl {$limit}";
+    return DB::all($sql);
+  }
+
+  public static function find($id): Object
+  {
+    $sql = "SELECT * FROM hardwarecomponent_tbl 
 							WHERE hwcomponent_id = ?
 							LIMIT 1";
-      return DB::single($sql, [$hwcomponent_id]);
-    }
+    return DB::single($sql, [$id]);
   }
 
   /*  Get Hardware Components by Category */
