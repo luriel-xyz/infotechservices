@@ -4,7 +4,13 @@
 
 <head>
   <!-- Meta Tag to Set Page's Width -->
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Add keywords -->
+  <meta name="keywords" content="info,tech,services,infotechservices,it,information,technology,repairs,capitol">
+
+  <!-- Description -->
+  <meta name="description" content="">
 
   <!-- Icons -->
   <link rel="apple-touch-icon" sizes="57x57" href="<?= asset('img/icons/apple-icon-57x57.png'); ?>">
