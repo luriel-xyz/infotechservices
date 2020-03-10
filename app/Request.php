@@ -7,12 +7,15 @@ use App\DB;
 class Request
 {
 
+  /**
+   * Name of the table.
+   * @var string
+   */
   const TABLE_NAME = 'itservices_request_tbl';
 
-  public static function getRequest($itsrequest_id = null)
+  public static function all($limit = '')
   {
-    if ($itsrequest_id == null) {
-      $sql = "SELECT * FROM itservices_request_tbl 
+    $sql = "SELECT * FROM itservices_request_tbl 
 							INNER JOIN employee_tbl 
 							ON itservices_request_tbl.emp_id=employee_tbl.emp_id 
 							INNER JOIN department_tbl 
@@ -22,10 +25,14 @@ class Request
 							WHERE itshw_category is null 
 							OR itshw_category != 'pulled-out' 
 							AND itshw_category != 'walk-in' 
-							ORDER BY itsrequest_date DESC";
-      return DB::all($sql);
-    } else {
-      $sql = "SELECT * FROM itservices_request_tbl 
+              ORDER BY itsrequest_date DESC 
+              {$limit}";
+    return DB::all($sql);
+  }
+
+  public static function find(int $id): Object
+  {
+    $sql = "SELECT * FROM itservices_request_tbl 
 							INNER JOIN employee_tbl 
 							ON itservices_request_tbl.emp_id=employee_tbl.emp_id 
 							INNER JOIN department_tbl 
@@ -34,8 +41,7 @@ class Request
 							ON itservices_request_tbl.hwcomponent_id=hardwarecomponent_tbl.hwcomponent_id 
 							WHERE itsrequest_id = ?
 							LIMIT 1";
-      return DB::single($sql, [$itsrequest_id]);
-    }
+    return DB::single($sql, [$id]);
   }
 
   /* Get Incoming Requests by Department */

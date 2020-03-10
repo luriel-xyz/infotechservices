@@ -9,18 +9,21 @@ class Repair
 
   const TABLE_NAME = 'itservices_request_tbl';
 
-  public function getRepair($itsrequest_id = null)
+  public static function all(string $limit = '')
   {
-    if ($itsrequest_id == null) {
-      $sql = "SELECT * FROM itservices_request_tbl 
+    $sql = "SELECT * FROM itservices_request_tbl 
 							INNER JOIN employee_tbl ON itservices_request_tbl.emp_id=employee_tbl.emp_id 
 							INNER JOIN department_tbl ON itservices_request_tbl.dept_id=department_tbl.dept_id 
 							INNER JOIN hardwarecomponent_tbl ON itservices_request_tbl.hwcomponent_id=hardwarecomponent_tbl.hwcomponent_id 
 							WHERE itshw_category != 'on-site' AND itshw_category is NOT NULL 
-							ORDER BY itsrequest_date DESC";
-      return DB::all($sql);
-    } else {
-      $sql = "SELECT * FROM itservices_request_tbl 
+              ORDER BY itsrequest_date DESC
+              {$limit}";
+    return DB::all($sql);
+  }
+
+  public static function find(int $id): Object
+  {
+    $sql = "SELECT * FROM itservices_request_tbl 
 							INNER JOIN employee_tbl 
 							ON itservices_request_tbl.emp_id=employee_tbl.emp_id 
 							INNER JOIN department_tbl 
@@ -28,12 +31,11 @@ class Repair
 							LEFT JOIN hardwarecomponent_tbl 
 							ON itservices_request_tbl.hwcomponent_id=hardwarecomponent_tbl.hwcomponent_id 
 							WHERE itsrequest_id = ?";
-      return DB::single($sql, [$itsrequest_id]);
-    }
+    return DB::single($sql, [$id]);
   }
 
   /* Get Incoming Repair by Department */
-  public function getRepairsByDepartment($dept_id)
+  public static function getRepairsByDepartment($dept_id)
   {
     $sql = "SELECT * FROM itservices_request_tbl 
 						INNER JOIN employee_tbl 
@@ -50,7 +52,7 @@ class Repair
   }
 
   /* Get Incoming Repair by Date */
-  public function getRepairByDate($itsrequest_date)
+  public static function getRepairByDate($itsrequest_date)
   {
 
     $sql = "SELECT * FROM itservices_request_tbl 
@@ -69,7 +71,7 @@ class Repair
 
 
   /* Add Repairs */
-  public function addRepair($dept_id, $emp_id, $itsrequest_category, $itshw_category, $hwcomponent_id, $hwcomponent_sub_id, $property_num, $concern, $statusupdate_useraccount_id, $itsrequest_date)
+  public static function addRepair($dept_id, $emp_id, $itsrequest_category, $itshw_category, $hwcomponent_id, $hwcomponent_sub_id, $property_num, $concern, $statusupdate_useraccount_id, $itsrequest_date)
   {
     $sql = "INSERT INTO itservices_request_tbl 
 						(dept_id,emp_id,itsrequest_category,itshw_category,hwcomponent_id,hwcomponent_sub_id,property_num,concern,statusupdate_useraccount_id,itsrequest_date) 
