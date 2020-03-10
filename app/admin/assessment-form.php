@@ -11,7 +11,7 @@ if (!isUserLoggedIn()) {
   exit;
 }
 
-if (isset($_POST['useraccount_id']) && isset($_POST['itsrequest_id'])) { 
+if (isset($_POST['useraccount_id']) && isset($_POST['itsrequest_id'])) {
   // $useraccount_id = $_POST['useraccount_id'];
   $itsrequest_id = $_POST['itsrequest_id'];
   $dept_id = $_POST['dept_id'];
@@ -19,7 +19,7 @@ if (isset($_POST['useraccount_id']) && isset($_POST['itsrequest_id'])) {
 }
 
 //get all departments
-$departments = Department::getDepartment();
+$departments = Department::all();
 
 //get all hardware component
 $hardwareComponents = Hardware::getHardwareComponentsByCategory('main');
