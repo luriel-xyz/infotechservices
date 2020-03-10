@@ -37,10 +37,10 @@ $itsrequest_id = $_POST['itsrequest_id'];
 $assessment_report_id = $_POST['assessment_report_id'];
 
 //get all employees
-$employees = Employee::getEmployee();
+$employees = Employee::all();
 
 $assessmentReport = Assessment::getAssessmentReport($assessment_report_id);
-$request = Request::getRequest($assessmentReport->itsrequest_id);
+$request = Request::find($assessmentReport->itsrequest_id);
 
 view('includes/forms/prepostinspectionreport-addingform', compact(
   'action',
