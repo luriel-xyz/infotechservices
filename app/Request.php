@@ -45,7 +45,7 @@ class Request
   }
 
   /* Get Incoming Requests by Department */
-  public static function getRequestsByDepartment($dept_id)
+  public static function getRequestsByDepartment($dept_id, $limit = '')
   {
     // FIX THIS ...
     $sql = "SELECT * FROM itservices_request_tbl 
@@ -54,12 +54,13 @@ class Request
 							INNER JOIN department_tbl 
 							ON itservices_request_tbl.dept_id=department_tbl.dept_id 
 							LEFT JOIN hardwarecomponent_tbl 
-							ON itservices_request_tbl.hwcomponent_id=hardwarecomponent_tbl.hwcomponent_id  
+							ON itservices_request_tbl.hwcomponent_id=hardwarecomponent_tbl.hwcomponent_id
 							WHERE itshw_category is null 
 							OR itshw_category != 'pulled-out' 
 							AND itshw_category != 'walk-in' 
 							AND itservices_request_tbl.dept_id = ?
-							ORDER BY itsrequest_date DESC";
+              ORDER BY itsrequest_date DESC
+              {$limit}";
     return DB::all($sql, [$dept_id]);
   }
 
