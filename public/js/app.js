@@ -61004,7 +61004,7 @@ $(".pullout").click(function (e) {
   $("#statusupdate_useraccount_id").append('<input type="hidden" class="form-control" name="statusupdate_useraccount_id" id="statusupdate_useraccount_id" value=' + statusupdate_useraccount_id + ">");
   $("#hwcomponent_select").show();
   $("#hwcomponent_id").val(hwcomponent_id);
-  $("#input_field").append('<input type="text" class="form-control" name="property_num" id="property_num" placeholder="Property Number"/>');
+  $("#input_field").append('<input type="text" class="form-control" name="property_num" id="property_num" placeholder="Property Number" required>');
   $("#submit_btn").text("Pullout");
   $("#modalPulloutDone").modal({
     backdrop: "static",
