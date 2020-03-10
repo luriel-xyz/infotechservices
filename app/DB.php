@@ -1,5 +1,13 @@
 <?php
 
+/*
+ * DB class
+ *
+ * @author Luriel Mapili
+ * @version 1.0
+ * @date March 7, 2020
+ */
+
 namespace App;
 
 class DB
@@ -9,7 +17,7 @@ class DB
    * Establish database connection
    * @return PDO 
    */
-  public static function connection() : \PDO
+  public static function connection(): \PDO
   {
     $dsn = "mysql:host=" . HOST . ";dbname=" . DB_NAME;
     $options = [
