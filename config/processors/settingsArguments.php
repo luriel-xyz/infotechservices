@@ -68,7 +68,6 @@ if (isset($_POST['action'])) {
 	if ($_POST['action'] === 'addHardwareComponent') {
 		$hwcomponent_name = $_POST['hwcomponent_name'];
 		$hwcomponent_type = $_POST['hwcomponent_type'];
-
 		$hwcomponent_category = $_POST['hwcomponent_category'];
 
 		$result = Hardware::addHardwareComponent($hwcomponent_name, $hwcomponent_type, $hwcomponent_category);
@@ -81,7 +80,7 @@ if (isset($_POST['action'])) {
 
 	if ($_POST['action'] === 'editDepartment') {
 		$dept_id = $_POST['dept_id'];
-		$result = Department::getDepartment($dept_id);
+		$result = Department::find($dept_id);
 		echo json_encode($result);
 	}
 
