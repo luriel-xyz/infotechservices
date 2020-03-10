@@ -150,9 +150,9 @@ class Paginator
     if ($lastpage > 1) {
       $pagination .= "<ul class='pagination " . $this->_customCSS . "'>";
       if ($this->_page > 1)
-        $pagination .= "<li><a href='" . $path . "$this->_instance=$prev" . "$ext'>Previous</a></li>";
+        $pagination .= "<li><a href='" . $path . "$this->_instance=$prev" . "$ext'>«</a></li>";
       else
-        $pagination .= "<span class='disabled'>Previous</span>";
+        $pagination .= "<span class='disabled'>«</span>";
 
       if ($lastpage < 7 + ($adjacents * 2)) {
         for ($counter = 1; $counter <= $lastpage; $counter++) {
@@ -199,9 +199,9 @@ class Paginator
       }
 
       if ($this->_page < $counter - 1)
-        $pagination .= "<li><a href='" . $path . "$this->_instance=$next" . "$ext'>Next</a></li>";
+        $pagination .= "<li><a href='" . $path . "$this->_instance=$next" . "$ext'>»</a></li>";
       else
-        $pagination .= "<li><span class='disabled'>Next</span></li>";
+        $pagination .= "<li><span class='disabled'>»</span></li>";
       $pagination .= "</ul>\n";
     }
 
