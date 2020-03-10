@@ -18,6 +18,8 @@ try {
 
   require("jquery-validation/dist/jquery.validate.min.js");
 
+  require("jquery-ui-dist/jquery-ui.min.js");
+
   // require('bootstrap');
   // require("bootstrap-material-design/dist/css/bootstrap-material-design.min.css");
 } catch (e) {}
