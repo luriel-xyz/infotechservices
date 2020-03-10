@@ -110,7 +110,7 @@ else :
                   <button type="button" class="dropdown-item done-repair" data-toggle="tooltip" id="<?= $repair->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>">Done</button>
                   <button type="button" class="dropdown-item btn-print-inspection-report" data-toggle="tooltip" id="<?= $repair->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>" data-assessment-report-id="<?= $assessmentReport->repassessreport_id ?>">Print Inspection Report</button>
                 <?php elseif ($repair->status === 'done') : ?>
-                  <button type="button" class="dropdown-item btn-print-assessment" data-toggle="tooltip" data-assessment-report-id="<?= $assessmentReport->repassessreport_id ?>"> </button>
+                  <button type="button" class="dropdown-item btn-print-assessment" data-toggle="tooltip" data-assessment-report-id="<?= $assessmentReport->repassessreport_id ?>">Print Assessment Report</button>
                   <button type="button" class="dropdown-item btn-print-inspection-report" data-toggle="tooltip" id="<?= $repair->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>" data-assessment-report-id="<?= $assessmentReport->repassessreport_id ?>">Print Inspection Report</button>
                 <?php endif; ?>
               </div>
