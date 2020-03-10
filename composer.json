@@ -22,7 +22,8 @@
     },
     "files": [
       "config/config.php",
-      "core/functions.php"
+      "core/functions.php",
+      "core/Paginator.php"
     ]
   }
 }
