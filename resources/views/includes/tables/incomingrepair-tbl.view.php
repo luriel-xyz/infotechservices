@@ -66,48 +66,56 @@ else :
             <?= "{$techRecEmployee->emp_fname} {$techRecEmployee->emp_lname}" ?>
           </td>
           <td style="width: 15%">
-            <!-- This button will always be visible -->
-            <button type="button" class="btn btn-sm btn-info view-repair" data-toggle="tooltip" title="View Details" id="<?= $repair->itsrequest_id ?>"><i class="fa fa-eye" aria-hidden="true"></i></button>
-            <?php
-            // If request is received from incoming repairs
-            if ($repair->status === 'received') : ?>
-              <!-- Show repair button -->
-              <button type="button" class="btn btn-sm btn-warning pending" data-toggle="tooltip" title="Start Repair" id="<?= $repair->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>"><i class="fas fa-arrow-circle-right" aria-hidden="true"></i></button>
-            <?php
-            elseif ($repair->status == 'pending') :
-            ?>
-              <button type="button" class="btn btn-sm btn-assessment btn-danger assess" data-toggle="tooltip" title="For Assessment" id="<?= $repair->itsrequest_id ?>" data-useraccount_id="<?= user()->useraccount_id ?>" data-hwcomponent_id="<?= $repair->hwcomponent_id ?>" data-dept_id="<?= $repair->dept_id ?>"><i class="fas fa-file" aria-hidden="true"></i></button>
-              <button type="button" class="btn btn-sm btn-success done-repair" data-toggle="tooltip" title="Done" id="<?= $repair->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>"><i class="fa fa-check" aria-hidden="true"></i></button>
-            <?php
-            // show assesment form 
-            elseif ($repair->status === 'assessment pending') : ?>
-              <button type="button" class="btn btn-sm btn-danger assessment-created" data-toggle="tooltip" title="Assessment Created" id="<?= $repair->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>"><i class="fas fa-check" aria-hidden="true"></i></button>
-            <?php elseif ($repair->status === 'assessed') : ?>
-              <input type="hidden" name="" value="<?= $repair->itsrequest_id ?>">
-              <button type="button" class="btn btn-sm btn-warning pre-post-inspect" data-toggle="tooltip" title="Pre And Post Repair Inspect" id="<?= $repair->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>" data-assessment-report-id="<?= $assessmentReport->repassessreport_id ?>"><i class="fas fa-file" aria-hidden="true"></i></button>
-              <button type="button" class="btn btn-sm btn-secondary btn-print-assessment" data-toggle="tooltip" title="Print Assessment Form" data-assessment-report-id="<?= $assessmentReport->repassessreport_id ?>"><i class="fa fa-print" aria-hidden="true"></i></button>
-              <?php
-              // show
-              // } else if ($repair['status'] === 'pre-repair inspected') {
-              // 
-              ?>
-              <!-- <button type="button" class="btn btn-sm btn-warning post-inspect" data-toggle="tooltip" title="Post-Repair Inspect" id="</?= $repair['itsrequest_id'] ?>" data-id="</?= $_SESSION['useraccount_id'] ?>"><i class="fa fa-check" aria-hidden="true"></i></button> -->
-              <?php
-              // } else if ($repair['status'] === 'post-repair inspected') {
-              // 
-              ?>
-              <!-- <button type="button" class="btn btn-sm btn-success done-repair" data-toggle="tooltip" title="Done" id="</?= $repair['itsrequest_id'] ?>" data-id="</?= $_SESSION['useraccount_id'] ?>"><i class="fa fa-check" aria-hidden="true"></i></button> -->
-              <?php
-              // }
-              // 
-              ?>
-            <?php elseif ($repair->status === 'pre-post-repair inspected') : ?>
-              <button type="button" class="btn btn-sm btn-success done-repair" data-toggle="tooltip" title="Done" id="<?= $repair->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>"><i class="fa fa-check" aria-hidden="true"></i></button>
-              <button type="button" class="btn btn-sm btn-info btn-print-inspection-report" data-toggle="tooltip" title="Print Inspection Report" id="<?= $repair->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>" data-assessment-report-id="<?= $assessmentReport->repassessreport_id ?>"><i class="fas fa-print" aria-hidden="true"></i></button>
-            <?php elseif ($repair->status === 'done') : ?>
-              <button type="button" class="btn btn-sm btn-secondary btn-print-assessment" data-toggle="tooltip" title="Print Assessment Form" data-assessment-report-id="<?= $assessmentReport->repassessreport_id ?>"><i class="fa fa-print" aria-hidden="true"></i></button>
-              <button type="button" class="btn btn-sm btn-info btn-print-inspection-report" data-toggle="tooltip" title="Print Inspection Report" id="<?= $repair->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>" data-assessment-report-id="<?= $assessmentReport->repassessreport_id ?>"><i class="fas fa-print" aria-hidden="true"></i></button>
-            <?php endif; ?>
+            <!-- Dropdown button -->
+            <div class="dropdown">
+              <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="dropdownMenuMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="text-capitalize"><i class="fas fa-list"></i></span>
+              </button>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuMenu">
+                <button type="button" class="dropdown-item view-repair" data-toggle="tooltip" id="<?= $repair->itsrequest_id ?>">View Details</button>
+                <?php
+                // If request is received from incoming repairs
+                if ($repair->status === 'received') : ?>
+                  <!-- Show repair button -->
+                  <button type="button" class="dropdown-item pending" data-toggle="tooltip" id="<?= $repair->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>">Start Repair</button>
+                <?php
+                elseif ($repair->status == 'pending') :
+                ?>
+                  <button type="button" class="dropdown-item btn-assessment btn-danger assess" data-toggle="tooltip" id="<?= $repair->itsrequest_id ?>" data-useraccount_id="<?= user()->useraccount_id ?>" data-hwcomponent_id="<?= $repair->hwcomponent_id ?>" data-dept_id="<?= $repair->dept_id ?>">Create assesment form</button>
+                  <button type="button" class="dropdown-item done-repair" data-toggle="tooltip" id="<?= $repair->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>">Done</button>
+                <?php
+                // show assesment form 
+                elseif ($repair->status === 'assessment pending') : ?>
+                  <button type="button" class="dropdown-item assessment-created" data-toggle="tooltip" id="<?= $repair->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>">Assessment Created</button>
+                <?php elseif ($repair->status === 'assessed') : ?>
+                  <input type="hidden" name="" value="<?= $repair->itsrequest_id ?>">
+                  <button type="button" class="dropdown-item pre-post-inspect" data-toggle="tooltip" id="<?= $repair->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>" data-assessment-report-id="<?= $assessmentReport->repassessreport_id ?>">Pre and Post</button>
+                  <button type="button" class="dropdown-item btn-print-assessment" data-toggle="tooltip" data-assessment-report-id="<?= $assessmentReport->repassessreport_id ?>">Print Assessment Form</button>
+                  <?php
+                  // show
+                  // } else if ($repair['status'] === 'pre-repair inspected') {
+                  // 
+                  ?>
+                  <!-- <button type="button" class="dropdown-item btn-warning post-inspect" data-toggle="tooltip" title="Post-Repair Inspect" id="</?= $repair['itsrequest_id'] ?>" data-id="</?= $_SESSION['useraccount_id'] ?>"><i class="fa fa-check" aria-hidden="true"></i></button> -->
+                  <?php
+                  // } else if ($repair['status'] === 'post-repair inspected') {
+                  // 
+                  ?>
+                  <!-- <button type="button" class="dropdown-item btn-success done-repair" data-toggle="tooltip" title="Done" id="</?= $repair['itsrequest_id'] ?>" data-id="</?= $_SESSION['useraccount_id'] ?>"><i class="fa fa-check" aria-hidden="true"></i></button> -->
+                  <?php
+                  // }
+                  // 
+                  ?>
+                <?php elseif ($repair->status === 'pre-post-repair inspected') : ?>
+                  <button type="button" class="dropdown-item done-repair" data-toggle="tooltip" id="<?= $repair->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>">Done</button>
+                  <button type="button" class="dropdown-item btn-print-inspection-report" data-toggle="tooltip" id="<?= $repair->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>" data-assessment-report-id="<?= $assessmentReport->repassessreport_id ?>">Print Inspection Report</button>
+                <?php elseif ($repair->status === 'done') : ?>
+                  <button type="button" class="dropdown-item btn-print-assessment" data-toggle="tooltip" data-assessment-report-id="<?= $assessmentReport->repassessreport_id ?>"> </button>
+                  <button type="button" class="dropdown-item btn-print-inspection-report" data-toggle="tooltip" id="<?= $repair->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>" data-assessment-report-id="<?= $assessmentReport->repassessreport_id ?>">Print Inspection Report</button>
+                <?php endif; ?>
+              </div>
+            </div>
+            <!-- /# Dropdown button -->
           </td>
         </tr>
       <?php endforeach; ?>

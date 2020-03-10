@@ -53,33 +53,42 @@ else :
             <!-- </?php endif; ?> -->
           </td>
           <td style="width:15%">
-            <button type="button" class="btn btn-sm btn-info view-request" data-toggle="tooltip" title="View Details" id="<?= $request->itsrequest_id ?>"><i class="fa fa-eye" aria-hidden="true"></i></button>
-            <?php
-            if ($request->itsrequest_category == 'hw') {
-              if ($request->itshw_category == 'on-site') {
-                if ($request->status === 'received') {
-            ?>
-                  <button type="button" class="btn btn-sm btn-warning pending" data-toggle="tooltip" title="Receive Request" id="<?= $request->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>"><i class="fas fa-arrow-right" aria-hidden="true"></i></button>
+            <!-- Dropdown button -->
+            <div class="dropdown">
+              <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="dropdownMenuMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="text-capitalize"><i class="fas fa-list"></i></span>
+              </button>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuMenu">
+                <button type="button" class="dropdown-item view-request" data-toggle="tooltip" id="<?= $request->itsrequest_id ?>">View Details</button>
                 <?php
-                } else if ($request->status == 'pending') {
+                if ($request->itsrequest_category == 'hw') {
+                  if ($request->itshw_category == 'on-site') {
+                    if ($request->status === 'received') {
                 ?>
-                  <button type="button" class="btn btn-sm btn-danger pullout" data-toggle="tooltip" title="Pullout" id="<?= $request->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>" hw-id="<?= $request->hwcomponent_id ?>"><i class="fa fa-hand-rock" aria-hidden="true"></i></button>
-                  <button type="button" class="btn btn-sm btn-success done-request" data-toggle="tooltip" title="Done" id="<?= $request->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>"><i class="fas fa-check" aria-hidden="true"></i></button>
+                      <button type="button" class="dropdown-item pending" data-toggle="tooltip" id="<?= $request->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>">Receive Request</button>
+                    <?php
+                    } else if ($request->status == 'pending') {
+                    ?>
+                      <button type="button" class="dropdown-item pullout" data-toggle="tooltip" id="<?= $request->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>" hw-id="<?= $request->hwcomponent_id ?>">Pullout</button>
+                      <button type="button" class="dropdown-item done-request" data-toggle="tooltip" id="<?= $request->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>">Done</button>
+                    <?php
+                    }
+                  }
+                } else if ($request->itsrequest_category == 'other') {
+                  if ($request->status === 'received') {
+                    ?>
+                    <button type="button" class="dropdown-item pending" data-toggle="tooltip" id="<?= $request->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>">Do</button>
+                  <?php
+                  } else if ($request->status == 'pending') {
+                  ?>
+                    <button type="button" class="dropdown-item done-request" data-toggle="tooltip" id="<?= $request->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>">Done</button>
                 <?php
+                  }
                 }
-              }
-            } else if ($request->itsrequest_category == 'other') {
-              if ($request->status === 'received') {
                 ?>
-                <button type="button" class="btn btn-sm btn-warning pending" data-toggle="tooltip" title="Do" id="<?= $request->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>"><i class="fas fa-arrow-right" aria-hidden="true"></i></button>
-              <?php
-              } else if ($request->status == 'pending') {
-              ?>
-                <button type="button" class="btn btn-sm btn-success done-request" data-toggle="tooltip" title="Done" id="<?= $request->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>"><i class="fas fa-check" aria-hidden="true"></i></button>
-            <?php
-              }
-            }
-            ?>
+              </div>
+            </div>
+            <!-- /# Dropdown button -->
           </td>
         </tr>
       <?php endforeach; ?>
