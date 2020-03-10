@@ -7,8 +7,8 @@
 //if not empty
 else :
 ?>
-  <table class="table table-bordered text-center">
-    <thead>
+  <table class="table text-center">
+    <thead class="blue-grey lighten-4">
       <th>#</th>
       <th>Date</th>
       <th>Department</th>
