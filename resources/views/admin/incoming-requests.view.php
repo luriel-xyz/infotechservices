@@ -21,6 +21,7 @@
             <i class="fas fa-search prefix grey-text"></i>
             <input type="text" class="form-control " id="search" placeholder="Search">
           </div>
+
         </div>
         <!-- /# Search Field -->
 
