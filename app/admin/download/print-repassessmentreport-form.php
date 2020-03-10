@@ -28,7 +28,7 @@ $modelOrDescription = $assessmentReport->hwcomponent_description;
 $dateAcquired = $assessmentReport->hwcomponent_dateAcquired;
 $acquisitionCost = $assessmentReport->hwcomponent_acquisitioncost;
 $acquisitionCost = \Money\Money::PHP($acquisitionCost);
-$acquisitionCost = $acquisitionCost->getCurrency() . ' ' . $acquisitionCost->getAmount();
+$acquisitionCost = $acquisitionCost->getCurrency() . ' ' . number_format($acquisitionCost->getAmount());
 
 $request = Request::find($assessmentReport->itsrequest_id);
 $departmentCode = $request->dept_code;
