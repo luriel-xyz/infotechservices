@@ -15,7 +15,7 @@ class Department
     return DB::all($sql);
   }
 
-  public static function find($id): Object
+  public static function find($id)
   {
     $sql = "SELECT * FROM department_tbl 
             WHERE dept_id = ? 
