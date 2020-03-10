@@ -10,10 +10,12 @@ if (!isUserLoggedIn()) {
   exit;
 }
 
-$hardware_components = Hardware::getHardwareComponents();
-
 $main_hwcomponents = Hardware::getHardwareComponentsByCategory('main');
 
-view('admin/settings/hardware-components', compact('hardware_components', 'main_hwcomponents'));
-?>
+// Paginator
+$pages = new Paginator('5', 'p');
+$pages->set_total(Hardware::count());
+$hardware_components = Hardware::all($pages->get_limit());
+$links = $pages->page_links();
 
+view('admin/settings/hardware-components', compact('hardware_components', 'main_hwcomponents', 'links'));
