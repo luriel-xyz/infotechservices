@@ -9,17 +9,18 @@ class Department
 
   const TABLE_NAME = 'department_tbl';
 
-  public static function getDepartment($dept_id = null)
+  public static function all($limit = '')
   {
-    if ($dept_id == null) {
-      $sql = "SELECT * FROM department_tbl";
-      return DB::all($sql);
-    } else {
-      $sql = "SELECT * FROM department_tbl 
-							WHERE dept_id = ? 
-							LIMIT 1";
-      return DB::single($sql, [$dept_id]);
-    }
+    $sql = "SELECT * FROM department_tbl {$limit}";
+    return DB::all($sql);
+  }
+
+  public static function find($id): Object
+  {
+    $sql = "SELECT * FROM department_tbl 
+            WHERE dept_id = ? 
+            LIMIT 1";
+    return DB::single($sql, [$id]);
   }
 
   /* Add Department */
