@@ -9,7 +9,7 @@ class Employee
 
   const TABLE_NAME = 'employee_tbl';
 
-  public static function isIdNumberTaken($idNumber)
+  public static function isIdNumberTaken($idNumber): bool
   {
     $sql = 'SELECT count(*) AS frequency 
             FROM employee_tbl 
@@ -19,20 +19,23 @@ class Employee
     return $isTaken;
   }
 
-  public static function getEmployee($emp_id = null)
+  public static function all(string $limit = '')
   {
-    if ($emp_id == null) {
-      $sql = "SELECT * FROM employee_tbl 
-							INNER JOIN department_tbl 
-							ON employee_tbl.dept_id=department_tbl.dept_id";
-      return DB::all($sql);
-    } else {
-      $sql = "SELECT * FROM employee_tbl 
+    $sql = "SELECT * FROM employee_tbl 
+            INNER JOIN department_tbl 
+            ON employee_tbl.dept_id=department_tbl.dept_id 
+            {$limit}";
+
+    return DB::all($sql);
+  }
+
+  public static function find($id): Object
+  {
+    $sql = "SELECT * FROM employee_tbl 
 							INNER JOIN department_tbl 
 							ON employee_tbl.dept_id=department_tbl.dept_id 
 							WHERE emp_id = ?";
-      return DB::single($sql, [$emp_id]);
-    }
+    return DB::single($sql, [$id]);
   }
 
   /*  Get Employee By Department */
