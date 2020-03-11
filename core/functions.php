@@ -35,17 +35,22 @@ function redirectToPreviousPage()
   }
 }
 
-function redirect($url)
+function redirect($url, $data = [])
 {
   header("Location: {$url}");
+  $data = array_filter($data);
+  if (!empty($data)) {
+    session('redirectData', $data);
+  }
+  exit;
 }
 
-function isUserLoggedIn()
+function isUserLoggedIn(): bool
 {
   return isset($_SESSION['user']);
 }
 
-function view($path, $data = [])
+function view($path, $data = []): void
 {
   extract($data);
   $dirname = dirname($path);
@@ -54,7 +59,7 @@ function view($path, $data = [])
   require_once($path);
 }
 
-function asset($path)
+function asset($path): string
 {
   // $path = str_replace('assets', '', $path);
 
@@ -63,7 +68,7 @@ function asset($path)
   return $assetsDir;
 }
 
-function getPath($path)
+function getPath($path): string
 {
   $path = strtolower($path);
   $result = "./{$path}";
