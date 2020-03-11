@@ -21,7 +21,7 @@
       "App\\": "app/"
     },
     "files": [
-      "config/config.php",
+      "env.php",
       "core/functions.php",
       "core/Paginator.php"
     ]
