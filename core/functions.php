@@ -27,13 +27,13 @@ function redirectToPreviousPage(): void
   }
 }
 
-function redirect($url, $data = null): void
+function redirect($url, $key = null, $val = null): void
 {
-  if (is_array($data)) {
-    $data = array_filter($data);
+  if (is_array($val)) {
+    $val = array_filter($val);
   }
 
-  session('data', $data);
+  session($key, $val);
   header("Location: {$url}");
   exit;
 }
@@ -99,6 +99,7 @@ function pageTitle(): string
   return str_replace('-', ' ', currentPage());
 }
 
+/** Set or return a session data */
 function session($key, $val = null)
 {
   if ($val != null) {
