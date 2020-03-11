@@ -9,7 +9,7 @@ if (!$repairs) :
 //if not empty
 else :
 ?>
-  <table class="table text-center">
+  <table class="table table-hover text-center">
     <thead class="blue-grey lighten-4">
       <th>Date</th>
       <th>Department</th>
