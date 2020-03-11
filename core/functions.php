@@ -31,7 +31,6 @@ function redirectToPreviousPage()
   if (isset($_SERVER['HTTP_REFERER'])) {
     $previous = $_SERVER['HTTP_REFERER'];
     redirect($previous);
-    exit;
   }
 }
 
