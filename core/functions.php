@@ -131,7 +131,12 @@ function truncate($str, $length): string
 // var_dump then die
 function dd($any): void
 {
-  echo "<pre style='background-color:#111;color:#fff';padding:0;margin:0;padding:2px 0;>";
+  $style = "background-color: #111;
+            color: #fff;
+            padding: 0;
+            margin: 0;
+            padding: 2px 0;";
+  echo "<pre style='{$style}'>";
   var_dump($any);
   echo "</pre>";
   die;
