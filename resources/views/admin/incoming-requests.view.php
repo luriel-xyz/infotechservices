@@ -13,8 +13,13 @@
     <?php view('includes/navbar'); ?>
     <!-- /# Page Title -->
 
+    <!-- Alert message -->
+    <?php view('includes/message'); ?>
+    <!-- /# Alert message -->
+
     <div class="container-fluid h-100">
       <div class="row align-items-center">
+
         <!-- Search Field -->
         <div class="col-md-5">
           <div class="md-form">

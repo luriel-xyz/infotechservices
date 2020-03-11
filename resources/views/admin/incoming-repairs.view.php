@@ -13,6 +13,10 @@
     <?php view('includes/navbar'); ?>
     <!-- /# Page Title -->
 
+    <!-- Alert message -->
+    <?php view('includes/message'); ?>
+    <!-- /# Alert message -->
+
     <div class="container-fluid h-100 mt-4">
 
       <div class="md-form">
