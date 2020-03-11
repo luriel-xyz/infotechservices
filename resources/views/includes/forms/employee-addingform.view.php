@@ -52,6 +52,8 @@
 
 	<div class="modal-footer text-dark mb-0">
 		<button type="rest" class="btn btn-sm btn-secondary" data-dismiss="modal" onclick="$('modal').modal('hide')">Cancel</button>
-		<button type="submit" name="submit" class="btn btn-sm btn-primary" id="emp_btn">Add Employee</button>
+		<button type="submit" name="submit" class="btn btn-sm btn-primary" id="emp_btn">
+			Add Employee
+		</button>
 	</div>
 </form>

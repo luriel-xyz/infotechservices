@@ -1,4 +1,5 @@
 <?php
+
 use App\Repair;
 use App\Request;
 
@@ -17,9 +18,9 @@ if (!isset($_POST['action'])) {
 
 $action = $_POST['action'];
 if ($action === 'RepairSummaryReport') {
-  $requests = Repair::all();
+  $result = Repair::all();
 } else if ($action === 'RequestSummaryReport') {
-  $requests = Request::all();
+  $result = Request::all();
 }
 
-view('admin/download/excel-all', compact('action', 'requests'));
+view('admin/download/excel-all', compact('action', 'result'));

@@ -48,30 +48,30 @@
     </thead>
     <tbody>
       <?php
-      if ($requests) :
-        foreach ($requests as $request) :
-          if ($request->statusupdate_useraccount_id) {
-            $technician = User::getUserAccount($request->statusupdate_useraccount_id);
+      if ($result) :
+        foreach ($result as $data) :
+          if ($data->statusupdate_useraccount_id) {
+            $technician = App\User::find($data->statusupdate_useraccount_id);
             $tech_name = $technician->emp_fname . ' ' . $technician->emp_lname;
           } else {
             $tech_name = "";
           }
       ?>
           <tr>
-            <td><?= $request->emp_fname ?> <?= $request->emp_lname ?></td>
-            <td><?= $request->hwcomponent_name ?></td>
+            <td><?= $data->emp_fname ?> <?= $data->emp_lname ?></td>
+            <td><?= $data->hwcomponent_name ?></td>
             <?php
             if ($action === 'RepairSummaryReport') {
-              echo '<td>' . $request->property_num . '</td>';
+              echo '<td>' . $data->property_num . '</td>';
             }
             ?>
-            <td><?= $request->concern ?></td>
-            <td><?= $request->status ?></td>
+            <td><?= $data->concern ?></td>
+            <td><?= $data->status ?></td>
             <td><?= $tech_name ?></td>
-            <td><?= $request->solution ?></td>
+            <td><?= $data->solution ?></td>
             <?php
             if ($action === 'RepairSummaryReport') {
-              echo '<td>' . $request->received_date . '</td>';
+              echo '<td>' . $data->received_date . '</td>';
             }
             ?>
           </tr>

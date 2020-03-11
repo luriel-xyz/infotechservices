@@ -24,9 +24,9 @@ $department = Department::find($dept_id);
 $dept_code = $department->dept_code;
 
 if ($action === 'RepairSummaryReport') {
-  $requests = Repair::getRepairsByDepartment($dept_id);
+  $result = Repair::getRepairsByDepartment($dept_id);
 } else if ($action === 'RequestSummaryReport') {
-  $requests = Request::getRequestsByDepartment($dept_id);
+  $result = Request::getRequestsByDepartment($dept_id);
 }
 
-view('admin/download/excel-dept', compact('action', 'dept_code', 'requests'));
+view('admin/download/excel-dept', compact('action', 'dept_code', 'result'));

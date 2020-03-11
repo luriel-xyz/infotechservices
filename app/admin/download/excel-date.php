@@ -19,11 +19,9 @@ $action = $_POST['action'];
 $day = $_POST['day'];
 
 if ($action === 'RepairSummaryReport') {
-  $requests = Repair::getRepairByDate($day);
+  $result = Repair::getRepairByDate($day);
 } else if ($action === 'RequestSummaryReport') {
-  $requests = Request::getRequestsByDate($day);
+  $result = Request::getRequestsByDate($day);
 }
 
-view('includes/excel-date', compact('action', 'day', 'requests'));
-
-?>
+view('includes/excel-date', compact('action', 'day', 'result'));

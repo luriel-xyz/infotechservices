@@ -54,28 +54,28 @@
     </thead>
     <tbody>
       <?php
-      foreach ($requests as $request) :
-        if ($request->statusupdate_useraccount_id) {
-          $technician = App\User::getUserAccount($request->statusupdate_useraccount_id);
+      foreach ($result as $data) :
+        if ($data->statusupdate_useraccount_id) {
+          $technician = App\User::find($data->statusupdate_useraccount_id);
           $tech_name = "{$technician->emp_fname} {$technician->emp_lname}";
         } else {
           $tech_name = "";
         }
       ?>
         <tr>
-          <td><?= $request->itsrequest_date ?></td>
-          <td><?= $request->dept_name ?></td>
-          <td><?= $request->emp_fname ?> <?= $request->emp_lname ?></td>
-          <td><?= $request->hwcomponent_name ?? 'N/A' ?></td>
+          <td><?= $data->itsrequest_date ?></td>
+          <td><?= $data->dept_name ?></td>
+          <td><?= $data->emp_fname ?> <?= $data->emp_lname ?></td>
+          <td><?= $data->hwcomponent_name ?? 'N/A' ?></td>
           <?php if ($action === 'RepairSummaryReport') : ?>
-            <td><?= $request->property_num ?></td>
+            <td><?= $data->property_num ?></td>
           <?php endif ?>
-          <td><?= $request->concern ?></td>
-          <td><?= $request->status ?></td>
+          <td><?= $data->concern ?></td>
+          <td><?= $data->status ?></td>
           <td><?= $tech_name ?? 'Not accepted' ?></td>
-          <td><?= $request->solution ?></td>
+          <td><?= $data->solution ?></td>
           <?php if ($action === 'RepairSummaryReport') : ?>
-            <td><?= $request->deployment_date ?></td>
+            <td><?= $data->deployment_date ?></td>
           <?php endif; ?>
         </tr>
       <?php endforeach; ?>
