@@ -24,4 +24,9 @@ if ($action === 'RepairSummaryReport') {
   $result = Request::getRequestsByDate($day);
 }
 
+// Redirect back to previous page if empty
+if (empty($result)) {
+  redirect($_SERVER['HTTP_REFERER'], 'error', 'There is no data to be downloaded.');
+}
+
 view('includes/excel-date', compact('action', 'day', 'result'));

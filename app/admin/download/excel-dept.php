@@ -29,4 +29,9 @@ if ($action === 'RepairSummaryReport') {
   $result = Request::getRequestsByDepartment($dept_id);
 }
 
+// Redirect back to previous page if empty
+if (empty($result)) {
+  redirect($_SERVER['HTTP_REFERER'], 'error', 'There is no data to be downloaded.');
+}
+
 view('admin/download/excel-dept', compact('action', 'dept_code', 'result'));

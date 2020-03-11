@@ -23,4 +23,9 @@ if ($action === 'RepairSummaryReport') {
   $result = Request::all();
 }
 
+// Redirect back to previous page if empty
+if (empty($result)) {
+  redirect($_SERVER['HTTP_REFERER'], 'error', 'There is no data to be downloaded.');
+}
+
 view('admin/download/excel-all', compact('action', 'result'));
