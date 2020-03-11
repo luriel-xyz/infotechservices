@@ -1,7 +1,7 @@
 <?php
 
 // Redirect to user dashboard if user is logged in
-function redirectIfLoggedIn()
+function redirectIfLoggedIn(): void
 {
   if (!isUserLoggedIn()) {
     return;
@@ -14,33 +14,27 @@ function redirectIfLoggedIn()
   }
 }
 
-function logoutPath()
+function logoutPath(): string
 {
-  if (!isUserLoggedIn()) {
-    return;
-  }
-
-  $logoutPath = getPath('app/auth/logout.php');
-
-  return $logoutPath;
+  return getPath('app/auth/logout.php');
 }
 
-function redirectToPreviousPage()
+function redirectToPreviousPage(): void
 {
-  // Go back to previous page.
   if (isset($_SERVER['HTTP_REFERER'])) {
     $previous = $_SERVER['HTTP_REFERER'];
     redirect($previous);
   }
 }
 
-function redirect($url, $data = [])
+function redirect($url, $data = null): void
 {
-  header("Location: {$url}");
-  $data = array_filter($data);
-  if (!empty($data)) {
-    session('redirectData', $data);
+  if (is_array($data)) {
+    $data = array_filter($data);
   }
+
+  session('data', $data);
+  header("Location: {$url}");
   exit;
 }
 
@@ -110,7 +104,7 @@ function session($key, $val = null)
   if ($val != null) {
     return $_SESSION[$key] = $val;
   } else {
-    return $_SESSION[$key];
+    return $_SESSION[$key] ?? null;
   }
 }
 
