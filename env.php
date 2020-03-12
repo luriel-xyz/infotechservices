@@ -1,4 +1,7 @@
 <?php
+// App name
+define('APP_NAME', 'infotechservices');
+
 // database
 define('HOST', 'localhost');
 define('USERNAME', 'root');
@@ -10,6 +13,3 @@ define('ADMIN', 'admin');
 define('PERSONNEL', 'personnel');
 define('PROGRAMMER', 'programmer');
 define('DEPARTMENT', 'department');
-
-// App name
-define('APP_NAME', 'infotechservices');
