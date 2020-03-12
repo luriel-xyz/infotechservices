@@ -6,11 +6,14 @@
   <!-- Meta Tag to Set Page's Width -->
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+  <!-- Add author -->
+  <meta name="author" content="">
+
   <!-- Add keywords -->
   <meta name="keywords" content="info,tech,services,infotechservices,it,information,technology,repairs,capitol">
 
   <!-- Description -->
-  <meta name="description" content="">
+  <meta name="description" content="A web application for IT service requests.">
 
   <!-- Icons -->
   <link rel="apple-touch-icon" sizes="57x57" href="<?= asset('img/icons/apple-icon-57x57.png'); ?>">
@@ -32,7 +35,7 @@
   <meta name="theme-color" content="#ffffff">
 
   <!--  Title Page  -->
-  <title>PGO IT Services</title>
+  <title><?= APP_NAME ?> <?= $subtitle ?? '' ?> </title>
 
   <!--  Link Bootstrap stylesheet -->
   <!-- <link href="<.?= asset('plug-ins/bootstrap/css/bootstrap.min.css') ?>" rel="stylesheet"> -->
