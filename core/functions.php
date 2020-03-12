@@ -68,7 +68,7 @@ function redirect(string $url, $key = null, $val = null): void
  */
 function isUserLoggedIn(): bool
 {
-  return isset($_SESSION['user']);
+  return session('user') !== null;
 }
 
 /**
