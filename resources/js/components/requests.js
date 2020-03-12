@@ -69,7 +69,7 @@ $(".view-request").click(function(e) {
   const action = "getRequest";
   const itsrequest_id = $(this).attr("id");
 
-  $.post(requestArgumentsPath, {
+  $.post(requestsPath, {
     action: action,
     itsrequest_id: itsrequest_id
   }).done(request => {
@@ -210,7 +210,7 @@ $(".pullout").click(function(e) {
 $("#pullout_done-form").submit(function(e) {
   e.preventDefault();
 
-  $.post(requestArgumentsPath, $(this).serialize()).done(async res => {
+  $.post(requestsPath, $(this).serialize()).done(async res => {
     if (res) {
       await Swal.fire("Success", "Request Done", "success");
       $.redirect(`${baseUrl}app/admin/incoming-repairs.php`);
@@ -226,7 +226,7 @@ $(".pending").click(function(e) {
   const itsrequest_id = $(this).attr("id");
   const statusupdate_useraccount_id = $(this).attr("data-id");
 
-  $.post(requestArgumentsPath, {
+  $.post(requestsPath, {
     action: action,
     itsrequest_id: itsrequest_id,
     statusupdate_useraccount_id: statusupdate_useraccount_id
@@ -248,7 +248,7 @@ $(".btn-view-concern").click(function(e) {
 });
 
 async function viewConcern(requestId) {
-  const res = await $.post(requestArgumentsPath, {
+  const res = await $.post(requestsPath, {
     action: "fetchRequestConcern",
     requestId: requestId
   }).promise();
@@ -260,7 +260,7 @@ async function viewConcern(requestId) {
 // $(".btn-view-concern").click(async function(e) {
 //   e.preventDefault();
 
-//   const res = await $.post(requestArgumentsPath, {
+//   const res = await $.post(requestsPath, {
 //     action: "fetchRequestConcern",
 //     requestId: $(this).data("id")
 //   }).promise();
