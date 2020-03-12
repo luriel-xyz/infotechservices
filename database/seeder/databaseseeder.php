@@ -1,5 +1,7 @@
 <?php
 
+require_once('../../config/init.php');
+
 try {
   // opag employee
   // Employee::create(8, 1, 'opag employee fname', 'opag employee lname', 'opag employee position');
