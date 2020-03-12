@@ -4,7 +4,7 @@ $.validator.addMethod(
   "checkAccount",
   () => {
     const formData = $("#login-form").serialize();
-    axios.post(requestArgumentsPath, formData).then(({ data }) => {
+    axios.post(requestsPath, formData).then(({ data }) => {
       accountExists = !!data;
     });
 
@@ -33,10 +33,7 @@ $("#login-form").validate({
   },
 
   submitHandler: async form => {
-    const { data } = await axios.post(
-      requestArgumentsPath,
-      $(form).serialize()
-    );
+    const { data } = await axios.post(requestsPath, $(form).serialize());
 
     if (!data) return;
     const isClient = data.usertype === "department";

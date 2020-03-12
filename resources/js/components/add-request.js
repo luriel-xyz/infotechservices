@@ -15,7 +15,7 @@ $("#itsrequest_category").change(function(e) {
 // 	var hwcomponent_id = $(this).val();
 
 // 	$.ajax({
-// 		url: requestArgumentsPath,
+// 		url: requestsPath,
 // 		type: "POST",
 // 		data: {
 // 			action: action,
@@ -34,7 +34,7 @@ $("#itsrequest_category").change(function(e) {
 $("#incomingrequest-form").submit(function(e) {
   e.preventDefault();
 
-  $.post(requestArgumentsPath, $(this).serialize()).done(async res => {
+  $.post(requestsPath, $(this).serialize()).done(async res => {
     if (res) {
       await Swal.fire("Success", "Request Sent!", "success");
       $.redirect(`${baseUrl}app/client/index.php`);

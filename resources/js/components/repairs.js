@@ -1,7 +1,7 @@
 function setAssessmentDone(itsrequest_id, useraccount_id) {
   const action = "statusAssessed";
 
-  $.post(requestArgumentsPath, {
+  $.post(requestsPath, {
     action: action,
     itsrequest_id: itsrequest_id,
     useraccount_id: useraccount_id
@@ -15,7 +15,7 @@ function setAssessmentDone(itsrequest_id, useraccount_id) {
   });
 
   // $.ajax({
-  //   url: requestArgumentsPath,
+  //   url: requestsPath,
   //   type: "POST",
   //   data: {
   //     action: action,
@@ -92,7 +92,7 @@ $(".view-repair").click(function(e) {
   const itsrequest_id = $(this).attr("id");
 
   $.post({
-    url: requestArgumentsPath,
+    url: requestsPath,
     type: "post",
     data: {
       action: action,
@@ -186,7 +186,7 @@ $(".pending").click(function(e) {
   const statusupdate_useraccount_id = $(this).attr("data-id");
 
   $.ajax({
-    url: requestArgumentsPath,
+    url: requestsPath,
     type: "post",
     data: {
       action: action,
@@ -231,7 +231,7 @@ $(".done-repair").click(function(e) {
 $("#pullout_done-form").submit(function(e) {
   e.preventDefault();
 
-  const url = requestArgumentsPath;
+  const url = requestsPath;
   $.post(url, $(this).serialize()).done(async res => {
     if (res) {
       await Swal.fire("Success", "Done", "success");
@@ -309,7 +309,7 @@ $(".pre-post-inspect").click(function() {
 //   var useraccount_id = $(this).attr('data-id');
 
 //   $.ajax({
-//     url: requestArgumentsPath,
+//     url: requestsPath,
 //     type: "POST",
 //     data: {
 //       action: action,
@@ -330,7 +330,7 @@ $(".pre-post-inspect").click(function() {
 //   var useraccount_id = $(this).attr('data-id');
 
 //   $.ajax({
-//     url: requestArgumentsPath,
+//     url: requestsPath,
 //     type: "POST",
 //     data: {
 //       action: action,

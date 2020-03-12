@@ -6,7 +6,7 @@ let departmentExists;
 $.validator.addMethod(
   "checkDepartment",
   () => {
-    $.post(settingsArgumentsPath, {
+    $.post(requestsPath, {
       action: "departmentAccountExists",
       dept_id: $("#dept_id").val()
     })
@@ -22,7 +22,7 @@ $.validator.addMethod(
 $.validator.addMethod(
   "uniqueDepUsername",
   () => {
-    $.post(settingsArgumentsPath, {
+    $.post(requestsPath, {
       action: "userNameExists",
       username: $(".department-username").val()
     }).done(res => (depUsernameExists = JSON.parse(res)));
@@ -36,7 +36,7 @@ $.validator.addMethod(
 $.validator.addMethod(
   "uniquePerUsername",
   () => {
-    $.post(settingsArgumentsPath, {
+    $.post(requestsPath, {
       action: "userNameExists",
       username: $(".personnel-username").val()
     }).done(res => (perUsernameExists = JSON.parse(res)));
@@ -71,10 +71,7 @@ $("#personnelUserAccount-form").validate({
   },
 
   submitHandler: async form => {
-    const { data } = await axios.post(
-      settingsArgumentsPath,
-      $(form).serialize()
-    );
+    const { data } = await axios.post(requestsPath, $(form).serialize());
     if (data) {
       await Swal.fire("Success", "Personnel Account Data Saved", "success");
       location.reload(true);
@@ -115,10 +112,7 @@ $("#departmentUserAccount-form").validate({
   },
 
   submitHandler: async form => {
-    const { data } = await axios.post(
-      settingsArgumentsPath,
-      $(form).serialize()
-    );
+    const { data } = await axios.post(requestsPath, $(form).serialize());
 
     if (data) {
       await Swal.fire("Success", "Department Account Data Saved", "success");
@@ -194,7 +188,7 @@ $(".edit-user").click(async function(e) {
   const useraccount_id = $(this).attr("id");
 
   const user = JSON.parse(
-    await $.post(settingsArgumentsPath, {
+    await $.post(requestsPath, {
       action: action,
       useraccount_id: useraccount_id
     }).promise()
@@ -237,7 +231,7 @@ $(".disable").click(async function(e) {
   const useraccount_id = $(this).attr("id");
 
   $.ajax({
-    url: settingsArgumentsPath,
+    url: requestsPath,
     type: "post",
     data: {
       action: action,
@@ -270,7 +264,7 @@ $(".enable").click(async function(e) {
   const useraccount_id = $(this).attr("id");
 
   $.ajax({
-    url: settingsArgumentsPath,
+    url: requestsPath,
     type: "post",
     data: {
       action: action,

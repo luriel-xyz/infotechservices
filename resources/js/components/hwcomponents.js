@@ -16,7 +16,7 @@ $("#hardwareComponent-form").validate({
   },
 
   submitHandler: form => {
-    $.post(settingsArgumentsPath, $(form).serialize()).done(async res => {
+    $.post(requestsPath, $(form).serialize()).done(async res => {
       if (res) {
         await Swal.fire("Success", "Hardware Component Data Saved!", "success");
         location.reload(true);
@@ -72,7 +72,7 @@ $("#hwcomponent_type").change(function(e) {
 // $("#hardwareComponent-form").submit(function(e) {
 //   e.preventDefault();
 
-//   $.post(settingsArgumentsPath, $(this).serialize()).done(async function(res) {
+//   $.post(requestsPath, $(this).serialize()).done(async function(res) {
 //     if (res) {
 //       await Swal.fire("Success", "Hardware Component Data Saved!", "success");
 //       location.reload(true);
@@ -89,7 +89,7 @@ $(".edit-hardware").click(function(e) {
   const action = "editHardwareComponent";
   const hwcomponent_id = $(this).attr("id");
 
-  $.post(settingsArgumentsPath, {
+  $.post(requestsPath, {
     action: action,
     hwcomponent_id: hwcomponent_id
   }).done(component => {

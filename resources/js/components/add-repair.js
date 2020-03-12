@@ -6,7 +6,7 @@ $("#dept_id").change(function() {
   const action = "getEmployeesByDepartment";
   const dept_id = $(this).val();
   $.ajax({
-    url: requestArgumentsPath,
+    url: requestsPath,
     type: "POST",
     data: {
       action: action,
@@ -38,7 +38,7 @@ $("#hwcomponent_id").change(function() {
   var hwcomponent_id = $(this).val();
 
   $.ajax({
-    url: requestArgumentsPath,
+    url: requestsPath,
     type: "POST",
     data: {
       action: action,
@@ -79,10 +79,7 @@ $("#incomingrepair-form").validate({
   },
 
   submitHandler: async form => {
-    const res = await $.post(
-      requestArgumentsPath,
-      $(form).serialize()
-    ).promise();
+    const res = await $.post(requestsPath, $(form).serialize()).promise();
     if (res) {
       await Swal.fire("Success", "Repair Added!", "success");
       $.redirect(`${baseUrl}app/admin/incoming-repairs.php`);
@@ -96,7 +93,7 @@ $("#incomingrepair-form").submit(function(e) {
   e.preventDefault();
 
   // $.ajax({
-  //   url: requestArgumentsPath,
+  //   url: requestsPath,
   //   type: "POST",
   //   data: $(this).serialize()
   // }).done(async function(res) {

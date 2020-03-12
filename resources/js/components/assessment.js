@@ -88,7 +88,7 @@ $("#repassessmentreport-form").validate({
       property_num: property_num
     };
     // Insert assessment report data to db
-    $.post(requestArgumentsPath, assessmentReportData).done(res => {
+    $.post(requestsPath, assessmentReportData).done(res => {
       const subComponentAssessmentData = {
         action: "addAssessmentSubComponents",
         assessmentReportId: res,
@@ -102,7 +102,7 @@ $("#repassessmentreport-form").validate({
 
 const dept_id = $("#dept_id").val();
 if (dept_id) {
-  $.post(requestArgumentsPath, {
+  $.post(requestsPath, {
     action: "getEmployeesByDepartment",
     dept_id: dept_id
   }).done(employees => {
@@ -129,7 +129,7 @@ if (dept_id) {
 let itsrequest_id = $("#itsrequest_id").val();
 
 $.ajax({
-  url: requestArgumentsPath,
+  url: requestsPath,
   type: "post",
   data: {
     action: "getRepair",
@@ -148,7 +148,7 @@ const action = "getHardwareComponentsBySubCategory";
 const hwcomponent_id = $("#hwcomponent_id").val();
 
 if (hwcomponent_id) {
-  $.post(requestArgumentsPath, {
+  $.post(requestsPath, {
     action: action,
     hwcomponent_id: hwcomponent_id
   }).done(function(components) {
@@ -209,7 +209,7 @@ $("#dept_id").change(function(e) {
   var action = "getEmployeesByDepartment";
   var dept_id = $(this).val();
   $.ajax({
-    url: requestArgumentsPath,
+    url: requestsPath,
     type: "POST",
     data: {
       action: action,
@@ -243,7 +243,7 @@ function insertSubComponentAssessments(
   assessmentReportId,
   subComponentAssessmentData
 ) {
-  const url = requestArgumentsPath;
+  const url = requestsPath;
   $.post(url, subComponentAssessmentData).done(async res => {
     if (res) {
       await Swal.fire("Success", "Assessment Report Created!", "success");

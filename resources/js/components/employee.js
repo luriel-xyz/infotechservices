@@ -4,7 +4,7 @@ let isEditEmployee = false;
 $.validator.addMethod(
   "uniqueIdNumber",
   (value, element) => {
-    $.post(settingsArgumentsPath, {
+    $.post(requestsPath, {
       action: "isIdNumberTaken",
       emp_idnum: () => $("#emp_idnum").val()
     }).done(res => (isUniqueIdNumber = !res));
@@ -44,7 +44,7 @@ $("#employee-form").validate({
   },
 
   submitHandler: form => {
-    $.post(settingsArgumentsPath, $(form).serialize()).done(async res => {
+    $.post(requestsPath, $(form).serialize()).done(async res => {
       if (res) {
         await Swal.fire("Success", "Employee Data Saved!", "success");
         location.reload(true);
@@ -92,7 +92,7 @@ $("#add-employee").click(function(e) {
 // $("#employee-form").submit(function(e) {
 //   e.preventDefault();
 
-//   const url = settingsArgumentsPath;
+//   const url = requestsPath;
 //   $.post(url, $(this).serialize()).done(async res => {
 //     if (res) {
 //       const { value } = await Swal.fire(
@@ -118,7 +118,7 @@ $(".edit-employee").click(function(e) {
   const action = "editEmployee";
   const emp_id = $(this).attr("id");
   $.ajax({
-    url: settingsArgumentsPath,
+    url: requestsPath,
     type: "post",
     data: {
       action: action,

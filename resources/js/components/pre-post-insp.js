@@ -147,7 +147,7 @@ $("#pre-post-repair-form").validate({
   submitHandler: async form => {
     // Insert inspection report data
     const inspectionReportId = JSON.parse(
-      await $.post(requestArgumentsPath, {
+      await $.post(requestsPath, {
         action: "addInspectionReport",
         assessment_report_id: $("#assessment-report-id").val(),
         to_whom: $("#to").val(),
@@ -158,7 +158,7 @@ $("#pre-post-repair-form").validate({
     // Insert motor vehicle data
     if (motorVehicleExists()) {
       const motorVehicleId = JSON.parse(
-        await $.post(requestArgumentsPath, {
+        await $.post(requestsPath, {
           action: "addMotorVehicle",
           inspection_report_id: inspectionReportId,
           type: $("#vehicle-type").val(),
@@ -177,7 +177,7 @@ $("#pre-post-repair-form").validate({
     }
     // Insert other property plant and equipment data
     const otherId = JSON.parse(
-      await $.post(requestArgumentsPath, {
+      await $.post(requestsPath, {
         action: "addOtherPropPlantEquip",
         inspection_report_id: inspectionReportId,
         other_type: $("#other-type").val(),
@@ -192,7 +192,7 @@ $("#pre-post-repair-form").validate({
     );
     // Insert pre inspection report data
     const preInspectionReportId = JSON.parse(
-      await $.post(requestArgumentsPath, {
+      await $.post(requestsPath, {
         action: "addPreInspectionReport",
         inspection_report_id: inspectionReportId,
         repair_inspection: $("#pre-repair-findings").val(),
@@ -209,7 +209,7 @@ $("#pre-post-repair-form").validate({
     // Insert parts to be replaced or procured
     const parts = await getPartsToReplaceProcure();
     for (const part of parts) {
-      await $.post(requestArgumentsPath, {
+      await $.post(requestsPath, {
         action: "addPreInspectionHardware",
         pre_inspection_id: preInspectionReportId,
         qty: part.qty,
@@ -220,7 +220,7 @@ $("#pre-post-repair-form").validate({
     }
     // Insert post inspection report data
     const postInspectionReportId = JSON.parse(
-      await $.post(requestArgumentsPath, {
+      await $.post(requestsPath, {
         action: "addPostInspectionReport",
         inspection_report_id: inspectionReportId,
         inspected_by: $("#post-inspected-by").val(),
@@ -237,7 +237,7 @@ $("#pre-post-repair-form").validate({
     );
 
     // Set request status to pre-post-repair inspected
-    const res = await $.post(requestArgumentsPath, {
+    const res = await $.post(requestsPath, {
       action: $("#action").val(),
       itsrequest_id: $("#itsrequest_id").val(),
       useraccount_id: $("#statusupdate_useraccount_id").val()
@@ -251,7 +251,7 @@ $("#pre-post-repair-form").validate({
     } else {
       Swal.fire("Failure", "An error occured", "error");
     }
-    // $.post('../config/processors/requestArguments.php', $(this).serialize())
+    // $.post('../config/processors/requestsPath.php', $(this).serialize())
     //   .fail(function() {
     //     alert('Error')
     //   })

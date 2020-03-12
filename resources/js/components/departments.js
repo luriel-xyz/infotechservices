@@ -8,15 +8,12 @@ $("#department-form").validate({
   },
 
   messages: {
-    dept_code: "Department code is required.", 
+    dept_code: "Department code is required.",
     dept_name: "Department name is required."
   },
 
   submitHandler: async form => {
-    const { data } = await axios.post(
-      settingsArgumentsPath,
-      $(form).serialize()
-    );
+    const { data } = await axios.post(requestsPath, $(form).serialize());
     if (data) {
       await Swal.fire("Success", "Department Data Saved", "success");
       location.reload(true);
@@ -58,7 +55,7 @@ $(".edit-department").click(function(e) {
   const action = "editDepartment";
   const dept_id = $(this).attr("id");
 
-  $.post(settingsArgumentsPath, {
+  $.post(requestsPath, {
     action: action,
     dept_id: dept_id
   })

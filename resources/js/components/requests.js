@@ -14,12 +14,13 @@ $("#search").keyup(function() {
     .val()
     .toLowerCase();
   $("#table_body tr").filter(function() {
-    $(this).toggle(
+    const exists =
       $(this)
         .text()
         .toLowerCase()
-        .indexOf(search_text) > -1
-    );
+        .indexOf(search_text) > -1;
+
+    $(this).toggle(exists);
   });
 });
 
