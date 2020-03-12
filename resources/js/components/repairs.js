@@ -231,8 +231,7 @@ $(".done-repair").click(function(e) {
 $("#pullout_done-form").submit(function(e) {
   e.preventDefault();
 
-  const url = requestsPath;
-  $.post(url, $(this).serialize()).done(async res => {
+  $.post(requestsPath, $(this).serialize()).done(async res => {
     if (res) {
       await Swal.fire("Success", "Done", "success");
       location.reload(true);
