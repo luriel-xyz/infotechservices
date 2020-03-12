@@ -47,7 +47,7 @@ class Paginator
   /**
    * set custom css classes for additional flexibility
    *
-   * @var sting
+   * @var string
    */
   private $_customCSS;
 
@@ -134,8 +134,8 @@ class Paginator
    *
    * create the html links for navigating through the dataset
    * 
-   * @var sting $path optionally set the path for the link
-   * @var sting $ext optionally pass in extra parameters to the GET
+   * @var string $path optionally set the path for the link
+   * @var string $ext optionally pass in extra parameters to the GET
    * @return string returns the html menu
    */
   public function page_links($path = '?', $ext = null)
