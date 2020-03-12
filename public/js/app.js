@@ -60738,8 +60738,7 @@ $(".done-repair").click(function (e) {
 });
 $("#pullout_done-form").submit(function (e) {
   e.preventDefault();
-  var url = requestsPath;
-  $.post(url, $(this).serialize()).done(
+  $.post(requestsPath, $(this).serialize()).done(
   /*#__PURE__*/
   function () {
     var _ref3 = _asyncToGenerator(
@@ -60943,7 +60942,7 @@ $(".view-request").click(function (e) {
   e.preventDefault();
   var action = "getRequest";
   var itsrequest_id = $(this).attr("id");
-  $.post(requestArgumentsPath, {
+  $.post(requestsPath, {
     action: action,
     itsrequest_id: itsrequest_id
   }).done(function (request) {
@@ -61013,7 +61012,7 @@ $(".pullout").click(function (e) {
 });
 $("#pullout_done-form").submit(function (e) {
   e.preventDefault();
-  $.post(requestArgumentsPath, $(this).serialize()).done(
+  $.post(requestsPath, $(this).serialize()).done(
   /*#__PURE__*/
   function () {
     var _ref = _asyncToGenerator(
@@ -61057,7 +61056,7 @@ $(".pending").click(function (e) {
   var action = "statusPending";
   var itsrequest_id = $(this).attr("id");
   var statusupdate_useraccount_id = $(this).attr("data-id");
-  $.post(requestArgumentsPath, {
+  $.post(requestsPath, {
     action: action,
     itsrequest_id: itsrequest_id,
     statusupdate_useraccount_id: statusupdate_useraccount_id
@@ -61110,7 +61109,7 @@ function viewConcern(_x3) {
   return _viewConcern.apply(this, arguments);
 } // $(".btn-view-concern").click(async function(e) {
 //   e.preventDefault();
-//   const res = await $.post(requestArgumentsPath, {
+//   const res = await $.post(requestsPath, {
 //     action: "fetchRequestConcern",
 //     requestId: $(this).data("id")
 //   }).promise();
@@ -61129,7 +61128,7 @@ function _viewConcern() {
         switch (_context3.prev = _context3.next) {
           case 0:
             _context3.next = 2;
-            return $.post(requestArgumentsPath, {
+            return $.post(requestsPath, {
               action: "fetchRequestConcern",
               requestId: requestId
             }).promise();
@@ -61175,48 +61174,70 @@ $("#search").on("keyup", function () {
   });
 }); //View Request Details Script
 
-$(".view-sent-request").click(function (e) {
-  e.preventDefault();
-  var action = "getRequest";
-  var itsrequest_id = $(this).attr("id");
-  $.ajax({
-    url: requestsPath,
-    type: "post",
-    data: {
-      action: action,
-      itsrequest_id: itsrequest_id
-    },
-    dataType: "JSON"
-  }).done(function (request) {
-    $("#modalView").modal("toggle");
-    $("#data").empty();
+$(".view-sent-request").click(
+/*#__PURE__*/
+function () {
+  var _ref = _asyncToGenerator(
+  /*#__PURE__*/
+  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(e) {
+    var action, itsrequest_id, request;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            e.preventDefault();
+            action = "getRequest";
+            itsrequest_id = $(this).attr("id");
+            _context.t0 = JSON;
+            _context.next = 6;
+            return $.post(requestsPath, {
+              action: action,
+              itsrequest_id: itsrequest_id
+            }).promise();
 
-    if (request.status === "received") {
-      $("#data").append('<label class="font-weight-bold text-info">' + request.status + "</label><br>");
-    } else if (request.status === "pending") {
-      $("#data").append('<label class="font-weight-bold text-warning">' + request.status + "</label><br>");
-    } else {
-      $("#data").append('<label class="font-weight-bold text-success">' + request.status + "</label><br>");
-    }
+          case 6:
+            _context.t1 = _context.sent;
+            request = _context.t0.parse.call(_context.t0, _context.t1);
+            $("#modalView").modal("toggle");
+            $("#data").empty();
 
-    $("#data").append('<label class="font-weight-bold">' + moment(request.itsrequest_date).format("MMM d, Y h:mm a") + "</label><br>");
-    $("#data").append('<label class="font-weight-bold">' + request.dept_code + "|" + request.emp_fname + " " + request.emp_lname + "</label><br>");
-    $("#data").append('<label class="font-weight-bold">' + truncateString(request.concern) + "</label><br>");
-    $("#other-labels").empty();
+            if (request.status === "received") {
+              $("#data").append('<label class="font-weight-bold text-info">' + request.status + "</label><br>");
+            } else if (request.status === "pending") {
+              $("#data").append('<label class="font-weight-bold text-warning">' + request.status + "</label><br>");
+            } else {
+              $("#data").append('<label class="font-weight-bold text-success">' + request.status + "</label><br>");
+            }
 
-    if (request.itsrequest_category == "hw") {
-      $("#other-labels").append("<label> Repair Location: </label> <br>");
-      $("#data").append('<label class="font-weight-bold">' + request.itshw_category + "</label><br>");
-      $("#other-labels").append("<label> Hardware: </label> <br>");
-      $("#data").append('<label class="font-weight-bold">' + request.hwcomponent_name + "</label><br>");
+            $("#data").append('<label class="font-weight-bold">' + moment(request.itsrequest_date).format("MMM d, Y h:mm a") + "</label><br>");
+            $("#data").append('<label class="font-weight-bold">' + request.dept_code + "|" + request.emp_fname + " " + request.emp_lname + "</label><br>");
+            $("#data").append('<label class="font-weight-bold">' + truncateString(request.concern) + "</label><br>");
+            $("#other-labels").empty();
 
-      if (request.itshw_category == "pulled-out" || request.itshw_category == "walk-in") {
-        $("#other-labels").append("<label> Property Number: </label> <br>");
-        $("#data").append('<label class="font-weight-bold">' + request.property_num + "</label><br>");
+            if (request.itsrequest_category == "hw") {
+              $("#other-labels").append("<label> Repair Location: </label> <br>");
+              $("#data").append('<label class="font-weight-bold">' + request.itshw_category + "</label><br>");
+              $("#other-labels").append("<label> Hardware: </label> <br>");
+              $("#data").append('<label class="font-weight-bold">' + request.hwcomponent_name + "</label><br>");
+
+              if (request.itshw_category == "pulled-out" || request.itshw_category == "walk-in") {
+                $("#other-labels").append("<label> Property Number: </label> <br>");
+                $("#data").append('<label class="font-weight-bold">' + request.property_num + "</label><br>");
+              }
+            }
+
+          case 16:
+          case "end":
+            return _context.stop();
+        }
       }
-    }
-  });
-});
+    }, _callee, this);
+  }));
+
+  return function (_x) {
+    return _ref.apply(this, arguments);
+  };
+}());
 $(".receive").click(function (e) {
   e.preventDefault();
   var action = "statusDeployed";
@@ -61231,24 +61252,24 @@ $(".receive").click(function (e) {
   }).done(
   /*#__PURE__*/
   function () {
-    var _ref = _asyncToGenerator(
+    var _ref2 = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(res) {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(res) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
         while (1) {
-          switch (_context.prev = _context.next) {
+          switch (_context2.prev = _context2.next) {
             case 0:
               if (!res) {
-                _context.next = 6;
+                _context2.next = 6;
                 break;
               }
 
-              _context.next = 3;
+              _context2.next = 3;
               return Swal.fire("Success", "Hardware received", "success");
 
             case 3:
               location.reload(true);
-              _context.next = 7;
+              _context2.next = 7;
               break;
 
             case 6:
@@ -61256,14 +61277,14 @@ $(".receive").click(function (e) {
 
             case 7:
             case "end":
-              return _context.stop();
+              return _context2.stop();
           }
         }
-      }, _callee);
+      }, _callee2);
     }));
 
-    return function (_x) {
-      return _ref.apply(this, arguments);
+    return function (_x2) {
+      return _ref2.apply(this, arguments);
     };
   }());
 });
