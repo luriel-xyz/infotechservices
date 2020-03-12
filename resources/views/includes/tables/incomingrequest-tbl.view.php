@@ -3,7 +3,7 @@
 if (!$requests) :
 ?>
   <div class="alert alert-info text-center">
-    <?= "No Incoming Request Queued!"; ?>
+    <?= "There are no requests."; ?>
   </div>
 <?php
 //if not empty
