@@ -1,4 +1,4 @@
-<?php view('includes/header'); ?>
+<?php view('includes/header', ['subtitle' => '| Employees']); ?>
 
 <!-- /# Wrapper -->
 <div class="d-flex" id="wrapper">

@@ -1,4 +1,4 @@
-<?php view('includes/header'); ?>
+<?php view('includes/header', ['subtitle' => '| Hardwares']); ?>
 
 <!-- /# Wrapper -->
 <div class="d-flex" id="wrapper">
