@@ -58883,8 +58883,7 @@ window.Swal = _plugins_sweetalert2__WEBPACK_IMPORTED_MODULE_1__["default"];
 window.customClass = _plugins_sweetalert2__WEBPACK_IMPORTED_MODULE_1__["customClass"];
 window.appName = "infotechservices";
 window.baseUrl = "".concat(window.location.origin, "/");
-window.requestArgumentsPath = "".concat(baseUrl, "/config/processors/requestArguments.php");
-window.settingsArgumentsPath = "".concat(baseUrl, "/config/processors/settingsArguments.php");
+window.requestsPath = "".concat(baseUrl, "/api/index.php");
 window.validatorOptions = _validator_options__WEBPACK_IMPORTED_MODULE_3__["default"];
 
 window.truncateString = function (string) {
@@ -58988,7 +58987,7 @@ $("#dept_id").change(function () {
   var action = "getEmployeesByDepartment";
   var dept_id = $(this).val();
   $.ajax({
-    url: requestArgumentsPath,
+    url: requestsPath,
     type: "POST",
     data: {
       action: action,
@@ -59008,7 +59007,7 @@ $("#hwcomponent_id").change(function () {
   var action = "getHardwareComponentsBySubCategory";
   var hwcomponent_id = $(this).val();
   $.ajax({
-    url: requestArgumentsPath,
+    url: requestsPath,
     type: "POST",
     data: {
       action: action,
@@ -59046,7 +59045,7 @@ $("#incomingrepair-form").validate(_objectSpread({}, validatorOptions, {
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return $.post(requestArgumentsPath, $(form).serialize()).promise();
+              return $.post(requestsPath, $(form).serialize()).promise();
 
             case 2:
               res = _context.sent;
@@ -59084,7 +59083,7 @@ $("#incomingrepair-form").validate(_objectSpread({}, validatorOptions, {
 }));
 $("#incomingrepair-form").submit(function (e) {
   e.preventDefault(); // $.ajax({
-  //   url: requestArgumentsPath,
+  //   url: requestsPath,
   //   type: "POST",
   //   data: $(this).serialize()
   // }).done(async function(res) {
@@ -59130,7 +59129,7 @@ $("#itsrequest_category").change(function (e) {
 // 	var action = 'getHardwareComponentsBySubCategory';
 // 	var hwcomponent_id = $(this).val();
 // 	$.ajax({
-// 		url: requestArgumentsPath,
+// 		url: requestsPath,
 // 		type: "POST",
 // 		data: {
 // 			action: action,
@@ -59148,7 +59147,7 @@ $("#itsrequest_category").change(function (e) {
 
 $("#incomingrequest-form").submit(function (e) {
   e.preventDefault();
-  $.post(requestArgumentsPath, $(this).serialize()).done(
+  $.post(requestsPath, $(this).serialize()).done(
   /*#__PURE__*/
   function () {
     var _ref = _asyncToGenerator(
@@ -59293,7 +59292,7 @@ $("#repassessmentreport-form").validate(_objectSpread({}, validatorOptions, {
       property_num: property_num
     }; // Insert assessment report data to db
 
-    $.post(requestArgumentsPath, assessmentReportData).done(function (res) {
+    $.post(requestsPath, assessmentReportData).done(function (res) {
       var subComponentAssessmentData = {
         action: "addAssessmentSubComponents",
         assessmentReportId: res,
@@ -59307,7 +59306,7 @@ $("#repassessmentreport-form").validate(_objectSpread({}, validatorOptions, {
 var dept_id = $("#dept_id").val();
 
 if (dept_id) {
-  $.post(requestArgumentsPath, {
+  $.post(requestsPath, {
     action: "getEmployeesByDepartment",
     dept_id: dept_id
   }).done(function (employees) {
@@ -59323,7 +59322,7 @@ if (dept_id) {
 
 var itsrequest_id = $("#itsrequest_id").val();
 $.ajax({
-  url: requestArgumentsPath,
+  url: requestsPath,
   type: "post",
   data: {
     action: "getRepair",
@@ -59340,7 +59339,7 @@ var action = "getHardwareComponentsBySubCategory";
 var hwcomponent_id = $("#hwcomponent_id").val();
 
 if (hwcomponent_id) {
-  $.post(requestArgumentsPath, {
+  $.post(requestsPath, {
     action: action,
     hwcomponent_id: hwcomponent_id
   }).done(function (components) {
@@ -59383,7 +59382,7 @@ $("#dept_id").change(function (e) {
   var action = "getEmployeesByDepartment";
   var dept_id = $(this).val();
   $.ajax({
-    url: requestArgumentsPath,
+    url: requestsPath,
     type: "POST",
     data: {
       action: action,
@@ -59403,7 +59402,7 @@ $("#repassessmentreport-form").submit(function (e) {
 });
 
 function insertSubComponentAssessments(assessmentReportId, subComponentAssessmentData) {
-  var url = requestArgumentsPath;
+  var url = requestsPath;
   $.post(url, subComponentAssessmentData).done(
   /*#__PURE__*/
   function () {
@@ -59496,7 +59495,7 @@ $("#department-form").validate(_objectSpread({}, validatorOptions, {
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return axios.post(settingsArgumentsPath, $(form).serialize());
+              return axios.post(requestsPath, $(form).serialize());
 
             case 2:
               _ref = _context.sent;
@@ -59554,7 +59553,7 @@ $(".edit-department").click(function (e) {
   e.preventDefault();
   var action = "editDepartment";
   var dept_id = $(this).attr("id");
-  $.post(settingsArgumentsPath, {
+  $.post(requestsPath, {
     action: action,
     dept_id: dept_id
   }).done(function (department) {
@@ -59603,7 +59602,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var isUniqueIdNumber;
 var isEditEmployee = false;
 $.validator.addMethod("uniqueIdNumber", function (value, element) {
-  $.post(settingsArgumentsPath, {
+  $.post(requestsPath, {
     action: "isIdNumberTaken",
     emp_idnum: function emp_idnum() {
       return $("#emp_idnum").val();
@@ -59642,7 +59641,7 @@ $("#employee-form").validate(_objectSpread({}, validatorOptions, {
     position: "Position is required."
   },
   submitHandler: function submitHandler(form) {
-    $.post(settingsArgumentsPath, $(form).serialize()).done(
+    $.post(requestsPath, $(form).serialize()).done(
     /*#__PURE__*/
     function () {
       var _ref = _asyncToGenerator(
@@ -59707,7 +59706,7 @@ $("#add-employee").click(function (e) {
 }); //Add Employee Script
 // $("#employee-form").submit(function(e) {
 //   e.preventDefault();
-//   const url = settingsArgumentsPath;
+//   const url = requestsPath;
 //   $.post(url, $(this).serialize()).done(async res => {
 //     if (res) {
 //       const { value } = await Swal.fire(
@@ -59732,7 +59731,7 @@ $(".edit-employee").click(function (e) {
   var action = "editEmployee";
   var emp_id = $(this).attr("id");
   $.ajax({
-    url: settingsArgumentsPath,
+    url: requestsPath,
     type: "post",
     data: {
       action: action,
@@ -59798,7 +59797,7 @@ $("#hardwareComponent-form").validate(_objectSpread({}, validatorOptions, {
     hwcomponent_category: "Please indicate component category."
   },
   submitHandler: function submitHandler(form) {
-    $.post(settingsArgumentsPath, $(form).serialize()).done(
+    $.post(requestsPath, $(form).serialize()).done(
     /*#__PURE__*/
     function () {
       var _ref = _asyncToGenerator(
@@ -59870,7 +59869,7 @@ $("#hwcomponent_type").change(function (e) {
 }); //Add Hardware Component Script
 // $("#hardwareComponent-form").submit(function(e) {
 //   e.preventDefault();
-//   $.post(settingsArgumentsPath, $(this).serialize()).done(async function(res) {
+//   $.post(requestsPath, $(this).serialize()).done(async function(res) {
 //     if (res) {
 //       await Swal.fire("Success", "Hardware Component Data Saved!", "success");
 //       location.reload(true);
@@ -59885,7 +59884,7 @@ $(".edit-hardware").click(function (e) {
   e.preventDefault();
   var action = "editHardwareComponent";
   var hwcomponent_id = $(this).attr("id");
-  $.post(settingsArgumentsPath, {
+  $.post(requestsPath, {
     action: action,
     hwcomponent_id: hwcomponent_id
   }).done(function (component) {
@@ -59940,7 +59939,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var accountExists;
 $.validator.addMethod("checkAccount", function () {
   var formData = $("#login-form").serialize();
-  axios.post(requestArgumentsPath, formData).then(function (_ref) {
+  axios.post(requestsPath, formData).then(function (_ref) {
     var data = _ref.data;
     accountExists = !!data;
   });
@@ -59972,7 +59971,7 @@ $("#login-form").validate(_objectSpread({}, validatorOptions, {
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return axios.post(requestArgumentsPath, $(form).serialize());
+              return axios.post(requestsPath, $(form).serialize());
 
             case 2:
               _ref2 = _context.sent;
@@ -60289,7 +60288,7 @@ $("#pre-post-repair-form").validate(_objectSpread({}, validatorOptions, {
             case 0:
               _context2.t0 = JSON;
               _context2.next = 3;
-              return $.post(requestArgumentsPath, {
+              return $.post(requestsPath, {
                 action: "addInspectionReport",
                 assessment_report_id: $("#assessment-report-id").val(),
                 to_whom: $("#to").val(),
@@ -60308,7 +60307,7 @@ $("#pre-post-repair-form").validate(_objectSpread({}, validatorOptions, {
 
               _context2.t2 = JSON;
               _context2.next = 9;
-              return $.post(requestArgumentsPath, {
+              return $.post(requestsPath, {
                 action: "addMotorVehicle",
                 inspection_report_id: inspectionReportId,
                 type: $("#vehicle-type").val(),
@@ -60331,7 +60330,7 @@ $("#pre-post-repair-form").validate(_objectSpread({}, validatorOptions, {
             case 11:
               _context2.t4 = JSON;
               _context2.next = 14;
-              return $.post(requestArgumentsPath, {
+              return $.post(requestsPath, {
                 action: "addOtherPropPlantEquip",
                 inspection_report_id: inspectionReportId,
                 other_type: $("#other-type").val(),
@@ -60349,7 +60348,7 @@ $("#pre-post-repair-form").validate(_objectSpread({}, validatorOptions, {
               otherId = _context2.t4.parse.call(_context2.t4, _context2.t5);
               _context2.t6 = JSON;
               _context2.next = 19;
-              return $.post(requestArgumentsPath, {
+              return $.post(requestsPath, {
                 action: "addPreInspectionReport",
                 inspection_report_id: inspectionReportId,
                 repair_inspection: $("#pre-repair-findings").val(),
@@ -60383,7 +60382,7 @@ $("#pre-post-repair-form").validate(_objectSpread({}, validatorOptions, {
 
               part = _step.value;
               _context2.next = 33;
-              return $.post(requestArgumentsPath, {
+              return $.post(requestsPath, {
                 action: "addPreInspectionHardware",
                 pre_inspection_id: preInspectionReportId,
                 qty: part.qty,
@@ -60434,7 +60433,7 @@ $("#pre-post-repair-form").validate(_objectSpread({}, validatorOptions, {
             case 50:
               _context2.t9 = JSON;
               _context2.next = 53;
-              return $.post(requestArgumentsPath, {
+              return $.post(requestsPath, {
                 action: "addPostInspectionReport",
                 inspection_report_id: inspectionReportId,
                 inspected_by: $("#post-inspected-by").val(),
@@ -60453,7 +60452,7 @@ $("#pre-post-repair-form").validate(_objectSpread({}, validatorOptions, {
               _context2.t10 = _context2.sent;
               postInspectionReportId = _context2.t9.parse.call(_context2.t9, _context2.t10);
               _context2.next = 57;
-              return $.post(requestArgumentsPath, {
+              return $.post(requestsPath, {
                 action: $("#action").val(),
                 itsrequest_id: $("#itsrequest_id").val(),
                 useraccount_id: $("#statusupdate_useraccount_id").val()
@@ -60534,7 +60533,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 function setAssessmentDone(itsrequest_id, useraccount_id) {
   var action = "statusAssessed";
-  $.post(requestArgumentsPath, {
+  $.post(requestsPath, {
     action: action,
     itsrequest_id: itsrequest_id,
     useraccount_id: useraccount_id
@@ -60576,7 +60575,7 @@ function setAssessmentDone(itsrequest_id, useraccount_id) {
       return _ref.apply(this, arguments);
     };
   }()); // $.ajax({
-  //   url: requestArgumentsPath,
+  //   url: requestsPath,
   //   type: "POST",
   //   data: {
   //     action: action,
@@ -60640,7 +60639,7 @@ $(".view-repair").click(function (e) {
   var action = "getRequest";
   var itsrequest_id = $(this).attr("id");
   $.post({
-    url: requestArgumentsPath,
+    url: requestsPath,
     type: "post",
     data: {
       action: action,
@@ -60679,7 +60678,7 @@ $(".pending").click(function (e) {
   var itsrequest_id = $(this).attr("id");
   var statusupdate_useraccount_id = $(this).attr("data-id");
   $.ajax({
-    url: requestArgumentsPath,
+    url: requestsPath,
     type: "post",
     data: {
       action: action,
@@ -60739,7 +60738,7 @@ $(".done-repair").click(function (e) {
 });
 $("#pullout_done-form").submit(function (e) {
   e.preventDefault();
-  var url = requestArgumentsPath;
+  var url = requestsPath;
   $.post(url, $(this).serialize()).done(
   /*#__PURE__*/
   function () {
@@ -60831,7 +60830,7 @@ $(".pre-post-inspect").click(function () {
 //   var itsrequest_id = $(this).attr('id');
 //   var useraccount_id = $(this).attr('data-id');
 //   $.ajax({
-//     url: requestArgumentsPath,
+//     url: requestsPath,
 //     type: "POST",
 //     data: {
 //       action: action,
@@ -60849,7 +60848,7 @@ $(".pre-post-inspect").click(function () {
 //   var itsrequest_id = $(this).attr('id');
 //   var useraccount_id = $(this).attr('data-id');
 //   $.ajax({
-//     url: requestArgumentsPath,
+//     url: requestsPath,
 //     type: "POST",
 //     data: {
 //       action: action,
@@ -60901,7 +60900,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 $("#search").keyup(function () {
   var search_text = $(this).val().toLowerCase();
   $("#table_body tr").filter(function () {
-    $(this).toggle($(this).text().toLowerCase().indexOf(search_text) > -1);
+    var exists = $(this).text().toLowerCase().indexOf(search_text) > -1;
+    $(this).toggle(exists);
   });
 });
 $('input[name="sort"]').change(function (e) {
@@ -61180,7 +61180,7 @@ $(".view-sent-request").click(function (e) {
   var action = "getRequest";
   var itsrequest_id = $(this).attr("id");
   $.ajax({
-    url: requestArgumentsPath,
+    url: requestsPath,
     type: "post",
     data: {
       action: action,
@@ -61222,7 +61222,7 @@ $(".receive").click(function (e) {
   var action = "statusDeployed";
   var itsrequest_id = $(this).attr("id");
   $.ajax({
-    url: requestArgumentsPath,
+    url: requestsPath,
     type: "post",
     data: {
       action: action,
@@ -61299,7 +61299,7 @@ var departmentExists; // Add validation rule for department duplicates
 // One department should only have one account.
 
 $.validator.addMethod("checkDepartment", function () {
-  $.post(settingsArgumentsPath, {
+  $.post(requestsPath, {
     action: "departmentAccountExists",
     dept_id: $("#dept_id").val()
   }).promise().then(function (res) {
@@ -61309,7 +61309,7 @@ $.validator.addMethod("checkDepartment", function () {
 }, "This department already has an account."); // Validation rule for deparment username
 
 $.validator.addMethod("uniqueDepUsername", function () {
-  $.post(settingsArgumentsPath, {
+  $.post(requestsPath, {
     action: "userNameExists",
     username: $(".department-username").val()
   }).done(function (res) {
@@ -61319,7 +61319,7 @@ $.validator.addMethod("uniqueDepUsername", function () {
 }, "This username is already taken."); // Validation rule for personnel username
 
 $.validator.addMethod("uniquePerUsername", function () {
-  $.post(settingsArgumentsPath, {
+  $.post(requestsPath, {
     action: "userNameExists",
     username: $(".personnel-username").val()
   }).done(function (res) {
@@ -61358,7 +61358,7 @@ $("#personnelUserAccount-form").validate(_objectSpread({}, validatorOptions, {
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return axios.post(settingsArgumentsPath, $(form).serialize());
+              return axios.post(requestsPath, $(form).serialize());
 
             case 2:
               _ref = _context.sent;
@@ -61432,7 +61432,7 @@ $("#departmentUserAccount-form").validate(_objectSpread({}, validatorOptions, {
           switch (_context2.prev = _context2.next) {
             case 0:
               _context2.next = 2;
-              return axios.post(settingsArgumentsPath, $(form).serialize());
+              return axios.post(requestsPath, $(form).serialize());
 
             case 2:
               _ref2 = _context2.sent;
@@ -61533,7 +61533,7 @@ function () {
             useraccount_id = $(this).attr("id");
             _context3.t0 = JSON;
             _context3.next = 6;
-            return $.post(settingsArgumentsPath, {
+            return $.post(requestsPath, {
               action: action,
               useraccount_id: useraccount_id
             }).promise();
@@ -61605,7 +61605,7 @@ function () {
             action = "disableUserAccount";
             useraccount_id = $(this).attr("id");
             $.ajax({
-              url: settingsArgumentsPath,
+              url: requestsPath,
               type: "post",
               data: {
                 action: action,
@@ -61700,7 +61700,7 @@ function () {
             action = "enableUserAccount";
             useraccount_id = $(this).attr("id");
             $.ajax({
-              url: settingsArgumentsPath,
+              url: requestsPath,
               type: "post",
               data: {
                 action: action,
