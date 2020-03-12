@@ -1,14 +1,4 @@
-<?php view('includes/header'); ?> 
-<!-- Alerts -->
-<?php if (isset($user)) : ?>
-  <?php if (!$user) : ?>
-    <div class="alert alert-danger text-center">Incorrect Entry!</div>
-  <?php elseif (!$accountEnabled) : ?>
-    <div class="alert alert-warning text-center">Entered User Account is Disabled!</div>
-  <?php endif; ?>
-<?php endif; ?>
-<!-- /# Alerts -->
-
+<?php view('includes/header'); ?>
 <!-- Page Content -->
 <div class="h-100 w-100 row">
   <!--  Container -->
