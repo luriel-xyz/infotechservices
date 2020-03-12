@@ -72,7 +72,7 @@
           <?php endif ?>
           <td><?= $data->concern ?></td>
           <td><?= $data->status ?></td>
-          <td><?= $tech_name ?? 'Not accepted' ?></td>
+          <td><?= $tech_name ?? 'n/a' ?></td>
           <td><?= $data->solution ?></td>
           <?php if ($action === 'RepairSummaryReport') : ?>
             <td><?= $data->deployment_date ?></td>
