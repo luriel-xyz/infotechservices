@@ -3,7 +3,7 @@
 if (!$repairs) :
 ?>
   <div class="alert alert-info text-center">
-    <?= "No Incoming Repair Queued!"; ?>
+    <?= "There are no repairs."; ?>
   </div>
 <?php
 //if not empty
