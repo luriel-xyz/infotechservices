@@ -1,5 +1,6 @@
 <?php
-/*
+
+/**
  * PHP Pagination Class
  *
  * @author David Carr - dave@daveismyname.com - http://www.daveismyname.com
