@@ -23,7 +23,7 @@
           } else if ($action === 'RequestSummaryReport') {
             echo $day . ' REQUEST ';
           }
-          echo 'SUMMARY REPORT as of ' . date('M d Y');
+          echo 'SUMMARY REPORT as of ' . date('M d, Y');
           ?>
         </h3>
       </center>
