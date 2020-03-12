@@ -3,10 +3,10 @@
   <!-- Show when we're not at index.php -->
   <?php if (currentPage() != 'index') : ?>
     <div class="ml-4 p-0">
-      <a href="<?= getPath('client/index.php') ?>" class="btn btn-sm p-0 btn-link text-white" style="font-size: 1em;" role="button">
+      <a href="<?= getPath('client/index.php') ?>" class="btn btn-sm p-0 btn-link text-white" data-toggle="tooltip" title="Go back to previous page." style="font-size: 1em;" role="button">
         <i class="fas fa-arrow-left"></i>
       </a>
-    </div> 
+    </div>
   <?php endif; ?>
   <!-- /# Back Button -->
 
@@ -20,14 +20,18 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+      <!-- Username -->
       <li class="nav-item">
         <a class="nav-link text-white font-weight-bold disabled"><?= user()->username; ?></a>
       </li>
+      <!-- /# Username -->
+      <!-- Logout button -->
       <li class="nav-item">
         <a class="btn-logout nav-link text-white" href="<?= logoutPath() ?>" data-toggle="tooltip" title="Logout">
           <i class="fa fa-sign-out-alt" aria-hidden="true"></i>
         </a>
       </li>
+      <!-- /# Logout button -->
     </ul>
   </div>
 </nav>
