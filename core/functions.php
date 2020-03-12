@@ -142,7 +142,7 @@ function base(string $path = ''): string
  */
 function user()
 {
-  return $_SESSION['user'] ?? null;
+  return session('user');
 }
 
 /**
@@ -185,11 +185,8 @@ function currentPage(): string
  */
 function truncate($str, $length): string
 {
-  if (strlen($str) <= $length) {
-    return $str;
-  } else {
-    return substr($str, 0, $length) . '...';
-  }
+  $result = (strlen($str) <= $length) ? $str : substr($str, 0, $length) . '...';
+  return $result;
 }
 
 /**
