@@ -1,6 +1,16 @@
 <?php
 
-// Redirect to user dashboard if user is logged in
+/**
+ * Helper functions
+ * @author Luriel Mapili
+ * @version 1.0
+ */
+
+
+/**
+ * Redirect to user dashboard if user is logged in.
+ * @return void
+ */
 function redirectIfLoggedIn(): void
 {
   if (!isUserLoggedIn()) {
@@ -14,11 +24,19 @@ function redirectIfLoggedIn(): void
   }
 }
 
+/**
+ * Retrieve the logout path.
+ * @return string
+ */
 function logoutPath(): string
 {
   return getPath('app/auth/logout.php');
 }
 
+/**
+ * Redirect to previous page.
+ * @return void
+ */
 function redirectToPreviousPage(): void
 {
   if (isset($_SERVER['HTTP_REFERER'])) {
@@ -27,7 +45,13 @@ function redirectToPreviousPage(): void
   }
 }
 
-function redirect($url, $key = null, $val = null): void
+/**
+ * @param string $url - Redirect to this url.
+ * @param mixed $key - Session key
+ * @param mixed $val - Session value
+ * @return void
+ */
+function redirect(string $url, $key = null, $val = null): void
 {
   if (is_array($val)) {
     $val = array_filter($val);
@@ -38,12 +62,22 @@ function redirect($url, $key = null, $val = null): void
   exit;
 }
 
+/**
+ * Check if the session contains user data.
+ * @return bool
+ */
 function isUserLoggedIn(): bool
 {
   return isset($_SESSION['user']);
 }
 
-function view($path, $data = []): void
+/**
+ * Require a view file.
+ * @param string $path - The path of the view file
+ * @param array $data - The data to be passed to the view
+ * @return void
+ */
+function view(string $path, array $data = []): void
 {
   extract($data);
   $dirname = dirname($path);
@@ -52,16 +86,24 @@ function view($path, $data = []): void
   require_once($path);
 }
 
-function asset($path): string
+/**
+ * Return the path of the asset file.
+ * @param string $path - The path of the asset
+ * @return string
+ */
+function asset(string $path): string
 {
   // $path = str_replace('assets', '', $path);
 
-  $assetsDir = getPath("public/{$path}");
-
-  return $assetsDir;
+  return getPath("public/{$path}");
 }
 
-function getPath($path): string
+/**
+ * Retrieve the relative path of a file.
+ * @param string $path
+ * @return string
+ */
+function getPath(string $path): string
 {
   $path = strtolower($path);
   $result = "./{$path}";
@@ -84,22 +126,40 @@ function getPath($path): string
   return $result;
 }
 
-function base($path = ''): string
+/**
+ * Return the absolute path of a file.
+ * @param string $path
+ * @return string
+ */
+function base(string $path = ''): string
 {
   return ROOT . ($path ? "/{$path}" : '/');
 }
 
+/**
+ * Retrieve user data from session
+ * @return mixed
+ */
 function user()
 {
   return $_SESSION['user'] ?? null;
 }
 
+/**
+ * Retrieve the current file name.
+ * @return string
+ */
 function pageTitle(): string
 {
   return str_replace('-', ' ', currentPage());
 }
 
-/** Set or return a session data */
+/** 
+ * Set or return a session data 
+ * @param mixed $key - Session key
+ * @param mixed $val - Session value
+ * @return mixed
+ * */
 function session($key, $val = null)
 {
   if ($val != null) {
@@ -109,11 +169,20 @@ function session($key, $val = null)
   }
 }
 
+/**
+ * Retrieve the current php filename.
+ * @return string
+ */
 function currentPage(): string
 {
   return basename($_SERVER['PHP_SELF'], '.php');
 }
 
+/**
+ * @param string $str
+ * @param $length
+ * @return string
+ */
 function truncate($str, $length): string
 {
   if (strlen($str) <= $length) {
@@ -123,7 +192,11 @@ function truncate($str, $length): string
   }
 }
 
-// var_dump then die
+/**
+ * Dump and die
+ * @param mixed $any
+ * @return void
+ */
 function dd($any): void
 {
   $style = "background-color: #111;
