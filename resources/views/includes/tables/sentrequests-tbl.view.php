@@ -7,12 +7,11 @@
 //if not empty
 else :
 ?>
-  <table class="table text-center">
+  <table class="table table-hover text-center">
     <thead class="blue-grey lighten-4">
       <th>#</th>
       <th>Date</th>
-      <th>Department</th>
-      <th>Employee Name</th>
+      <th>Employee</th>
       <th>Concern</th>
       <th>Status</th>
       <th>IT Rep</th>
@@ -32,8 +31,12 @@ else :
             <small><?= date('M d, Y h:i a', strtotime($request->itsrequest_date)) ?></small>
           </td>
           <!-- /# Date column -->
-          <td> <?= $request->dept_code ?> </td>
-          <td> <?= $request->emp_fname ?> <?= $request->emp_lname ?> </td>
+          <!-- Employee column -->
+          <td>
+            <?= "{$request->emp_fname} {$request->emp_lname}" ?>
+          </td>
+          <!-- /# Employee column -->
+          <!-- Concern column -->
           <td style="width: 20%">
             <?php if ($request->itsrequest_category == 'hw') : ?>
               <span class="font-weight-bold"><?= $request->hwcomponent_name ?></span>
@@ -48,6 +51,8 @@ else :
               - <?= $request->concern ?>
             <?php endif; ?>
           </td>
+          <!-- /# Concern column -->
+          <!-- Status column -->
           <td>
             <?php if ($request->status == 'received') : ?>
               <span class="text-info"><?= 'Sent' ?></span>
@@ -59,6 +64,8 @@ else :
               <span class="text-secondary"><?= $request->status ?></span>
             <?php endif; ?>
           </td>
+          <!-- /# Status column -->
+          <!-- IT rep column -->
           <td>
             <?php
             if ($request->statusupdate_useraccount_id) {
@@ -69,6 +76,8 @@ else :
             }
             ?>
           </td>
+          <!-- /# IT rep column -->
+          <!-- Action column -->
           <td>
             <button type="button" class="btn btn-sm btn-primary view-sent-request" data-toggle="tooltip" title="View Details" id="<?= $request->itsrequest_id ?>"><i class="fa fa-eye"></i></button>
             <?php
@@ -81,6 +90,7 @@ else :
             }
             ?>
           </td>
+          <!-- /# Action column -->
         </tr>
       <?php
         $id += 1;
