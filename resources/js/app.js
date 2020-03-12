@@ -10,8 +10,7 @@ window.Swal = Swal;
 window.customClass = customClass;
 window.appName = "infotechservices";
 window.baseUrl = `${window.location.origin}/`;
-window.requestArgumentsPath = `${baseUrl}/config/processors/requestArguments.php`;
-window.settingsArgumentsPath = `${baseUrl}/config/processors/settingsArguments.php`;
+window.requestsPath = `${baseUrl}/api/index.php`;
 window.validatorOptions = options;
 window.truncateString = (string, maxLength = 40) => {
   if (!string) return null;
