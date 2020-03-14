@@ -59962,7 +59962,7 @@ loginForm.validate(_objectSpread({}, validatorOptions, {
       checkAccount: "Incorrect username or password"
     }
   }
-})); // Login button clicked
+})); // Login button click
 
 $("#btn-login").click(
 /*#__PURE__*/
