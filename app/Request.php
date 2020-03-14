@@ -30,7 +30,7 @@ class Request
 
   public static function all($limit = '')
   {
-    $sql = "SELECT * FROM itservices_request_tbl 
+    $sql = "SELECT * FROM " . self::TABLE_NAME . " 
 							INNER JOIN employee_tbl 
 							ON itservices_request_tbl.emp_id=employee_tbl.emp_id 
 							INNER JOIN department_tbl 
@@ -47,7 +47,7 @@ class Request
 
   public static function find(int $id)
   {
-    $sql = "SELECT * FROM itservices_request_tbl 
+    $sql = "SELECT * FROM " . self::TABLE_NAME . " 
 							INNER JOIN employee_tbl 
 							ON itservices_request_tbl.emp_id=employee_tbl.emp_id 
 							INNER JOIN department_tbl 
@@ -62,7 +62,7 @@ class Request
   /* Get Incoming Requests by Department */
   public static function getRequestsByDepartment($dept_id, $limit = '')
   {
-    $sql = "SELECT * FROM itservices_request_tbl 
+    $sql = "SELECT * FROM " . self::TABLE_NAME . " 
 							INNER JOIN employee_tbl 
 							ON itservices_request_tbl.emp_id=employee_tbl.emp_id 
 							INNER JOIN department_tbl 
@@ -80,7 +80,7 @@ class Request
 
   public static function getRequestsByDate($day)
   {
-    $sql = "SELECT * FROM itservices_request_tbl 
+    $sql = "SELECT * FROM " . self::TABLE_NAME . " 
 						INNER JOIN employee_tbl 
 						ON itservices_request_tbl.emp_id=employee_tbl.emp_id 
 						INNER JOIN department_tbl 
@@ -94,7 +94,7 @@ class Request
 
   public static function getRequestsByEmployee($emp_id)
   {
-    $sql = "SELECT * FROM itservices_request_tbl 
+    $sql = "SELECT * FROM " . self::TABLE_NAME . " 
 						INNER JOIN employee_tbl ON itservices_request_tbl.emp_id=employee_tbl.emp_id 
 						LEFT JOIN hardwarecomponent_tbl ON itservices_request_tbl.hwcomponent_id=hardwarecomponent_tbl.hwcomponent_id 
 						WHERE itservices_request_tbl.emp_id = ?
@@ -112,7 +112,7 @@ class Request
   /* Add Incoming Request */
   public static function addRequest($dept_id, $emp_id, $itsrequest_category, $hwcomponent_id, $concern, $req_date, $itshw_category)
   {
-    $sql = "INSERT INTO itservices_request_tbl 
+    $sql = "INSERT INTO " . self::TABLE_NAME . " 
 						(dept_id,emp_id,itsrequest_category,hwcomponent_id,concern,itsrequest_date,itshw_category) 
             VALUES (:dept_id,:emp_id,:itsrequest_category,:hwcomponent_id,:concern,:req_date,:itshw_category)";
 
@@ -130,7 +130,7 @@ class Request
   /*  Set Request Status to Done */
   public static function statusDoneRequest($itsrequest_id, $solution, $statusupdate_useraccount_id, $deployment_date)
   {
-    $sql = "UPDATE itservices_request_tbl 
+    $sql = "UPDATE " . self::TABLE_NAME . "
 						SET status = 'done', 
 						solution = :solution, 
 						statusupdate_useraccount_id = :statusupdate_useraccount_id,
@@ -148,7 +148,7 @@ class Request
   /*  Set Request Status to Go */
   public static function statusPendingRequest($itsrequest_id, $statusupdate_useraccount_id)
   {
-    $sql = "UPDATE itservices_request_tbl 
+    $sql = "UPDATE " . self::TABLE_NAME . "
             SET status = 'pending', 
             statusupdate_useraccount_id = :statusupdate_useraccount_id 
             WHERE itsrequest_id = :itsrequest_id";
@@ -163,14 +163,16 @@ class Request
   public static function statusAssessmentPendingRequest($itsrequest_id, $statusupdate_useraccount_id)
   {
     // Request Set to Assessment Pending!
-    $sql = "UPDATE itservices_request_tbl 
+    $sql = "UPDATE " . self::TABLE_NAME . "
             SET 
-            status = 'Assessment Pending', 
+            status = :status, 
             statusupdate_useraccount_id = :statusupdate_useraccount_id
             WHERE itsrequest_id = :itsrequest_id";
+
     return DB::insert($sql, [
       ':statusupdate_useraccount_id' => $statusupdate_useraccount_id,
       ':itsrequest_id'               => $itsrequest_id,
+      ':status'                      => self::ASSESSMENT_PENDING
     ]);
   }
 
@@ -178,7 +180,7 @@ class Request
   public static function statusAssessedRequest($itsrequest_id, $statusupdate_useraccount_id)
   {
     // Request Set to Assessed!
-    $sql = "UPDATE itservices_request_tbl 
+    $sql = "UPDATE " . self::TABLE_NAME . "
             SET status = 'Assessed', 
             statusupdate_useraccount_id = :statusupdate_useraccount_id
             WHERE itsrequest_id = :itsrequest_id";
@@ -192,68 +194,68 @@ class Request
   /*  Set Request Status to Pre-repair Inspected */
   public static function statusPreInspectedRequest($itsrequest_id, $statusupdate_useraccount_id)
   {
-    // Request Set to Pre-repair Inspected!
-    $sql = "UPDATE itservices_request_tbl 
-            SET status = 'Pre-repair Inspected', 
+    $sql = "UPDATE " . self::TABLE_NAME . "
+            SET status = :status, 
             statusupdate_useraccount_id = :statusupdate_useraccount_id
             WHERE itsrequest_id = :itsrequest_id";
 
     return DB::insert($sql, [
       ':statusupdate_useraccount_id' => $statusupdate_useraccount_id,
-      ':itsrequest_id'               => $itsrequest_id
+      ':itsrequest_id'               => $itsrequest_id,
+      ':status'                      => self::PRE_REPAIR_INSPECTED
     ]);
   }
 
   /*  Set Request Status to Post-repair Inspected */
   public static function statusPostInspectedRequest($itsrequest_id, $statusupdate_useraccount_id)
   {
-    // Request Set to Post-repair Inspected!
-    $sql = "UPDATE itservices_request_tbl 
-            SET status = 'Post-repair Inspected', 
+    $sql = "UPDATE " . self::TABLE_NAME . "
+            SET status = :status, 
             statusupdate_useraccount_id = :statusupdate_useraccount_id
             WHERE itsrequest_id = :itsrequest_id";
 
     return DB::insert($sql, [
       ':statusupdate_useraccount_id' => $statusupdate_useraccount_id,
-      ':itsrequest_id' => $itsrequest_id
+      ':itsrequest_id'               => $itsrequest_id,
+      ':status'                      => self::POST_REPAIR_INSPECTED
     ]);
   }
 
   /*  Set Request Status to Pre and Post Repair Inspected */
   public static function statusPrePostInspectedRequest($itsrequest_id, $statusupdate_useraccount_id)
   {
-    $sql = "UPDATE itservices_request_tbl 
-            SET status = 'pre-post-repair inspected', 
+    $sql = "UPDATE " . self::TABLE_NAME . "
+            SET status = :status, 
             statusupdate_useraccount_id = :statusupdate_useraccount_id
             WHERE itsrequest_id = :itsrequest_id";
 
     return DB::insert($sql, [
       ':statusupdate_useraccount_id' => $statusupdate_useraccount_id,
-      ':itsrequest_id'               => $itsrequest_id
+      ':itsrequest_id'               => $itsrequest_id,
+      ':status'                      => self::PRE_POST_REPAIR_INSPECTED
     ]);
   }
 
 
-  /*  Set Request Status to Deployed */
   public static function statusDeployedRequest($itsrequest_id, $deployment_date)
   {
-    $sql = "UPDATE itservices_request_tbl 
+    $sql = "UPDATE " . self::TABLE_NAME . "
 						SET 
-						status = 'deployed', 
+						status = :status, 
 						deployment_date = :deployment_date
             WHERE itsrequest_id = :itsrequest_id";
 
     return DB::insert($sql, [
       ':deployment_date' => $deployment_date,
-      ':itsrequest_id'   => $itsrequest_id
+      ':itsrequest_id'   => $itsrequest_id,
+      ':status'          => self::DEPLOYED
     ]);
   }
 
   /*  Set Request Hardware Category to Pulled-out */
   public static function categoryPulloutRequest($itsrequest_id, $hwcomponent_id, $property_num, $statusupdate_useraccount_id)
   {
-    // Request Categorized as Pulled Out!
-    $sql = "UPDATE itservices_request_tbl 
+    $sql = "UPDATE " . self::TABLE_NAME . "
             SET itshw_category = 'pulled-out', 
             hwcomponent_id = :hwcomponent_id, 
             property_num = :property_num, 
@@ -262,10 +264,10 @@ class Request
             WHERE itsrequest_id = :itsrequest_id";
 
     return DB::insert($sql, [
-      ':hwcomponent_id'   => $hwcomponent_id,
-      ':property_num'   => $property_num,
-      ':statusupdate_useraccount_id'   => $statusupdate_useraccount_id,
-      ':itsrequest_id'   => $itsrequest_id
+      ':hwcomponent_id'              => $hwcomponent_id,
+      ':property_num'                => $property_num,
+      ':statusupdate_useraccount_id' => $statusupdate_useraccount_id,
+      ':itsrequest_id'               => $itsrequest_id
     ]);
   }
 
