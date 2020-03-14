@@ -13,6 +13,21 @@ class Request
    */
   const TABLE_NAME = 'itservices_request_tbl';
 
+
+  /**
+   * Request statuses
+   * @var string
+   */
+  const POST_REPAIR_INSPECTED = 'post-repair inspected';
+  const PRE_REPAIR_INSPECTED = 'pre-repair inspected';
+  const ASSESSMENT_PENDING = 'assessment pending';
+  const DEPLOYED = 'deployed';
+  const DONE = 'done';
+  const PENDING = 'pending';
+  const RECEIVED = 'received';
+  const ASSESSED = 'assessed';
+  const PRE_POST_REPAIR_INSPECTED = 'pre-post-repair inspected';
+
   public static function all($limit = '')
   {
     $sql = "SELECT * FROM itservices_request_tbl 
@@ -74,7 +89,7 @@ class Request
 						ON itservices_request_tbl.hwcomponent_id=hardwarecomponent_tbl.hwcomponent_id  
 						WHERE itservices_request_tbl.itsrequest_date = ?
 						ORDER BY itsrequest_date DESC";
-    return DB::all($sql, strtotime($day));
+    return DB::all($sql, [strtotime($day)]);
   }
 
   public static function getRequestsByEmployee($emp_id)
