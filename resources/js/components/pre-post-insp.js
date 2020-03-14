@@ -87,19 +87,19 @@ const inspectionReportRules = {
   control_number: "required",
   date: "required"
 };
-const motorVehicleRules = {
-  vehicle_type: { required: false },
-  plate_no: { required: false },
-  vehicle_property_no: { required: false },
-  engine_no: { required: false },
-  chassis_no: { required: false },
-  vehicle_acquisition_date: { required: false },
-  vehicle_acquisition_cost: { required: false },
-  repair_history: { required: false },
-  repair_date: { required: false },
-  nature_of_last_repair: { required: false },
-  defects_complaints: { required: false }
-};
+// const motorVehicleRules = {
+//   vehicle_type: { required: false },
+//   plate_no: { required: false },
+//   vehicle_property_no: { required: false },
+//   engine_no: { required: false },
+//   chassis_no: { required: false },
+//   vehicle_acquisition_date: { required: false },
+//   vehicle_acquisition_cost: { required: false },
+//   repair_history: { required: false },
+//   repair_date: { required: false },
+//   nature_of_last_repair: { required: false },
+//   defects_complaints: { required: false }
+// };
 const otherPPAERules = {
   other_type: "required",
   model: "required",
