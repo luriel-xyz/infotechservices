@@ -17,6 +17,28 @@ window.truncateString = (string, maxLength = 40) => {
   if (string.length <= maxLength) return string;
   return `${string.substring(0, maxLength)}...`;
 };
+window.showLoading = () => {
+  let timerInterval;
+  Swal.fire({
+    title: "Please wait!",
+    timerProgressBar: true,
+    onBeforeOpen: () => {
+      Swal.showLoading();
+      timerInterval = setInterval(() => {
+        const content = Swal.getContent();
+        if (content) {
+          const b = content.querySelector("b");
+          if (b) {
+            b.textContent = Swal.getTimerLeft();
+          }
+        }
+      }, 100);
+    },
+    onClose: () => {
+      clearInterval(timerInterval);
+    }
+  });
+};
 
 $(() => {
   $(document).tooltip();

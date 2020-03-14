@@ -38,6 +38,8 @@ loginForm.validate({
 
 // Login button click
 $("#btn-login").click(async () => {
+  showLoading();
+
   const { data } = await axios.post(requestsPath, $(loginForm).serialize());
 
   if (!data) return;
