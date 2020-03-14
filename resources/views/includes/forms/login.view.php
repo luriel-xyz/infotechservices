@@ -29,7 +29,7 @@
 
             <div class="row">
                 <div class="col text-center">
-                    <button type="submit" name="login" class="btn btn-md btn-rounded peach-gradient waves-effect waves-light form text-capitalize mt-2 mx-auto">
+                    <button type="submit" name="login" id="btn-login" class="btn btn-md btn-rounded peach-gradient waves-effect waves-light form text-capitalize mt-2 mx-auto">
                         <i class="fas fa-sign-in-alt fa-fw"></i>
                         Login
                     </button>
