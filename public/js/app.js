@@ -59935,17 +59935,19 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-// Add validation rule for user account
+var loginForm = $("#login-form"); // Add validation rule for user account
+
 var accountExists;
 $.validator.addMethod("checkAccount", function () {
-  var formData = $("#login-form").serialize();
+  var formData = loginForm.serialize();
   axios.post(requestsPath, formData).then(function (_ref) {
     var data = _ref.data;
     accountExists = !!data;
   });
   return accountExists;
 }, "Incorrect username or password");
-$("#login-form").validate(_objectSpread({}, validatorOptions, {
+loginForm.validate(_objectSpread({}, validatorOptions, {
+  onkeyup: false,
   rules: {
     username: "required",
     password: {
@@ -59959,53 +59961,48 @@ $("#login-form").validate(_objectSpread({}, validatorOptions, {
       required: "Password is required",
       checkAccount: "Incorrect username or password"
     }
-  },
-  submitHandler: function () {
-    var _submitHandler = _asyncToGenerator(
-    /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(form) {
-      var _ref2, data, isClient, location;
+  }
+})); // Login button clicked
 
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              _context.next = 2;
-              return axios.post(requestsPath, $(form).serialize());
+$("#btn-login").click(
+/*#__PURE__*/
+_asyncToGenerator(
+/*#__PURE__*/
+_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+  var _ref3, data, isClient, location;
 
-            case 2:
-              _ref2 = _context.sent;
-              data = _ref2.data;
+  return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          _context.next = 2;
+          return axios.post(requestsPath, $(loginForm).serialize());
 
-              if (data) {
-                _context.next = 6;
-                break;
-              }
+        case 2:
+          _ref3 = _context.sent;
+          data = _ref3.data;
 
-              return _context.abrupt("return");
-
-            case 6:
-              isClient = data.usertype === "department";
-              location = isClient ? "".concat(baseUrl, "app/client/index.php") : "".concat(baseUrl, "app/admin/incoming-requests.php");
-              $.redirect(location, {
-                user: data
-              });
-
-            case 9:
-            case "end":
-              return _context.stop();
+          if (data) {
+            _context.next = 6;
+            break;
           }
-        }
-      }, _callee);
-    }));
 
-    function submitHandler(_x) {
-      return _submitHandler.apply(this, arguments);
+          return _context.abrupt("return");
+
+        case 6:
+          isClient = data.usertype === "department";
+          location = isClient ? "".concat(baseUrl, "app/client/index.php") : "".concat(baseUrl, "app/admin/incoming-requests.php");
+          $.redirect(location, {
+            user: data
+          });
+
+        case 9:
+        case "end":
+          return _context.stop();
+      }
     }
-
-    return submitHandler;
-  }()
-}));
+  }, _callee);
+})));
 
 /***/ }),
 

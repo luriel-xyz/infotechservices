@@ -1,9 +1,10 @@
+const loginForm = $("#login-form");
 // Add validation rule for user account
 let accountExists;
 $.validator.addMethod(
   "checkAccount",
   () => {
-    const formData = $("#login-form").serialize();
+    const formData = loginForm.serialize();
     axios.post(requestsPath, formData).then(({ data }) => {
       accountExists = !!data;
     });
@@ -13,8 +14,10 @@ $.validator.addMethod(
   "Incorrect username or password"
 );
 
-$("#login-form").validate({
+loginForm.validate({
   ...validatorOptions,
+
+  onkeyup: false,
 
   rules: {
     username: "required",
@@ -30,18 +33,19 @@ $("#login-form").validate({
       required: "Password is required",
       checkAccount: "Incorrect username or password"
     }
-  },
-
-  submitHandler: async form => {
-    const { data } = await axios.post(requestsPath, $(form).serialize());
-
-    if (!data) return;
-    const isClient = data.usertype === "department";
-    const location = isClient
-      ? `${baseUrl}app/client/index.php`
-      : `${baseUrl}app/admin/incoming-requests.php`;
-    $.redirect(location, {
-      user: data
-    });
   }
+});
+
+// Login button clicked
+$("#btn-login").click(async () => {
+  const { data } = await axios.post(requestsPath, $(loginForm).serialize());
+
+  if (!data) return;
+  const isClient = data.usertype === "department";
+  const location = isClient
+    ? `${baseUrl}app/client/index.php`
+    : `${baseUrl}app/admin/incoming-requests.php`;
+  $.redirect(location, {
+    user: data
+  });
 });
