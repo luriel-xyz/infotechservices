@@ -48,12 +48,12 @@
       <div class="container-fluid row">
         <!-- Property Plant and Equipment Section -->
         <h5 class="col-md-12 text-uppercase">DESCRIPTION OF PROPERTY, PLANT AND EQUIPMENT</h5>
-        <div class="col-md-12">
-          <!-- Motor Vehicles -->
-          <h5>Motor Vehicles</h5>
-          <div class="row">
-            <!-- First column -->
-            <div class="col-md-6">
+        <!-- <div class="col-md-12"> -->
+        <!-- Motor Vehicles -->
+        <!-- <h5>Motor Vehicles <span class="btn btn-primary"></span></h5> -->
+        <!-- <div class="row"> -->
+        <!-- First column -->
+        <!-- <div class="col-md-6">
               <div class="form-group">
                 <input type="text" class="form-control" name="vehicle_type" id="vehicle-type" placeholder="Type">
               </div>
@@ -73,10 +73,10 @@
                 <label for="vehicle-acquisition-date" class="font-size-small my-0 py-0">Acquisition Date:</label>
                 <input type="date" class="form-control" name="vehicle_acquisition_date" id="vehicle-acquisition-date" placeholder="Acquisition Date">
               </div>
-            </div>
-            <!-- /# First column -->
-            <!-- Second column -->
-            <div class="col-md-6">
+            </div> -->
+        <!-- /# First column -->
+        <!-- Second column -->
+        <!-- <div class="col-md-6">
               <div class="form-group">
                 <input type="number" class="form-control" name="vehicle_acquisition_cost" id="vehicle-acquisition-cost" min="0" step=".01" placeholder="Acquisition Cost">
               </div>
@@ -93,14 +93,14 @@
               <div class="form-group">
                 <input type="text" class="form-control" name="defects_complaints" id="defects-complaints" placeholder="Defects / Complaints">
               </div>
-            </div>
-            <!-- /# Second column -->
-          </div>
-          <!-- /# Motor Vehicles -->
-        </div>
+            </div> -->
+        <!-- /# Second column -->
+        <!-- </div> -->
+        <!-- /# Motor Vehicles -->
+        <!-- </div> -->
         <div class="col-md-12">
           <!-- Other Property Plant and Equipment -->
-          <h5>Other Property, Plant and Equipment</h5>
+          <h5>Property, Plant and Equipment</h5>
           <div class="row">
             <!-- First Column -->
             <div class="col-md-6">
