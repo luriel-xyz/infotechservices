@@ -31,6 +31,8 @@ $("#repassessmentreport-form").validate({
   },
 
   submitHandler: form => {
+    showLoading();
+
     const action = $("#action").val();
     const itsrequest_id = $("#itsrequest_id").val();
     const hwSubComponentsAssessments = [];
