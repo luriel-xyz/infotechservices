@@ -13,7 +13,6 @@ class Request
    */
   const TABLE_NAME = 'itservices_request_tbl';
 
-
   /**
    * Request statuses
    * @var string
