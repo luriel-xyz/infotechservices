@@ -23,7 +23,7 @@ class Assessment
   ) {
 
     $assessmentReportId = null;
-    $sql = "INSERT INTO repassessreport_tbl  
+    $sql = "INSERT INTO " . self::TABLE_NAME . "  
 								(itsrequest_id, 
 								hwcomponent_id,
 								assessmenttechrep_useraccount_id,
@@ -90,7 +90,7 @@ class Assessment
   /* Get Assess Reports */
   public function getAssessmentReport($id)
   {
-    $sql = "SELECT * FROM repassessreport_tbl
+    $sql = "SELECT * FROM " . self::TABLE_NAME . "
 						WHERE repassessreport_id = ?
 						LIMIT 1";
 
@@ -100,10 +100,10 @@ class Assessment
   public function getAssessmentReportByRequestId($itsrequest_id = null)
   {
     if ($itsrequest_id == null) {
-      $sql = "SELECT * FROM repassessreport_tbl ORDER BY assessment_date";
+      $sql = "SELECT * FROM " . self::TABLE_NAME . " ORDER BY assessment_date";
       return DB::all($sql);
     } else {
-      $sql = "SELECT * FROM repassessreport_tbl WHERE itsrequest_id = ?";
+      $sql = "SELECT * FROM " . self::TABLE_NAME . " WHERE itsrequest_id = ?";
       return DB::single($sql, [$itsrequest_id]);
     }
   }
