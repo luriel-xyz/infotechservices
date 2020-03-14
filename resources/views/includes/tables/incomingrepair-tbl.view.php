@@ -96,16 +96,12 @@ else :
                   // } else if ($repair->status === 'pre-repair inspected') {
                   // 
                   ?>
-                  <!-- <button type="button" class="dropdown-item btn-warning post-inspect" data-toggle="tooltip" title="Post-Repair Inspect" id="</?= $repair['itsrequest_id'] ?>" data-id="</?= $_SESSION['useraccount_id'] ?>"><i class="fa fa-check" aria-hidden="true"></i></button> -->
-                  <?php
-                  // } else if ($repair->status === 'post-repair inspected') {
-                  // 
-                  ?>
-                  <!-- <button type="button" class="dropdown-item btn-success done-repair" data-toggle="tooltip" title="Done" id="</?= $repair['itsrequest_id'] ?>" data-id="</?= $_SESSION['useraccount_id'] ?>"><i class="fa fa-check" aria-hidden="true"></i></button> -->
-                  <?php
-                  // }
-                  // 
-                  ?>
+                <?php elseif ($repair->status === App\Request::PRE_REPAIR_INSPECTED) : ?>
+                  <button type="button" class="dropdown-item done-repair" data-toggle="tooltip" id="<?= $repair->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>">Done</button>
+                  <button type="button" class="dropdown-item post-inspect" data-toggle="tooltip" title="Post-Repair Inspect" id="<?= $repair->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>"><i class="fa fa-check" aria-hidden="true"></i></button>
+                <?php elseif ($repair->status === App\Request::POST_REPAIR_INSPECTED) : ?>
+                  <button type="button" class="dropdown-item done-repair" data-toggle="tooltip" id="<?= $repair->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>">Done</button>
+                  <button type="button" class="dropdown-item done-repair" data-toggle="tooltip" title="Done" id="<?= $repair->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>"><i class="fa fa-check" aria-hidden="true"></i></button>
                 <?php elseif ($repair->status === App\Request::PRE_POST_REPAIR_INSPECTED) : ?>
                   <button type="button" class="dropdown-item done-repair" data-toggle="tooltip" id="<?= $repair->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>">Done</button>
                   <button type="button" class="dropdown-item btn-print-assessment" data-toggle="tooltip" data-assessment-report-id="<?= $assessmentReport->repassessreport_id ?>">Print Assessment Report</button>
