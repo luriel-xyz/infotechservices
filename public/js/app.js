@@ -58893,6 +58893,31 @@ window.truncateString = function (string) {
   return "".concat(string.substring(0, maxLength), "...");
 };
 
+window.showLoading = function () {
+  var timerInterval;
+  _plugins_sweetalert2__WEBPACK_IMPORTED_MODULE_1__["default"].fire({
+    title: "Please wait!",
+    timerProgressBar: true,
+    onBeforeOpen: function onBeforeOpen() {
+      _plugins_sweetalert2__WEBPACK_IMPORTED_MODULE_1__["default"].showLoading();
+      timerInterval = setInterval(function () {
+        var content = _plugins_sweetalert2__WEBPACK_IMPORTED_MODULE_1__["default"].getContent();
+
+        if (content) {
+          var b = content.querySelector("b");
+
+          if (b) {
+            b.textContent = _plugins_sweetalert2__WEBPACK_IMPORTED_MODULE_1__["default"].getTimerLeft();
+          }
+        }
+      }, 100);
+    },
+    onClose: function onClose() {
+      clearInterval(timerInterval);
+    }
+  });
+};
+
 $(function () {
   $(document).tooltip();
 
@@ -59241,6 +59266,7 @@ $("#repassessmentreport-form").validate(_objectSpread({}, validatorOptions, {
     notes: "Notes is required"
   },
   submitHandler: function submitHandler(form) {
+    showLoading();
     var action = $("#action").val();
     var itsrequest_id = $("#itsrequest_id").val();
     var hwSubComponentsAssessments = []; // Loop through all checked checkboxes except 'others checkbox'
@@ -59975,28 +60001,29 @@ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function 
     while (1) {
       switch (_context.prev = _context.next) {
         case 0:
-          _context.next = 2;
+          showLoading();
+          _context.next = 3;
           return axios.post(requestsPath, $(loginForm).serialize());
 
-        case 2:
+        case 3:
           _ref3 = _context.sent;
           data = _ref3.data;
 
           if (data) {
-            _context.next = 6;
+            _context.next = 7;
             break;
           }
 
           return _context.abrupt("return");
 
-        case 6:
+        case 7:
           isClient = data.usertype === "department";
           location = isClient ? "".concat(baseUrl, "app/client/index.php") : "".concat(baseUrl, "app/admin/incoming-requests.php");
           $.redirect(location, {
             user: data
           });
 
-        case 9:
+        case 10:
         case "end":
           return _context.stop();
       }
