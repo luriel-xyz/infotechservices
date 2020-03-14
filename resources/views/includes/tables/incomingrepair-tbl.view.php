@@ -46,19 +46,19 @@ else :
             <?php endif; ?>
           </td>
           <td>
-            <?php if ($repair->status === 'assessment pending') : ?>
+            <?php if ($repair->status === App\Request::ASSESSMENT_PENDING) : ?>
               <span class="badge p-1 badge-warning"><?= $repair->status ?></span>
-            <?php elseif ($repair->status === 'deployed') : ?>
+            <?php elseif ($repair->status === App\Request::DEPLOYED) : ?>
               <span class="badge p-1 badge-info"><?= $repair->status ?></span>
-            <?php elseif ($repair->status === 'done') : ?>
+            <?php elseif ($repair->status === App\Request::DONE) : ?>
               <span class="badge p-1 badge-success"><?= $repair->status ?></span>
-            <?php elseif ($repair->status === 'pending') : ?>
+            <?php elseif ($repair->status === App\Request::PENDING) : ?>
               <span class="badge p-1 badge-warning"><?= $repair->status ?></span>
-            <?php elseif ($repair->status === 'received') : ?>
+            <?php elseif ($repair->status === App\Request::RECEIVED) : ?>
               <span class="badge p-1 badge-info"><?= $repair->status ?></span>
-            <?php elseif ($repair->status === 'assessed') : ?>
+            <?php elseif ($repair->status === App\Request::ASSESSED) : ?>
               <span class="badge p-1 badge-success"><?= $repair->status ?></span>
-            <?php elseif ($repair->status === 'pre-post-repair inspected') : ?>
+            <?php elseif ($repair->status === App\Request::PRE_POST_REPAIR_INSPECTED) : ?>
               <span class="badge p-1 badge-secondary"><?= $repair->status ?></span>
             <?php endif; ?>
           </td>
@@ -75,30 +75,30 @@ else :
                 <button type="button" class="dropdown-item view-repair" data-toggle="tooltip" id="<?= $repair->itsrequest_id ?>">View Details</button>
                 <?php
                 // If request is received from incoming repairs
-                if ($repair->status === 'received') : ?>
+                if ($repair->status === App\Request::RECEIVED) : ?>
                   <!-- Show repair button -->
                   <button type="button" class="dropdown-item pending" data-toggle="tooltip" id="<?= $repair->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>">Start Repair</button>
                 <?php
-                elseif ($repair->status == 'pending') :
+                elseif ($repair->status == App\Request::PENDING) :
                 ?>
                   <button type="button" class="dropdown-item btn-assessment assess" data-toggle="tooltip" id="<?= $repair->itsrequest_id ?>" data-useraccount_id="<?= user()->useraccount_id ?>" data-hwcomponent_id="<?= $repair->hwcomponent_id ?>" data-dept_id="<?= $repair->dept_id ?>">Create assessment form</button>
                   <button type="button" class="dropdown-item done-repair" data-toggle="tooltip" id="<?= $repair->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>">Done</button>
                 <?php
                 // show assesment form 
-                elseif ($repair->status === 'assessment pending') : ?>
+                elseif ($repair->status === App\Request::ASSESSMENT_PENDING) : ?>
                   <button type="button" class="dropdown-item assessment-created" data-toggle="tooltip" id="<?= $repair->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>">Assessment Created</button>
-                <?php elseif ($repair->status === 'assessed') : ?>
+                <?php elseif ($repair->status === App\Request::ASSESSED) : ?>
                   <input type="hidden" name="" value="<?= $repair->itsrequest_id ?>">
                   <button type="button" class="dropdown-item pre-post-inspect" data-toggle="tooltip" id="<?= $repair->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>" data-assessment-report-id="<?= $assessmentReport->repassessreport_id ?>">Pre and Post</button>
                   <button type="button" class="dropdown-item btn-print-assessment" data-toggle="tooltip" data-assessment-report-id="<?= $assessmentReport->repassessreport_id ?>">Print Assessment Form</button>
                   <?php
                   // show
-                  // } else if ($repair['status'] === 'pre-repair inspected') {
+                  // } else if ($repair->status === 'pre-repair inspected') {
                   // 
                   ?>
                   <!-- <button type="button" class="dropdown-item btn-warning post-inspect" data-toggle="tooltip" title="Post-Repair Inspect" id="</?= $repair['itsrequest_id'] ?>" data-id="</?= $_SESSION['useraccount_id'] ?>"><i class="fa fa-check" aria-hidden="true"></i></button> -->
                   <?php
-                  // } else if ($repair['status'] === 'post-repair inspected') {
+                  // } else if ($repair->status === 'post-repair inspected') {
                   // 
                   ?>
                   <!-- <button type="button" class="dropdown-item btn-success done-repair" data-toggle="tooltip" title="Done" id="</?= $repair['itsrequest_id'] ?>" data-id="</?= $_SESSION['useraccount_id'] ?>"><i class="fa fa-check" aria-hidden="true"></i></button> -->
@@ -106,11 +106,11 @@ else :
                   // }
                   // 
                   ?>
-                <?php elseif ($repair->status === 'pre-post-repair inspected') : ?>
+                <?php elseif ($repair->status === App\Request::PRE_POST_REPAIR_INSPECTED) : ?>
                   <button type="button" class="dropdown-item done-repair" data-toggle="tooltip" id="<?= $repair->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>">Done</button>
                   <button type="button" class="dropdown-item btn-print-assessment" data-toggle="tooltip" data-assessment-report-id="<?= $assessmentReport->repassessreport_id ?>">Print Assessment Report</button>
                   <button type="button" class="dropdown-item btn-print-inspection-report" data-toggle="tooltip" id="<?= $repair->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>" data-assessment-report-id="<?= $assessmentReport->repassessreport_id ?>">Print Inspection Report</button>
-                <?php elseif ($repair->status === 'done') : ?>
+                <?php elseif ($repair->status === App\Request::DONE) : ?>
                   <button type="button" class="dropdown-item btn-print-assessment" data-toggle="tooltip" data-assessment-report-id="<?= $assessmentReport->repassessreport_id ?>">Print Assessment Report</button>
                   <button type="button" class="dropdown-item btn-print-inspection-report" data-toggle="tooltip" id="<?= $repair->itsrequest_id ?>" data-id="<?= user()->useraccount_id ?>" data-assessment-report-id="<?= $assessmentReport->repassessreport_id ?>">Print Inspection Report</button>
                 <?php endif; ?>
