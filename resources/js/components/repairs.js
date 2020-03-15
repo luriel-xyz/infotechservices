@@ -253,7 +253,6 @@ $(".assess").click(function(e) {
 
   $.redirect(`${baseUrl}app/admin/assessment-form.php`, {
     itsrequest_id: $(this).attr("id"),
-    useraccount_id: $(this).data("useraccount_id"),
     dept_id: $(this).data("dept_id"),
     hwcomponent_id: $(this).data("hwcomponent_id")
   });
