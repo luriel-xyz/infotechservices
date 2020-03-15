@@ -27,8 +27,7 @@ $nameOfItem = Hardware::find($mainComponentId)->hwcomponent_name;
 $modelOrDescription = $assessmentReport->hwcomponent_description;
 $dateAcquired = $assessmentReport->hwcomponent_dateAcquired;
 $acquisitionCost = $assessmentReport->hwcomponent_acquisitioncost;
-$acquisitionCost = \Money\Money::PHP($acquisitionCost);
-$acquisitionCost = $acquisitionCost->getCurrency() . ' ' . number_format($acquisitionCost->getAmount());
+$acquisitionCost = 'PHP ' . number_format($acquisitionCost, 2);
 
 $request = Request::find($assessmentReport->itsrequest_id);
 $departmentCode = $request->dept_code;
