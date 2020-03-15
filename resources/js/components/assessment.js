@@ -31,7 +31,7 @@ $("#repassessmentreport-form").validate({
   },
 
   submitHandler: form => {
-    showLoading();
+    Swal.showLoading();
 
     const action = $("#action").val();
     const itsrequest_id = $("#itsrequest_id").val();
