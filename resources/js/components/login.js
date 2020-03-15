@@ -38,11 +38,15 @@ loginForm.validate({
 
 // Login button click
 $("#btn-login").click(async () => {
-  showLoading();
+  Swal.showLoading();
 
   const { data } = await axios.post(requestsPath, $(loginForm).serialize());
 
-  if (!data) return;
+  if (!data) {
+    Swal.close();
+    return;
+  }
+
   const isClient = data.usertype === "department";
   const location = isClient
     ? `${baseUrl}app/client/index.php`

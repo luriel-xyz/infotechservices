@@ -17,26 +17,11 @@ window.truncateString = (string, maxLength = 40) => {
   if (string.length <= maxLength) return string;
   return `${string.substring(0, maxLength)}...`;
 };
-window.showLoading = () => {
-  let timerInterval;
+Swal.prototype.showLoading = (title = "Please wait!") => {
   Swal.fire({
-    title: "Please wait!",
+    title: title,
     timerProgressBar: true,
-    onBeforeOpen: () => {
-      Swal.showLoading();
-      timerInterval = setInterval(() => {
-        const content = Swal.getContent();
-        if (content) {
-          const b = content.querySelector("b");
-          if (b) {
-            b.textContent = Swal.getTimerLeft();
-          }
-        }
-      }, 100);
-    },
-    onClose: () => {
-      clearInterval(timerInterval);
-    }
+    onBeforeOpen: () => Swal.showLoading()
   });
 };
 
@@ -51,7 +36,8 @@ $(() => {
   require("./components/sent_requests");
   require("./components/user-accounts");
   require("./components/assessment");
-  require("./components/pre-post-insp");
+  require("./components/pre-insp");
+  require("./components/post-insp");
   require("./components/employee");
   require("./components/logout");
   require("./components/login");

@@ -60,20 +60,7 @@
     <!-- /# Pre Inspection Report Data -->
     <hr class="border border-dark">
 
-    <!-- Post Inspection Report Data -->
-    <?php if ($isPostRepairInspected) : ?>
-      <?php view('admin/download/post-repair', compact(
-        'postRepairInspectionReport',
-        'postRepairFindings',
-        'postInspectedBy',
-        'postInspectedDate',
-        'postRecommendingApproval',
-        'postApproved'
-      )) ?>
-    <?php else : ?>
-      <?php view('admin/download/post-repair-blank'); ?>
-    <?php endif; ?>
-    <!-- /# Post Inspection Report Data -->
+    <?php view('admin/download/post-repair-blank'); ?>
   </div>
 </div>
 

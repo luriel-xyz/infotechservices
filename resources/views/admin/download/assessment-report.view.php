@@ -372,9 +372,9 @@
     <!-- /# Notes -->
 
     <!-- Technical Representative -->
-    <div class="mt-4">
+    <div class="mt-4 w-25">
       <span class="tech-rep-name"><?= "{$techRepresentative->emp_fname} {$techRepresentative->emp_lname}" ?></span>
-      <div class="tech-rep-position"><?= $techRepresentative->emp_position ?></div>
+      <div class="tech-rep-position text-center mr-4"><?= $techRepresentative->emp_position ?></div>
     </div>
     <!-- /# Technical Representative -->
 

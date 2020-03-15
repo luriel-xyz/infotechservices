@@ -2210,6 +2210,9 @@ body.swal2-toast-column .swal2-toast .swal2-validation-message {
 .pgo-it-file {
   font-weight: 600;
   font-size: 0.8em;
+}
+
+.text-uppercase {
   text-transform: uppercase;
 }
 

@@ -280,23 +280,41 @@ $(".btn-print-assessment").click(function() {
 });
 
 $(".btn-print-inspection-report").click(function() {
-  $.redirect(`${baseUrl}app/admin/download/pre-post-repair-form.php`, {
+  $.redirect(`${baseUrl}app/admin/download/post-repair-form.php`, {
     assessment_report_id: $(this).data("assessment-report-id")
   });
 });
 
 // Pre and Post Inspect Button
-$(".pre-post-inspect").click(function() {
-  // Redirect to Inspection Report Form
-  const action = "statusPreAndPostInspected";
-  const itsrequest_id = $(this).attr("id");
-  const useraccount_id = $(this).attr("data-id");
-  const assessment_report_id = $(this).data("assessment-report-id");
-  $.redirect(`${baseUrl}app/admin/pre-post-insp.php`, {
-    action: action,
-    itsrequest_id: itsrequest_id,
-    useraccount_id: useraccount_id,
-    assessment_report_id: assessment_report_id
+// $(".pre-post-inspect").click(function() {
+//   // Redirect to Inspection Report Form
+//   const action = "statusPreAndPostInspected";
+//   const itsrequest_id = $(this).attr("id");
+//   const useraccount_id = $(this).attr("data-id");
+//   const assessment_report_id = $(this).data("assessment-report-id");
+//   $.redirect(`${baseUrl}app/admin/pre-post-insp.php`, {
+//     action: action,
+//     itsrequest_id: itsrequest_id,
+//     useraccount_id: useraccount_id,
+//     assessment_report_id: assessment_report_id
+//   });
+// });
+// Pre Inspect Button Click
+$(".btn-pre-inspect").click(function() {
+  // Redirect to Pre Inspection Report Form
+  $.redirect(`${baseUrl}app/admin/pre-insp.php`, {
+    itsrequest_id: $(this).attr("id"),
+    useraccount_id: $(this).data("id"),
+    assessment_report_id: $(this).data("assessment-report-id")
+  });
+});
+// Post Inspect Button Click
+$(".btn-post-inspect").click(function() {
+  // Redirect to Post Inspection Report Form
+  $.redirect(`${baseUrl}app/admin/post-insp.php`, {
+    itsrequest_id: $(this).attr("id"),
+    useraccount_id: $(this).data("id"),
+    assessment_report_id: $(this).data("assessment-report-id")
   });
 });
 
