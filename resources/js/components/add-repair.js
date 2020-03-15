@@ -69,7 +69,7 @@ $("#incomingrepair-form").validate({
   },
 
   submitHandler: async form => {
-    showLoading();
+    Swal.showLoading();
 
     const res = await $.post(requestsPath, $(form).serialize()).promise();
     if (res) {

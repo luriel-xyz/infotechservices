@@ -59085,7 +59085,7 @@ $("#incomingrepair-form").validate(_objectSpread({}, validatorOptions, {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
-              showLoading();
+              Swal.showLoading();
               _context3.next = 3;
               return $.post(requestsPath, $(form).serialize()).promise();
 
@@ -59283,7 +59283,7 @@ $("#repassessmentreport-form").validate(_objectSpread({}, validatorOptions, {
     notes: "Notes is required"
   },
   submitHandler: function submitHandler(form) {
-    showLoading();
+    Swal.showLoading();
     var action = $("#action").val();
     var itsrequest_id = $("#itsrequest_id").val();
     var hwSubComponentsAssessments = []; // Loop through all checked checkboxes except 'others checkbox'
@@ -60907,7 +60907,6 @@ $(".assess").click(function (e) {
   e.preventDefault();
   $.redirect("".concat(baseUrl, "app/admin/assessment-form.php"), {
     itsrequest_id: $(this).attr("id"),
-    useraccount_id: $(this).data("useraccount_id"),
     dept_id: $(this).data("dept_id"),
     hwcomponent_id: $(this).data("hwcomponent_id")
   }); // var action = 'statusAssessmentPending';
