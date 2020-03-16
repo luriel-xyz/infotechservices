@@ -14,7 +14,8 @@
   "require": {
     "stephweb/daw-php-pagination": "^3.0",
     "respect/validation": "^1.1",
-    "moneyphp/money": "^3.3"
+    "moneyphp/money": "^3.3",
+    "byjg/migration": "^4.0"
   },
   "autoload": {
     "psr-4": {
