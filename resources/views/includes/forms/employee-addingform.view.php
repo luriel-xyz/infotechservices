@@ -9,14 +9,11 @@
 	</div>
 
 	<div class="modal-body">
-		<div class="form-group">
-			<input type="hidden" class="form-control" name="action" id="action" value="addEmployee">
-		</div>
-
+		<input type="hidden" class="form-control" name="action" id="action" value="addEmployee">
 
 		<div class="form-group">
 			<label for="dept_id" class="font-size-small mb-0 pb-0">Department</label>
-			<select name="dept_id" id="dept_id" class="form-control" required>
+			<select name="dept_id" id="emp_dept_id" class="form-control" required>
 				<option selected disabled> -- Select Department -- </option>
 				<?php foreach ($departments as $department) : ?>
 					<option value="<?= $department->dept_id ?>">
@@ -29,6 +26,8 @@
 		<!-- <div class="form-group">
 			<select name="emp_id" class="form-control" id="emp_id" style="display: none;"></select>
 		</div> -->
+
+		<div id="emp_id"></div>
 
 		<div class="form-group form-row">
 			<div class="col-6">

@@ -74,7 +74,7 @@ $("#add-employee").click(function(e) {
   $(".modal-title").text("EMPLOYEE ADDING FORM");
   $("#emp_btn").text("Add Employee");
   // $("#emp_id").html("");
-  $("#dept_id").val("");
+  $("#emp_dept_id").val("");
   $("#emp_idnum").val("");
   $("#fname").val("");
   $("#lname").val("");
@@ -126,13 +126,14 @@ $(".edit-employee").click(function(e) {
     },
     dataType: "JSON"
   }).done(function(employee) {
+    $("#emp_id").empty();
     $(".modal-title").text("EMPLOYEE UPDATING FORM");
     $("#emp_id").append(
       '<input type="hidden" name="emp_id" id="emp_id" value=' +
         employee.emp_id +
         ">"
     );
-    $("#dept_id").val(employee.dept_id);
+    $("#emp_dept_id").val(employee.dept_id);
     $("#emp_idnum").val(employee.emp_idnum);
     $("#fname").val(employee.emp_fname);
     $("#lname").val(employee.emp_lname);

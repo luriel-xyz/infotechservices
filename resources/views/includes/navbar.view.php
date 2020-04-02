@@ -1,11 +1,11 @@
 <nav class="navbar navbar-expand-sm navbar-dark">
   <button class="btn btn-toggle p-0 mt-1" id="menu-toggle" data-toggle="tooltip" title="Toggle Sidebar" onclick="$('#wrapper').toggleClass('toggled')">
-    <i class="fas fa-list" style="font-size: 1.3em;" aria-hidden="true"></i>
+    <i class="fas fa-list text-orange" style="font-size: 1.3em;" aria-hidden="true"></i>
   </button>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <span class="font-weight-bold text-primary text-capitalize" style="font-size:1.3em;">
+        <span class="font-weight-bold text-orange text-capitalize" style="font-size:1.3em;">
           <?= pageTitle() ?>
         </span>
       </li>
