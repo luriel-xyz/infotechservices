@@ -58,7 +58,6 @@ class Request
     return DB::single($sql, [$id]);
   }
 
-  /* Get Incoming Requests by Department */
   public static function getRequestsByDepartment($dept_id, $limit = '')
   {
     $sql = "SELECT * FROM " . self::TABLE_NAME . " 
@@ -108,7 +107,6 @@ class Request
     return is_array($requests) ? count($requests) : 0;
   }
 
-  /* Add Incoming Request */
   public static function addRequest($dept_id, $emp_id, $itsrequest_category, $hwcomponent_id, $concern, $req_date, $itshw_category)
   {
     $sql = "INSERT INTO " . self::TABLE_NAME . " 
