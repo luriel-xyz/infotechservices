@@ -38,7 +38,7 @@
           <!-- Download Repair Summary Button -->
           <?php if (count($repairs)) : ?>
             <div class="col-md-3 d-flex justify-content-end">
-              <button type="button" class="btn btn-sm btn-primary" data-toggle="tooltip" title="Download Summary in MSword" id="printSummary">
+              <button type="button" class="btn btn-sm btn-primary" data-toggle="tooltip" title="Download repair summary in MSExcel" id="printSummary">
                 <i class="fas fa-download" aria-hidden="true"></i>
               </button>
             </div>
