@@ -93,6 +93,17 @@ class DB
     return self::single($sql)->rowCount;
   }
 
+  /**
+   * Truncate a table
+   * @param string $tableName
+   */
+  public static function truncate(string $tableName)
+  {
+    $sql = "TRUNCATE TABLE {$tableName}";
+    $stmt = self::prepare($sql);
+    return $stmt->execute();
+  }
+
   private function prepare(string $sql)
   {
     $pdo = self::connection();
