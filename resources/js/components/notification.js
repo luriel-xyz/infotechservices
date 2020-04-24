@@ -7,7 +7,6 @@ const checkNotification = async () => {
   const requestCountFromStorage = localStorage.getItem(KEY_NOTIF_COUNT) ?? 0;
 
   // If there is no new request
-  // 3 < 0
   if (requestCount <= requestCountFromStorage) return;
 
   // set new total request count
