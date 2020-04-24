@@ -12,6 +12,7 @@ use App\OtherPropPlantEquip;
 use App\PostInspectionReport;
 use App\PreInspectionHardware;
 use App\PreInspectionReport;
+use App\RequestNotification;
 
 require_once('../config/init.php');
 
@@ -27,6 +28,10 @@ if (isset($_POST['action'])) {
 
 		$user = Auth::login($username, $password);
 		echo json_encode($user);
+	}
+
+	if ($_POST['action'] === 'getAuthenticatedUser') {
+		echo json_encode(user());
 	}
 
 	/**   GET REQUEST  **/
@@ -391,9 +396,7 @@ if (isset($_POST['action'])) {
 
 
 
-	/**   ADD REQUEST  **/
-
-
+	/**   REQUEST  **/
 	if ($_POST['action'] === 'addRequest') {
 		$dept_id = $_POST['dept_id'];
 		$emp_id = $_POST['emp_id'];
@@ -412,6 +415,35 @@ if (isset($_POST['action'])) {
 			$result = Request::addRequest($dept_id, $emp_id, $itsrequest_category, $hwcomponent_id, $concern, $req_date, $itshw_category);
 		}
 
+		echo $result;
+	}
+
+	if ($_POST['action'] === 'countTotalRequests') {
+		$result = Request::count();
+		echo $result;
+	}
+
+	/** REQUEST NOTITIFICATIONS */
+
+	if ($_POST['action'] === 'countNotificationRequests') {
+		$result = RequestNotification::count();
+		echo $result;
+	}
+
+	if ($_POST['action'] === 'getTotalRequests') {
+		$result = RequestNotification::last()->requests_total ?? 0;
+		echo $result;
+	}
+
+
+	if ($_POST['action'] === 'addRequestNotification') {
+		$requestsTotal = $_POST['requests_total'];
+		$result = RequestNotification::create($requestsTotal);
+		echo $result;
+	}
+
+	if ($_POST['action'] === 'deleteAllNotifications') {
+		$result = RequestNotification::truncate();
 		echo $result;
 	}
 }
