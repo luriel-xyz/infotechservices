@@ -58893,6 +58893,8 @@ window.truncateString = function (string) {
   return "".concat(string.substring(0, maxLength), "...");
 };
 
+window.KEY_NOTIF_COUNT = "notification_count";
+
 _plugins_sweetalert2__WEBPACK_IMPORTED_MODULE_1__["default"].prototype.showLoading = function () {
   var title = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "Please wait!";
   _plugins_sweetalert2__WEBPACK_IMPORTED_MODULE_1__["default"].fire({
@@ -60140,7 +60142,10 @@ function () {
   var _ref = _asyncToGenerator(
   /*#__PURE__*/
   _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-    var totalRequests, currentTotal, notificationRequestsCount, isUserAdmin;
+    var _localStorage$getItem;
+
+    var requestCount, requestCountFromStorage, _JSON$parse, usertype;
+
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
@@ -60151,56 +60156,40 @@ function () {
             }).promise();
 
           case 2:
-            totalRequests = _context.sent;
-            _context.next = 5;
-            return $.post(requestsPath, {
-              action: "getTotalRequests"
-            }).promise();
+            requestCount = _context.sent;
+            requestCountFromStorage = (_localStorage$getItem = localStorage.getItem(KEY_NOTIF_COUNT)) !== null && _localStorage$getItem !== void 0 ? _localStorage$getItem : 0; // If there is no new request
 
-          case 5:
-            currentTotal = _context.sent;
-            _context.next = 8;
-            return $.post(requestsPath, {
-              action: "countNotificationRequests"
-            }).promise();
-
-          case 8:
-            notificationRequestsCount = _context.sent;
-
-            if (!(notificationRequestsCount == 0)) {
-              _context.next = 12;
-              break;
-            }
-
-            _context.next = 12;
-            return addRequestNotification(0);
-
-          case 12:
-            if (!(totalRequests <= currentTotal)) {
-              _context.next = 14;
+            if (!(requestCount <= requestCountFromStorage)) {
+              _context.next = 6;
               break;
             }
 
             return _context.abrupt("return");
 
-          case 14:
-            _context.next = 16;
+          case 6:
+            // set new total request count
+            localStorage.setItem(KEY_NOTIF_COUNT, requestCount); // Get the authenticated user type
+
+            _context.t0 = JSON;
+            _context.next = 10;
             return $.post(requestsPath, {
               action: "getAuthenticatedUser"
             }).promise();
 
-          case 16:
-            isUserAdmin = _context.sent;
+          case 10:
+            _context.t1 = _context.sent;
+            _JSON$parse = _context.t0.parse.call(_context.t0, _context.t1);
+            usertype = _JSON$parse.usertype;
 
-            if (isUserAdmin) {
-              _context.next = 19;
+            if (!(usertype === "department")) {
+              _context.next = 15;
               break;
             }
 
             return _context.abrupt("return");
 
-          case 19:
-            _context.next = 21;
+          case 15:
+            _context.next = 17;
             return Swal.fire({
               title: "Hi",
               icon: "info",
@@ -60209,7 +60198,11 @@ function () {
               showCancelButton: false
             });
 
-          case 21:
+          case 17:
+            // redirect to requests page
+            $.redirect("".concat(baseUrl, "app/admin/incoming-requests.php"));
+
+          case 18:
           case "end":
             return _context.stop();
         }
