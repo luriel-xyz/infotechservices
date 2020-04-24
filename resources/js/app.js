@@ -17,6 +17,7 @@ window.truncateString = (string, maxLength = 40) => {
   if (string.length <= maxLength) return string;
   return `${string.substring(0, maxLength)}...`;
 };
+window.KEY_NOTIF_COUNT = "notification_count";
 Swal.prototype.showLoading = (title = "Please wait!") => {
   Swal.fire({
     title: title,
