@@ -268,7 +268,7 @@ class Request
     ]);
   }
 
-  public static function count(): int
+  public static function count()
   {
     return DB::count(self::TABLE_NAME);
   }
