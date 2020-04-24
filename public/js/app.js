@@ -58934,6 +58934,8 @@ $(function () {
   __webpack_require__(/*! ./components/logout */ "./resources/js/components/logout.js");
 
   __webpack_require__(/*! ./components/login */ "./resources/js/components/login.js");
+
+  __webpack_require__(/*! ./components/notification */ "./resources/js/components/notification.js");
 });
 
 /***/ }),
@@ -60112,6 +60114,144 @@ function () {
     return _ref.apply(this, arguments);
   };
 }());
+
+/***/ }),
+
+/***/ "./resources/js/components/notification.js":
+/*!*************************************************!*\
+  !*** ./resources/js/components/notification.js ***!
+  \*************************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+var checkNotification =
+/*#__PURE__*/
+function () {
+  var _ref = _asyncToGenerator(
+  /*#__PURE__*/
+  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+    var totalRequests, currentTotal, notificationRequestsCount, isUserAdmin;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.next = 2;
+            return $.post(requestsPath, {
+              action: "countTotalRequests"
+            }).promise();
+
+          case 2:
+            totalRequests = _context.sent;
+            _context.next = 5;
+            return $.post(requestsPath, {
+              action: "getTotalRequests"
+            }).promise();
+
+          case 5:
+            currentTotal = _context.sent;
+            _context.next = 8;
+            return $.post(requestsPath, {
+              action: "countNotificationRequests"
+            }).promise();
+
+          case 8:
+            notificationRequestsCount = _context.sent;
+
+            if (!(notificationRequestsCount == 0)) {
+              _context.next = 12;
+              break;
+            }
+
+            _context.next = 12;
+            return addRequestNotification(0);
+
+          case 12:
+            if (!(totalRequests <= currentTotal)) {
+              _context.next = 14;
+              break;
+            }
+
+            return _context.abrupt("return");
+
+          case 14:
+            _context.next = 16;
+            return $.post(requestsPath, {
+              action: "getAuthenticatedUser"
+            }).promise();
+
+          case 16:
+            isUserAdmin = _context.sent;
+
+            if (isUserAdmin) {
+              _context.next = 19;
+              break;
+            }
+
+            return _context.abrupt("return");
+
+          case 19:
+            _context.next = 21;
+            return Swal.fire({
+              title: "Hi",
+              icon: "info",
+              text: "There is a new repair request!",
+              showConfirmButton: true,
+              showCancelButton: false
+            });
+
+          case 21:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function checkNotification() {
+    return _ref.apply(this, arguments);
+  };
+}();
+
+function addRequestNotification(_x) {
+  return _addRequestNotification.apply(this, arguments);
+} // Check for new requests every 6 seconds.
+
+
+function _addRequestNotification() {
+  _addRequestNotification = _asyncToGenerator(
+  /*#__PURE__*/
+  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(requests_total) {
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            _context2.next = 2;
+            return $.post(requestsPath, {
+              action: "addRequestNotification",
+              requests_total: requests_total
+            }).promise();
+
+          case 2:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2);
+  }));
+  return _addRequestNotification.apply(this, arguments);
+}
+
+setInterval(checkNotification, 6000);
 
 /***/ }),
 
@@ -61977,8 +62117,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\infotechservices\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\infotechservices\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\InfoTechServices\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\InfoTechServices\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

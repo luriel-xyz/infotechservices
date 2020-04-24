@@ -21,7 +21,7 @@ Swal.prototype.showLoading = (title = "Please wait!") => {
   Swal.fire({
     title: title,
     timerProgressBar: true,
-    onBeforeOpen: () => Swal.showLoading()
+    onBeforeOpen: () => Swal.showLoading(),
   });
 };
 
@@ -41,4 +41,5 @@ $(() => {
   require("./components/employee");
   require("./components/logout");
   require("./components/login");
+  require("./components/notification");
 });
