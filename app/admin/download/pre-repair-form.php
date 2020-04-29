@@ -39,7 +39,6 @@ $preRecommendingApproval = Employee::find($preInspectionReport->recommending_app
 $preApproved = Employee::find($preInspectionReport->approved);
 
 $viewData = compact(
-	'isPostRepairInspected',
 	'inspectionReport',
 	'other',
 	'issuedTo',
