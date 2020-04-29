@@ -60144,7 +60144,7 @@ function () {
   _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
     var _localStorage$getItem;
 
-    var requestCount, requestCountFromStorage, _JSON$parse, usertype;
+    var requestCount, requestCountFromStorage, _JSON$parse, usertype, _ref2, confirm;
 
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
       while (1) {
@@ -60195,14 +60195,21 @@ function () {
               icon: "info",
               text: "There is a new repair request!",
               showConfirmButton: true,
-              showCancelButton: false
+              showCancelButton: true,
+              confirmButtonText: "View",
+              cancelButtonText: "View later"
             });
 
           case 17:
-            // redirect to requests page
-            $.redirect("".concat(baseUrl, "app/admin/incoming-requests.php"));
+            _ref2 = _context.sent;
+            confirm = _ref2.value;
 
-          case 18:
+            if (confirm) {
+              // redirect to incoming requests page
+              $.redirect("".concat(baseUrl, "app/admin/incoming-requests.php"));
+            }
+
+          case 20:
           case "end":
             return _context.stop();
         }
@@ -62110,8 +62117,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\InfoTechServices\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\InfoTechServices\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\infotechservices\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\infotechservices\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
