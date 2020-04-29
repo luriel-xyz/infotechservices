@@ -13,7 +13,7 @@ if (!isUserLoggedIn()) {
 $main_hwcomponents = Hardware::getHardwareComponentsByCategory('main');
 
 // Paginator
-$pages = new Paginator('5', 'p');
+$pages = new Paginator('10', 'p');
 $pages->set_total(Hardware::count());
 $hardware_components = Hardware::all($pages->get_limit());
 $links = $pages->page_links();

@@ -14,7 +14,7 @@ if (!isUserLoggedIn()) {
 $departments = Department::all();
 
 // Paginator
-$pages = new Paginator('5', 'p');
+$pages = new Paginator('10', 'p');
 $pages->set_total(Employee::count());
 $employees = Employee::all($pages->get_limit());
 $links = $pages->page_links();

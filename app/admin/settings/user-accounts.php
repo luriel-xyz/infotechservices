@@ -17,7 +17,7 @@ $departments = Department::all();
 $personnels = Employee::getEmployeesByDepartment(1);
 
 // Paginator
-$pages = new Paginator('5', 'p');
+$pages = new Paginator('10', 'p');
 $pages->set_total(User::count());
 $useraccounts = User::all($pages->get_limit());
 $links = $pages->page_links();
