@@ -60157,39 +60157,41 @@ function () {
 
           case 2:
             requestCount = _context.sent;
-            requestCountFromStorage = (_localStorage$getItem = localStorage.getItem(KEY_NOTIF_COUNT)) !== null && _localStorage$getItem !== void 0 ? _localStorage$getItem : 0; // If there is no new request
+            requestCountFromStorage = (_localStorage$getItem = localStorage.getItem(KEY_NOTIF_COUNT)) !== null && _localStorage$getItem !== void 0 ? _localStorage$getItem : 0;
+            console.log(requestCount);
+            console.log(requestCountFromStorage); // If there is no new request
 
             if (!(requestCount <= requestCountFromStorage)) {
-              _context.next = 6;
+              _context.next = 8;
               break;
             }
 
             return _context.abrupt("return");
 
-          case 6:
+          case 8:
             // set new total request count
             localStorage.setItem(KEY_NOTIF_COUNT, requestCount); // Get the authenticated user type
 
             _context.t0 = JSON;
-            _context.next = 10;
+            _context.next = 12;
             return $.post(requestsPath, {
               action: "getAuthenticatedUser"
             }).promise();
 
-          case 10:
+          case 12:
             _context.t1 = _context.sent;
             _JSON$parse = _context.t0.parse.call(_context.t0, _context.t1);
             usertype = _JSON$parse.usertype;
 
             if (!(usertype === "department")) {
-              _context.next = 15;
+              _context.next = 17;
               break;
             }
 
             return _context.abrupt("return");
 
-          case 15:
-            _context.next = 17;
+          case 17:
+            _context.next = 19;
             return Swal.fire({
               title: "Hi",
               icon: "info",
@@ -60200,7 +60202,7 @@ function () {
               cancelButtonText: "View later"
             });
 
-          case 17:
+          case 19:
             _ref2 = _context.sent;
             confirm = _ref2.value;
 
@@ -60209,7 +60211,7 @@ function () {
               $.redirect("".concat(baseUrl, "app/admin/incoming-requests.php"));
             }
 
-          case 20:
+          case 22:
           case "end":
             return _context.stop();
         }
