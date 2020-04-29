@@ -61650,36 +61650,34 @@ $("#personnelUserAccount-form").validate(_objectSpread({}, validatorOptions, {
     var _submitHandler = _asyncToGenerator(
     /*#__PURE__*/
     _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(form) {
-      var _ref, data;
-
+      var data;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return axios.post(requestsPath, $(form).serialize());
+              return $.post(requestsPath, $(form).serialize());
 
             case 2:
-              _ref = _context.sent;
-              data = _ref.data;
+              data = _context.sent;
 
               if (!data) {
-                _context.next = 10;
+                _context.next = 9;
                 break;
               }
 
-              _context.next = 7;
+              _context.next = 6;
               return Swal.fire("Success", "Personnel Account Data Saved", "success");
 
-            case 7:
+            case 6:
               location.reload(true);
-              _context.next = 11;
+              _context.next = 10;
               break;
 
-            case 10:
+            case 9:
               Swal.fire("Failure", "An error occured", "error");
 
-            case 11:
+            case 10:
             case "end":
               return _context.stop();
           }
@@ -61724,36 +61722,34 @@ $("#departmentUserAccount-form").validate(_objectSpread({}, validatorOptions, {
     var _submitHandler2 = _asyncToGenerator(
     /*#__PURE__*/
     _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(form) {
-      var _ref2, data;
-
+      var data;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
               _context2.next = 2;
-              return axios.post(requestsPath, $(form).serialize());
+              return $.post(requestsPath, $(form).serialize());
 
             case 2:
-              _ref2 = _context2.sent;
-              data = _ref2.data;
+              data = _context2.sent;
 
               if (!data) {
-                _context2.next = 10;
+                _context2.next = 9;
                 break;
               }
 
-              _context2.next = 7;
+              _context2.next = 6;
               return Swal.fire("Success", "Department Account Data Saved", "success");
 
-            case 7:
+            case 6:
               location.reload(true);
-              _context2.next = 11;
+              _context2.next = 10;
               break;
 
-            case 10:
+            case 9:
               Swal.fire("Failure", "An error occured", "error");
 
-            case 11:
+            case 10:
             case "end":
               return _context2.stop();
           }
@@ -61819,7 +61815,7 @@ $("#departmentUserAccount-form").submit(function (e) {
 $(".edit-user").click(
 /*#__PURE__*/
 function () {
-  var _ref3 = _asyncToGenerator(
+  var _ref = _asyncToGenerator(
   /*#__PURE__*/
   _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(e) {
     var action, useraccount_id, user;
@@ -61869,17 +61865,17 @@ function () {
   }));
 
   return function (_x3) {
-    return _ref3.apply(this, arguments);
+    return _ref.apply(this, arguments);
   };
 }()); //Disable User Account Access Script
 
 $(".disable").click(
 /*#__PURE__*/
 function () {
-  var _ref4 = _asyncToGenerator(
+  var _ref2 = _asyncToGenerator(
   /*#__PURE__*/
   _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(e) {
-    var _ref5, value, action, useraccount_id;
+    var _ref3, value, action, useraccount_id;
 
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
       while (1) {
@@ -61890,8 +61886,8 @@ function () {
             return Swal.fire("Confirm", "Are you sure you wanted to disable this account?", "question");
 
           case 3:
-            _ref5 = _context5.sent;
-            value = _ref5.value;
+            _ref3 = _context5.sent;
+            value = _ref3.value;
 
             if (value) {
               _context5.next = 7;
@@ -61913,10 +61909,10 @@ function () {
             }).done(
             /*#__PURE__*/
             function () {
-              var _ref6 = _asyncToGenerator(
+              var _ref4 = _asyncToGenerator(
               /*#__PURE__*/
               _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(res) {
-                var _ref7, value;
+                var _ref5, value;
 
                 return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
                   while (1) {
@@ -61935,8 +61931,8 @@ function () {
                         return Swal.fire("Success", "User Account Disabled", "success");
 
                       case 5:
-                        _ref7 = _context4.sent;
-                        value = _ref7.value;
+                        _ref5 = _context4.sent;
+                        value = _ref5.value;
 
                         if (value) {
                           location.reload();
@@ -61951,7 +61947,7 @@ function () {
               }));
 
               return function (_x5) {
-                return _ref6.apply(this, arguments);
+                return _ref4.apply(this, arguments);
               };
             }());
 
@@ -61964,17 +61960,17 @@ function () {
   }));
 
   return function (_x4) {
-    return _ref4.apply(this, arguments);
+    return _ref2.apply(this, arguments);
   };
 }()); //Enable User Account Access Script
 
 $(".enable").click(
 /*#__PURE__*/
 function () {
-  var _ref8 = _asyncToGenerator(
+  var _ref6 = _asyncToGenerator(
   /*#__PURE__*/
   _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7(e) {
-    var _ref9, value, action, useraccount_id;
+    var _ref7, value, action, useraccount_id;
 
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee7$(_context7) {
       while (1) {
@@ -61985,8 +61981,8 @@ function () {
             return Swal.fire("Confirm", "Are you sure?", "question");
 
           case 3:
-            _ref9 = _context7.sent;
-            value = _ref9.value;
+            _ref7 = _context7.sent;
+            value = _ref7.value;
 
             if (value) {
               _context7.next = 7;
@@ -62008,7 +62004,7 @@ function () {
             }).done(
             /*#__PURE__*/
             function () {
-              var _ref10 = _asyncToGenerator(
+              var _ref8 = _asyncToGenerator(
               /*#__PURE__*/
               _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6(res) {
                 return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
@@ -62039,7 +62035,7 @@ function () {
               }));
 
               return function (_x7) {
-                return _ref10.apply(this, arguments);
+                return _ref8.apply(this, arguments);
               };
             }());
 
@@ -62052,7 +62048,7 @@ function () {
   }));
 
   return function (_x6) {
-    return _ref8.apply(this, arguments);
+    return _ref6.apply(this, arguments);
   };
 }());
 
