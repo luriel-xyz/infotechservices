@@ -8,10 +8,10 @@ $.validator.addMethod(
   () => {
     $.post(requestsPath, {
       action: "departmentAccountExists",
-      dept_id: $("#dept_id").val()
+      dept_id: $("#dept_id").val(),
     })
       .promise()
-      .then(res => (departmentExists = JSON.parse(res)));
+      .then((res) => (departmentExists = JSON.parse(res)));
 
     return !departmentExists;
   },
@@ -24,8 +24,8 @@ $.validator.addMethod(
   () => {
     $.post(requestsPath, {
       action: "userNameExists",
-      username: $(".department-username").val()
-    }).done(res => (depUsernameExists = JSON.parse(res)));
+      username: $(".department-username").val(),
+    }).done((res) => (depUsernameExists = JSON.parse(res)));
 
     return !depUsernameExists;
   },
@@ -38,8 +38,8 @@ $.validator.addMethod(
   () => {
     $.post(requestsPath, {
       action: "userNameExists",
-      username: $(".personnel-username").val()
-    }).done(res => (perUsernameExists = JSON.parse(res)));
+      username: $(".personnel-username").val(),
+    }).done((res) => (perUsernameExists = JSON.parse(res)));
 
     return !perUsernameExists;
   },
@@ -55,9 +55,9 @@ $("#personnelUserAccount-form").validate({
     emp_id: "required",
     username: {
       required: true,
-      uniquePerUsername: true
+      uniquePerUsername: true,
     },
-    password: "required"
+    password: "required",
   },
 
   messages: {
@@ -65,20 +65,20 @@ $("#personnelUserAccount-form").validate({
     emp_id: "Please select an employee name.",
     username: {
       required: "The username is required.",
-      uniquePerUsername: "This username is already taken."
+      uniquePerUsername: "This username is already taken.",
     },
-    password: "The password is required."
+    password: "The password is required.",
   },
 
-  submitHandler: async form => {
-    const { data } = await axios.post(requestsPath, $(form).serialize());
+  submitHandler: async (form) => {
+    const data = await $.post(requestsPath, $(form).serialize());
     if (data) {
       await Swal.fire("Success", "Personnel Account Data Saved", "success");
       location.reload(true);
     } else {
       Swal.fire("Failure", "An error occured", "error");
     }
-  }
+  },
 });
 
 // Validation for Department User Account Form
@@ -89,38 +89,37 @@ $("#departmentUserAccount-form").validate({
     usertype: "required",
     dept_id: {
       required: true,
-      checkDepartment: true
+      checkDepartment: true,
     },
     username: {
       required: true,
-      uniqueDepUsername: true
+      uniqueDepUsername: true,
     },
-    password: "required"
+    password: "required",
   },
 
   messages: {
     usertype: "Please indicate the type of the user.",
     dept_id: {
       required: "Please select a deparment name.",
-      checkDepartment: "This department already has an account."
+      checkDepartment: "This department already has an account.",
     },
     username: {
       required: "The username is required.",
-      uniqueDepUsername: "This username is already taken."
+      uniqueDepUsername: "This username is already taken.",
     },
-    password: "The password is required."
+    password: "The password is required.",
   },
 
-  submitHandler: async form => {
-    const { data } = await axios.post(requestsPath, $(form).serialize());
-
+  submitHandler: async (form) => {
+    const data = await $.post(requestsPath, $(form).serialize());
     if (data) {
       await Swal.fire("Success", "Department Account Data Saved", "success");
       location.reload(true);
     } else {
       Swal.fire("Failure", "An error occured", "error");
     }
-  }
+  },
 });
 
 $("#search").keyup(function() {
@@ -190,7 +189,7 @@ $(".edit-user").click(async function(e) {
   const user = JSON.parse(
     await $.post(requestsPath, {
       action: action,
-      useraccount_id: useraccount_id
+      useraccount_id: useraccount_id,
     }).promise()
   );
 
@@ -235,8 +234,8 @@ $(".disable").click(async function(e) {
     type: "post",
     data: {
       action: action,
-      useraccount_id: useraccount_id
-    }
+      useraccount_id: useraccount_id,
+    },
   }).done(async function(res) {
     if (!res) {
       Swal.fire("Failure", "Error", "error");
@@ -268,8 +267,8 @@ $(".enable").click(async function(e) {
     type: "post",
     data: {
       action: action,
-      useraccount_id: useraccount_id
-    }
+      useraccount_id: useraccount_id,
+    },
   }).done(async function(res) {
     if (!res) {
       Swal.fire("Failure", "Error", "error");
