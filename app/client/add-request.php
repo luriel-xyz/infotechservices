@@ -16,5 +16,3 @@ $employees = Employee::getEmployeesByDepartment(user()->dept_id);
 $mainHardwareComponents = Hardware::getHardwareComponentsByCategory('main');
 
 view('includes/forms/add-request', compact('employees', 'mainHardwareComponents'));
-
-?>
