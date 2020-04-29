@@ -6,10 +6,10 @@
   <!-- Meta Tag to Set Page's Width -->
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <!-- Add author -->
+  <!-- Author -->
   <meta name="author" content="">
 
-  <!-- Add keywords -->
+  <!-- Keywords -->
   <meta name="keywords" content="info,tech,services,infotechservices,it,information,technology,repairs,capitol">
 
   <!-- Description -->
@@ -34,14 +34,12 @@
   <meta name="msapplication-TileImage" content="<?= asset('img/icons/ms-icon-144x144.png') ?>">
   <meta name="theme-color" content="#ffffff">
 
-  <!--  Title Page  -->
+  <!--  Document Title  -->
   <title><?= APP_NAME ?> <?= $subtitle ?? '' ?> </title>
 
-  <!--  Link Bootstrap stylesheet -->
-  <!-- <link href="<.?= asset('plug-ins/bootstrap/css/bootstrap.min.css') ?>" rel="stylesheet"> -->
-  <!-- <link href="</?= asset('plug-ins/font-awesome/css/font-awesome.min.css') ?>" rel="stylesheet"> -->
-
+  <!-- Style -->
   <link rel="stylesheet" href="<?= asset('css/app.css') ?>">
+  <!-- Script -->
   <script src="<?= asset('js/app.js') ?>" defer></script>
 </head>
 
