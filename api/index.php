@@ -422,28 +422,4 @@ if (isset($_POST['action'])) {
 		$result = Request::count();
 		echo $result;
 	}
-
-	/** REQUEST NOTITIFICATIONS */
-
-	if ($_POST['action'] === 'countNotificationRequests') {
-		$result = RequestNotification::count();
-		echo $result;
-	}
-
-	if ($_POST['action'] === 'getTotalRequests') {
-		$result = RequestNotification::last()->requests_total ?? 0;
-		echo $result;
-	}
-
-
-	if ($_POST['action'] === 'addRequestNotification') {
-		$requestsTotal = $_POST['requests_total'];
-		$result = RequestNotification::create($requestsTotal);
-		echo $result;
-	}
-
-	if ($_POST['action'] === 'deleteAllNotifications') {
-		$result = RequestNotification::truncate();
-		echo $result;
-	}
 }
