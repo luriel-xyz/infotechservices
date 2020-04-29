@@ -22,16 +22,20 @@ const checkNotification = async () => {
   if (usertype === "department") return;
 
   // show dialog
-  await Swal.fire({
+  const { value: confirm } = await Swal.fire({
     title: "Hi",
     icon: "info",
     text: "There is a new repair request!",
     showConfirmButton: true,
-    showCancelButton: false,
+    showCancelButton: true,
+    confirmButtonText: "View",
+    cancelButtonText: "View later",
   });
 
-  // redirect to requests page
-  $.redirect(`${baseUrl}app/admin/incoming-requests.php`);
+  if (confirm) {
+    // redirect to incoming requests page
+    $.redirect(`${baseUrl}app/admin/incoming-requests.php`);
+  }
 };
 
 async function addRequestNotification(requests_total) {
