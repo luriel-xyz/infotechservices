@@ -12,7 +12,6 @@ use App\OtherPropPlantEquip;
 use App\PostInspectionReport;
 use App\PreInspectionHardware;
 use App\PreInspectionReport;
-use App\RequestNotification;
 
 require_once('../config/init.php');
 
