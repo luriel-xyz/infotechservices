@@ -23,35 +23,39 @@ loginForm.validate({
     username: "required",
     password: {
       required: true,
-      checkAccount: true
-    }
+      checkAccount: true,
+    },
   },
 
   messages: {
     username: "Username is required",
     password: {
       required: "Password is required",
-      checkAccount: "Incorrect username or password"
-    }
-  }
+      checkAccount: "Incorrect username or password",
+    },
+  },
 });
 
-// Login button click
-$("#btn-login").click(async () => {
+// Login form submit handler
+$(loginForm).submit(async () => {
   Swal.showLoading();
 
-  const { data } = await axios.post(requestsPath, $(loginForm).serialize());
+  const data = await $.post(requestsPath, $(loginForm).serialize()).promise();
+  const user = $.parseJSON(data);
 
-  if (!data) {
+  if (!user) {
     Swal.close();
     return;
   }
 
-  const isClient = data.usertype === "department";
+  // If user account is disabled (user.status == 0)
+  if (!user.status) {
+    $(loginForm).preventDefault();
+  }
+
+  const isClient = user.usertype === "department";
   const location = isClient
     ? `${baseUrl}app/client/index.php`
     : `${baseUrl}app/admin/incoming-requests.php`;
-  $.redirect(location, {
-    user: data
-  });
+  $.redirect(location, { user });
 });
