@@ -18,17 +18,29 @@
 
 		<input type="hidden" class="form-control usertype" name="usertype" id="usertype" value="department">
 
-		<div class="form-group">
-			<label for="dept_id" class="font-size-small mb-0 pb-0">Department</label>
-			<select name="dept_id" id="dept_id" class="form-control" required>
+		<!-- Select Department -->
+		<div id="select-department-container" class="form-group">
+			<label for="account_dept_id" class="font-size-small mb-0 pb-0">Department</label>
+			<select name="account_dept_id" id="account_dept_id" class="form-control" required>
 				<option selected disabled> -- Select Department -- </option>
-				<?php foreach ($departments as $department) : ?>
-					<option value="<?= $department->dept_id ?>">
-						<?= $department->dept_code ?>
+				<!-- </?php foreach ($departments as $department) : ?>
+					<option value="</?= $department->dept_id ?>">
+						</?= $department->dept_code ?>
 					</option>
-				<?php endforeach; ?>
+				</?php endforeach; ?> -->
 			</select>
 		</div>
+		<!-- /# Select Department -->
+
+		<!-- Select Employee -->
+		<div id="select-employee-container" class="form-group">
+			<label for="account_emp_id" class="font-size-small mb-0 pb-0">Employee</label>
+			<select name="account_emp_id" id="account_emp_id" class="form-control" required>
+				<option selected disabled>-- Select Employee --</option>
+
+			</select>
+		</div>
+		<!-- /# Select Employee -->
 
 		<div class="form-group">
 			<div class="md-form">
