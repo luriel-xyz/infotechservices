@@ -28,9 +28,9 @@ if ($_POST['action'] === 'addDepartmentUserAccount') {
 	$usertype = $_POST['usertype'];
 	$dept_id = $_POST['dept_id'];
 	$username = $_POST['username'];
-	$resultword = $_POST['password'];
+	$password = $_POST['password'];
 
-	$result = User::addDepartmentUserAccount($usertype, $dept_id, $username, $resultword);
+	$result = User::addDepartmentUserAccount($usertype, $dept_id, $username, $password);
 	echo $result;
 }
 
