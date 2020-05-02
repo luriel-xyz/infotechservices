@@ -26,7 +26,7 @@
 		</div>
 
 		<div class="form-group">
-			<label for="emp_id" class="font-size-small mb-0 pb-0">Employee</label>
+			<label for="emp_id" class="font-size-small mb-0 pb-0">PGO-IT Employee</label>
 			<select name="emp_id" id="emp_id" class="form-control">
 				<option selected disabled> -- Select Employee -- </option>
 				<?php foreach ($personnels as $personnel) : ?>
