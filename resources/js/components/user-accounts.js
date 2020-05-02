@@ -8,7 +8,7 @@ $.validator.addMethod(
   () => {
     $.post(requestsPath, {
       action: "departmentAccountExists",
-      dept_id: $("#dept_id").val(),
+      dept_id: $("#account_dept_id").val(),
     })
       .promise()
       .then((res) => (departmentExists = JSON.parse(res)));
@@ -87,9 +87,12 @@ $("#departmentUserAccount-form").validate({
 
   rules: {
     usertype: "required",
-    dept_id: {
+    account_dept_id: {
       required: true,
       checkDepartment: true,
+    },
+    account_emp_id: {
+      required: true,
     },
     username: {
       required: true,
@@ -100,9 +103,12 @@ $("#departmentUserAccount-form").validate({
 
   messages: {
     usertype: "Please indicate the type of the user.",
-    dept_id: {
+    account_dept_id: {
       required: "Please select a deparment name.",
       checkDepartment: "This department already has an account.",
+    },
+    account_emp_id: {
+      required: "Please select an employee.",
     },
     username: {
       required: "The username is required.",
@@ -136,13 +142,48 @@ $("#search").keyup(function() {
   });
 });
 
+// Department select element
+$("#account_dept_id").change(async function() {
+  // Retrieve all employees based on dept_id
+  const data = await $.post(requestsPath, {
+    action: "getEmployeesByDepartment",
+    dept_id: $(this).val(),
+  });
+  // Create employee option elements
+  const employeeOptions = $.parseJSON(data).map((employee) => {
+    const value = employee.emp_id;
+    const fullName = `${employee.emp_fname} ${employee.emp_lname}`;
+    return `<option value="${value}">${fullName}</option>`;
+  });
+
+  // Append employee options to employee select
+  $("#account_emp_id").empty();
+  $("#account_emp_id").append("-- Select Employee --");
+  $("#account_emp_id").append(employeeOptions);
+});
+
 $("#addPersonnelAccount").click(() => {
   resetForm("personnel");
   $("#modalPersonnelAccount").modal("toggle");
 });
 
-$("#addDeptAccount").click(() => {
+// Add department account click listener
+$("#addDeptAccount").click(async function() {
   resetForm("department");
+  // Retrieve all departments
+  const data = await $.post(requestsPath, {
+    action: "getDepartments",
+  }).promise();
+  // Create department option elements
+  const departmentOptions = $.parseJSON(data).map(
+    ({ dept_id, dept_code }) => `<option value="${dept_id}">${dept_code}
+    </option>`
+  );
+  // Append department option elements to the select element
+  $("#account_dept_id").empty();
+  $("#account_dept_id").append("<option>-- Select Department --</option>");
+  $("#account_dept_id").append(departmentOptions);
+  // Show Department Account Adding Form
   $("#modalDepartmentAccount").modal("toggle");
 });
 
@@ -154,14 +195,15 @@ function resetForm(accountType) {
   switch (accountType) {
     case "department":
       $(".modal-title").text("DEPARTMENT ACCOUNT ADDING FORM");
-      $("#dept_id").val("");
+      $("#account_dept_id").val("");
+      $("#account_emp_id").val("");
       $(".action").val("addDepartmentUserAccount");
       $(".usertype").val("department");
       $(".department-username").val("");
       break;
     case "personnel":
       $(".modal-title").text("PERSONNEL ACCOUNT ADDING FORM");
-      $("#emp_id").val("");
+      $("#account_emp_id").val("");
       $(".action").val("addPersonnelUserAccount");
       $(".usertype").val("");
       $(".personnel-username").val("");
@@ -210,7 +252,7 @@ $(".edit-user").click(async function(e) {
   );
   $(".usertype").val(user.usertype);
   $("#emp_id").val(user.emp_id);
-  $("#dept_id").val(user.dept_id);
+  $("#account_dept_id").val(user.dept_id);
   $(".password").val(user.password);
   $(".password-field").hide();
   $(".useraccount_btn").text("Save Changes");
