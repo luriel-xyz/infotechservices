@@ -70,14 +70,15 @@ class User
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
     $status = 1;
 
-    $sql = "INSERT INTO useraccount_tbl (usertype,dept_id,emp_id,username,password,status) VALUES (?,?,?,?,?,?)";
+    $sql = "INSERT INTO useraccount_tbl (usertype,dept_id,emp_id,username,password,status) 
+            VALUES (:usertype,:dept_id,:emp_id,:username,:password,:status)";
     return DB::insert($sql, [
-      'usertype' => $usertype,
-      'dept_id' => $dept_id,
-      'emp_id' => $emp_id,
-      'username' => $username,
-      'password' => $hashedPassword,
-      'status' => $status,
+      ':usertype' => $usertype,
+      ':dept_id' => $dept_id,
+      ':emp_id' => $emp_id,
+      ':username' => $username,
+      ':password' => $hashedPassword,
+      ':status' => $status,
     ]);
   }
 
