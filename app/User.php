@@ -65,13 +65,20 @@ class User
   }
 
   /* Add Department User Account */
-  public static function addDepartmentUserAccount($usertype, $dept_id, $username, $password)
+  public static function addDepartmentUserAccount($usertype, $dept_id, $emp_id, $username, $password)
   {
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
     $status = 1;
-    $enc_password = password_hash($password, PASSWORD_DEFAULT);
 
-    $sql = "INSERT INTO useraccount_tbl (usertype,dept_id,username,password,status) VALUES (?,?,?,?,?)";
-    return DB::insert($sql, [$usertype, $dept_id, $username, $enc_password, $status]);
+    $sql = "INSERT INTO useraccount_tbl (usertype,dept_id,emp_id,username,password,status) VALUES (?,?,?,?,?,?)";
+    return DB::insert($sql, [
+      'usertype' => $usertype,
+      'dept_id' => $dept_id,
+      'emp_id' => $emp_id,
+      'username' => $username,
+      'password' => $hashedPassword,
+      'status' => $status,
+    ]);
   }
 
   // public static function accountExists($username)
