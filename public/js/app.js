@@ -61600,16 +61600,20 @@ var depUsernameExists;
 var perUsernameExists;
 var departmentExists; // Add validation rule for department duplicates
 // One department should only have one account.
-
-$.validator.addMethod("checkDepartment", function () {
-  $.post(requestsPath, {
-    action: "departmentAccountExists",
-    dept_id: $("#account_dept_id").val()
-  }).promise().then(function (res) {
-    return departmentExists = JSON.parse(res);
-  });
-  return !departmentExists;
-}, "This department already has an account."); // Validation rule for deparment username
+// $.validator.addMethod(
+//   "checkDepartment",
+//   () => {
+//     $.post(requestsPath, {
+//       action: "departmentAccountExists",
+//       dept_id: $("#account_dept_id").val(),
+//     })
+//       .promise()
+//       .then((res) => (departmentExists = JSON.parse(res)));
+//     return !departmentExists;
+//   },
+//   "This department already has an account."
+// );
+// Validation rule for deparment username
 
 $.validator.addMethod("uniqueDepUsername", function () {
   $.post(requestsPath, {
@@ -61660,7 +61664,7 @@ $("#personnelUserAccount-form").validate(_objectSpread({}, validatorOptions, {
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return $.post(requestsPath, $(form).serialize());
+              return $.post(requestsPath, $(form).serialize()).promise();
 
             case 2:
               data = _context.sent;
@@ -61701,8 +61705,8 @@ $("#departmentUserAccount-form").validate(_objectSpread({}, validatorOptions, {
   rules: {
     usertype: "required",
     account_dept_id: {
-      required: true,
-      checkDepartment: true
+      required: true // checkDepartment: true,
+
     },
     account_emp_id: {
       required: true
@@ -61716,8 +61720,8 @@ $("#departmentUserAccount-form").validate(_objectSpread({}, validatorOptions, {
   messages: {
     usertype: "Please indicate the type of the user.",
     account_dept_id: {
-      required: "Please select a deparment name.",
-      checkDepartment: "This department already has an account."
+      required: "Please select a deparment name." // checkDepartment: "This department already has an account.",
+
     },
     account_emp_id: {
       required: "Please select an employee."
@@ -61738,7 +61742,7 @@ $("#departmentUserAccount-form").validate(_objectSpread({}, validatorOptions, {
           switch (_context2.prev = _context2.next) {
             case 0:
               _context2.next = 2;
-              return $.post(requestsPath, $(form).serialize());
+              return $.post(requestsPath, $(form).serialize()).promise();
 
             case 2:
               data = _context2.sent;
