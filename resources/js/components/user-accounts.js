@@ -202,6 +202,7 @@ $(".edit-user").click(async function(e) {
     $(".modal-title").text("DEPARTMENT ACCOUNT UPDATING FORM");
     $(".department-username").val(user.username);
   }
+  $(".useraccount_id").empty();
   $(".useraccount_id").append(
     '<input type="hidden" name="useraccount_id" id="useraccount_id" class="useraccount_id" value=' +
       user.useraccount_id +

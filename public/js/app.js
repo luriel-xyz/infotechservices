@@ -60157,41 +60157,39 @@ function () {
 
           case 2:
             requestCount = _context.sent;
-            requestCountFromStorage = (_localStorage$getItem = localStorage.getItem(KEY_NOTIF_COUNT)) !== null && _localStorage$getItem !== void 0 ? _localStorage$getItem : 0;
-            console.log(requestCount);
-            console.log(requestCountFromStorage); // If there is no new request
+            requestCountFromStorage = (_localStorage$getItem = localStorage.getItem(KEY_NOTIF_COUNT)) !== null && _localStorage$getItem !== void 0 ? _localStorage$getItem : 0; // If there is no new request
 
             if (!(requestCount <= requestCountFromStorage)) {
-              _context.next = 8;
+              _context.next = 6;
               break;
             }
 
             return _context.abrupt("return");
 
-          case 8:
+          case 6:
             // set new total request count
             localStorage.setItem(KEY_NOTIF_COUNT, requestCount); // Get the authenticated user type
 
             _context.t0 = JSON;
-            _context.next = 12;
+            _context.next = 10;
             return $.post(requestsPath, {
               action: "getAuthenticatedUser"
             }).promise();
 
-          case 12:
+          case 10:
             _context.t1 = _context.sent;
             _JSON$parse = _context.t0.parse.call(_context.t0, _context.t1);
             usertype = _JSON$parse.usertype;
 
             if (!(usertype === "department")) {
-              _context.next = 17;
+              _context.next = 15;
               break;
             }
 
             return _context.abrupt("return");
 
-          case 17:
-            _context.next = 19;
+          case 15:
+            _context.next = 17;
             return Swal.fire({
               title: "Hi",
               icon: "info",
@@ -60202,7 +60200,7 @@ function () {
               cancelButtonText: "View later"
             });
 
-          case 19:
+          case 17:
             _ref2 = _context.sent;
             confirm = _ref2.value;
 
@@ -60211,7 +60209,7 @@ function () {
               $.redirect("".concat(baseUrl, "app/admin/incoming-requests.php"));
             }
 
-          case 22:
+          case 20:
           case "end":
             return _context.stop();
         }
@@ -61849,6 +61847,7 @@ function () {
               $(".department-username").val(user.username);
             }
 
+            $(".useraccount_id").empty();
             $(".useraccount_id").append('<input type="hidden" name="useraccount_id" id="useraccount_id" class="useraccount_id" value=' + user.useraccount_id + ">");
             $(".usertype").val(user.usertype);
             $("#emp_id").val(user.emp_id);
@@ -61858,7 +61857,7 @@ function () {
             $(".useraccount_btn").text("Save Changes");
             $(".action").val("updateUserAccount");
 
-          case 17:
+          case 18:
           case "end":
             return _context3.stop();
         }
@@ -62115,8 +62114,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\infotechservices\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\infotechservices\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\InfoTechServices\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\InfoTechServices\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
