@@ -11,6 +11,7 @@
 	<div class="modal-body">
 		<div class="form-group">
 			<input type="hidden" class="form-control action" name="action" id="action" value="addPersonnelUserAccount">
+			<input type="hidden" class="form-control personnel_dept_id" name="personnel_dept_id" id="personnel_dept_id" value="1">
 		</div>
 
 		<div id="useraccount_id" class="useraccount_id">
