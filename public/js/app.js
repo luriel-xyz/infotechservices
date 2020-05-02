@@ -60010,28 +60010,27 @@ loginForm.validate(_objectSpread({}, validatorOptions, {
       checkAccount: "Incorrect username or password"
     }
   }
-})); // Login button click
+})); // Login form submit handler
 
-$("#btn-login").click(
+$(loginForm).submit(
 /*#__PURE__*/
 _asyncToGenerator(
 /*#__PURE__*/
 _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-  var _ref3, data, isClient, location;
-
+  var data, user, isClient, location;
   return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
         case 0:
           Swal.showLoading();
           _context.next = 3;
-          return axios.post(requestsPath, $(loginForm).serialize());
+          return $.post(requestsPath, $(loginForm).serialize()).promise();
 
         case 3:
-          _ref3 = _context.sent;
-          data = _ref3.data;
+          data = _context.sent;
+          user = $.parseJSON(data);
 
-          if (data) {
+          if (user) {
             _context.next = 8;
             break;
           }
@@ -60040,13 +60039,18 @@ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function 
           return _context.abrupt("return");
 
         case 8:
-          isClient = data.usertype === "department";
+          // If user account is disabled (user.status == 0)
+          if (!user.status) {
+            $(loginForm).preventDefault();
+          }
+
+          isClient = user.usertype === "department";
           location = isClient ? "".concat(baseUrl, "app/client/index.php") : "".concat(baseUrl, "app/admin/incoming-requests.php");
           $.redirect(location, {
-            user: data
+            user: user
           });
 
-        case 11:
+        case 12:
         case "end":
           return _context.stop();
       }
@@ -61600,7 +61604,7 @@ var departmentExists; // Add validation rule for department duplicates
 $.validator.addMethod("checkDepartment", function () {
   $.post(requestsPath, {
     action: "departmentAccountExists",
-    dept_id: $("#dept_id").val()
+    dept_id: $("#account_dept_id").val()
   }).promise().then(function (res) {
     return departmentExists = JSON.parse(res);
   });
@@ -61696,9 +61700,12 @@ $("#personnelUserAccount-form").validate(_objectSpread({}, validatorOptions, {
 $("#departmentUserAccount-form").validate(_objectSpread({}, validatorOptions, {
   rules: {
     usertype: "required",
-    dept_id: {
+    account_dept_id: {
       required: true,
       checkDepartment: true
+    },
+    account_emp_id: {
+      required: true
     },
     username: {
       required: true,
@@ -61708,9 +61715,12 @@ $("#departmentUserAccount-form").validate(_objectSpread({}, validatorOptions, {
   },
   messages: {
     usertype: "Please indicate the type of the user.",
-    dept_id: {
+    account_dept_id: {
       required: "Please select a deparment name.",
       checkDepartment: "This department already has an account."
+    },
+    account_emp_id: {
+      required: "Please select an employee."
     },
     username: {
       required: "The username is required.",
@@ -61769,15 +61779,88 @@ $("#search").keyup(function () {
   $("#table_body tr").filter(function () {
     $(this).toggle($(this).text().toLowerCase().indexOf(search_text) > -1);
   });
-});
+}); // Department select element
+
+$("#account_dept_id").change(
+/*#__PURE__*/
+_asyncToGenerator(
+/*#__PURE__*/
+_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+  var data, employeeOptions;
+  return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+    while (1) {
+      switch (_context3.prev = _context3.next) {
+        case 0:
+          _context3.next = 2;
+          return $.post(requestsPath, {
+            action: "getEmployeesByDepartment",
+            dept_id: $(this).val()
+          });
+
+        case 2:
+          data = _context3.sent;
+          // Create employee option elements
+          employeeOptions = $.parseJSON(data).map(function (employee) {
+            var value = employee.emp_id;
+            var fullName = "".concat(employee.emp_fname, " ").concat(employee.emp_lname);
+            return "<option value=\"".concat(value, "\">").concat(fullName, "</option>");
+          }); // Append employee options to employee select
+
+          $("#account_emp_id").empty();
+          $("#account_emp_id").append("-- Select Employee --");
+          $("#account_emp_id").append(employeeOptions);
+
+        case 7:
+        case "end":
+          return _context3.stop();
+      }
+    }
+  }, _callee3, this);
+})));
 $("#addPersonnelAccount").click(function () {
   resetForm("personnel");
   $("#modalPersonnelAccount").modal("toggle");
-});
-$("#addDeptAccount").click(function () {
-  resetForm("department");
-  $("#modalDepartmentAccount").modal("toggle");
-});
+}); // Add department account click listener
+
+$("#addDeptAccount").click(
+/*#__PURE__*/
+_asyncToGenerator(
+/*#__PURE__*/
+_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+  var data, departmentOptions;
+  return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+    while (1) {
+      switch (_context4.prev = _context4.next) {
+        case 0:
+          resetForm("department"); // Retrieve all departments
+
+          _context4.next = 3;
+          return $.post(requestsPath, {
+            action: "getDepartments"
+          }).promise();
+
+        case 3:
+          data = _context4.sent;
+          // Create department option elements
+          departmentOptions = $.parseJSON(data).map(function (_ref3) {
+            var dept_id = _ref3.dept_id,
+                dept_code = _ref3.dept_code;
+            return "<option value=\"".concat(dept_id, "\">").concat(dept_code, "\n    </option>");
+          }); // Append department option elements to the select element
+
+          $("#account_dept_id").empty();
+          $("#account_dept_id").append("<option>-- Select Department --</option>");
+          $("#account_dept_id").append(departmentOptions); // Show Department Account Adding Form
+
+          $("#modalDepartmentAccount").modal("toggle");
+
+        case 9:
+        case "end":
+          return _context4.stop();
+      }
+    }
+  }, _callee4);
+})));
 
 function resetForm(accountType) {
   $(".useraccount_id").html("");
@@ -61787,7 +61870,8 @@ function resetForm(accountType) {
   switch (accountType) {
     case "department":
       $(".modal-title").text("DEPARTMENT ACCOUNT ADDING FORM");
-      $("#dept_id").val("");
+      $("#account_dept_id").val("");
+      $("#account_emp_id").val("");
       $(".action").val("addDepartmentUserAccount");
       $(".usertype").val("department");
       $(".department-username").val("");
@@ -61795,7 +61879,7 @@ function resetForm(accountType) {
 
     case "personnel":
       $(".modal-title").text("PERSONNEL ACCOUNT ADDING FORM");
-      $("#emp_id").val("");
+      $("#account_emp_id").val("");
       $(".action").val("addPersonnelUserAccount");
       $(".usertype").val("");
       $(".personnel-username").val("");
@@ -61815,27 +61899,27 @@ $("#departmentUserAccount-form").submit(function (e) {
 $(".edit-user").click(
 /*#__PURE__*/
 function () {
-  var _ref = _asyncToGenerator(
+  var _ref4 = _asyncToGenerator(
   /*#__PURE__*/
-  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(e) {
+  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(e) {
     var action, useraccount_id, user;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
       while (1) {
-        switch (_context3.prev = _context3.next) {
+        switch (_context5.prev = _context5.next) {
           case 0:
             e.preventDefault();
             action = "editUserAccount";
             useraccount_id = $(this).attr("id");
-            _context3.t0 = JSON;
-            _context3.next = 6;
+            _context5.t0 = JSON;
+            _context5.next = 6;
             return $.post(requestsPath, {
               action: action,
               useraccount_id: useraccount_id
             }).promise();
 
           case 6:
-            _context3.t1 = _context3.sent;
-            user = _context3.t0.parse.call(_context3.t0, _context3.t1);
+            _context5.t1 = _context5.sent;
+            user = _context5.t0.parse.call(_context5.t0, _context5.t1);
 
             if (user.usertype === "personnel" || user.usertype === "admin") {
               $("#modalPersonnelAccount").modal("show");
@@ -61851,7 +61935,7 @@ function () {
             $(".useraccount_id").append('<input type="hidden" name="useraccount_id" id="useraccount_id" class="useraccount_id" value=' + user.useraccount_id + ">");
             $(".usertype").val(user.usertype);
             $("#emp_id").val(user.emp_id);
-            $("#dept_id").val(user.dept_id);
+            $("#account_dept_id").val(user.dept_id);
             $(".password").val(user.password);
             $(".password-field").hide();
             $(".useraccount_btn").text("Save Changes");
@@ -61859,43 +61943,43 @@ function () {
 
           case 18:
           case "end":
-            return _context3.stop();
+            return _context5.stop();
         }
       }
-    }, _callee3, this);
+    }, _callee5, this);
   }));
 
   return function (_x3) {
-    return _ref.apply(this, arguments);
+    return _ref4.apply(this, arguments);
   };
 }()); //Disable User Account Access Script
 
 $(".disable").click(
 /*#__PURE__*/
 function () {
-  var _ref2 = _asyncToGenerator(
+  var _ref5 = _asyncToGenerator(
   /*#__PURE__*/
-  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(e) {
-    var _ref3, value, action, useraccount_id;
+  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7(e) {
+    var _ref6, value, action, useraccount_id;
 
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee7$(_context7) {
       while (1) {
-        switch (_context5.prev = _context5.next) {
+        switch (_context7.prev = _context7.next) {
           case 0:
             e.preventDefault();
-            _context5.next = 3;
+            _context7.next = 3;
             return Swal.fire("Confirm", "Are you sure you wanted to disable this account?", "question");
 
           case 3:
-            _ref3 = _context5.sent;
-            value = _ref3.value;
+            _ref6 = _context7.sent;
+            value = _ref6.value;
 
             if (value) {
-              _context5.next = 7;
+              _context7.next = 7;
               break;
             }
 
-            return _context5.abrupt("return");
+            return _context7.abrupt("return");
 
           case 7:
             action = "disableUserAccount";
@@ -61910,104 +61994,11 @@ function () {
             }).done(
             /*#__PURE__*/
             function () {
-              var _ref4 = _asyncToGenerator(
-              /*#__PURE__*/
-              _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(res) {
-                var _ref5, value;
-
-                return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
-                  while (1) {
-                    switch (_context4.prev = _context4.next) {
-                      case 0:
-                        if (res) {
-                          _context4.next = 3;
-                          break;
-                        }
-
-                        Swal.fire("Failure", "Error", "error");
-                        return _context4.abrupt("return");
-
-                      case 3:
-                        _context4.next = 5;
-                        return Swal.fire("Success", "User Account Disabled", "success");
-
-                      case 5:
-                        _ref5 = _context4.sent;
-                        value = _ref5.value;
-
-                        if (value) {
-                          location.reload();
-                        }
-
-                      case 8:
-                      case "end":
-                        return _context4.stop();
-                    }
-                  }
-                }, _callee4);
-              }));
-
-              return function (_x5) {
-                return _ref4.apply(this, arguments);
-              };
-            }());
-
-          case 10:
-          case "end":
-            return _context5.stop();
-        }
-      }
-    }, _callee5, this);
-  }));
-
-  return function (_x4) {
-    return _ref2.apply(this, arguments);
-  };
-}()); //Enable User Account Access Script
-
-$(".enable").click(
-/*#__PURE__*/
-function () {
-  var _ref6 = _asyncToGenerator(
-  /*#__PURE__*/
-  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7(e) {
-    var _ref7, value, action, useraccount_id;
-
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee7$(_context7) {
-      while (1) {
-        switch (_context7.prev = _context7.next) {
-          case 0:
-            e.preventDefault();
-            _context7.next = 3;
-            return Swal.fire("Confirm", "Are you sure?", "question");
-
-          case 3:
-            _ref7 = _context7.sent;
-            value = _ref7.value;
-
-            if (value) {
-              _context7.next = 7;
-              break;
-            }
-
-            return _context7.abrupt("return");
-
-          case 7:
-            action = "enableUserAccount";
-            useraccount_id = $(this).attr("id");
-            $.ajax({
-              url: requestsPath,
-              type: "post",
-              data: {
-                action: action,
-                useraccount_id: useraccount_id
-              }
-            }).done(
-            /*#__PURE__*/
-            function () {
-              var _ref8 = _asyncToGenerator(
+              var _ref7 = _asyncToGenerator(
               /*#__PURE__*/
               _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6(res) {
+                var _ref8, value;
+
                 return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
                   while (1) {
                     switch (_context6.prev = _context6.next) {
@@ -62022,12 +62013,17 @@ function () {
 
                       case 3:
                         _context6.next = 5;
-                        return Swal.fire("Success", "User Account Enabled", "success");
+                        return Swal.fire("Success", "User Account Disabled", "success");
 
                       case 5:
-                        location.reload();
+                        _ref8 = _context6.sent;
+                        value = _ref8.value;
 
-                      case 6:
+                        if (value) {
+                          location.reload();
+                        }
+
+                      case 8:
                       case "end":
                         return _context6.stop();
                     }
@@ -62035,8 +62031,8 @@ function () {
                 }, _callee6);
               }));
 
-              return function (_x7) {
-                return _ref8.apply(this, arguments);
+              return function (_x5) {
+                return _ref7.apply(this, arguments);
               };
             }());
 
@@ -62048,8 +62044,96 @@ function () {
     }, _callee7, this);
   }));
 
+  return function (_x4) {
+    return _ref5.apply(this, arguments);
+  };
+}()); //Enable User Account Access Script
+
+$(".enable").click(
+/*#__PURE__*/
+function () {
+  var _ref9 = _asyncToGenerator(
+  /*#__PURE__*/
+  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee9(e) {
+    var _ref10, value, action, useraccount_id;
+
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee9$(_context9) {
+      while (1) {
+        switch (_context9.prev = _context9.next) {
+          case 0:
+            e.preventDefault();
+            _context9.next = 3;
+            return Swal.fire("Confirm", "Are you sure?", "question");
+
+          case 3:
+            _ref10 = _context9.sent;
+            value = _ref10.value;
+
+            if (value) {
+              _context9.next = 7;
+              break;
+            }
+
+            return _context9.abrupt("return");
+
+          case 7:
+            action = "enableUserAccount";
+            useraccount_id = $(this).attr("id");
+            $.ajax({
+              url: requestsPath,
+              type: "post",
+              data: {
+                action: action,
+                useraccount_id: useraccount_id
+              }
+            }).done(
+            /*#__PURE__*/
+            function () {
+              var _ref11 = _asyncToGenerator(
+              /*#__PURE__*/
+              _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee8(res) {
+                return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee8$(_context8) {
+                  while (1) {
+                    switch (_context8.prev = _context8.next) {
+                      case 0:
+                        if (res) {
+                          _context8.next = 3;
+                          break;
+                        }
+
+                        Swal.fire("Failure", "Error", "error");
+                        return _context8.abrupt("return");
+
+                      case 3:
+                        _context8.next = 5;
+                        return Swal.fire("Success", "User Account Enabled", "success");
+
+                      case 5:
+                        location.reload();
+
+                      case 6:
+                      case "end":
+                        return _context8.stop();
+                    }
+                  }
+                }, _callee8);
+              }));
+
+              return function (_x7) {
+                return _ref11.apply(this, arguments);
+              };
+            }());
+
+          case 10:
+          case "end":
+            return _context9.stop();
+        }
+      }
+    }, _callee9, this);
+  }));
+
   return function (_x6) {
-    return _ref6.apply(this, arguments);
+    return _ref9.apply(this, arguments);
   };
 }());
 
