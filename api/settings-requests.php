@@ -37,11 +37,12 @@ if ($_POST['action'] === 'addDepartmentUserAccount') {
 
 if ($_POST['action'] === 'addPersonnelUserAccount') {
 	$usertype = $_POST['usertype'];
+	$dept_id = $_POST['personnel_dept_id'];
 	$emp_id = $_POST['emp_id'];
 	$username = $_POST['username'];
-	$resultword = $_POST['password'];
+	$password = $_POST['password'];
 
-	$result = User::addPersonnelUserAccount($usertype, $emp_id, $username, $resultword);
+	$result = User::addPersonnelUserAccount($usertype, $emp_id, $dept_id, $username, $password);
 	echo $result;
 }
 
