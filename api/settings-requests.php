@@ -26,11 +26,12 @@ if ($_POST['action'] === 'departmentAccountExists') {
 /**   ADD SETTINGS  **/
 if ($_POST['action'] === 'addDepartmentUserAccount') {
 	$usertype = $_POST['usertype'];
-	$dept_id = $_POST['dept_id'];
+	$dept_id = $_POST['account_dept_id'];
+	$emp_id = $_POST['account_emp_id'];
 	$username = $_POST['username'];
 	$password = $_POST['password'];
 
-	$result = User::addDepartmentUserAccount($usertype, $dept_id, $username, $password);
+	$result = User::addDepartmentUserAccount($usertype, $dept_id, $emp_id, $username, $password);
 	echo $result;
 }
 
