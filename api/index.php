@@ -6,6 +6,7 @@ use App\Repair;
 use App\Employee;
 use App\Hardware;
 use App\Assessment;
+use App\Department;
 use App\InspectionReport;
 use App\MotorVehicle;
 use App\OtherPropPlantEquip;
@@ -69,7 +70,12 @@ if (isset($_POST['action'])) {
 
 
 
-	/**   GET EMPLOYEE BY DEPARTMENT  **/
+	/**   DEPARTMENT  **/
+
+	if ($_POST['action'] === 'getDepartments') {
+		$result = Department::all();
+		echo json_encode($result);
+	}
 
 	if ($_POST['action'] === 'getEmployeesByDepartment') {
 		$dept_id = $_POST['dept_id'];

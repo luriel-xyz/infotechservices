@@ -3,20 +3,20 @@ let perUsernameExists;
 let departmentExists;
 // Add validation rule for department duplicates
 // One department should only have one account.
-$.validator.addMethod(
-  "checkDepartment",
-  () => {
-    $.post(requestsPath, {
-      action: "departmentAccountExists",
-      dept_id: $("#account_dept_id").val(),
-    })
-      .promise()
-      .then((res) => (departmentExists = JSON.parse(res)));
+// $.validator.addMethod(
+//   "checkDepartment",
+//   () => {
+//     $.post(requestsPath, {
+//       action: "departmentAccountExists",
+//       dept_id: $("#account_dept_id").val(),
+//     })
+//       .promise()
+//       .then((res) => (departmentExists = JSON.parse(res)));
 
-    return !departmentExists;
-  },
-  "This department already has an account."
-);
+//     return !departmentExists;
+//   },
+//   "This department already has an account."
+// );
 
 // Validation rule for deparment username
 $.validator.addMethod(
@@ -71,7 +71,8 @@ $("#personnelUserAccount-form").validate({
   },
 
   submitHandler: async (form) => {
-    const data = await $.post(requestsPath, $(form).serialize());
+    const data = await $.post(requestsPath, $(form).serialize()).promise();
+
     if (data) {
       await Swal.fire("Success", "Personnel Account Data Saved", "success");
       location.reload(true);
@@ -89,7 +90,7 @@ $("#departmentUserAccount-form").validate({
     usertype: "required",
     account_dept_id: {
       required: true,
-      checkDepartment: true,
+      // checkDepartment: true,
     },
     account_emp_id: {
       required: true,
@@ -105,7 +106,7 @@ $("#departmentUserAccount-form").validate({
     usertype: "Please indicate the type of the user.",
     account_dept_id: {
       required: "Please select a deparment name.",
-      checkDepartment: "This department already has an account.",
+      // checkDepartment: "This department already has an account.",
     },
     account_emp_id: {
       required: "Please select an employee.",
@@ -118,7 +119,7 @@ $("#departmentUserAccount-form").validate({
   },
 
   submitHandler: async (form) => {
-    const data = await $.post(requestsPath, $(form).serialize());
+    const data = await $.post(requestsPath, $(form).serialize()).promise();
     if (data) {
       await Swal.fire("Success", "Department Account Data Saved", "success");
       location.reload(true);

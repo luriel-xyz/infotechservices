@@ -92,14 +92,14 @@ class User
   // }
 
   /* Add Personnel User Account */
-  public static function addPersonnelUserAccount($usertype, $emp_id, $username, $password)
+  public static function addPersonnelUserAccount($usertype, $emp_id, $dept_id, $username, $password)
   {
 
     $status = 1;
-    $enc_password = password_hash($password, PASSWORD_DEFAULT);
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-    $sql = "INSERT INTO useraccount_tbl (usertype,emp_id,username,password,status) VALUES (?,?,?,?,?)";
-    return DB::insert($sql, [$usertype, $emp_id, $username, $enc_password, $status]);
+    $sql = "INSERT INTO useraccount_tbl (usertype,emp_id,dept_id,username,password,status) VALUES (?,?,?,?,?,?)";
+    return DB::insert($sql, [$usertype, $emp_id, $dept_id, $username, $hashedPassword, $status]);
   }
 
   /* Update User Account */
