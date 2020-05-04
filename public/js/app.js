@@ -59660,6 +59660,8 @@ $.validator.addMethod("uniqueIdNumber", function (value, element) {
   return isUniqueIdNumber;
 }, "This id number is already taken.");
 $("#employee-form").validate(_objectSpread({}, validatorOptions, {
+  onkeyup: true,
+  onclick: true,
   rules: {
     dept_id: {
       required: true,
@@ -62177,9 +62179,7 @@ __webpack_require__.r(__webpack_exports__);
   validClass: "is-valid",
   errorClass: "text-danger is-invalid",
   successElement: "small",
-  errorElement: "small",
-  success: function success(label) {// label.addClass("text-success");
-  }
+  errorElement: "small"
 });
 
 /***/ }),
@@ -62202,8 +62202,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\InfoTechServices\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\InfoTechServices\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\infotechservices\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\infotechservices\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

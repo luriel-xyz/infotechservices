@@ -16,7 +16,6 @@ $.validator.addMethod(
 
 $("#employee-form").validate({
   ...validatorOptions,
-  onkeyup: false,
   rules: {
     dept_id: {
       required: true,
