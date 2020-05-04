@@ -3,7 +3,4 @@ export default {
   errorClass: "text-danger is-invalid",
   successElement: "small",
   errorElement: "small",
-  success: label => {
-    // label.addClass("text-success");
-  }
 };
