@@ -6,8 +6,8 @@ $.validator.addMethod(
   (value, element) => {
     $.post(requestsPath, {
       action: "isIdNumberTaken",
-      emp_idnum: () => $("#emp_idnum").val()
-    }).done(res => (isUniqueIdNumber = !res));
+      emp_idnum: () => $("#emp_idnum").val(),
+    }).done((res) => (isUniqueIdNumber = !res));
 
     return isUniqueIdNumber;
   },
@@ -16,35 +16,36 @@ $.validator.addMethod(
 
 $("#employee-form").validate({
   ...validatorOptions,
+  onkeyup: false,
   rules: {
     dept_id: {
       required: true,
-      min: 1
+      min: 1,
     },
     emp_idnum: {
       required: true,
       uniqueIdNumber: {
-        depends: () => !isEditEmployee
-      }
+        depends: () => !isEditEmployee,
+      },
     },
     fname: "required",
     lname: "required",
-    position: "required"
+    position: "required",
   },
 
   messages: {
     dept_id: "Please select a department.",
     emp_idnum: {
       required: "Please indicate employee id number.",
-      uniqueIdNumber: "This id number is already taken."
+      uniqueIdNumber: "This id number is already taken.",
     },
     fname: "First name is required.",
     lname: "Last name is required.",
-    position: "Position is required."
+    position: "Position is required.",
   },
 
-  submitHandler: form => {
-    $.post(requestsPath, $(form).serialize()).done(async res => {
+  submitHandler: (form) => {
+    $.post(requestsPath, $(form).serialize()).done(async (res) => {
       if (res) {
         await Swal.fire("Success", "Employee Data Saved!", "success");
         location.reload(true);
@@ -52,7 +53,7 @@ $("#employee-form").validate({
         Swal.fire("Failure", "Error!", "error");
       }
     });
-  }
+  },
 });
 
 $("#search").on("keyup", function() {
@@ -84,7 +85,7 @@ $("#add-employee").click(function(e) {
 
   $("#modal").modal({
     backdrop: "static",
-    keyboard: false
+    keyboard: false,
   });
 });
 
@@ -122,9 +123,9 @@ $(".edit-employee").click(function(e) {
     type: "post",
     data: {
       action: action,
-      emp_id: emp_id
+      emp_id: emp_id,
     },
-    dataType: "JSON"
+    dataType: "JSON",
   }).done(function(employee) {
     $("#emp_id").empty();
     $(".modal-title").text("EMPLOYEE UPDATING FORM");
@@ -144,6 +145,6 @@ $(".edit-employee").click(function(e) {
   // Show Edit Employee Modal
   $("#modal").modal({
     backdrop: "static",
-    keyboard: false
+    keyboard: false,
   });
 });
