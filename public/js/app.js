@@ -59660,8 +59660,6 @@ $.validator.addMethod("uniqueIdNumber", function (value, element) {
   return isUniqueIdNumber;
 }, "This id number is already taken.");
 $("#employee-form").validate(_objectSpread({}, validatorOptions, {
-  onkeyup: true,
-  onclick: true,
   rules: {
     dept_id: {
       required: true,
